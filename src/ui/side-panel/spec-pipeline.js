@@ -1,6 +1,11 @@
 // Spec-Driven Google Flow Pipeline Engine & UI Controller
 
 (function () {
+  const flowDestination = globalThis.FlowDestination;
+  if (!flowDestination) {
+    throw new Error('Flow destination helper was not loaded.');
+  }
+
   // State
   let currentSpec = null;
   let pipelineRunning = false;
@@ -89,6 +94,8 @@
     if (!currentSpec) return null;
     return {
       project_name: currentSpec.project_name,
+      collection_url: currentSpec.collection_url || null,
+      collection_tab_id: currentSpec.collection_tab_id || null,
       last_updated: new Date().toISOString(),
       default_model: currentSpec.default_model,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
@@ -655,6 +662,8 @@
   function parseAndLoadSpec(raw) {
     const spec = {
       project_name: raw.project_name || raw.project || "Google Flow Production",
+      collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
+      collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
       default_model: raw.default_model || raw.model || "Nano Banana 2",
       default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
       output_folder: raw.output_folder || "ancient_humans_scenes",
@@ -783,6 +792,24 @@
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
             <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
+          </div>
+        </div>
+        <div class="collection-destination">
+          <label for="collection-url-input">Google Flow collection URL</label>
+          <div class="collection-destination-row">
+            <input
+              id="collection-url-input"
+              type="url"
+              value="${escapeAttr(currentSpec.collection_url || '')}"
+              placeholder="Open your collection in Flow and paste its URL"
+              spellcheck="false"
+            />
+            <button class="btn btn-secondary btn-sm" id="btn-use-open-flow">Use open Flow page</button>
+          </div>
+          <div id="collection-destination-status" class="collection-destination-status">
+            ${currentSpec.collection_url
+              ? 'Generation is locked to this Flow page.'
+              : 'Optional: leave empty to use the currently open Flow project page.'}
           </div>
         </div>
         <div class="project-stats">
@@ -954,6 +981,16 @@
     const btnPause = document.getElementById('btn-pause-pipeline');
     const btnRecheck = document.getElementById('btn-recheck-chars');
     const btnDownloadAll = document.getElementById('btn-download-all');
+    const collectionUrlInput = document.getElementById('collection-url-input');
+    const btnUseOpenFlow = document.getElementById('btn-use-open-flow');
+
+    if (collectionUrlInput) {
+      collectionUrlInput.addEventListener('change', () => saveCollectionDestination(collectionUrlInput.value));
+      collectionUrlInput.addEventListener('blur', () => saveCollectionDestination(collectionUrlInput.value));
+    }
+    if (btnUseOpenFlow) {
+      btnUseOpenFlow.addEventListener('click', captureOpenFlowDestination);
+    }
 
     if (btnExport) {
       btnExport.addEventListener('click', exportMappingFile);
@@ -1059,36 +1096,173 @@
     });
   }
 
-    function sendToFlowTab(message, callback) {
-    return new Promise((resolve) => {
-      chrome.tabs.query({ url: ['*://flow.google.com/project/*', '*://flow.google.com/*', '*://labs.google/*'] }, (tabs) => {
-        if (!tabs || tabs.length === 0) {
-          console.warn('[SpecPipeline] No Google Flow tab detected');
-          const res = { success: false, error: 'Google Flow tab not open. Please open flow.google.com.' };
-          if (callback) callback(res);
-          resolve(res);
-          return;
-        }
-        const sortedTabs = [...tabs].sort((a, b) => {
-          const aProj = (a.url && a.url.includes('/project/')) ? 2 : (a.active ? 1 : 0);
-          const bProj = (b.url && b.url.includes('/project/')) ? 2 : (b.active ? 1 : 0);
-          return bProj - aProj;
-        });
-        const targetTab = sortedTabs[0];
-        chrome.tabs.sendMessage(targetTab.id, message, (response) => {
-          const err = chrome.runtime?.lastError;
-          if (err) {
-            console.warn(`[SpecPipeline] Tab ${targetTab.id} message error:`, err.message);
-            const res = { success: false, error: err.message };
-            if (callback) callback(res);
-            resolve(res);
+  function setCollectionDestinationStatus(message, isError = false) {
+    const status = document.getElementById('collection-destination-status');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('error', isError);
+  }
+
+  function saveCollectionDestination(value, tabId = null) {
+    if (!currentSpec) return false;
+    const input = document.getElementById('collection-url-input');
+    const raw = String(value || '').trim();
+    const normalized = flowDestination.normalizeFlowUrl(raw);
+
+    if (raw && !normalized) {
+      setCollectionDestinationStatus('Enter an HTTPS URL from flow.google.com.', true);
+      return false;
+    }
+
+    if (currentSpec.collection_url !== normalized) {
+      currentSpec.collection_tab_id = null;
+    }
+    currentSpec.collection_url = normalized;
+    if (Number.isInteger(tabId)) {
+      currentSpec.collection_tab_id = tabId;
+    }
+    if (input) input.value = normalized;
+    setCollectionDestinationStatus(
+      normalized
+        ? 'Generation is locked to this Flow page.'
+        : 'Optional: leave empty to use the currently open Flow project page.'
+    );
+    savePipelineMapping();
+    return true;
+  }
+
+  function queryFlowTabs(query = {}) {
+    return new Promise(resolve => {
+      chrome.tabs.query(
+        Object.assign({ url: ['https://flow.google.com/*'] }, query),
+        tabs => resolve(tabs || [])
+      );
+    });
+  }
+
+  function getTab(tabId) {
+    return new Promise(resolve => {
+      chrome.tabs.get(tabId, tab => {
+        const error = chrome.runtime?.lastError;
+        resolve(error ? null : tab);
+      });
+    });
+  }
+
+  async function waitForFlowTab(tabId, expectedUrl, timeoutMs = 30000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeoutMs) {
+      const tab = await getTab(tabId);
+      if (
+        tab &&
+        tab.status === 'complete' &&
+        (!expectedUrl || flowDestination.isSameFlowUrl(tab.url, expectedUrl))
+      ) {
+        return tab;
+      }
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    throw new Error('Timed out while loading the configured Google Flow collection.');
+  }
+
+  function updateTabUrl(tabId, url) {
+    return new Promise((resolve, reject) => {
+      chrome.tabs.update(tabId, { url, active: true }, tab => {
+        const error = chrome.runtime?.lastError;
+        if (error) reject(new Error(error.message));
+        else resolve(tab);
+      });
+    });
+  }
+
+  function createFlowTab(url) {
+    return new Promise((resolve, reject) => {
+      chrome.tabs.create({ url, active: true }, tab => {
+        const error = chrome.runtime?.lastError;
+        if (error) reject(new Error(error.message));
+        else resolve(tab);
+      });
+    });
+  }
+
+  async function getFlowTargetTab() {
+    const rawUrl = String(currentSpec?.collection_url || '').trim();
+    const expectedUrl = flowDestination.normalizeFlowUrl(rawUrl);
+    if (rawUrl && !expectedUrl) {
+      throw new Error('The collection URL must be an HTTPS URL from flow.google.com.');
+    }
+
+    if (Number.isInteger(currentSpec?.collection_tab_id)) {
+      const boundTab = await getTab(currentSpec.collection_tab_id);
+      if (
+        boundTab &&
+        flowDestination.normalizeFlowUrl(boundTab.url) &&
+        (!expectedUrl || flowDestination.isSameFlowUrl(boundTab.url, expectedUrl))
+      ) {
+        return boundTab;
+      }
+      currentSpec.collection_tab_id = null;
+    }
+
+    const tabs = await queryFlowTabs();
+    const selected = flowDestination.chooseFlowTab(tabs, expectedUrl);
+
+    if (!expectedUrl) {
+      if (!selected) throw new Error('Google Flow is not open. Open flow.google.com and try again.');
+      return selected;
+    }
+
+    if (selected && flowDestination.isSameFlowUrl(selected.url, expectedUrl)) {
+      currentSpec.collection_tab_id = selected.id;
+      return selected;
+    }
+
+    if (selected) {
+      currentSpec.collection_tab_id = selected.id;
+      await updateTabUrl(selected.id, expectedUrl);
+      return waitForFlowTab(selected.id, expectedUrl);
+    }
+
+    const created = await createFlowTab(expectedUrl);
+    currentSpec.collection_tab_id = created.id;
+    return waitForFlowTab(created.id, expectedUrl);
+  }
+
+  async function captureOpenFlowDestination() {
+    const activeTabs = await queryFlowTabs({ active: true, currentWindow: true });
+    const allTabs = activeTabs.length ? activeTabs : await queryFlowTabs();
+    const selected = flowDestination.chooseFlowTab(allTabs, '');
+    if (!selected) {
+      setCollectionDestinationStatus('Open your manually created collection in Google Flow first.', true);
+      return;
+    }
+
+    const input = document.getElementById('collection-url-input');
+    if (input) input.value = selected.url;
+    saveCollectionDestination(selected.url, selected.id);
+  }
+
+  async function sendToFlowTab(message, callback) {
+    let response;
+    try {
+      const targetTab = await getFlowTargetTab();
+      response = await new Promise(resolve => {
+        chrome.tabs.sendMessage(targetTab.id, message, result => {
+          const error = chrome.runtime?.lastError;
+          if (error) {
+            console.warn('[SpecPipeline] Flow tab message error:', error.message);
+            resolve({ success: false, error: error.message });
           } else {
-            if (callback) callback(response);
-            resolve(response);
+            resolve(result);
           }
         });
       });
-    });
+    } catch (error) {
+      response = { success: false, error: error.message };
+    }
+
+    if (callback) callback(response);
+    return response;
   }
 
 function createSingleCharacter(charId) {
@@ -1208,36 +1382,8 @@ function createSingleCharacter(charId) {
     }
   }
 
-    function syncFlowProjectTiles() {
-    chrome.tabs.query({ url: ['*://flow.google.com/project/*', '*://flow.google.com/*', '*://labs.google/*'] }, async (tabs) => {
-      if (!tabs || tabs.length === 0) {
-        alert('Please open Google Flow in a browser tab.');
-        return;
-      }
-      const sortedTabs = [...tabs].sort((a, b) => {
-        const aProj = (a.url && a.url.includes('/project/')) ? 2 : (a.active ? 1 : 0);
-        const bProj = (b.url && b.url.includes('/project/')) ? 2 : (b.active ? 1 : 0);
-        return bProj - aProj;
-      });
-
-      let response = null;
-      for (const targetTab of sortedTabs) {
-        const res = await new Promise(r => {
-          chrome.tabs.sendMessage(targetTab.id, { type: 'SCAN_PROJECT_TILES' }, (res) => {
-            const err = chrome.runtime?.lastError;
-            if (err) {
-              console.warn(`[SpecPipeline] Tab ${targetTab.id} failed SCAN_PROJECT_TILES:`, err.message);
-              r(null);
-            } else {
-              r(res);
-            }
-          });
-        });
-        if (res && Array.isArray(res.tiles)) {
-          response = res;
-          break;
-        }
-      }
+  async function syncFlowProjectTiles() {
+    const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
 
       if (!response || !Array.isArray(response.tiles) || !currentSpec) {
         alert('No tiles found or unable to communicate with Google Flow tab.\n\nPlease ensure your Google Flow project tab is open and refreshed.');
@@ -1275,7 +1421,6 @@ function createSingleCharacter(charId) {
       renderPipelineDashboard();
       savePipelineMapping();
       alert(`Synced with Flow! ${matchedCount} tile title(s) mapped.`);
-    });
   }
 
   function checkFlowCharacters() {
@@ -1313,29 +1458,25 @@ function createSingleCharacter(charId) {
   // Sequential generation loop with automatic resumption
   async function startPipeline() {
     if (!currentSpec || pipelineRunning) return;
+
+    const collectionInput = document.getElementById('collection-url-input');
+    if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
+      alert('Enter a valid Google Flow collection URL before starting.');
+      return;
+    }
+
+    try {
+      await getFlowTargetTab();
+    } catch (error) {
+      setCollectionDestinationStatus(error.message, true);
+      alert(error.message);
+      return;
+    }
+
     pipelineRunning = true;
     pipelinePaused = false;
 
     updateUIStatus();
-
-    // Ensure project collection exists in Google Flow so all frames are placed inside it
-    const collectionName = (currentSpec.project_name || currentSpec.project || currentSpec.title || 'Project Collection').trim();
-    if (collectionName) {
-      log(`📁 Ensuring Google Flow collection: "${collectionName}"...`);
-      try {
-        const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({ success: false, timeout: true, message: 'Collection check timed out, proceeding with generation.' }), 6000));
-        const colRes = await Promise.race([
-          sendToFlowTab({ type: 'ENSURE_FLOW_COLLECTION', collectionName }),
-          timeoutPromise
-        ]);
-        if (colRes && colRes.message) {
-          log(`📁 Flow collection: ${colRes.message}`);
-        }
-      } catch (colErr) {
-        console.warn('[SpecPipeline] Collection guarantee warning:', colErr);
-      }
-    }
-
     // Iterate through pending frames
     for (let i = 0; i < currentSpec.visuals.length; i++) {
       if (pipelinePaused) {
@@ -1454,16 +1595,18 @@ function createSingleCharacter(charId) {
   async function regenerateSingleFrame(idx) {
     if (!currentSpec || pipelineRunning) return;
 
-    // Ensure inside collection before regenerating
-    const collectionName = (currentSpec.project_name || currentSpec.project || currentSpec.title || 'Project Collection').trim();
-    if (collectionName) {
-      try {
-        const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({ success: false, timeout: true }), 4000));
-        await Promise.race([
-          sendToFlowTab({ type: 'ENSURE_FLOW_COLLECTION', collectionName }),
-          timeoutPromise
-        ]);
-      } catch (_) {}
+    const collectionInput = document.getElementById('collection-url-input');
+    if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
+      alert('Enter a valid Google Flow collection URL before generating.');
+      return;
+    }
+
+    try {
+      await getFlowTargetTab();
+    } catch (error) {
+      setCollectionDestinationStatus(error.message, true);
+      alert(error.message);
+      return;
     }
 
     const frame = currentSpec.visuals[idx];
@@ -1588,25 +1731,10 @@ function createSingleCharacter(charId) {
         characters: cleanChars
       };
 
-      chrome.tabs.query({ url: ['*://flow.google.com/project/*', '*://flow.google.com/*', '*://labs.google/*'] }, async (tabs) => {
-        if (!tabs || tabs.length === 0) {
-          alert('Google Flow tab not detected. Please open flow.google.com.');
-          resolve(false);
-          return;
-        }
-
-        const sortedTabs = [...tabs].sort((a, b) => {
-          const aProj = (a.url && a.url.includes('/project/')) ? 2 : (a.active ? 1 : 0);
-          const bProj = (b.url && b.url.includes('/project/')) ? 2 : (b.active ? 1 : 0);
-          return bProj - aProj;
-        });
-
-        const groupId = `spec-group-${Date.now()}`;
-        let dispatched = false;
-
+      getFlowTargetTab().then(targetTab => {
+        const groupId = 'spec-group-' + Date.now();
         let timeoutHandle = null;
 
-        // Listen for progress updates
         const listener = (msg) => {
           if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId) {
             frame.progress = msg.data.percentage || frame.progress;
@@ -1623,50 +1751,39 @@ function createSingleCharacter(charId) {
         };
 
         chrome.runtime.onMessage.addListener(listener);
-
-        for (const targetTab of sortedTabs) {
-          const ok = await new Promise((r) => {
-            chrome.tabs.sendMessage(targetTab.id, {
-              type: 'AUTO_FILL_FLOW',
-              payloads: [payload],
-              groupId: groupId,
-              concurrentPrompts: 1,
-              promptDelaySecondsMin: 0,
-              promptDelaySecondsMax: 0
-            }, (res) => {
-              const err = chrome.runtime?.lastError;
-              if (err) {
-                console.warn(`[SpecPipeline] Tab ${targetTab.id} failed AUTO_FILL_FLOW:`, err.message);
-                r(false);
-              } else if (res && res.success) {
-                console.log(`[SpecPipeline] Tab ${targetTab.id} accepted AUTO_FILL_FLOW`);
-                r(true);
-              } else {
-                console.warn(`[SpecPipeline] Tab ${targetTab.id} rejected AUTO_FILL_FLOW:`, res);
-                r(false);
-              }
-            });
-          });
-          if (ok) {
-            dispatched = true;
-            break;
+        chrome.tabs.sendMessage(targetTab.id, {
+          type: 'AUTO_FILL_FLOW',
+          payloads: [payload],
+          groupId,
+          concurrentPrompts: 1,
+          promptDelaySecondsMin: 0,
+          promptDelaySecondsMax: 0
+        }, response => {
+          const error = chrome.runtime?.lastError;
+          if (error || !response?.success) {
+            chrome.runtime.onMessage.removeListener(listener);
+            frame.status = 'error';
+            updateFrameCard(promptIndex);
+            alert(
+              'Could not start generation in the configured Flow collection.\n\n' +
+              (error?.message || response?.error || 'Refresh the Flow tab and try again.')
+            );
+            resolve(false);
+            return;
           }
-        }
 
-        if (!dispatched) {
-          chrome.runtime.onMessage.removeListener(listener);
-          frame.status = 'error';
-          updateFrameCard(promptIndex);
-          alert('Could not establish connection with Google Flow.\n\nPlease refresh the Google Flow tab in your browser and reopen the Side Panel.');
-          resolve(false);
-          return;
-        }
-
-        // Safety timeout of 5 minutes
-        timeoutHandle = setTimeout(() => {
-          chrome.runtime.onMessage.removeListener(listener);
-          resolve(frame.status === 'completed');
-        }, 300000);
+          console.log('[SpecPipeline] Configured Flow collection accepted AUTO_FILL_FLOW');
+          timeoutHandle = setTimeout(() => {
+            chrome.runtime.onMessage.removeListener(listener);
+            resolve(frame.status === 'completed');
+          }, 300000);
+        });
+      }).catch(error => {
+        frame.status = 'error';
+        updateFrameCard(promptIndex);
+        setCollectionDestinationStatus(error.message, true);
+        alert(error.message);
+        resolve(false);
       });
     });
   }

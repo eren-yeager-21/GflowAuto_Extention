@@ -627,3 +627,52 @@ body {
   color: #34d399;
   font-weight: 600;
 }
+
+/* Manually selected Google Flow collection destination */
+.collection-destination {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.collection-destination label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.collection-destination-row {
+  display: flex;
+  gap: 7px;
+}
+
+.collection-destination-row input {
+  min-width: 0;
+  flex: 1;
+  padding: 7px 9px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+}
+
+.collection-destination-row input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.collection-destination-status {
+  margin-top: 6px;
+  color: #9ca3af;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.collection-destination-status.error {
+  color: #f87171;
+}
