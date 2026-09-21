@@ -806,7 +806,7 @@
             />
             <button class="btn btn-secondary btn-sm" id="btn-use-open-flow">Use open Flow page</button>
           </div>
-          <div id="collection-destination-status" class="collection-destination-status">
+          <div id="collection-destination-status" class="collection-destination-status" role="status" aria-live="polite">
             ${currentSpec.collection_url
               ? 'Generation is locked to this Flow page.'
               : 'Optional: leave empty to use the currently open Flow project page.'}
@@ -1096,11 +1096,12 @@
     });
   }
 
-  function setCollectionDestinationStatus(message, isError = false) {
+  function setCollectionDestinationStatus(message, isError = false, isSuccess = false) {
     const status = document.getElementById('collection-destination-status');
     if (!status) return;
     status.textContent = message;
     status.classList.toggle('error', isError);
+    status.classList.toggle('success', isSuccess);
   }
 
   function saveCollectionDestination(value, tabId = null) {
@@ -1238,8 +1239,18 @@
     }
 
     const input = document.getElementById('collection-url-input');
+    const button = document.getElementById('btn-use-open-flow');
     if (input) input.value = selected.url;
     saveCollectionDestination(selected.url, selected.id);
+    setCollectionDestinationStatus(
+      '✓ Open Flow page captured. New images will be generated in this tab.',
+      false,
+      true
+    );
+    if (button) {
+      button.textContent = '✓ Flow page selected';
+      button.classList.add('confirmed');
+    }
   }
 
   async function sendToFlowTab(message, callback) {

@@ -676,3 +676,18 @@ body {
 .collection-destination-status.error {
   color: #f87171;
 }
+
+.collection-destination-status.success {
+  padding: 6px 8px;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: 5px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  font-weight: 600;
+}
+
+#btn-use-open-flow.confirmed {
+  border-color: rgba(52, 211, 153, 0.6);
+  background: rgba(16, 185, 129, 0.16);
+  color: #34d399;
+}
