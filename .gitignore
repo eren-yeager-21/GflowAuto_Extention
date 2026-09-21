@@ -1,0 +1,11 @@
+# Backups and scratch files
+*.bak
+*.bak_*
+test_formatted.js
+*.tmp
+*.log
+
+# OS artifacts
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store

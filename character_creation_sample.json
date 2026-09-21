@@ -1,0 +1,65 @@
+{
+  "project_name": "Ancient Humans Pleasure - Character Suite",
+  "default_model": "Nano Banana 2",
+  "default_aspect_ratio": "16:9",
+  "output_folder": "ancient_humans_scenes",
+  "characters": [
+    {
+      "id": "CHAR_NARRATOR",
+      "name": "narrator_stickfigure",
+      "flow_tag": "@narrator_stickfigure",
+      "reference_image": "ref_stick_figure_narrator",
+      "description": "Host/Narrator Avatar with pale cream fill head (#FFFDD0), vintage brown fedora with dark ribbon band, and conversational hand gestures."
+    },
+    {
+      "id": "CHAR_PALEO_MAN",
+      "name": "Early_man_stickfigure",
+      "flow_tag": "@Early_man_stickfigure",
+      "reference_image": "ref_prehistoric_human",
+      "description": "Paleolithic Hunter-Gatherer with shaggy brown hair silhouette, animal fur pelt tunic over one shoulder, bare feet, holding flint tool."
+    },
+    {
+      "id": "CHAR_PALEO_WOMAN",
+      "name": "Early_women_stickfigure",
+      "flow_tag": "@Early_women_stickfigure",
+      "reference_image": "female_early_human",
+      "description": "Female hunter-gatherer stick figure with animal fur garment and gathered hair."
+    },
+    {
+      "id": "CHAR_ARCHAEOLOGIST",
+      "name": "archieologiest_stick_fig",
+      "flow_tag": "@archieologiest_stick_fig",
+      "reference_image": "ref_archaeologist",
+      "description": "Field Researcher/Archaeologist wearing tan brimmed safari hat, khaki utility vest outlines, holding trowel."
+    },
+    {
+      "id": "CHAR_MAP_ANCHOR",
+      "name": "maps_reference",
+      "flow_tag": "@maps_reference",
+      "reference_image": "ref_world_map",
+      "description": "Historical world map visual anchor in parchment styling."
+    }
+  ],
+  "visuals": [
+    {
+      "id": "test_frame_001",
+      "frame_number": 1,
+      "prompt": "Minimalist black ink line art with flat color fills, edge-to-edge full-bleed composition, zero gradients. Narrator sitting relaxed on a simple modern wooden bench, gesturing outward with open friendly hands. Pale cream wall background, warm soft lighting. Full-bleed 16:9 wide shot. ### Reference Guidance: Use the attached reference strictly for the character's physical stick-figure anatomy, circular head structure, and line weight. Render all clothing style, accessories, scene background, props, and actions as specified in this prompt.",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "continuity": "anchor",
+      "target_filename": "test_frame_001.png"
+    },
+    {
+      "id": "test_frame_002",
+      "frame_number": 2,
+      "prompt": "Minimalist black ink line art with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter-gatherer sitting cross-legged by a crackling campfire inside a dark limestone cave, holding a carved hollow bone flute. Warm orange firelight glow against rugged stone walls. Full-bleed 16:9 wide shot. ### Reference Guidance: Use the attached reference strictly for the character's physical stick-figure anatomy, circular head structure, and line weight. Render all clothing style, accessories, scene background, props, and actions as specified in this prompt.",
+      "character_references": [
+        "@Early_man_stickfigure"
+      ],
+      "continuity": "anchor",
+      "target_filename": "test_frame_002.png"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "project_name": "Ancient Humans Pleasure",
+  "default_model": "Nano Banana 2",
+  "default_aspect_ratio": "16:9",
+  "output_folder": "ancient_humans_scenes",
+  "characters": [
+    {
+      "id": "CHAR_HOST",
+      "name": "expression_stick_figure",
+      "flow_tag": "@expression_stick_figure"
+    },
+    {
+      "id": "CHAR_PALEO",
+      "name": "male_early_human",
+      "flow_tag": "@male_early_human"
+    },
+    {
+      "id": "CHAR_FEMALE",
+      "name": "female_early_human",
+      "flow_tag": "@female_early_human"
+    },
+    {
+      "id": "CHAR_COMMON",
+      "name": "common_stickfigure",
+      "flow_tag": "@common_stickfigure"
+    },
+    {
+      "id": "CHAR_MAP",
+      "name": "maps_reference",
+      "flow_tag": "@maps_reference"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "prompt": "Bored figure slouched on a simple modern sofa, one arm extending reflexively sideways toward a sleek smartphone lying on a low coffee table beside the sofa. Small ink spiral boredom symbol floating just above the head. Half-lidded tired eyes, flat line mouth. Muted cream background, clean bold black ink line art, minimalist webcomic panel layout.",
+      "character_references": ["@expression_stick_figure"],
+      "continuity": "anchor",
+      "target_filename": "frame_001.png"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "prompt": "Pure white background split into three clean vertical panels separated by bold black dashed lines. Left panel: a pair of headphones with a floating musical eighth note. Center panel: a video game controller gamepad. Right panel: a video play button on a screen. Bold uppercase hand-lettered labels beneath each: MUSIC, GAME, WATCH. Flat ink illustration, comic strip layout, no characters.",
+      "character_references": ["@expression_stick_figure", "@title_reference"],
+      "continuity": "continue",
+      "target_filename": "frame_002.png"
+    },
+    {
+      "id": "frame_003",
+      "frame_number": 3,
+      "prompt": "Wide interior shot of a dark Pleistocene limestone cave. Rough textured cave walls with natural rock formations. A warm glowing orange campfire crackling in the center foreground, casting soft warm light and long shadows across the cave floor and walls. Figure sitting cross-legged beside the fire staring into the flames. Atmospheric cave scene, cel-shaded warm firelight against dark stone, bold black ink outlines, minimalist webcomic style.",
+      "character_references": ["@male_early_human"],
+      "continuity": "anchor",
+      "target_filename": "frame_003.png"
+    },
+    {
+      "id": "frame_004",
+      "frame_number": 4,
+      "prompt": "Same dark limestone cave interior with glowing campfire as background. Figure sitting by the fire, tapping fingers restlessly on knee, head tilted with bored expression, wavy mouth line. A modern smartphone floating mid-air above the scene with a bold red ❌ painted across it, desaturated. Cave walls and firelight in background unchanged. Bold black ink outlines, editorial cartoon style.",
+      "character_references": ["@male_early_human"],
+      "continuity": "continue",
+      "target_filename": "frame_004.png"
+    }
+  ]
+}
