@@ -1,0 +1,80 @@
+{
+  "project_name": "Ancient Humans Pleasure - Character Suite",
+  "default_model": "Nano Banana 2",
+  "default_aspect_ratio": "16:9",
+  "output_folder": "ancient_humans_scenes",
+  "characters": [
+    {
+      "id": "CHAR_NARRATOR",
+      "name": "narrator_stickfigure",
+      "flow_tag": "@narrator_stickfigure",
+      "reference_image": "ref_stick_figure_narrator",
+      "character_prompt": "Minimalist black ink line art stick figure narrator avatar with pale cream fill head (#FFFDD0), vintage brown fedora with dark ribbon band, friendly open conversational hand gestures. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_PALEO_MAN",
+      "name": "Early_man_stickfigure",
+      "flow_tag": "@Early_man_stickfigure",
+      "reference_image": "ref_prehistoric_human",
+      "character_prompt": "Minimalist black ink line art stick figure paleolithic hunter-gatherer with shaggy brown hair silhouette, animal fur pelt tunic over one shoulder, bare feet, holding a chipped flint hand axe. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_PALEO_WOMAN",
+      "name": "Early_women_stickfigure",
+      "flow_tag": "@Early_women_stickfigure",
+      "reference_image": "women_early_human",
+      "character_prompt": "Minimalist black ink line art stick figure female hunter-gatherer with animal fur garment and gathered hair silhouette. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_ARCHAEOLOGIST",
+      "name": "archieologiest_stick_fig",
+      "flow_tag": "@archieologiest_stick_fig",
+      "reference_image": "ref_archaeologist",
+      "character_prompt": "Minimalist black ink line art stick figure field archaeologist wearing tan brimmed safari hat, khaki utility vest outlines, holding trowel and magnifying glass. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_MAP_ANCHOR",
+      "name": "maps_reference",
+      "flow_tag": "@maps_reference",
+      "reference_image": "ref_world_map",
+      "character_prompt": "Historical stylized parchment world map visual anchor, clean bold black ink continental outlines, subtle warm beige fill, vintage cartographic linework, pure white background."
+    },
+    {
+      "id": "CHAR_ALARM_STICKFIGURE",
+      "name": "alarm_stickfigure",
+      "flow_tag": "@alarm_stickfigure",
+      "reference_image": "Stick figure waking to alarm",
+      "character_prompt": "Minimalist black ink line art stick figure groggily waking up in a simple bed, ruffled hair, half-lidded tired eyes, one arm stretching toward a loud ringing alarm clock. Clean bold outlines, flat color fills, zero gradients, pure white background. ### Style Guidance: Minimalist stick figure anatomy, circular head structure, bold uniform black pen line art."
+    },
+    {
+      "id": "CHAR_CAVEMAN_ELDER",
+      "name": "caveman_elder",
+      "flow_tag": "@caveman_elder",
+      "reference_image": "Caveman standing near campfire",
+      "character_prompt": "Minimalist black ink line art stick figure paleolithic tribal elder with wispy white beard, animal skin tunic draped across chest, holding a tall carved wooden staff. Clean bold outlines, flat color fills, zero gradients, pure white background. ### Style Guidance: Minimalist stick figure anatomy, circular head structure, bold uniform black pen line art."
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "prompt": "Minimalist black ink line art with flat color fills, edge-to-edge full-bleed composition, zero gradients. Narrator sitting relaxed on a simple modern wooden bench, gesturing outward with open friendly hands. Pale cream wall background, warm soft lighting. Full-bleed 16:9 wide shot.",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "continuity": "anchor",
+      "target_filename": "frame_001.png"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "prompt": "Minimalist black ink line art with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter-gatherer sitting cross-legged by a crackling campfire inside a dark limestone cave, holding a carved hollow bone flute. Warm orange firelight glow against rugged stone walls. Full-bleed 16:9 wide shot.",
+      "character_references": [
+        "@Early_man_stickfigure"
+      ],
+      "frame_reference": "frame_001",
+      "continuity": "anchor",
+      "target_filename": "frame_002.png"
+    }
+  ]
+}

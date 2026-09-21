@@ -1,0 +1,112 @@
+{
+  "title": "Prehistoric Leisure & Micro-Animation Demo (Vibrant Color)",
+  "project": "sample_reference_statement_demo",
+  "format": "spec_v2",
+  "description": "Production storyboard with rich, full-color 2D stylized animation visuals (no black & white or sketch aesthetic), micro-animation pacing, and decoupled per-frame reference guidance.",
+  "global_settings": {
+    "aspect_ratio": "16:9",
+    "style": "Vibrant 2D stylized animation art, rich saturated color palette, clean vector contours, dynamic ambient lighting, fully colored backgrounds, zero monochrome, full-bleed 16:9, no borders.",
+    "negative_prompt": "monochrome, black and white, grayscale, colorless, sketch, pencil drawing, ink doodle, uncolored canvas, blank cream background, photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models, watermarks, logo, text overlay, borders, letterbox, padding",
+    "model": "veo-2.0-generate-001",
+    "max_retries": 3
+  },
+  "characters": [
+    {
+      "id": "narrator_stickfigure",
+      "name": "narrator_stickfigure",
+      "flow_tag": "@narrator_stickfigure",
+      "description": "Minimalist stick figure narrator avatar with circular cream head, cocked eyebrow, conversational gestures.",
+      "image_url": "references/clean/narrator_stickfigure.png"
+    },
+    {
+      "id": "male_early_human",
+      "name": "male_early_human",
+      "flow_tag": "@male_early_human",
+      "description": "Upper Paleolithic male stick figure with circular white head, dot eyes, shaggy brown hair, one-shoulder animal pelt tunic.",
+      "image_url": "references/clean/male_early_human.png"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "timestamp_start": "00:00",
+      "timestamp_end": "00:01",
+      "matched_trope": "Modern Alarm Awakening & Morning Routine",
+      "reference_video_sample_frame": "frame_001_00m01s.jpg",
+      "prompt": "Vibrant 2D stylized digital animation art in rich saturated color. A sleek modern smartphone with a vivid glowing cyan screen lies flat on a warm amber-grained wooden nightstand inside a cozy morning bedroom with soft lavender wall tones. The phone screen brightly displays a glowing orange 06:00 digital alarm while vibrating furiously with dynamic golden soundwave shock lines. Macro top-down shot, vivid color palette, crisp stylized contours, edge-to-edge full bleed 16:9, zero white borders.",
+      "negative": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models, borders, padding",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "reference_statement": "## Use @narrator_stickfigure strictly for vector stroke proportions. Render all scene objects, phone, and nightstand in full rich vibrant colors and ambient morning light. Do not render in black and white or sketch doodle style.",
+      "target_filename": "frame_001.png"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "timestamp_start": "00:01",
+      "timestamp_end": "00:02",
+      "matched_trope": "Alarm Silencing Quick Cut",
+      "reference_video_sample_frame": "frame_002_00m02s.jpg",
+      "prompt": "Vibrant 2D stylized digital animation art in rich saturated color. A stylized stick figure character arm and hand enter swiftly from the upper right, slamming downward onto the vibrating smartphone on the amber wooden nightstand to silence the alarm. Bright yellow and orange dynamic impact bursts, glowing cyan phone display, soft lavender bedroom background. Close-up static shot, continuous scene from previous frame, rich color palette, crisp stylized contours, full bleed 16:9.",
+      "negative": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models, borders, padding",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": "frame_001.png",
+      "continuity": "continue",
+      "reference_statement": "## Use @narrator_stickfigure strictly for stick-figure hand and arm line thickness.\n## Use the provided frame reference {frame_name} for phone dimensions, glowing screen color, and nightstand perspective continuity. Render in full rich vibrant color palette.",
+      "target_filename": "frame_002.png"
+    },
+    {
+      "id": "frame_003",
+      "frame_number": 3,
+      "timestamp_start": "00:02",
+      "timestamp_end": "00:04",
+      "matched_trope": "Dawn Savannah Awakening & Campfire Serenity",
+      "reference_video_sample_frame": "frame_009_00m15s.jpg",
+      "prompt": "Vibrant 2D stylized animation art in warm golden sunrise colors. Upper Paleolithic male stick figure with shaggy brown hair and a rich reddish-brown one-shoulder fur tunic sits cross-legged on a woven straw mat beside a blazing campfire with glowing orange embers and golden flames encircled by dark river stones. Behind him stretches an expansive golden African savannah with acacia silhouettes under a soft peach and warm violet dawn sky. He gently raises both arms upward in a relaxed morning stretch toward the sunrise. Warm rich color palette, clean stylized outlines, high contrast, full bleed 16:9 wide shot, zero borders.",
+      "negative": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models, borders, padding",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "reference_statement": "## Use @male_early_human strictly for stick figure anatomy, head proportions, hair silhouette, and one-shoulder fur tunic style. Render the campfire, landscape, and sunrise in full rich warm dawn color palette.",
+      "target_filename": "frame_003.png"
+    },
+    {
+      "id": "frame_004",
+      "frame_number": 4,
+      "timestamp_start": "00:04",
+      "timestamp_end": "00:06",
+      "matched_trope": "Global Academic Mapping & Multi-Site Evidence",
+      "reference_video_sample_frame": "frame_045_01m45s.jpg",
+      "prompt": "Vibrant 2D stylized graphic infographic illustration in rich saturated colors. Stylized world map across a deep navy blue background, with lush golden-ochre and sage-green continents. Bold glowing red map pins mark ancient archaeological study locations across Africa, Australia, and Eurasia, with crisp warm ivory typography 'SITES WORLDWIDE'. Dynamic clean vectors, vibrant color contrast, full bleed 16:9, zero borders.",
+      "negative": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, satellite map, topography, glossy, gradients, dark muddy lighting, realistic terrain, blurry, stick figures, humans",
+      "character_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "reference_statement": "## Use provided reference strictly for continent coastline vector line style, pastel color palette fills, and red teardrop map pin iconography. Render on deep colored background in full vibrant color. Do not include stick figures or character anatomy.",
+      "target_filename": "frame_004.png"
+    },
+    {
+      "id": "frame_005",
+      "frame_number": 5,
+      "timestamp_start": "00:06",
+      "timestamp_end": "00:08",
+      "matched_trope": "Historical Field Study Timestamp Card",
+      "reference_video_sample_frame": "frame_016_00m28s.jpg",
+      "prompt": "Vibrant 2D stylized historical title card in rich cinematic colors. Deep royal cobalt blue background featuring a centered warm golden-tan safari helmet emblem above bold crisp warm-ivory typography '1963 — RICHARD LEE'. Symmetrical graphic composition, rich vivid color contrast, generous negative space, full bleed 16:9, zero borders.",
+      "negative": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, glossy, ornate serif font, realistic hat, textures, dark muddy lighting, blurry, characters, humans",
+      "character_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "reference_statement": "## Use provided reference strictly for graphic layout balance, typography stroke weight, and minimalist emblem positioning. Render in full rich colors with solid cobalt blue background. Do not add character bodies or scenery.",
+      "target_filename": "frame_005.png"
+    }
+  ]
+}

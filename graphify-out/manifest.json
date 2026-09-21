@@ -1,0 +1,80 @@
+{
+  "assets/catchUploadFile.ts-DJwIizxX.js": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "2b6b82ab78ceecdfc51e276862a62eb2",
+    "semantic_hash": "2b6b82ab78ceecdfc51e276862a62eb2"
+  },
+  "assets/index.html-YcmfxOFZ.js": {
+    "mtime": 1789307396.8640692,
+    "seen": 1789550617.3645504,
+    "ast_hash": "71c511711b15eb7b90b1e7c40d10c97a",
+    "semantic_hash": "71c511711b15eb7b90b1e7c40d10c97a"
+  },
+  "assets/index.ts-B2QzyOff.js": {
+    "mtime": 1789495921.3532438,
+    "seen": 1789550617.3645504,
+    "ast_hash": "f9bbb4364d93d16b7db4d03008c28ba0",
+    "semantic_hash": "f9bbb4364d93d16b7db4d03008c28ba0"
+  },
+  "assets/index.ts-DFAayvhs.js": {
+    "mtime": 1789503724.049201,
+    "seen": 1789550617.3645504,
+    "ast_hash": "565e39e4b7c903d251957defeb04a37f",
+    "semantic_hash": "565e39e4b7c903d251957defeb04a37f"
+  },
+  "assets/index.ts-loader-CBrD-M0v.js": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "fe84d3302e9452ac8cae6aaffc80858d",
+    "semantic_hash": "fe84d3302e9452ac8cae6aaffc80858d"
+  },
+  "assets/remoteConfig-BX4Oz3mk.js": {
+    "mtime": 1789379144.5375044,
+    "seen": 1789550617.3645504,
+    "ast_hash": "471d9d78b849288d137ea01581a9a0b2",
+    "semantic_hash": "471d9d78b849288d137ea01581a9a0b2"
+  },
+  "assets/utils-BCNko0UU.js": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "edfe7991b3cceff20115623064444f9e",
+    "semantic_hash": "edfe7991b3cceff20115623064444f9e"
+  },
+  "manifest.json": {
+    "mtime": 1789308502.8544395,
+    "seen": 1789550617.3645504,
+    "ast_hash": "cc04e8ab9fea449e61610cadc74c914f",
+    "semantic_hash": "cc04e8ab9fea449e61610cadc74c914f"
+  },
+  "service-worker-loader.js": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "d5e7615a71148977ef7262ab0fc36755",
+    "semantic_hash": "d5e7615a71148977ef7262ab0fc36755"
+  },
+  "src/ui/side-panel/index.html": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "5fe35f6fee150aeacd1ffee71d9cb9e2",
+    "semantic_hash": "5fe35f6fee150aeacd1ffee71d9cb9e2"
+  },
+  "assets/primeicons-Dr5RGzOO.svg": {
+    "mtime": 1789184642.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "c55055c0c2514f8d890c9976111e9fdb",
+    "semantic_hash": "c55055c0c2514f8d890c9976111e9fdb"
+  },
+  "logo.png": {
+    "mtime": 1774110162.0,
+    "seen": 1789550617.3645504,
+    "ast_hash": "27b0b197f2feb0ceefc6a3003f3a40ad",
+    "semantic_hash": "27b0b197f2feb0ceefc6a3003f3a40ad"
+  },
+  "src/assets/logo.png": {
+    "mtime": 1789303712.0974162,
+    "seen": 1789550617.3645504,
+    "ast_hash": "a07730f329b4a0b8b3ca75923dc4d88c",
+    "semantic_hash": "a07730f329b4a0b8b3ca75923dc4d88c"
+  }
+}

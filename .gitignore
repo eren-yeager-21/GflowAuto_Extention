@@ -1,0 +1,18 @@
+# Backups and temporary files
+*.bak
+*.bak_*
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS artifacts
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Graphify cache
+graphify-out/cache/

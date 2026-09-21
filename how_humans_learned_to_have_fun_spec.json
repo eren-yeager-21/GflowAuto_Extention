@@ -1,0 +1,1236 @@
+{
+  "title": "How Humans Learned to Have Fun",
+  "project": "how_humans_learned_to_have_fun",
+  "format": "spec_v2",
+  "description": "2D hand-drawn animated stick figure explainer analyzing ancient boredom, play, and the 40,000-year-old Hohle Fels bone flute, with continuous story sequences and rapid 0.7s\u20132.0s micro-animation pacing.",
+  "global_settings": {
+    "aspect_ratio": "16:9",
+    "style": "2D hand-drawn animated stick figure explainer style, clean bold organic black ink outlines, flat solid color fills, minimalist stick figure with white circular head and simple dot eyes, warm cream background (#FAF7EE), full bleed 16:9, zero gradients, no 3D rendering, no borders.",
+    "negative_prompt": "photorealistic, 3D render, realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, dark murky shadows, borders",
+    "model": "veo-2.0-generate-001",
+    "max_retries": 3
+  },
+  "characters": [
+    {
+      "id": "narrator_stickfigure",
+      "name": "narrator_stickfigure",
+      "flow_tag": "@narrator_stickfigure",
+      "description": "Minimalist black ink line art stick figure narrator avatar with white circular head and deadpan dot eyes.",
+      "image_url": "references/clean/narrator_stickfigure.png"
+    },
+    {
+      "id": "male_early_human",
+      "name": "male_early_human",
+      "flow_tag": "@male_early_human",
+      "description": "Upper Paleolithic male stick figure with circular white head, shaggy brown hair, one-shoulder animal fur tunic.",
+      "image_url": "references/clean/male_early_human.png"
+    },
+    {
+      "id": "women_early_human",
+      "name": "women_early_human",
+      "flow_tag": "@women_early_human",
+      "description": "Upper Paleolithic female stick figure with circular white head, wavy brown hair, bone hairpin.",
+      "image_url": "references/clean/women_early_human.png"
+    },
+    {
+      "id": "expression_stick_figure",
+      "name": "expression_stick_figure",
+      "flow_tag": "@expression_stick_figure",
+      "description": "Expressive stick figure presenter avatar with cocked arched eyebrow and witty smirk.",
+      "image_url": "references/clean/expression_stick_figure.png"
+    },
+    {
+      "id": "archieologiest_stick_figure",
+      "name": "archieologiest_stick_figure",
+      "flow_tag": "@archieologiest_stick_figure",
+      "description": "Archaeologist stick figure wearing khaki safari pith helmet.",
+      "image_url": "references/clean/archieologiest_stick_figure.png"
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "timestamp_start": "00:00",
+      "timestamp_end": "00:01",
+      "verbatim_script": "The last time you were bored,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with circular white head and deadpan dot eyes, standard human stick-figure proportions. The stick figure sits relaxed and slumped in the corner of a modern plush teal couch: head tilted comfortably against the backrest, torso slouched, left arm resting naturally along the sofa armrest, right arm resting flat on the cushion beside its hip with a single clean elbow bend, straight proportional stick legs resting on bright honey-oak hardwood floors. On the left, a tall wooden tripod floor lamp with a warm yellow conical shade casts cozy golden light. Bright airy morning living room with soft pastel lavender accent wall (#E6E6FA) in the background and an open cased doorway on the right revealing a warm glowing hallway in bright morning sunlight. In the foreground right, a mid-century blonde wood coffee table on a sage-green woven rug holds a ceramic coffee mug, sleek TV remote, and small accessory box. Edge of media console visible on far right. Standard fixed-length stick limbs, single clean elbow joints, zero dislocated or rubber limbs. Full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_001.png"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "timestamp_start": "00:01",
+      "timestamp_end": "00:01.8",
+      "verbatim_script": "you reached for your phone",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with white circular head and simple dot eyes. Continuous scene in the bright cozy lavender living room: performing a natural reaching action from the teal couch, the stick figure scoots forward to the front edge of the seat cushion and leans its upper torso and head forward over its knees toward the coffee table. Maintaining standard proportional stick limb lengths and a single clean elbow bend, its thin black stick right arm reaches forward naturally toward the sleek black smartphone on the table surface beside the ceramic mug, ending in a simple minimalist black cartoon mitten hand with zero realistic knuckles or individual fingers, while its left stick hand braces naturally on its left knee for balance. Realistic kinetic forward body lean, standard human stick-figure proportions, fixed limb length, zero elongated noodle arms, no rubber stretching, no extra joints. Bright honey-oak floor, open warm hallway doorway in background, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_001.png",
+      "continuity": "continue",
+      "target_filename": "frame_002.png"
+    },
+    {
+      "id": "frame_003",
+      "frame_number": 3,
+      "timestamp_start": "00:01.8",
+      "timestamp_end": "00:02.5",
+      "verbatim_script": "without even deciding to.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure. Continuous scene: close-up dynamic camera angle focused on the blonde wood coffee table; the stick figure's torso is leaned closely forward from the teal couch, its thin minimalist black stick arm and simple cartoon mitten hand grasping the sleek smartphone beside the ceramic mug. Simple 2D black line art hand with zero individual realistic fingers, zero knuckles, zero fingernails, zero fleshy skin texture. The phone screen lights up with a soft flat cyan glow illuminating the warm amber wood grain of the table, with the teal couch cushions and bright lavender wall softly framed behind. Standard hand and arm proportions, single clean wrist connection, zero limb stretching. Full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_002.png",
+      "continuity": "continue",
+      "target_filename": "frame_003.png"
+    },
+    {
+      "id": "frame_004",
+      "frame_number": 4,
+      "timestamp_start": "00:02.5",
+      "timestamp_end": "00:03.5",
+      "verbatim_script": "Music,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with white circular head and simple dot eyes. Continuous scene in the bright airy living room: the stick figure sits upright on the teal couch holding the smartphone up before its chest with both thin proportional black stick arms and simple cartoon mitten hands, elbows bent naturally at sides; a bold flat hand-drawn musical eighth-note with bright yellow acoustic soundwave rings pops out above the phone display. Standard proportional stick limbs, fixed arm length, single clean elbow joints, zero realistic fleshy hands, no rubber limbs. Warm tripod floor lamp light on left, soft lavender wall (#E6E6FA) with open doorway behind, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_003.png",
+      "continuity": "continue",
+      "target_filename": "frame_004.png"
+    },
+    {
+      "id": "frame_005",
+      "frame_number": 5,
+      "timestamp_start": "00:03.5",
+      "timestamp_end": "00:04.5",
+      "verbatim_script": "a game,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with white circular head and simple dot eyes. Continuous scene on the teal couch in the bright living room: holding the smartphone steadily with both hands at chest height with standard proportional black stick arms and cartoon mitten hands, simple black thumbs tapping on the screen as a clean flat retro gaming D-pad controller icon with colorful directional arrows pops up above the display. Standard stick figure anatomy, fixed limb lengths, clean joint bends, zero realistic knuckles or fleshy fingers. Warm lamp light on left, soft lavender wall, bright daylight ambience, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_004.png",
+      "continuity": "continue",
+      "target_filename": "frame_005.png"
+    },
+    {
+      "id": "frame_006",
+      "frame_number": 6,
+      "timestamp_start": "00:04.5",
+      "timestamp_end": "00:05.5",
+      "verbatim_script": "something to watch.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with white circular head and simple dot eyes. Continuous scene: the stick figure reclines comfortably back into the teal couch cushions with head resting against the corner throw pillow, holding the phone horizontally before its face with both simple black stick hands, elbows bent naturally at chest, stick legs resting comfortably on the seat cushion, as a crisp flat red video play triangle icon glows on the screen. Standard human stick proportions, fixed limb lengths, clean single-joint elbows, zero realistic hand anatomy. Bright warm daylight illuminating the room, soft lavender wall, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_005.png",
+      "continuity": "continue",
+      "target_filename": "frame_006.png"
+    },
+    {
+      "id": "frame_007",
+      "frame_number": 7,
+      "timestamp_start": "00:05.5",
+      "timestamp_end": "00:06.5",
+      "verbatim_script": "That reach is one of the oldest things",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure with white circular head and simple dot eyes. Continuous medium-wide shot in the bright lavender living room: the stick figure remains lounging on the teal couch, hypnotized by the soft cyan smartphone glow in its simple black stick hands, while the camera pulls back slightly to frame the cozy room, wooden coffee table, and warm open doorway. Standard fixed-length stick limbs, single clean elbow joints. Full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_006.png",
+      "continuity": "continue",
+      "target_filename": "frame_007.png"
+    },
+    {
+      "id": "frame_008",
+      "frame_number": 8,
+      "timestamp_start": "00:06.5",
+      "timestamp_end": "00:08",
+      "verbatim_script": "about 40,000 years ago,",
+      "prompt": "2D hand-drawn animated explainer style. Minimalist historical title card on pure clean white background (#FFFFFF). Centered bold black hand-lettered uppercase text: '40,000 YEARS AGO' with a small clean hand-drawn stone flint hand-axe icon centered directly above the date. Pure stark 2D graphic layout, high contrast, clean ink lines, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_008.png"
+    },
+    {
+      "id": "frame_009",
+      "frame_number": 9,
+      "timestamp_start": "00:08",
+      "timestamp_end": "00:09.5",
+      "verbatim_script": "a human sat by a fire",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Upper Paleolithic male stick figure with circular white head, simple dot eyes, shaggy brown hair, and one-shoulder brown fur tunic sits cross-legged on a woven straw mat on light golden sand (#F5E6C8) beside a crackling campfire. The campfire features vibrant golden-orange flame tongues (#FFA028) encircled by smooth grey river stones, casting warm, radiant, cheerful light across the sand and a pale limestone cave shelter in the background. Above, a clear deep midnight-indigo sky is dotted with bright sparkling white stars. Pure 2D hand-drawn animation art, cheerful warm lighting, bright high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference",
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_009.png"
+    },
+    {
+      "id": "frame_010",
+      "frame_number": 10,
+      "timestamp_start": "00:09.5",
+      "timestamp_end": "00:11",
+      "verbatim_script": "with the same restless itch you get",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous scene at the Paleolithic campfire: the early human stick figure sits upright on the straw mat, fidgeting with restless energy; its white head tilts with an impatient, bored deadpan expression, while its thin proportional black stick arms and cartoon mitten hands tap nervously on its knees with a single clean elbow bend. Standard human stick-figure proportions, fixed limb lengths, clean joint bends, zero noodle arms, zero realistic human skin. Bright warm campfire flames illuminate the clean golden sand and pale limestone wall. Full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_009.png",
+      "continuity": "continue",
+      "target_filename": "frame_010.png"
+    },
+    {
+      "id": "frame_011",
+      "frame_number": 11,
+      "timestamp_start": "00:11",
+      "timestamp_end": "00:12",
+      "verbatim_script": "and no phone,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous scene at the Paleolithic campfire: the early human stick figure holds both thin black stick arms outward with open cartoon mitten palms in an exaggerated, empty shrug gesture: looking down at its completely empty hands, emphasizing having nothing to hold. Standard proportional stick limbs, single clean elbow bends, zero realistic finger anatomy. Above its shaggy head floats a small hand-drawn empty thought bubble with a crossed-out red slash. Warm golden campfire embers, light golden sand, clear starry indigo sky, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_010.png",
+      "continuity": "continue",
+      "target_filename": "frame_011.png"
+    },
+    {
+      "id": "frame_012",
+      "frame_number": 12,
+      "timestamp_start": "00:12",
+      "timestamp_end": "00:13.5",
+      "verbatim_script": "and nothing invented yet to kill it.",
+      "prompt": "2D hand-drawn animated explainer style. Visual metaphor on a clean bright cream paper background (#FAF7EE): a hand-drawn modern black smartphone is centered in the frame, boldly covered by a giant thick red 'X' and slash icon. Next to it, a small caveman stick figure shrugs with empty cartoon hands beneath clean uppercase hand-lettered text: 'NOTHING INVENTED YET'. High contrast, clean ink lines, bright light-toned background, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_012.png"
+    },
+    {
+      "id": "frame_013",
+      "frame_number": 13,
+      "timestamp_start": "00:13.5",
+      "timestamp_end": "00:14.5",
+      "verbatim_script": "So, they made their own fun from scratch.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Early human male stick figure with circular white head and shaggy brown hair kneels on light golden sand (#F5E6C8) under a clear starry night sky, a sudden spark of inspiration appearing as a bright yellow glowing star icon beside its head. Its simple black stick hands reach down playfully toward raw stones and sticks lying near the glowing amber campfire embers. Bright warm firelight, clean pale limestone cave shelter, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_013.png"
+    },
+    {
+      "id": "frame_014",
+      "frame_number": 14,
+      "timestamp_start": "00:14.5",
+      "timestamp_end": "00:15.5",
+      "verbatim_script": "So, they made their own fun from scratch.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Close-up of the early human stick figure sitting cross-legged on clean golden sand: its thin black stick arms and cartoon mitten hands hold a dry hollow wooden branch and a rounded river stone, experimenting playfully by tapping them together. Simple 2D cartoon stick anatomy, zero realistic human hands, zero knuckles, zero veins, zero skin texture. Bright warm golden campfire light illuminates the sand and pale stones, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_014.png"
+    },
+    {
+      "id": "frame_015",
+      "frame_number": 15,
+      "timestamp_start": "00:15.5",
+      "timestamp_end": "00:16.5",
+      "verbatim_script": "And what they came up with",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous at the campfire: the early human stick figure grins with wide happy dot eyes, rhythmically tapping two sticks against a hollow log; small bright yellow musical sound shockwaves pop outward with each tap into the warm firelight. Standard proportional stick limbs, clean single-joint elbows, cartoon mitten hands with zero realistic flesh. Bright cheerful campfire illumination on clean sand, clear night sky, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_014.png",
+      "continuity": "continue",
+      "target_filename": "frame_015.png"
+    },
+    {
+      "id": "frame_016",
+      "frame_number": 16,
+      "timestamp_start": "00:16.5",
+      "timestamp_end": "00:18",
+      "verbatim_script": "on those long empty nights",
+      "prompt": "2D hand-drawn animated explainer style. Clean 3-panel split layout on pure white background (#FFFFFF). Three distinct vertical panels framed with clean black borders: Panel 1 shows a carved bone flute with musical notes labeled 'MUSIC'; Panel 2 shows ancient knucklebones and wooden dice labeled 'GAMES'; Panel 3 shows a warm red heart symbol labeled 'SEX'. Crisp hand-drawn icons, flat color fills, bright high-contrast educational graphic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_016.png"
+    },
+    {
+      "id": "frame_017",
+      "frame_number": 17,
+      "timestamp_start": "00:18",
+      "timestamp_end": "00:19.5",
+      "verbatim_script": "became music,",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper canvas (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'BONE FLUTE'. Centered horizontally in the frame is the prehistoric vulture wing bone flute, rendered in clean black ink outlines with flat warm ivory fill, displaying five neat circular finger holes along its length and a carved V-notch mouthpiece. Pure minimalist 2D line art artifact graphic on bright clean paper canvas, zero museum display pedestals, zero spotlights, zero glass cases, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_prop_vulture_bone_flute"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_017.png"
+    },
+    {
+      "id": "frame_018",
+      "frame_number": 18,
+      "timestamp_start": "00:19.5",
+      "timestamp_end": "00:20.5",
+      "verbatim_script": "games,",
+      "prompt": "2D hand-drawn animated explainer style. Clean educational prop card on bright warm cream paper canvas (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'ANCIENT BOARD GAME & DICE'. Centered in the frame are four carved animal knucklebones (astragaloi) and two tetrahedral four-sided wooden dice with etched dot pips resting beside a simple hand-carved grid playing board. Clean bold black ink outlines, flat pastel fills, pure flat 2D graphic, zero museum pedestals, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_018.png"
+    },
+    {
+      "id": "frame_019",
+      "frame_number": 19,
+      "timestamp_start": "00:20.5",
+      "timestamp_end": "00:21.5",
+      "verbatim_script": "and sex.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Bright, cheerful daytime Paleolithic setting: two early human stick figures (one male with shaggy hair, one female with wavy hair and bone bead) sit together on a woven straw mat beside a sparkling blue stream under a bright cyan daytime sky (#A0D2EB) and leafy green acacia trees. One gently grooms the other's hair with a kind smile in intimate companionship, small warm pastel pink hearts floating softly above them. Bright sunny daylight, light golden ground (#F5E6C8), clean 2D stick figure anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@women_early_human",
+        "@ref_char_tribal_social_grooming"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_019.png"
+    },
+    {
+      "id": "frame_020",
+      "frame_number": 20,
+      "timestamp_start": "00:21.5",
+      "timestamp_end": "00:23",
+      "verbatim_script": "And one of those three quietly turned into a business",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Skeptical narrator stick figure avatar with white circular head, arched cocked eyebrow, and a knowing witty smirk stands against a clean warm cream background (#FAF7EE). Its thin black stick hand points toward a bold hand-drawn red circular stamp on the right reading 'BUSINESS'. Bright clean studio lighting, high contrast, clean minimalist 2D stick figure anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_020.png"
+    },
+    {
+      "id": "frame_021",
+      "frame_number": 21,
+      "timestamp_start": "00:23",
+      "timestamp_end": "00:24.5",
+      "verbatim_script": "we still call the oldest profession on Earth.",
+      "prompt": "2D hand-drawn animated explainer style. Title concept card on pure clean white background (#FFFFFF). Centered bold hand-lettered uppercase text: 'THE OLDEST PROFESSION' framed by an elegant hand-drawn laurel wreath in black ink with an ancient bronze Roman coin icon centered directly above. High contrast, clean vector lines, pure 2D graphic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_021.png"
+    },
+    {
+      "id": "frame_022",
+      "frame_number": 22,
+      "timestamp_start": "00:24.5",
+      "timestamp_end": "00:26",
+      "verbatim_script": "It runs from a bone flute in a freezing cave",
+      "prompt": "2D hand-drawn animated explainer style. Clean bold black ink outlines, flat color fills. Bright sunlit Classical Antiquity setting: interior of a Roman Pompeii lupanar tavern with pale weathered limestone masonry walls, warm terracotta floor tiles, draped crimson linen curtains, and bright Mediterranean daylight pouring through an open stone archway. Hand-carved Latin tally graffiti prices and small erotic fresco sketches are visible on the plaster wall. Bright warm ambient lighting, high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_022.png"
+    },
+    {
+      "id": "frame_023",
+      "frame_number": 23,
+      "timestamp_start": "00:26",
+      "timestamp_end": "00:27",
+      "verbatim_script": "runs from a bone flute in a freezing cave",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Inside the pale limestone cave: early human male stick figure sits on clean golden sand beside bright golden-orange campfire flames (#FFA028), raising the pale carved bone flute with both thin black stick arms toward mouth, testing the first musical note. Warm glowing firelight illuminates the pale stone hearth and stalactites against a clear starry night entrance. Clean 2D stick figure anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no dark murky shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_prop_vulture_bone_flute",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_023.png"
+    },
+    {
+      "id": "frame_024",
+      "frame_number": 24,
+      "timestamp_start": "00:27",
+      "timestamp_end": "00:28.5",
+      "verbatim_script": "to a Roman brothel where the prices are still scratched on the wall.",
+      "prompt": "2D hand-drawn animated explainer style. Clean bold black ink outlines, flat color fills. Close-up macro view of the ancient pale Pompeii Roman plaster wall in bright Mediterranean daylight: authentic historical Roman graffiti scratched into the stucco showing tallies and numerals 'II AS' and 'VI AS' beside a simple line-art coin purse. Bright warm stone textures, clean crisp ink incisions, high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_024.png"
+    },
+    {
+      "id": "frame_025",
+      "frame_number": 25,
+      "timestamp_start": "00:28.5",
+      "timestamp_end": "00:30",
+      "verbatim_script": "To get any of this,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Expressive stick figure narrator avatar with white circular head and raised eyebrow stands against a clean bright warm cream background (#FAF7EE). Its thin black stick hand gestures forward in an engaging conversational pose, addressing the viewer directly. Bright, clean studio aesthetic, high contrast, simple 2D stick anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_025.png"
+    },
+    {
+      "id": "frame_026",
+      "frame_number": 26,
+      "timestamp_start": "00:30",
+      "timestamp_end": "00:31.5",
+      "verbatim_script": "you have to kill one myth first",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous scene: the expressive stick figure narrator with a determined smirk raises a thin black stick arm holding a clean cartoon sword, slashing boldly through a giant floating red word 'MYTH' on the clean warm cream background (#FAF7EE). Bright dynamic red slash lines, high contrast, simple 2D stick figure proportions, zero realistic hands, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_025.png",
+      "continuity": "continue",
+      "target_filename": "frame_026.png"
+    },
+    {
+      "id": "frame_027",
+      "frame_number": 27,
+      "timestamp_start": "00:31.5",
+      "timestamp_end": "00:33",
+      "verbatim_script": "because almost everyone believes the wrong thing about ancient life.",
+      "prompt": "2D hand-drawn animated explainer style. Conceptual graphic on pure clean white background (#FFFFFF). A giant bold red 'FALSE' stamp is stamped diagonally across hand-lettered text reading 'ANCIENT LIFE WAS NON-STOP SUFFERING'. High contrast, crisp vector lettering, clean paper canvas, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_027.png"
+    },
+    {
+      "id": "frame_028",
+      "frame_number": 28,
+      "timestamp_start": "00:33",
+      "timestamp_end": "00:34.5",
+      "verbatim_script": "The myth is that survival never stopped.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Paleolithic male stick figure with circular white head, shaggy brown hair, and one-shoulder fur tunic stands tall and relaxed holding a flint spear on an expansive, sunny golden savannah grassland (#F5E6C8) under a bright clear cyan daytime sky (#A0D2EB). Far from exhausted or desperate, his expression is calm, confident, and peaceful in bright sunny daylight. Standard stick figure proportions, thin black limbs, cartoon mitten hands, full bleed 16:9, zero gradients, no dark shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_hunter_neutral",
+        "@male_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_028.png"
+    },
+    {
+      "id": "frame_029",
+      "frame_number": 29,
+      "timestamp_start": "00:34.5",
+      "timestamp_end": "00:36",
+      "verbatim_script": "Every hour spent hunting, gathering, running from things.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Split comparison showing the common misconception: a Neolithic farmer stick figure hunched painfully over endless tilled crop furrows under a pale daytime sky, sweating under exhausting physical toil with a hoe. Clean stylized earth rows, high contrast, simple stick anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_farmer_hunched_weeding",
+        "@women_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_029.png"
+    },
+    {
+      "id": "frame_030",
+      "frame_number": 30,
+      "timestamp_start": "00:36",
+      "timestamp_end": "00:37.5",
+      "verbatim_script": "Total exhaustion, collapse, repeat.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. The early human hunter-gatherer male stick figure rests comfortably on golden sand (#F5E6C8) beside a sparkling blue stream, leaning back against a smooth grey boulder with arms crossed behind head, smiling peacefully in the warm golden afternoon daylight. Acacia trees and grassy hills under a bright pale blue sky, full bleed 16:9, zero gradients, no dark murky shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_030.png"
+    },
+    {
+      "id": "frame_031",
+      "frame_number": 31,
+      "timestamp_start": "00:37.5",
+      "timestamp_end": "00:39",
+      "verbatim_script": "It feels like it must be true.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Skeptical narrator stick figure with white circular head and deadpan expression stands on clean warm cream background (#FAF7EE), stroking its chin thoughtfully with a thin black stick hand beneath a large floating hand-drawn question mark. Bright studio lighting, clean lines, simple stick anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_031.png"
+    },
+    {
+      "id": "frame_032",
+      "frame_number": 32,
+      "timestamp_start": "00:39",
+      "timestamp_end": "00:40.5",
+      "verbatim_script": "It's completely backwards.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous scene: the narrator stick figure smirks knowingly with an arched eyebrow, thrusting both stick arms outward as the word 'BACKWARDS' spins 180 degrees upside down in bold black and red letters across the clean warm cream background (#FAF7EE). Bright clean graphic style, high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_031.png",
+      "continuity": "continue",
+      "target_filename": "frame_032.png"
+    },
+    {
+      "id": "frame_033",
+      "frame_number": 33,
+      "timestamp_start": "00:40.5",
+      "timestamp_end": "00:42",
+      "verbatim_script": "In the 1960s, an anthropologist named Richard Lee",
+      "prompt": "2D hand-drawn animated explainer style. Academic title card on pure clean white background (#FFFFFF). Safari pith helmet icon centered cleanly above bold uppercase text: '1963 \u2014 RICHARD LEE\nKALAHARI FIELD STUDY' with a small hand-drawn notebook and stopwatch icon beneath. Pure 2D graphic layout, high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference",
+        "@ref_char_anthropologist_field"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_033.png"
+    },
+    {
+      "id": "frame_034",
+      "frame_number": 34,
+      "timestamp_start": "00:42",
+      "timestamp_end": "00:44",
+      "verbatim_script": "went to the Kalahari Desert to live with the Ju/'hoansi",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Expansive bright Kalahari savannah under a clear bright cyan daytime sky (#A0D2EB): anthropologist stick figure wearing a tan safari helmet and shoulder satchel walks leisurely alongside a Ju/'hoansi hunter stick figure carrying a spear across bright golden sand (#F5E6C8) and light green scrub grass. Bright sunny daylight, high contrast, cheerful friendly atmosphere, standard stick proportions, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_anthropologist_field",
+        "@ref_char_hunter_neutral"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_034.png"
+    },
+    {
+      "id": "frame_035",
+      "frame_number": 35,
+      "timestamp_start": "00:44",
+      "timestamp_end": "00:46",
+      "verbatim_script": "one of the last groups on Earth still living purely as hunter-gatherers.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Inside a bright sunlit canvas field tent under acacia shade: anthropologist stick figure sits at a blonde wood camp desk, holding a stopwatch in one simple black stick hand and writing in a field journal with the other. Through the tent door, the bright sunny golden desert landscape is visible under a clear cyan sky (#A0D2EB). Clean 2D stick figure anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_anthropologist_field"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_035.png"
+    },
+    {
+      "id": "frame_036",
+      "frame_number": 36,
+      "timestamp_start": "00:46",
+      "timestamp_end": "00:48",
+      "verbatim_script": "He didn't guess. He timed them.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Medium-wide shot on the sunny golden savannah: a Ju/'hoansi hunter walks leisurely across the bright grassland under a clear cyan sky (#A0D2EB), while a stylized hand-drawn stopwatch icon ticks rhythmically in the upper corner of the frame. Bright daylight, clean warm palette, full bleed 16:9, zero gradients, no dark shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_hunter_neutral",
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_036.png"
+    },
+    {
+      "id": "frame_037",
+      "frame_number": 37,
+      "timestamp_start": "00:48",
+      "timestamp_end": "00:50",
+      "verbatim_script": "Every hour of work hunting, gathering, making tools.",
+      "prompt": "2D hand-drawn animated explainer style. Clean bright ivory drafting parchment background (#FAF7EE). A large hand-drawn 24-hour circular chronometer clock dial is centered in the frame, rendered with clean black ink numerals 1 through 24, a light mint-green circular face, and a thin black clock hand. Resting cleanly on the parchment beside the dial are a light blonde pine ruler and a small brass drafting compass. Bright, clean, high-contrast, airy daylight aesthetic, full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_037.png"
+    },
+    {
+      "id": "frame_038",
+      "frame_number": 38,
+      "timestamp_start": "00:50",
+      "timestamp_end": "00:52",
+      "verbatim_script": "The total came out to about fifteen hours a week.",
+      "prompt": "2D hand-drawn animated explainer style. Continuous on the clean bright ivory drafting parchment (#FAF7EE): on the 24-hour chronometer dial, a bright golden-yellow pie wedge highlights a small 4-hour section per day, labeled with clean uppercase hand-lettered text: 'WORK: 15 HOURS / WEEK' with a small neat pointing arrow. High contrast, crisp black lines, bright light-toned background, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_037.png",
+      "continuity": "continue",
+      "target_filename": "frame_038.png"
+    },
+    {
+      "id": "frame_039",
+      "frame_number": 39,
+      "timestamp_start": "00:52",
+      "timestamp_end": "00:54",
+      "verbatim_script": "Fifteen.",
+      "prompt": "2D hand-drawn animated explainer style. Continuous on the clean bright ivory drafting parchment (#FAF7EE): the rest of the 24-hour dial fills with a serene, expansive soft cyan-blue fill labeled 'FREE TIME & LEISURE', while the bold black number '15 HOURS' pulses with clean yellow accent highlights. Bright, clean educational infographic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_038.png",
+      "continuity": "continue",
+      "target_filename": "frame_039.png"
+    },
+    {
+      "id": "frame_040",
+      "frame_number": 40,
+      "timestamp_start": "00:54",
+      "timestamp_end": "00:56",
+      "verbatim_script": "A modern full-time job is forty,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. The early human hunter stick figure wakes leisurely on a woven straw mat on light golden sand (#F5E6C8) beside glowing campfire stones, raising both stick arms in a wide, joyful morning stretch toward a bright sunny pastel dawn sky (#A0D2EB) filled with warm peach clouds. Bright cheerful dawn light, standard stick proportions, full bleed 16:9, zero gradients, no dark shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_hunter_waking_dawn",
+        "@male_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_040.png"
+    },
+    {
+      "id": "frame_041",
+      "frame_number": 41,
+      "timestamp_start": "00:56",
+      "timestamp_end": "00:58",
+      "verbatim_script": "before the commute, before the chores, before the emails you answer from bed.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Two early human stick figures sit relaxed together in the shade of a leafy green acacia tree on light golden ground (#F5E6C8), sharing a wooden bowl of fresh mongongo nuts and laughing in bright sunny daylight under a clear cyan sky (#A0D2EB). Peaceful communal leisure, clean stick anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@women_early_human",
+        "@ref_char_tribal_social_grooming"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_041.png"
+    },
+    {
+      "id": "frame_042",
+      "frame_number": 42,
+      "timestamp_start": "00:58",
+      "timestamp_end": "01:00",
+      "verbatim_script": "The people we pictured as desperate survivors were working",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. The early human hunter walks with relaxed, unhurried strides across the sunny golden savannah (#F5E6C8), spear resting balanced lightly across shoulders, smiling in the warm morning sun. Bright cyan sky (#A0D2EB), acacia silhouettes, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_hunter_waking_dawn",
+        "@male_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_042.png"
+    },
+    {
+      "id": "frame_043",
+      "frame_number": 43,
+      "timestamp_start": "01:00",
+      "timestamp_end": "01:02",
+      "verbatim_script": "the equivalent of two days a week.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Low wide camera angle: the hunter pauses on a gentle golden crest, gazing out across the sunny expansive savannah wilderness with birds soaring in the bright blue sky above. Calm, free, unburdened posture, standard stick proportions, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_043.png"
+    },
+    {
+      "id": "frame_044",
+      "frame_number": 44,
+      "timestamp_start": "01:02",
+      "timestamp_end": "01:04",
+      "verbatim_script": "Two. Days.",
+      "prompt": "2D hand-drawn animated explainer style. Bold typographical title card on pure clean white background (#FFFFFF). Giant clean uppercase hand-lettered text: '2 DAYS / WEEK' with a small hand-drawn calendar card showing five crossed-off leisure days in bright pastel turquoise. High contrast, clean minimalist graphic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_044.png"
+    },
+    {
+      "id": "frame_045",
+      "frame_number": 45,
+      "timestamp_start": "01:04",
+      "timestamp_end": "01:06",
+      "verbatim_script": "The rest of that time belonged entirely to them.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Close-up of the early human stick figure lying peacefully on its back in soft golden grass under a leafy acacia branch, chewing a grass blade, looking up happily at fluffy white clouds in the bright cyan sky (#A0D2EB). Standard stick figure anatomy, bright cheerful daylight, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_045.png"
+    },
+    {
+      "id": "frame_046",
+      "frame_number": 46,
+      "timestamp_start": "01:06",
+      "timestamp_end": "01:08",
+      "verbatim_script": "And they weren't spending it staring at walls.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Communal campfire circle on clean golden sand (#F5E6C8) under a soft pastel twilight sky: five early human stick figures sit in a circle, actively talking, laughing, and gesturing with thin black stick arms around cheerful golden-orange campfire flames (#FFA028). Warm radiant campfire glow, clean 2D stick figures, full bleed 16:9, zero gradients, no dark muddy shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_char_tribal_campfire_circle",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_046.png"
+    },
+    {
+      "id": "frame_047",
+      "frame_number": 47,
+      "timestamp_start": "01:08",
+      "timestamp_end": "01:10",
+      "verbatim_script": "They were hanging out, gossiping, singing, telling stories.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Medium shot at the campfire: a modern narrator stick figure avatar sits comfortably beside the ancient early humans on golden sand, gesturing conversationally toward the cheerful golden campfire flames with open stick hands. Bright warm campfire light on clean sand, clear night sky, standard stick figure proportions, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@narrator_stickfigure",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_047.png"
+    },
+    {
+      "id": "frame_048",
+      "frame_number": 48,
+      "timestamp_start": "01:10",
+      "timestamp_end": "01:12",
+      "verbatim_script": "Here is what happens when you take a human brain",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. In a stylized bright studio setting on clean warm cream background (#FAF7EE): modern stick figure narrator stands beside a large hand-drawn 2D vector brain illustration that pulses with bright yellow electric spark lines. Bright clean lighting, simple stick anatomy, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@narrator_stickfigure",
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_048.png"
+    },
+    {
+      "id": "frame_049",
+      "frame_number": 49,
+      "timestamp_start": "01:12",
+      "timestamp_end": "01:14",
+      "verbatim_script": "with all its pattern recognition, its problem solving, its raw nervous energy",
+      "prompt": "2D hand-drawn animated explainer style. Clean bold black ink outlines, flat color fills. Centered anatomical diagram on clean warm cream background (#FAF7EE): close-up of the stylized 2D brain cross-section, showing clean colorful internal gears, glowing yellow problem-solving nodes, and electric thought sparks. High contrast educational graphic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_048.png",
+      "continuity": "continue",
+      "target_filename": "frame_049.png"
+    },
+    {
+      "id": "frame_050",
+      "frame_number": 50,
+      "timestamp_start": "01:14",
+      "timestamp_end": "01:16",
+      "verbatim_script": "and you give it six empty hours by a fire every single night.",
+      "prompt": "2D hand-drawn animated explainer style. Clean bold black ink outlines, flat color fills. Continuous in the studio: three colorful conceptual arrows branch out from the glowing brain diagram to three clean hand-drawn icons: a bone flute, carved dice, and painted cave art on the clean warm cream background (#FAF7EE). Bright clean graphic style, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_049.png",
+      "continuity": "continue",
+      "target_filename": "frame_050.png"
+    },
+    {
+      "id": "frame_051",
+      "frame_number": 51,
+      "timestamp_start": "01:16",
+      "timestamp_end": "01:18",
+      "verbatim_script": "It doesn't sit quietly.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure. On clean warm cream background (#FAF7EE): the narrator stick figure paces back and forth with an energetic, restless stride, thin black stick arms swinging naturally with single clean elbow bends, dot eyes alert and thinking intensely. Standard stick figure proportions, zero noodle limbs, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_051.png"
+    },
+    {
+      "id": "frame_052",
+      "frame_number": 52,
+      "timestamp_start": "01:18",
+      "timestamp_end": "01:20",
+      "verbatim_script": "It can't.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure. Continuous scene: the narrator stick figure halts, throwing both black stick arms upward in an emphatic gesture of undeniable certainty, eyes wide and deadpan against the clean warm cream background (#FAF7EE). Clean fixed-length stick limbs, single clean elbow joints, cartoon mitten hands, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_051.png",
+      "continuity": "continue",
+      "target_filename": "frame_052.png"
+    },
+    {
+      "id": "frame_053",
+      "frame_number": 53,
+      "timestamp_start": "01:20",
+      "timestamp_end": "01:22",
+      "verbatim_script": "A brain that solves problems all day doesn't shut off just because the sun went down.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills, minimalist stick figure. Continuous scene: the expressive narrator stick figure leans forward with an arched cocked eyebrow and knowing smirk, tapping its white circular temple with a thin black index finger on clean warm cream background (#FAF7EE). Clean stick figure anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_052.png",
+      "continuity": "continue",
+      "target_filename": "frame_053.png"
+    },
+    {
+      "id": "frame_054",
+      "frame_number": 54,
+      "timestamp_start": "01:22",
+      "timestamp_end": "01:25",
+      "verbatim_script": "It looks around. It fidgets. It plays.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Panoramic night scene: early human male stick figure sits cross-legged on clean golden sand beside bright golden-orange campfire flames (#FFA028) under an expansive, clear midnight-indigo sky filled with twinkling star constellations. The stick figure picks up a smooth round river stone, tossing it lightly into the air with a simple black cartoon hand and catching it with a grin. Cheerful warm firelight, bright stars, zero dark muddy gloom, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_054.png"
+    },
+    {
+      "id": "frame_055",
+      "frame_number": 55,
+      "timestamp_start": "01:25",
+      "timestamp_end": "01:28",
+      "verbatim_script": "Night after night, season after season, thousands of years before the first city,",
+      "prompt": "2D hand-drawn animated explainer style. Clean bold black ink outlines, flat color fills. Vast minimalist night aerial landscape: five small warm golden campfire circles flicker across a clean desert river valley floor beneath a clear, brilliant starry indigo sky and gentle rolling hill silhouettes. Clean atmospheric perspective, high contrast, warm campfire sparks, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_055.png"
+    },
+    {
+      "id": "frame_056",
+      "frame_number": 56,
+      "timestamp_start": "01:28",
+      "timestamp_end": "01:29.5",
+      "verbatim_script": "Restless brains, capable hands, and empty time",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Inside a sheltered pale limestone cave: early human stick figure with shaggy brown hair and circular white head kneels comfortably on a woven fur pelt on clean golden sand beside glowing campfire embers and pale river stones. Holding a smooth pale animal bone across its knees with simple thin black stick arms, it studies the bone intently as bright warm golden-orange firelight (#FFA028) illuminates its white face and the pale limestone cave walls. Standard stick figure proportions, zero realistic human skin, full bleed 16:9, zero gradients, no dark muddy shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_056.png"
+    },
+    {
+      "id": "frame_057",
+      "frame_number": 57,
+      "timestamp_start": "01:29.5",
+      "timestamp_end": "01:31.5",
+      "verbatim_script": "alltogether in the firelight. That combination is an engine.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous in the pale limestone cave: close-up macro action view of the carving process. Minimalist 2D black stick-figure arms ending in simple black cartoon mitten hands firmly hold a sharp chipped black flint stone tool against the hollow pale bone beside glowing campfire stones. Simple 2D stick figure anatomy with solid black line strokes, zero realistic fleshy hands, zero knuckles, zero fingernails, zero veins, zero skin texture. Bright warm amber firelight illuminates the pale bone and stone tool against clean pale limestone rock. Full bleed 16:9, zero gradients, no 3D rendering, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_056.png",
+      "continuity": "continue",
+      "target_filename": "frame_057.png"
+    },
+    {
+      "id": "frame_058",
+      "frame_number": 58,
+      "timestamp_start": "01:31.5",
+      "timestamp_end": "01:34",
+      "verbatim_script": "It has to make something.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous in the pale limestone cave: close-up action view of the flint point chiseling into the pale bone surface. The simple black cartoon stick figure hand holds the sharp flint stone firmly, carving a clean neat circular finger hole into the bone with tiny curled white bone flakes spiraling away under the stone tool in warm firelight. Minimalist 2D line art, flat fills, zero realistic human skin, zero muscular forearms, zero knuckles. Bright warm campfire glow on pale limestone rock, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_057.png",
+      "continuity": "continue",
+      "target_filename": "frame_058.png"
+    },
+    {
+      "id": "frame_059",
+      "frame_number": 59,
+      "timestamp_start": "01:34",
+      "timestamp_end": "01:35.5",
+      "verbatim_script": "It has to make something.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Continuous in the cave: side profile of the early human stick figure with minimalist circular white head, simple dot eyes, and shaggy brown hair, blowing a gentle puff of breath across the carved bone resting in its simple black cartoon stick hands; tiny stylized dust particles catch bright warm campfire light against the pale limestone cave interior. Flat 2D cartoon stick figure face and hands, zero realistic skin, zero flesh tones, zero 3D shading, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_058.png",
+      "continuity": "continue",
+      "target_filename": "frame_059.png"
+    },
+    {
+      "id": "frame_060",
+      "frame_number": 60,
+      "timestamp_start": "01:35.5",
+      "timestamp_end": "01:37",
+      "verbatim_script": "And the first thing it made was music.",
+      "prompt": "2D hand-drawn animated explainer style. Dramatic concept title card: bold hand-lettered brushwork text 'MUSIC' in warm amber and black centered on a clean pale limestone rock texture with soft warm campfire glow. High contrast, pure 2D graphic layout, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_060.png"
+    },
+    {
+      "id": "frame_061",
+      "frame_number": 61,
+      "timestamp_start": "01:37",
+      "timestamp_end": "01:39",
+      "verbatim_script": "And the first thing it made was music.",
+      "prompt": "2D hand-drawn animated explainer style. Continuous on the title card: concentric acoustic soundwave rings in soft bright yellow vibrate outward from behind the 'MUSIC' title like luminous ripples across the clean pale limestone background. Bright high contrast, pure 2D line art, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_060.png",
+      "continuity": "continue",
+      "target_filename": "frame_061.png"
+    },
+    {
+      "id": "frame_062",
+      "frame_number": 62,
+      "timestamp_start": "01:39",
+      "timestamp_end": "01:42",
+      "verbatim_script": "In the caves of southwestern Germany, forty thousand years ago,",
+      "prompt": "2D hand-drawn animated explainer style. Minimalist hand-drawn map of Ice Age Europe on pure clean white background (#FFFFFF): northern ice sheets in soft pastel cyan, southern landmass in pastel leaf green, bold black ink coastlines. A prominent bright red teardrop location pin marks southern Germany labeled 'SWABIAN JURA CAVES' in clean uppercase ink lettering. Bright, high-contrast, pure 2D map graphic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@maps_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_062.png"
+    },
+    {
+      "id": "frame_063",
+      "frame_number": 63,
+      "timestamp_start": "01:42",
+      "timestamp_end": "01:45",
+      "verbatim_script": "humans sat in freezing darkness and carved flutes.",
+      "prompt": "2D hand-drawn animated explainer style. Regional close-up map of southern Germany on pure clean white background (#FFFFFF): clean black border outlines with soft pastel tan and mint fills. A bold red location pin marks 'HOHLE FELS CAVE' beside a small vector pine tree and mountain symbol. Bright clean educational infographic, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@maps_country_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_063.png"
+    },
+    {
+      "id": "frame_064",
+      "frame_number": 64,
+      "timestamp_start": "01:45",
+      "timestamp_end": "01:47",
+      "verbatim_script": "Not rough noisemakers. Instruments.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Inside the pale limestone cave: early human male stick figure kneels proudly on clean golden sand beside glowing campfire stones, holding up the pale completed bone flute in both thin black stick arms. Bright warm golden firelight (#FFA028) illuminates its white circular head, shaggy brown hair, and the pale rock shelter. Clean 2D stick figure anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_env_prehistoric_cave",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_064.png"
+    },
+    {
+      "id": "frame_065",
+      "frame_number": 65,
+      "timestamp_start": "01:47",
+      "timestamp_end": "01:49",
+      "verbatim_script": "The flute is made from the radius bone of a griffon vulture",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper background (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'VULTURE RADIUS BONE'. Centered horizontal macro view of the hollow pale bone flute showing two clean diagonal cut marks and the open tubular interior, drawn in crisp black ink line art with flat warm ivory fill. Pure minimalist 2D graphic on bright clean paper, zero museum pedestals, zero glass cases, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_064.png",
+      "continuity": "continue",
+      "target_filename": "frame_065.png"
+    },
+    {
+      "id": "frame_066",
+      "frame_number": 66,
+      "timestamp_start": "01:49",
+      "timestamp_end": "01:50",
+      "verbatim_script": "with precisely placed holes.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Close-up action view: thin minimalist black stick-figure hands gently hold the pale bone flute horizontally beside the warm campfire, simple black cartoon fingers testing the precise spacing of the five cleanly drilled circular finger holes. Simple 2D cartoon stick anatomy, solid black stroke limbs, zero realistic human flesh, zero knuckles, zero fingernails. Warm amber firelight on pale river stones, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_065.png",
+      "continuity": "continue",
+      "target_filename": "frame_066.png"
+    },
+    {
+      "id": "frame_067",
+      "frame_number": 67,
+      "timestamp_start": "01:50",
+      "timestamp_end": "01:51",
+      "verbatim_script": "Five of them.",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper background (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'FIVE FINGER HOLES'. Centered horizontal view of the pale vulture bone flute with five neat circular holes cleanly aligned down its length, each highlighted with a small clean hand-drawn ink indicator dot above. Pure flat 2D graphic on bright clean paper canvas, zero museum stands, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_066.png",
+      "continuity": "continue",
+      "target_filename": "frame_067.png"
+    },
+    {
+      "id": "frame_068",
+      "frame_number": 68,
+      "timestamp_start": "01:51",
+      "timestamp_end": "01:53",
+      "verbatim_script": "Then they lift it, blow,",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Medium profile shot inside the pale limestone cave: early human male stick figure gently raises the completed bone flute with both thin black stick arms toward its simple line mouth, cartoon mitten fingers hovering poised over the five drilled holes in concentration. Circular white head, shaggy brown hair, bright warm campfire light illuminating face and rock wall. Clean 2D stick figure anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@male_early_human",
+        "@ref_prop_vulture_bone_flute"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_068.png"
+    },
+    {
+      "id": "frame_069",
+      "frame_number": 69,
+      "timestamp_start": "01:53",
+      "timestamp_end": "01:55",
+      "verbatim_script": "and a clear note fills the cave.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Close-up profile of the early human stick figure blowing softly across the V-notch mouthpiece; eyes closed in peaceful listening concentration as warm firelight glints on cheek, bone flute, and pale limestone cavern stalactites. Thin black stick arms and simple cartoon mitten hands holding the flute, flat 2D stick figure face, zero realistic flesh tones. Full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_068.png",
+      "continuity": "continue",
+      "target_filename": "frame_069.png"
+    },
+    {
+      "id": "frame_070",
+      "frame_number": 70,
+      "timestamp_start": "01:55",
+      "timestamp_end": "01:57",
+      "verbatim_script": "and a clear note fills the cave.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Wide shot of the pale Hohle Fels limestone cave cavern: luminous concentric circular soundwaves in warm soft yellow expand outward from the flute tip, echoing visibly past rock stalactites, glowing stone hearth, and natural rock pillars into the chamber. Clean high contrast, warm radiant campfire illumination, full bleed 16:9, zero gradients, no dark gloomy shadows, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_069.png",
+      "continuity": "continue",
+      "target_filename": "frame_070.png"
+    },
+    {
+      "id": "frame_071",
+      "frame_number": 71,
+      "timestamp_start": "01:57",
+      "timestamp_end": "01:59",
+      "verbatim_script": "This isn't a guess.",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. A knowledgeable stick figure presenter with circular white head, arched cocked eyebrow, and authoritative smile stands against a clean bright warm cream background (#FAF7EE) inside an archaeological research lab, holding up a certified historical excavation report. Bright clean studio lighting, simple 2D stick anatomy, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_071.png"
+    },
+    {
+      "id": "frame_072",
+      "frame_number": 72,
+      "timestamp_start": "01:59",
+      "timestamp_end": "02:01",
+      "verbatim_script": "In 2008, an archaeologist named Nicholas Connard",
+      "prompt": "2D hand-drawn animated explainer style. Academic title card on pure clean white background (#FFFFFF): tan safari helmet and trowel icon centered cleanly above bold uppercase black text: '2008 \u2014 PROF. NICHOLAS CONARD\nHOHLE FELS CAVE, GERMANY'. Pure 2D educational graphic layout, high contrast, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@title_reference",
+        "@archieologiest_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_072.png"
+    },
+    {
+      "id": "frame_073",
+      "frame_number": 73,
+      "timestamp_start": "02:01",
+      "timestamp_end": "02:03",
+      "verbatim_script": "was digging in a cave called Hols",
+      "prompt": "2D hand-drawn animated stick figure explainer style. Clean bold black ink outlines, flat color fills. Modern archaeologist stick figure wearing a tan safari helmet and utility vest kneels in a clean excavation dig trench inside Hohle Fels cave under bright yellow tripod work lights, delicately clearing pale sediment with a pointed trowel and fine brush beside white survey strings. Bright, clear lighting, standard stick figure proportions, zero realistic human skin, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@archieologiest_stick_figure",
+        "@ref_char_anthropologist_field"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_073.png"
+    },
+    {
+      "id": "frame_074",
+      "frame_number": 74,
+      "timestamp_start": "02:03",
+      "timestamp_end": "02:05",
+      "verbatim_script": "when his team pulled 12 fragments of bone out of the ground.",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper canvas (#FAF7EE). Centered bold hand-lettered uppercase title at top: '12 BONE FLUTE FRAGMENTS'. Laid out horizontally in a neat clean row on the paper are twelve distinct clean 2D line art bone fragments with flat pale ivory fills, labeled with small neat ink numbers 1 through 12. Minimalist archaeological artifact card on bright clean paper canvas, zero museum pedestals, zero glass cases, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_prop_vulture_bone_flute"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_074.png"
+    },
+    {
+      "id": "frame_075",
+      "frame_number": 75,
+      "timestamp_start": "02:05",
+      "timestamp_end": "02:06.5",
+      "verbatim_script": "Fitted back together, they formed a flute,",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Continuous on clean bright warm cream paper canvas (#FAF7EE): centered bold hand-lettered title at top: 'REASSEMBLED BONE FLUTE'. The twelve bone fragments glide together along clean black alignment lines, snapping cleanly together to reform the complete unified pale vulture bone flute in flat 2D line art. Pure minimalist 2D diagram on bright clean paper, zero realistic human hands, zero museum display stands, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_074.png",
+      "continuity": "continue",
+      "target_filename": "frame_075.png"
+    },
+    {
+      "id": "frame_076",
+      "frame_number": 76,
+      "timestamp_start": "02:06.5",
+      "timestamp_end": "02:08",
+      "verbatim_script": "the wing bone of a griffin vulture,",
+      "prompt": "2D hand-drawn animated explainer style. Wildlife illustration: a majestic wild griffon vulture soars horizontally with massive brown and cream wings outstretched across a clear, bright cyan daytime sky (#A0D2EB) above distant pale Swabian Jura cliff silhouettes. A clean dotted callout line indicates the wing radius bone, with a simple hand-lettered label 'GRIFFON VULTURE (WINGSPAN: 2.5 M)'. Bright airy daylight aesthetic, clean outlines, flat color fills, zero text watermarks, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, or anatomical details. Never render 3D CGI models, glossy lighting, photorealism, oil painting textures, dark murky shadows, or extra limbs. Avoid monochrome sketches, borders, and realistic human faces.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_076.png"
+    },
+    {
+      "id": "frame_077",
+      "frame_number": 77,
+      "timestamp_start": "02:08",
+      "timestamp_end": "02:11",
+      "verbatim_script": "five finger holes, a carved mouthpiece",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper background (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'HOHLE FELS BONE FLUTE'. Centered horizontally in the frame is the complete reassembled griffon vulture bone flute, rendered in clean black ink outlines with flat warm ivory fill, displaying the carved V-notch mouthpiece at one end and five cleanly drilled circular finger holes along its shaft. Pure minimalist 2D line art artifact graphic on bright clean paper canvas, zero museum display pedestals, zero spotlights, zero glass cases, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_prop_vulture_bone_flute"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_077.png"
+    },
+    {
+      "id": "frame_078",
+      "frame_number": 78,
+      "timestamp_start": "02:11",
+      "timestamp_end": "02:13",
+      "verbatim_script": "about as long as your forearm,",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Continuous on the clean bright warm cream paper canvas (#FAF7EE): centered bold title at top: 'FLUTE LENGTH VS STICK-FIGURE FOREARM'. In the center, the horizontal 2D bone flute is shown with a neat black dimension bracket labeled '22 CM'. Directly below it, drawn with a single clean thin black ink stroke, is a minimalist 2D stick-figure forearm and simple cartoon mitten hand, accompanied by a matching dimension bracket labeled 'STICK-FIGURE FOREARM: 22 CM'. Minimalist black ink proportional diagram on bright clean paper canvas, zero realistic human skin, zero fleshy limbs, zero museum plinths, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_077.png",
+      "continuity": "continue",
+      "target_filename": "frame_078.png"
+    },
+    {
+      "id": "frame_079",
+      "frame_number": 79,
+      "timestamp_start": "02:13",
+      "timestamp_end": "02:15",
+      "verbatim_script": "and roughly 40,000 years old.",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Continuous on the clean bright warm cream paper canvas (#FAF7EE): centered bold title at top: 'HOHLE FELS BONE FLUTE'. A clean hand-drawn circular archaeological certification seal appears in the corner beside the flute with neat hand-lettered black and amber text: 'DATED: 40,000 YEARS BP (AURIGNACIAN CULTURE)'. Minimalist 2D educational graphic on bright clean paper canvas, zero museum display stands, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_078.png",
+      "continuity": "continue",
+      "target_filename": "frame_079.png"
+    },
+    {
+      "id": "frame_080",
+      "frame_number": 80,
+      "timestamp_start": "02:15",
+      "timestamp_end": "02:17",
+      "verbatim_script": "In another cave close by, they found more. Carved from swan bone",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Clean bright warm cream paper background (#FAF7EE). Centered bold hand-lettered uppercase title at top: 'SWAN BONE FLUTE \u2014 GEISSENKL\u00d6STERLE'. Centered horizontally in the frame is a slender, delicate prehistoric flute carved from a swan wing bone, rendered in clean black ink outlines with pale ivory fill and three neatly drilled circular finger holes. Minimalist 2D artifact graphic on bright clean paper canvas, zero museum display stands, zero glass cases, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [
+        "@ref_prop_vulture_bone_flute"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_080.png"
+    },
+    {
+      "id": "frame_081",
+      "frame_number": 81,
+      "timestamp_start": "02:17",
+      "timestamp_end": "02:19",
+      "verbatim_script": "and mammoth ivory dated as far back as 43,000 years.",
+      "prompt": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean. Continuous on the clean bright warm cream paper canvas (#FAF7EE): side-by-side comparative artifact graphic. On the left is the slender swan bone flute labeled 'SWAN BONE FLUTE'; on the right is a slightly thicker mammoth ivory flute carved from two hollowed halves bound with fine cord markings, labeled 'MAMMOTH IVORY FLUTE \u2014 43,000 YEARS OLD'. Both rendered in clean 2D black ink line art with flat warm ivory and cream fills centered horizontally on the bright paper canvas. Pure 2D educational graphic, zero museum pedestals, zero spotlights, full bleed 16:9, zero gradients, no borders.\n\n## Negative prompt (Don't use these):\nDo not render museum display pedestals, dark spotlights, glass cases, or realistic human hands and forearms. Avoid 3D CGI models, photorealism, glossy reflections, dark murky shadows, text watermarks, and borders. Never render realistic human anatomy, flesh tones, or monochrome sketches.",
+      "negative": "photorealistic, 3D render, realistic human hands, dark murky shadows, borders",
+      "character_references": [],
+      "frame_reference": "frame_080.png",
+      "continuity": "continue",
+      "target_filename": "frame_081.png"
+    }
+  ]
+}
