@@ -2,9 +2,8 @@
 
 (function () {
   const flowDestination = globalThis.FlowDestination;
-  const specInput = globalThis.SpecInput;
-  if (!flowDestination || !specInput) {
-    throw new Error('A required side-panel helper was not loaded.');
+  if (!flowDestination) {
+    throw new Error('Flow destination helper was not loaded.');
   }
 
   // State
@@ -98,21 +97,13 @@
       collection_url: currentSpec.collection_url || null,
       collection_tab_id: currentSpec.collection_tab_id || null,
       last_updated: new Date().toISOString(),
-      title: currentSpec.title,
-      format: currentSpec.format,
-      description: currentSpec.description,
-      global_settings: currentSpec.global_settings,
       default_model: currentSpec.default_model,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
-      default_negative_prompt: currentSpec.default_negative_prompt,
-      default_style: currentSpec.default_style,
-      max_retries: currentSpec.max_retries,
       output_folder: currentSpec.output_folder,
       characters: currentSpec.characters.map(c => ({
         id: c.id,
         name: c.name,
         flow_tag: c.flow_tag,
-        image_url: c.image_url,
         reference_image: c.reference_image,
         character_prompt: c.character_prompt || c.prompt || c.description || "",
         status: c.status
@@ -120,16 +111,9 @@
       visuals: currentSpec.visuals.map(v => ({
         id: v.id,
         frame_number: v.frame_number,
-        timestamp_start: v.timestamp_start || null,
-        timestamp_end: v.timestamp_end || null,
-        verbatim_script: v.verbatim_script || null,
-        matched_trope: v.matched_trope || null,
-        reference_video_sample_frame: v.reference_video_sample_frame || null,
         prompt: v.prompt,
         negative: v.negative,
         character_references: v.character_references,
-        style_references: v.style_references || [],
-        image_references: v.image_references || [],
         frame_reference: v.frame_reference || null,
         continuity: v.continuity,
         target_filename: v.target_filename,
@@ -677,20 +661,45 @@
   // Normalizer: handles Custom Spec, beats_*.json, and saved pipeline_mapping.json
   function parseAndLoadSpec(raw) {
     const spec = {
-      ...specInput.normalizeHeader(raw),
+      project_name: raw.project_name || raw.project || "Google Flow Production",
+      collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
+      collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
+      default_model: raw.default_model || raw.model || "Nano Banana 2",
+      default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
+      output_folder: raw.output_folder || "ancient_humans_scenes",
       characters: [],
       visuals: []
     };
 
-    // Normalize characters while keeping local image paths separate from Flow tags
+    // Normalize characters
     if (Array.isArray(raw.characters)) {
-      spec.characters = raw.characters.map((character, index) =>
-        specInput.normalizeCharacter(character, index)
-      );
+      spec.characters = raw.characters.map((c, i) => {
+        const charPrompt = c.character_prompt || c.prompt || c.description || "";
+        return {
+          id: c.id || `char_${i + 1}`,
+          name: c.name || `Character ${i + 1}`,
+          flow_tag: c.flow_tag || (c.name ? `@${c.name}` : `@char_${i + 1}`),
+          reference_image: c.reference_image || null,
+          character_prompt: charPrompt,
+          prompt: charPrompt,
+          description: charPrompt,
+          status: c.status || "checking"
+        };
+      });
     } else if (typeof raw.characters === 'object' && raw.characters !== null) {
-      spec.characters = Object.entries(raw.characters).map(([key, character], index) =>
-        specInput.normalizeCharacter(character, index, key)
-      );
+      spec.characters = Object.entries(raw.characters).map(([k, c]) => {
+        const charPrompt = c.character_prompt || c.prompt || c.description || "";
+        return {
+          id: k,
+          name: c.name || k,
+          flow_tag: `@${(c.name || k).replace(/\s+/g, '_')}`,
+          reference_image: c.reference_image || null,
+          character_prompt: charPrompt,
+          prompt: charPrompt,
+          description: charPrompt,
+          status: c.status || "checking"
+        };
+      });
     }
 
     // Pre-register known tile mappings before resolving guidance
@@ -729,18 +738,11 @@
       const progress = status === 'completed' ? 100 : (v.progress || 0);
 
       return {
-        id: v.id || 'frame_' + numPad,
-        frame_number: v.frame_number ?? num,
-        timestamp_start: v.timestamp_start || null,
-        timestamp_end: v.timestamp_end || null,
-        verbatim_script: v.verbatim_script || null,
-        matched_trope: v.matched_trope || null,
-        reference_video_sample_frame: v.reference_video_sample_frame || null,
+        id: v.id || `frame_${numPad}`,
+        frame_number: num,
         prompt: basePrompt,
-        negative: v.negative || v.negative_prompt || spec.default_negative_prompt || "",
+        negative: v.negative || v.negative_prompt || "",
         character_references: charRefs,
-        style_references: Array.isArray(v.style_references) ? v.style_references : [],
-        image_references: Array.isArray(v.image_references) ? v.image_references : [],
         frame_reference: rawFrameRef,
         continuity: continuity,
         target_filename: targetFilename,
