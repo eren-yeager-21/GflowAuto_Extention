@@ -655,9 +655,10 @@
   function parseAndLoadSpec(raw) {
     const spec = {
       project_name: raw.project_name || raw.project || "Google Flow Production",
-      default_model: raw.default_model || raw.model || "Nano Banana 2",
-      default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
-      output_folder: raw.output_folder || "ancient_humans_scenes",
+      project_dir: raw.project_dir || (raw.global_settings && raw.global_settings.project_dir) || "",
+      default_model: raw.default_model || raw.model || (raw.global_settings && raw.global_settings.model) || "Nano Banana 2",
+      default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || (raw.global_settings && raw.global_settings.aspect_ratio) || "16:9",
+      output_folder: raw.output_folder || (raw.global_settings && raw.global_settings.output_folder) || raw.project || "ancient_humans_scenes",
       characters: [],
       visuals: []
     };

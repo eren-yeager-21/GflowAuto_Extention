@@ -5,18 +5,28 @@ This guide specifies the exact JSON structures, parameters, and visual prompt st
 
 ---
 
-## 1. Overview: The Two Pipeline Deliverables
+## 1. Overview: Project Directory Architecture & Deliverables
 
-For every video project, the pipeline operates on two distinct, complementary JSON specifications:
+### 1.1 Project Directory Standard (`E:\Stick_Figure_videos\<project_name>\`)
+All project-specific generation files, visual prompt JSONs, video timeline blueprints, transcripts, and maps must be created and organized under a dedicated folder in:
+```
+E:\Stick_Figure_videos\<project_name>\
+```
+Inside this project directory, deliverables are saved under both their project-specific names and canonical aliases:
+- **Visual Prompt Spec**: `<project_name>_spec.json` and `visual_prompt.json`
+- **Video Timeline Blueprint**: `<project_name>_timeline.json`, `video_timeline.json`, and `timeline_blueprint.json`
+- **Project Concept Map & Transcripts**: `<PROJECT>_MAP.md`, `transcript.json`
+
+### 1.2 The Two Primary Pipeline Deliverables
 
 | Deliverable | File Name | Primary Consumer | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Storyboard Spec** | `storyboard_spec.json` (or `<project>_spec.json`) | Chrome Extension Side Panel (**Spec Pipeline** tab) | Orchestrates character suite creation, reference attachment, automatic retries, and sequential frame generation inside Google Flow. |
-| **Timeline Blueprint** | `timeline_blueprint.json` | `tts_qwen3_engine.py` & `render_timeline.py` | Governs narration voiceover synthesis, exact millisecond durations, and FFmpeg video assembly. |
+| **Visual Prompt Spec** | `visual_prompt.json` / `<project>_spec.json` | Chrome Extension Side Panel (**Spec Pipeline** tab) | Orchestrates character suite creation, reference attachment, automatic retries, and sequential frame generation inside Google Flow. Must contain `"project_dir"`. |
+| **Timeline Blueprint** | `video_timeline.json` / `timeline_blueprint.json` | `tts_qwen3_engine.py` & `render_timeline.py` | Governs narration voiceover synthesis, exact millisecond durations, and FFmpeg video assembly. |
 
 ---
 
-## 2. Storyboard Spec (`storyboard_spec.json`)
+## 2. Storyboard Spec (`storyboard_spec.json` / `visual_prompt.json`)
 
 ### 2.1 Complete Specification Schema (`format: "spec_v2"`)
 
@@ -24,12 +34,15 @@ For every video project, the pipeline operates on two distinct, complementary JS
 {
   "title": "Prehistoric Leisure & Cultural Evolution",
   "project": "how_humans_learned_to_have_fun",
+  "project_dir": "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
   "format": "spec_v2",
-  "description": "Vibrant 2D stylized animation explainer analyzing the prehistoric origins of human leisure, social play, and the 40,000-year-old Hohle Fels bone flute.",
+  "description": "2D hand-drawn animated stick figure explainer analyzing the prehistoric origins of human leisure, social play, and the 40,000-year-old Hohle Fels bone flute.",
   "global_settings": {
     "aspect_ratio": "16:9",
-    "style": "Vibrant 2D stylized animation art, rich saturated color palette, clean vector contours, dynamic ambient lighting, fully colored backgrounds, zero monochrome, full-bleed 16:9, no borders.",
-    "negative_prompt": "monochrome, black and white, grayscale, sketch, pencil drawing, ink doodle, blank cream background, uncolored paper, photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models, borders, padding",
+    "output_folder": "how_humans_learned_to_have_fun",
+    "project_dir": "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
+    "style": "2D hand-drawn animated stick figure explainer style, clean bold organic black ink outlines, flat solid color fills, minimalist stick figure with white circular head and simple dot eyes, warm cream background (#FAF7EE), full bleed 16:9, zero gradients, no 3D rendering, no borders.",
+    "negative_prompt": "photorealistic, 3D render, realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, dark murky shadows, borders",
     "model": "veo-2.0-generate-001",
     "max_retries": 3
   },
@@ -104,6 +117,16 @@ For every video project, the pipeline operates on two distinct, complementary JS
   ]
 }
 ```
+
+### 2.1.1 Root Specification Fields
+
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `title` | `string` | **Yes** | Human-readable title of the video project. |
+| `project` | `string` | **Yes** | Project identifier (snake_case, e.g. `how_humans_learned_to_have_fun`). |
+| `project_dir` | `string` | **Yes** | Absolute filesystem directory path: `E:\Stick_Figure_videos\<project_name>`. |
+| `format` | `string` | **Yes** | Specification schema version (strictly `"spec_v2"`). |
+| `global_settings` | `object` | **Yes** | Global pipeline settings including `project_dir`, `output_folder`, `aspect_ratio`, `model`, and `max_retries`. |
 
 ---
 

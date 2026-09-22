@@ -488,3 +488,20 @@ For historical artifacts (e.g. Hohle Fels bone flute, Geissenklösterle swan flu
 4. **No Museum Furniture**: Never prompt museum pedestals, dark spotlights, glass display cases, or realistic human limbs.
 5. **CRITICAL Reference Isolation**: **Never attach `@title_reference` to artifact or wildlife frames.** Use `@ref_prop_vulture_bone_flute` for flutes. `@title_reference` contains "1963 — RICHARD LEE" and the safari hat, which Google Flow will literally paste onto the image if attached.
 
+### 6.10 Project Directory Architecture (`E:\Stick_Figure_videos\<project_name>\`) & `project_dir` Field
+All video project assets and specs are organized into a dedicated project directory under `E:\Stick_Figure_videos`:
+```
+E:\Stick_Figure_videos\<project_name>\
+```
+Inside this folder:
+- **Visual Prompt Spec**: `visual_prompt.json` and `<project_name>_spec.json`
+- **Video Timeline**: `video_timeline.json`, `timeline_blueprint.json`, and `<project_name>_timeline.json`
+- **Project Concept Map**: `<PROJECT>_MAP.md`
+- **Transcript**: `transcript.json`
+
+**Mandatory JSON Field**: The visual prompt JSON must always include the root property:
+```json
+"project_dir": "E:\\Stick_Figure_videos\\<project_name>"
+```
+This enables downstream pipeline tools, Chrome extension loaders, and rendering engines to locate and save media directly in the project folder.
+

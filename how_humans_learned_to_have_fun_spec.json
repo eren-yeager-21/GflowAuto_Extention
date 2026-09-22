@@ -1,6 +1,7 @@
 {
   "title": "How Humans Learned to Have Fun",
   "project": "how_humans_learned_to_have_fun",
+  "project_dir": "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
   "format": "spec_v2",
   "description": "2D hand-drawn animated stick figure explainer analyzing ancient boredom, play, and the 40,000-year-old Hohle Fels bone flute, with continuous story sequences and rapid 0.7s\u20132.0s micro-animation pacing.",
   "global_settings": {
@@ -8,6 +9,8 @@
     "style": "2D hand-drawn animated stick figure explainer style, clean bold organic black ink outlines, flat solid color fills, minimalist stick figure with white circular head and simple dot eyes, warm cream background (#FAF7EE), full bleed 16:9, zero gradients, no 3D rendering, no borders.",
     "negative_prompt": "photorealistic, 3D render, realistic human hands, fleshy skin, muscular arms, knuckles, fingernails, veins, dark murky shadows, borders",
     "model": "veo-2.0-generate-001",
+    "output_folder": "how_humans_learned_to_have_fun",
+    "project_dir": "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
     "max_retries": 3
   },
   "characters": [

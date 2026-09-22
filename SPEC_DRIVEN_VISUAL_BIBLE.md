@@ -490,5 +490,6 @@ When generating visuals for a new script:
 - [ ] **Add `reference_statement`**: Tell the model exactly what each reference is for. Use `##` directives (e.g. `"## Use @maps_reference for coastline style only"`). Required for map, infographic, environment, and continuity frames. May omit for pure character-only frames.
 - [ ] **`reference_video_sample_frame` is informational only**: It notes which source video frame inspired the scene. It is never sent to Google Flow.
 - [ ] **DO NOT add `reference_instructions` or `formatted_reference_guidance`**: The Chrome Extension automatically appends custom reference instructions (`## Use provided reference for visual understanding and stick figure anatomy...`) based on attached tags.
-- [ ] **Generate Timeline Blueprint (`timeline_blueprint.json`)**: Build the matching timing and narration blueprint for audio synthesis and FFmpeg assembly.
+- [ ] **Generate Timeline Blueprint (`video_timeline.json` / `timeline_blueprint.json`)**: Build the matching timing and narration blueprint for audio synthesis and FFmpeg assembly.
+- [ ] **Save Under Project Directory (`E:\Stick_Figure_videos\<project_name>\`)**: All deliverables (`visual_prompt.json`, `video_timeline.json`, maps, transcripts) must reside in this directory, and the visual prompt JSON must specify `"project_dir"`.
 - [ ] **Execute via Chrome Extension**: Load spec into the **Spec Pipeline** tab in Google Flow to run character creation and frame generation.
