@@ -3,8 +3,9 @@
 (function () {
   const flowDestination = globalThis.FlowDestination;
   const pipelineConcurrency = globalThis.PipelineConcurrency;
+  const rerollHistory = globalThis.RerollHistory;
   const IMAGE_MODEL = 'Nano Banana 2';
-  if (!flowDestination || !pipelineConcurrency) {
+  if (!flowDestination || !pipelineConcurrency || !rerollHistory) {
     throw new Error('A required side-panel helper was not loaded.');
   }
 
@@ -14,6 +15,7 @@
   let pipelinePaused = false;
   let activeFrameIndex = -1;
   let activeGenerationGroupId = null;
+  let activeRerollIndex = null;
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
@@ -126,6 +128,7 @@
         status: v.status,
         progress: v.progress,
         result_url: v.result_url || null,
+        reroll_previous: rerollHistory.normalizeSnapshot(v.reroll_previous),
         completed_at: v.completed_at || null,
         error: v.error || null,
         reference_instructions: v.reference_instructions || [],
@@ -759,6 +762,7 @@
         status: status,
         progress: progress,
         result_url: v.result_url || null,
+        reroll_previous: rerollHistory.normalizeSnapshot(v.reroll_previous),
         completed_at: v.completed_at || null,
         error: v.error || null,
         reference_statement: referenceStatement,
@@ -987,7 +991,8 @@
           <span style="color: var(--text-muted); font-family: monospace;">${escapeHtml(f.target_filename)}</span>
           <div class="frame-actions">
             <button class="btn btn-secondary btn-xs btn-edit-prompt" data-index="${idx}">✏️ Edit</button>
-            <button class="btn btn-secondary btn-xs btn-regen-frame" data-index="${idx}" ${pipelineRunning ? 'disabled' : ''}>🔄 Re-roll</button>
+            <button class="btn btn-secondary btn-xs btn-regen-frame" data-index="${idx}" ${pipelineRunning || activeRerollIndex !== null ? 'disabled' : ''}>🔄 Re-roll</button>
+            <button class="btn btn-secondary btn-xs btn-revert-frame" data-index="${idx}" title="Restore the image used before the latest re-roll" style="display: ${f.reroll_previous ? 'inline-block' : 'none'};" ${pipelineRunning || activeRerollIndex !== null ? 'disabled' : ''}>↩ Revert</button>
             <button class="btn btn-secondary btn-xs btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-block' : 'none'};">⬇</button>
           </div>
         </div>
@@ -1123,6 +1128,13 @@
       btn.addEventListener('click', (e) => {
         const idx = parseInt(e.target.dataset.index, 10);
         regenerateSingleFrame(idx);
+      });
+    });
+
+    document.querySelectorAll('.btn-revert-frame').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        revertFrameReroll(idx);
       });
     });
 
@@ -1667,7 +1679,7 @@ function createSingleCharacter(charId) {
 
   // Dependency-aware generation with parallel independent submissions
   async function startPipeline() {
-    if (!currentSpec || pipelineRunning) return;
+    if (!currentSpec || pipelineRunning || activeRerollIndex !== null) return;
 
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
@@ -1755,7 +1767,7 @@ function createSingleCharacter(charId) {
   }
 
   async function regenerateSingleFrame(idx) {
-    if (!currentSpec || pipelineRunning) return;
+    if (!currentSpec || pipelineRunning || activeRerollIndex !== null) return;
 
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
@@ -1772,11 +1784,14 @@ function createSingleCharacter(charId) {
     }
 
     const frame = currentSpec.visuals[idx];
+    activeRerollIndex = idx;
+    frame.reroll_in_progress = Boolean(rerollHistory.begin(frame));
     frame.status = 'generating';
     frame.progress = 5;
     frame.error = null;
     frame.capture_conflict = null;
     updateFrameCard(idx);
+    updateUIStatus();
 
     let refImages = [];
     let refFrameVisual = null;
@@ -1820,9 +1835,47 @@ function createSingleCharacter(charId) {
       applyFrameGenerationResult(idx, false, err?.message || String(err));
     }
 
+    if (frame.reroll_pending_previous && frame.result_url) {
+      frame.status = 'completed';
+      frame.progress = 100;
+      frame.completed_at = frame.reroll_pending_previous.completed_at || frame.completed_at;
+      frame.error = 'Re-roll failed; the previous image was kept.';
+    }
+    rerollHistory.cancel(frame);
+    frame.reroll_in_progress = false;
+    activeRerollIndex = null;
+    updateFrameCard(idx);
+    updateUIStatus();
+    updateProjectStats();
+    savePipelineMapping();
+  }
+
+  function revertFrameReroll(idx) {
+    if (!currentSpec || pipelineRunning || activeRerollIndex !== null) return;
+    const frame = currentSpec.visuals[idx];
+    if (!rerollHistory.restore(frame)) return;
+
+    if (frame.flow_tile_title) {
+      registerLocalFrameTitle(frame.target_filename, frame.flow_tile_title);
+      registerLocalFrameTitle(frame.id, frame.flow_tile_title);
+      registerLocalFrameTitle(String(frame.frame_number), frame.flow_tile_title);
+      registerLocalFrameTitle(`frame_${String(frame.frame_number).padStart(3, '0')}`, frame.flow_tile_title);
+    }
+    for (let k = idx + 1; k < currentSpec.visuals.length; k++) {
+      const nextFrame = currentSpec.visuals[k];
+      const cleanRef = String(nextFrame.frame_reference || '').replace(/\(.*?\)/g, '').trim();
+      if (cleanRef === frame.target_filename ||
+          cleanRef === frame.id ||
+          cleanRef === `${frame.id}.png` ||
+          (nextFrame.continuity === 'continue' && k === idx + 1)) {
+        nextFrame.formatted_reference_guidance = formatReferenceGuidance(nextFrame, k);
+        updateFrameCard(k);
+      }
+    }
     updateFrameCard(idx);
     updateProjectStats();
     savePipelineMapping();
+    downloadSingleFrame(idx);
   }
 
   function buildFrameGenerationPayload(frame, refImages, promptIndex) {
@@ -1957,7 +2010,8 @@ function createSingleCharacter(charId) {
     chrome.downloads.download({
       url: frame.result_url,
       filename: `${currentSpec.output_folder}/${frame.target_filename}`,
-      saveAs: false
+      saveAs: false,
+      conflictAction: 'overwrite'
     });
   }
 
@@ -1989,8 +2043,8 @@ function createSingleCharacter(charId) {
     }
 
     const titleVal = document.getElementById(`flow-title-val-${idx}`);
-    if (titleVal && f.flow_tile_title) {
-      titleVal.innerText = f.flow_tile_title;
+    if (titleVal) {
+      titleVal.innerText = f.flow_tile_title || '';
     }
 
     const guidanceEl = card.querySelector('.frame-guidance-container div:last-child');
@@ -2004,6 +2058,22 @@ function createSingleCharacter(charId) {
       imgEl.src = f.result_url;
       imgBox.style.display = 'block';
     }
+
+    const rerollBtn = card.querySelector('.btn-regen-frame');
+    const revertBtn = card.querySelector('.btn-revert-frame');
+    const controlsBusy = pipelineRunning || activeRerollIndex !== null;
+    if (rerollBtn) rerollBtn.disabled = controlsBusy;
+    if (revertBtn) {
+      revertBtn.disabled = controlsBusy;
+      revertBtn.style.display = f.reroll_previous ? 'inline-block' : 'none';
+    }
+  }
+
+  function updateRerollControls() {
+    const controlsBusy = pipelineRunning || activeRerollIndex !== null;
+    document.querySelectorAll('.btn-regen-frame, .btn-revert-frame').forEach(button => {
+      button.disabled = controlsBusy;
+    });
   }
 
   function updateProjectStats() {
@@ -2030,12 +2100,13 @@ function createSingleCharacter(charId) {
     const nextFrameNum = nextPendingIndex >= 0 ? currentSpec.visuals[nextPendingIndex].frame_number : currentSpec.visuals.length;
 
     if (btnStart) {
-      btnStart.disabled = pipelineRunning || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0);
+      btnStart.disabled = pipelineRunning || activeRerollIndex !== null || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0);
       btnStart.innerText = pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
     }
     if (btnPause) {
       btnPause.disabled = !pipelineRunning;
     }
+    updateRerollControls();
   }
 
   function escapeHtml(str) {
@@ -2073,6 +2144,9 @@ function createSingleCharacter(charId) {
           return;
         }
 
+        if (frame.reroll_in_progress) {
+          rerollHistory.commit(frame);
+        }
         frame.result_url = msg.mediaUrl;
         if (msg.tileTitle) {
           frame.flow_tile_title = msg.tileTitle;
