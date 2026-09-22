@@ -1954,7 +1954,12 @@ function createSingleCharacter(charId) {
     frame.formatted_reference_guidance = formatReferenceGuidance(frame, idx);
 
     try {
-      let ok = await executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 });
+      const captureToken = `reroll-${Date.now()}-${idx}`;
+      frame.reroll_capture_token = captureToken;
+      let ok = await executeFrameGeneration(frame, refImages, idx, {
+        maxRetries: 0,
+        captureToken
+      });
       if (ok && frame.reroll_pending_previous) {
         log('Re-roll generation finished; waiting for image mapping:', frame.frame_number);
         ok = await waitForRerollMapping(frame);
@@ -1976,6 +1981,7 @@ function createSingleCharacter(charId) {
     }
     rerollHistory.cancel(frame);
     frame.reroll_in_progress = false;
+    delete frame.reroll_capture_token;
     activeRerollIndex = null;
     updateFrameCard(idx);
     updateUIStatus();
@@ -2075,6 +2081,9 @@ function createSingleCharacter(charId) {
       if (Number.isInteger(options.maxRetries)) {
         payload.maxRetries = Math.max(0, options.maxRetries);
       }
+      if (options.captureToken) {
+        payload.captureToken = options.captureToken;
+      }
 
       getFlowTargetTab().then(targetTab => {
         if (pipelineRunning && pipelinePaused) {
@@ -2102,7 +2111,17 @@ function createSingleCharacter(charId) {
               if (status === 'paused' && !result) {
                 resolve(null);
               } else {
-                resolve((status === 'completed' || status === 'paused') && result?.success === true);
+                const capture = Array.isArray(result?.capturedResources)
+                  ? result.capturedResources[0]
+                  : null;
+                const mapped = result?.success === true
+                  ? Boolean(capture && applyCapturedFrameImage({
+                      type: 'SPEC_FRAME_IMAGE_CAPTURED',
+                      promptIndex,
+                      ...capture
+                    }))
+                  : false;
+                resolve((status === 'completed' || status === 'paused') && result?.success === true && mapped);
               }
             }
           }
@@ -2281,17 +2300,16 @@ function createSingleCharacter(charId) {
     return String(str || '').replace(/"/g, '&quot;');
   }
 
-  // Hook global incoming messages from Content Script / Background Worker
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.type === 'ACTION_LOG' && msg.data) {
-      appendDebugEntry(msg.data);
-      return;
-    }
+  function applyCapturedFrameImage(msg) {
+    if (!currentSpec) return false;
 
-    if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && currentSpec) {
       const idx = msg.promptIndex;
       if (idx !== undefined && currentSpec.visuals[idx]) {
         const frame = currentSpec.visuals[idx];
+        if (msg.captureToken && msg.captureToken !== frame.reroll_capture_token) {
+          log('Ignored a stale re-roll image capture for Frame #' + frame.frame_number);
+          return false;
+        }
         const duplicateIndex = msg.mediaUrl
           ? currentSpec.visuals.findIndex((visual, visualIndex) =>
               visualIndex !== idx && visual.result_url === msg.mediaUrl
@@ -2310,7 +2328,7 @@ function createSingleCharacter(charId) {
           updateFrameCard(idx);
           updateProjectStats();
           savePipelineMapping();
-          return;
+          return false;
         }
 
         if (frame.reroll_in_progress) {
@@ -2344,7 +2362,20 @@ function createSingleCharacter(charId) {
         }
         updateFrameCard(idx);
         savePipelineMapping();
+        return true;
       }
+      return false;
+  }
+
+  // Hook global incoming messages from Content Script / Background Worker
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg.type === 'ACTION_LOG' && msg.data) {
+      appendDebugEntry(msg.data);
+      return;
+    }
+
+    if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED') {
+      applyCapturedFrameImage(msg);
     }
   });
 

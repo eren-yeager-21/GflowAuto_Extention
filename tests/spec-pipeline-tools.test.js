@@ -20,7 +20,7 @@ assert.equal(source.includes('data-spec-tab="control"') && source.includes('data
 assert.equal(source.includes('function setActiveSpecTab(tabName)'), true);
 assert.equal(source.includes('<details class="spec-tools-panel'), false);
 assert.equal(source.includes("frame.status = 'pending';") && source.includes("status === 'paused' && !result"), true);
-assert.equal(source.includes('executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 })'), true);
+assert.equal(source.includes('executeFrameGeneration(frame, refImages, idx, {') && source.includes('maxRetries: 0'), true);
 assert.equal(source.includes('payload.maxRetries = Math.max(0, options.maxRetries);'), true);
 
 const rerollStart = source.indexOf('async function regenerateSingleFrame');

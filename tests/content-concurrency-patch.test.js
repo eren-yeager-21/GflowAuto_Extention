@@ -88,4 +88,9 @@ assert.equal(
   'a Spec frame must capture and download only one Flow resource'
 );
 
+assert.equal(
+  source.includes('capturedResources') && source.includes('captureToken:c.captureToken||""'),
+  true,
+  'captured image metadata must be returned with the terminal group result'
+);
 console.log('content concurrency patch tests passed');
