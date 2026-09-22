@@ -16,6 +16,7 @@
   let activeFrameIndex = -1;
   let activeGenerationGroupId = null;
   let activeRerollIndex = null;
+  let activeSpecTab = 'control';
   const debugEntries = [];
   const MAX_DEBUG_ENTRIES = 300;
 
@@ -829,106 +830,63 @@
         <div class="collection-destination">
           <label for="collection-url-input">Google Flow collection URL</label>
           <div class="collection-destination-row">
-            <input
-              id="collection-url-input"
-              type="url"
-              value="${escapeAttr(currentSpec.collection_url || '')}"
-              placeholder="Open your collection in Flow and paste its URL"
-              spellcheck="false"
-            />
+            <input id="collection-url-input" type="url" value="${escapeAttr(currentSpec.collection_url || '')}" placeholder="Open your collection in Flow and paste its URL" spellcheck="false" />
             <button class="btn btn-secondary btn-sm" id="btn-use-open-flow">Use open Flow page</button>
           </div>
           <div id="collection-destination-status" class="collection-destination-status" role="status" aria-live="polite">
-            ${currentSpec.collection_url
-              ? 'Generation is locked to this Flow page.'
-              : 'Optional: leave empty to use the currently open Flow project page.'}
+            ${currentSpec.collection_url ? 'Generation is locked to this Flow page.' : 'Optional: leave empty to use the currently open Flow project page.'}
           </div>
         </div>
-        <details class="spec-tools-panel">
-          <summary>⚙️ Settings</summary>
+      </div>
+
+      <div class="spec-view-tabs" role="tablist" aria-label="Spec Pipeline views">
+        <button class="spec-view-tab ${activeSpecTab === 'control' ? 'active' : ''}" data-spec-tab="control" role="tab" aria-selected="${activeSpecTab === 'control'}">☷ <span>Control</span></button>
+        <button class="spec-view-tab ${activeSpecTab === 'settings' ? 'active' : ''}" data-spec-tab="settings" role="tab" aria-selected="${activeSpecTab === 'settings'}">⚙ <span>Settings</span></button>
+        <button class="spec-view-tab ${activeSpecTab === 'debug' ? 'active' : ''}" data-spec-tab="debug" role="tab" aria-selected="${activeSpecTab === 'debug'}">⌕ <span>Debug Logs</span></button>
+      </div>
+
+      <section class="spec-view-panel ${activeSpecTab === 'control' ? 'active' : ''}" data-spec-panel="control" role="tabpanel">
+        <div class="project-card">
+          <div class="project-stats">
+            <div class="stat-box"><div class="stat-val" id="stat-total">${totalCount}</div><div class="stat-lbl">Total Frames</div></div>
+            <div class="stat-box"><div class="stat-val" id="stat-completed" style="color: var(--success-color);">${completedCount}</div><div class="stat-lbl">Completed</div></div>
+            <div class="stat-box"><div class="stat-val" id="stat-pending">${remainingCount}</div><div class="stat-lbl">Remaining</div></div>
+          </div>
+          <div class="pipeline-actions">
+            <button class="btn btn-primary" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>${pipelineRunning ? (pipelinePaused ? '⏳ Finishing active generations...' : '⏳ Generating...') : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}</button>
+            <button class="btn btn-secondary" id="btn-pause-pipeline" ${!pipelineRunning || pipelinePaused ? 'disabled' : ''}>${pipelinePaused && pipelineRunning ? '⏳ Pausing...' : '⏸ Pause'}</button>
+            <button class="btn btn-secondary" id="btn-download-all" ${completedCount === 0 ? 'disabled' : ''}>⬇ Download All</button>
+          </div>
+        </div>
+
+        <div class="section-title"><span>Characters & References (${currentSpec.characters.length})</span><div style="display: flex; gap: 6px;"><button class="btn-link" id="btn-recheck-chars">Verify with Flow</button><button class="btn-link" id="btn-create-missing-chars">➕ Create Missing</button></div></div>
+        <div class="characters-list" id="chars-container">${renderCharactersList()}</div>
+        <div class="section-title"><span>Visual Production Sequence (${totalCount} Frames)</span><button class="btn-link" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button></div>
+        <div class="frames-list" id="frames-container">${renderFramesList()}</div>
+      </section>
+
+      <section class="spec-view-panel ${activeSpecTab === 'settings' ? 'active' : ''}" data-spec-panel="settings" role="tabpanel">
+        <div class="project-card spec-tab-card">
+          <div class="spec-tab-panel-title">⚙ Settings</div>
           <div class="spec-settings-grid">
-            <label for="spec-generation-mode">Generation mode</label>
-            <select id="spec-generation-mode" disabled>
-              <option value="textToImage" selected>Text to Image</option>
-            </select>
-            <label for="spec-image-model">Image model</label>
-            <input id="spec-image-model" value="${escapeAttr(IMAGE_MODEL)}" disabled />
-            <label for="spec-aspect-ratio">Aspect ratio</label>
-            <select id="spec-aspect-ratio">
-              ${['16:9', '9:16', '1:1'].map(value =>
-                `<option value="${value}" ${currentSpec.default_aspect_ratio === value ? 'selected' : ''}>${value}</option>`
-              ).join('')}
-            </select>
-            <label for="max-parallel-generations">Max active independent generations</label>
-            <select id="max-parallel-generations">
-              ${Array.from({ length: pipelineConcurrency.MAX_PARALLEL }, (_, index) => index + 1).map(value =>
-                `<option value="${value}" ${currentSpec.max_parallel_generations === value ? 'selected' : ''}>${value}</option>`
-              ).join('')}
-            </select>
-            <label>Output per frame</label>
-            <input value="1 image" disabled />
-            <label>Automatic download</label>
-            <input value="Original quality" disabled />
+            <label for="spec-generation-mode">Generation mode</label><select id="spec-generation-mode" disabled><option value="textToImage" selected>Text to Image</option></select>
+            <label for="spec-image-model">Image model</label><input id="spec-image-model" value="${escapeAttr(IMAGE_MODEL)}" disabled />
+            <label for="spec-aspect-ratio">Aspect ratio</label><select id="spec-aspect-ratio">${['16:9', '9:16', '1:1'].map(value => `<option value="${value}" ${currentSpec.default_aspect_ratio === value ? 'selected' : ''}>${value}</option>`).join('')}</select>
+            <label for="max-parallel-generations">Max active independent generations</label><select id="max-parallel-generations">${Array.from({ length: pipelineConcurrency.MAX_PARALLEL }, (_, index) => index + 1).map(value => `<option value="${value}" ${currentSpec.max_parallel_generations === value ? 'selected' : ''}>${value}</option>`).join('')}</select>
+            <label>Output per frame</label><input value="1 image" disabled />
+            <label>Automatic download</label><input value="Original quality" disabled />
           </div>
           <div class="spec-settings-note">Frame to Video and Text to Video modes will be added in a future feature.</div>
-        </details>
-        <details class="spec-tools-panel spec-debug-panel">
-          <summary>🐞 Debug Log</summary>
-          <div class="spec-debug-actions">
-            <button class="btn-link" id="btn-copy-debug-log">Copy</button>
-            <button class="btn-link" id="btn-clear-debug-log">Clear</button>
-          </div>
+        </div>
+      </section>
+
+      <section class="spec-view-panel ${activeSpecTab === 'debug' ? 'active' : ''}" data-spec-panel="debug" role="tabpanel">
+        <div class="project-card spec-tab-card">
+          <div class="spec-debug-header"><div class="spec-tab-panel-title">🐞 Debug Logs</div><div class="spec-debug-actions"><button class="btn-link" id="btn-copy-debug-log">Copy</button><button class="btn-link" id="btn-clear-debug-log">Clear</button></div></div>
           <div id="spec-debug-log" class="spec-debug-log"></div>
-        </details>
-        <div class="project-stats">
-          <div class="stat-box">
-            <div class="stat-val" id="stat-total">${totalCount}</div>
-            <div class="stat-lbl">Total Frames</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-completed" style="color: var(--success-color);">${completedCount}</div>
-            <div class="stat-lbl">Completed</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-pending">${remainingCount}</div>
-            <div class="stat-lbl">Remaining</div>
-          </div>
         </div>
-        <div class="pipeline-actions">
-          <button class="btn btn-primary" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
-            ${pipelineRunning ? (pipelinePaused ? '⏳ Finishing active generations...' : '⏳ Generating...') : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
-          </button>
-          <button class="btn btn-secondary" id="btn-pause-pipeline" ${!pipelineRunning || pipelinePaused ? 'disabled' : ''}>
-            ${pipelinePaused && pipelineRunning ? '⏳ Pausing...' : '⏸ Pause'}
-          </button>
-          <button class="btn btn-secondary" id="btn-download-all" ${completedCount === 0 ? 'disabled' : ''}>
-            ⬇ Download All
-          </button>
-        </div>
-      </div>
-
-      <!-- Characters Section -->
-      <div class="section-title">
-        <span>Characters & References (${currentSpec.characters.length})</span>
-        <div style="display: flex; gap: 6px;">
-          <button class="btn-link" id="btn-recheck-chars">Verify with Flow</button>
-          <button class="btn-link" id="btn-create-missing-chars">➕ Create Missing</button>
-        </div>
-      </div>
-      <div class="characters-list" id="chars-container">
-        ${renderCharactersList()}
-      </div>
-
-      <!-- Visual Sequence Section -->
-      <div class="section-title">
-        <span>Visual Production Sequence (${totalCount} Frames)</span>
-        <button class="btn-link" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button>
-      </div>
-      <div class="frames-list" id="frames-container">
-        ${renderFramesList()}
-      </div>
+      </section>
     `;
-
     attachDashboardEvents();
     renderDebugLog();
   }
@@ -1073,6 +1031,20 @@
     }).join('');
   }
 
+  function setActiveSpecTab(tabName) {
+    if (!['control', 'settings', 'debug'].includes(tabName)) return;
+    activeSpecTab = tabName;
+    document.querySelectorAll('.spec-view-tab').forEach(button => {
+      const isActive = button.dataset.specTab === tabName;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-selected', String(isActive));
+    });
+    document.querySelectorAll('.spec-view-panel').forEach(panel => {
+      panel.classList.toggle('active', panel.dataset.specPanel === tabName);
+    });
+    if (tabName === 'debug') renderDebugLog();
+  }
+
   function attachDashboardEvents() {
     const btnReset = document.getElementById('btn-reset-spec');
     const btnExport = document.getElementById('btn-export-mapping');
@@ -1086,6 +1058,10 @@
     const aspectRatioInput = document.getElementById('spec-aspect-ratio');
     const btnCopyDebugLog = document.getElementById('btn-copy-debug-log');
     const btnClearDebugLog = document.getElementById('btn-clear-debug-log');
+
+    document.querySelectorAll('.spec-view-tab').forEach(button => {
+      button.addEventListener('click', () => setActiveSpecTab(button.dataset.specTab));
+    });
 
     if (maxParallelInput) {
       maxParallelInput.addEventListener('change', () => {

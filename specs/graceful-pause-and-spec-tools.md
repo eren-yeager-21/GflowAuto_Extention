@@ -35,3 +35,9 @@ This feature applies to the Spec Pipeline image workflow. The only enabled gener
 2. The panel keeps the newest 300 entries.
 3. Copy writes the visible log history to the clipboard.
 4. Clear removes the current in-memory log history.
+
+## Navigation behavior
+
+1. Control, Settings, and Debug Logs are separate tabs in one navigation row matching the Classic Batch layout.
+2. Selecting a tab shows only its associated panel.
+3. The selected tab remains active when pipeline progress re-renders the dashboard.

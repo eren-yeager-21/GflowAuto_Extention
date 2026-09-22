@@ -753,19 +753,55 @@ body {
   font-size: 10px;
 }
 
-.spec-tools-panel {
+.spec-view-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
   margin: 10px 0;
-  border: 1px solid var(--border-color);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.025);
+  padding: 0 4px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.spec-tools-panel > summary {
-  padding: 9px 10px;
-  color: var(--text-secondary);
+.spec-view-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 10px 8px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
   font-size: 11px;
-  font-weight: 700;
   cursor: pointer;
+}
+
+.spec-view-tab:hover {
+  color: var(--text-primary);
+}
+
+.spec-view-tab.active {
+  border-bottom-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.spec-view-panel {
+  display: none;
+}
+
+.spec-view-panel.active {
+  display: block;
+}
+
+.spec-tab-card {
+  margin-top: 0;
+}
+
+.spec-tab-panel-title {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .spec-settings-grid {
@@ -804,11 +840,18 @@ body {
   font-size: 9px;
 }
 
+.spec-debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
 .spec-debug-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  padding: 0 10px 6px;
 }
 
 .spec-debug-log {
