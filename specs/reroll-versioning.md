@@ -15,9 +15,10 @@ Keep the project output folder stable when a frame is re-rolled and allow the us
 7. Re-roll waits for the captured image to be mapped before it finalizes the frame and clears temporary state.
 8. The Flow completion result carries the captured image URL, filename, tile title, and re-roll correlation token so mapping does not depend on a separate runtime event.
 9. A re-roll started from a restored saved session maps its result and exposes Revert without requiring Start Pipeline first.
-10. Starting a re-roll snapshots the frame's current image URL, Flow tile title, and completion time.
-11. The snapshot becomes the revert version only after the new generated image is captured successfully.
-12. A failed re-roll leaves the current image and existing revert version intact.
-13. After a successful re-roll, the frame displays a Revert button.
-14. Revert restores the previous image and Flow tile title, clears the one-level revert history, and overwrites the target file with the restored image.
-15. Revert changes the extension mapping and downloaded file; it does not delete either generated tile from Google Flow.
+10. If the primary capture message or result metadata is unavailable, the extension compares the Flow tiles before and after generation and maps the newly added tile.
+11. Starting a re-roll snapshots the frame's current image URL, Flow tile title, and completion time.
+12. The snapshot becomes the revert version only after the new generated image is captured successfully.
+13. A failed re-roll leaves the current image and existing revert version intact.
+14. After a successful re-roll, the frame displays a Revert button.
+15. Revert restores the previous image and Flow tile title, clears the one-level revert history, and overwrites the target file with the restored image.
+16. Revert changes the extension mapping and downloaded file; it does not delete either generated tile from Google Flow.

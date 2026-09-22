@@ -69,11 +69,14 @@ assert.equal(panelSource.includes('reroll_previous: rerollHistory.normalizeSnaps
 assert.equal(panelSource.includes('applyCapturedFrameImage'), true);
 assert.equal(panelSource.includes('result?.capturedResources'), true);
 assert.equal(panelSource.includes('frame.reroll_capture_token = captureToken'), true);
+assert.equal(panelSource.includes('mapRerollFromNewFlowTile'), true);
+assert.equal(panelSource.includes('rerollTilesBefore'), true);
 
 const indexSource = fs.readFileSync(
   path.join(__dirname, '..', 'src', 'ui', 'side-panel', 'index.html'),
   'utf8'
 );
 assert.equal(indexSource.includes('./reroll-history.js'), true);
+assert.equal(indexSource.includes('./reroll-tile-fallback.js'), true);
 
 console.log('re-roll versioning tests passed');

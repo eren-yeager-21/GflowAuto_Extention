@@ -4,8 +4,9 @@
   const flowDestination = globalThis.FlowDestination;
   const pipelineConcurrency = globalThis.PipelineConcurrency;
   const rerollHistory = globalThis.RerollHistory;
+  const rerollTileFallback = globalThis.RerollTileFallback;
   const IMAGE_MODEL = 'Nano Banana 2';
-  if (!flowDestination || !pipelineConcurrency || !rerollHistory) {
+  if (!flowDestination || !pipelineConcurrency || !rerollHistory || !rerollTileFallback) {
     throw new Error('A required side-panel helper was not loaded.');
   }
 
@@ -1393,6 +1394,57 @@
     return response;
   }
 
+  async function scanFlowTilesForReroll() {
+    const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
+    return Array.isArray(response?.tiles) ? response.tiles : [];
+  }
+
+  function replaceDownloadedFrame(frame) {
+    return new Promise(resolve => {
+      chrome.runtime.sendMessage({
+        type: 'DOWNLOAD_RESOURCE',
+        url: frame.result_url,
+        filename: frame.target_filename,
+        folder: currentSpec.output_folder,
+        autoChangeFileName: true
+      }, response => {
+        const error = chrome.runtime?.lastError;
+        if (error || !response?.success) {
+          log('Fallback re-roll download failed:', error?.message || response?.error || frame.target_filename);
+          resolve(false);
+          return;
+        }
+        resolve(true);
+      });
+    });
+  }
+
+  async function mapRerollFromNewFlowTile(frame, promptIndex, beforeTiles, captureToken) {
+    const afterTiles = await scanFlowTilesForReroll();
+    const newTile = rerollTileFallback.chooseNewTile(beforeTiles, afterTiles);
+    if (!newTile?.imgSrc) {
+      log('Re-roll fallback could not identify a new Flow tile for Frame #' + frame.frame_number);
+      return false;
+    }
+
+    const mapped = applyCapturedFrameImage({
+      type: 'SPEC_FRAME_IMAGE_CAPTURED',
+      promptIndex,
+      mediaUrl: newTile.imgSrc,
+      filename: frame.target_filename,
+      tileTitle: newTile.title || frame.target_filename,
+      captureToken
+    });
+    if (!mapped) return false;
+
+    await replaceDownloadedFrame(frame);
+    log('Re-roll mapped from the newly detected Flow tile:', {
+      frame: frame.frame_number,
+      tileTitle: newTile.title || ''
+    });
+    return true;
+  }
+
 function createSingleCharacter(charId) {
     if (!currentSpec) return;
     const c = currentSpec.characters.find(item => item.id === charId);
@@ -1910,6 +1962,7 @@ function createSingleCharacter(charId) {
       return;
     }
 
+    const rerollTilesBefore = await scanFlowTilesForReroll();
     frame.reroll_in_progress = Boolean(rerollHistory.begin(frame));
     frame.status = 'generating';
     frame.progress = 5;
@@ -1960,6 +2013,18 @@ function createSingleCharacter(charId) {
         maxRetries: 0,
         captureToken
       });
+      if (!ok && frame.reroll_previous && !frame.reroll_pending_previous) {
+        ok = true;
+      }
+      if (!ok && frame.reroll_pending_previous) {
+        log('Primary re-roll mapping was unavailable; scanning Flow for the newly added tile.');
+        ok = await mapRerollFromNewFlowTile(
+          frame,
+          idx,
+          rerollTilesBefore,
+          captureToken
+        );
+      }
       if (ok && frame.reroll_pending_previous) {
         log('Re-roll generation finished; waiting for image mapping:', frame.frame_number);
         ok = await waitForRerollMapping(frame);
