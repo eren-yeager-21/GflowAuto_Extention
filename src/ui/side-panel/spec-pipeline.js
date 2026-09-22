@@ -136,16 +136,6 @@
     };
   }
 
-  let autoSaveMappingTimer = null;
-  function autoSaveMappingToDisk() {
-    if (autoSaveMappingTimer) clearTimeout(autoSaveMappingTimer);
-    autoSaveMappingTimer = setTimeout(() => {
-      try {
-        exportMappingFile();
-      } catch (_) {}
-    }, 1500);
-  }
-
   function savePipelineMapping() {
     const data = generateMappingData();
     if (!data) return;
@@ -160,7 +150,6 @@
       }
       chrome.storage.local.set(toSet).catch(() => {});
     }
-    autoSaveMappingToDisk();
   }
 
   function checkSavedSession(callback) {
