@@ -455,6 +455,32 @@ body {
   color: #60a5fa;
 }
 
+.frame-content-block {
+  margin-bottom: 9px;
+}
+
+.frame-content-label {
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.frame-verbatim-script {
+  padding: 8px 9px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.08);
+  color: #fde68a;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .frame-prompt-text {
   font-size: 12px;
   color: var(--text-primary);

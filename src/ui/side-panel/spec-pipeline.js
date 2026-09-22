@@ -2,6 +2,7 @@
 
 (function () {
   const flowDestination = globalThis.FlowDestination;
+  const IMAGE_MODEL = 'Nano Banana 2';
   if (!flowDestination) {
     throw new Error('Flow destination helper was not loaded.');
   }
@@ -97,7 +98,7 @@
       collection_url: currentSpec.collection_url || null,
       collection_tab_id: currentSpec.collection_tab_id || null,
       last_updated: new Date().toISOString(),
-      default_model: currentSpec.default_model,
+      default_model: IMAGE_MODEL,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
       output_folder: currentSpec.output_folder,
       characters: currentSpec.characters.map(c => ({
@@ -111,6 +112,7 @@
       visuals: currentSpec.visuals.map(v => ({
         id: v.id,
         frame_number: v.frame_number,
+        verbatim_script: v.verbatim_script || "",
         prompt: v.prompt,
         negative: v.negative,
         character_references: v.character_references,
@@ -664,7 +666,7 @@
       project_name: raw.project_name || raw.project || "Google Flow Production",
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
-      default_model: raw.default_model || raw.model || "Nano Banana 2",
+      default_model: IMAGE_MODEL,
       default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
       output_folder: raw.output_folder || "ancient_humans_scenes",
       characters: [],
@@ -740,6 +742,7 @@
       return {
         id: v.id || `frame_${numPad}`,
         frame_number: num,
+        verbatim_script: typeof v.verbatim_script === 'string' ? v.verbatim_script.trim() : "",
         prompt: basePrompt,
         negative: v.negative || v.negative_prompt || "",
         character_references: charRefs,
@@ -930,7 +933,16 @@
           </span>
         </div>
 
-        <div class="frame-prompt-text" id="frame-prompt-${idx}" title="Click Edit Prompt to customize">${escapeHtml(f.prompt)}</div>
+        ${f.verbatim_script ? `
+          <div class="frame-content-block frame-verbatim-block">
+            <div class="frame-content-label">🎙 Verbatim Script</div>
+            <div class="frame-verbatim-script">${escapeHtml(f.verbatim_script)}</div>
+          </div>
+        ` : ''}
+        <div class="frame-content-block">
+          <div class="frame-content-label">🖼 Image Prompt</div>
+          <div class="frame-prompt-text" id="frame-prompt-${idx}" title="Click Edit Prompt to customize">${escapeHtml(f.prompt)}</div>
+        </div>
 
         ${f.formatted_reference_guidance ? `
           <div class="frame-guidance-container" style="margin: 6px 0; padding: 6px 8px; background: rgba(0,0,0,0.03); border-left: 3px solid #1a73e8; border-radius: 4px; font-size: 10px; color: var(--text-secondary, #555);">
@@ -1730,7 +1742,7 @@ function createSingleCharacter(charId) {
         targetFilename: frame.target_filename,
         mode: 'textToImage',
         aspectRatio: currentSpec.default_aspect_ratio || '16:9',
-        model: currentSpec.default_model || 'Nano Banana 2',
+        model: IMAGE_MODEL,
         outputCount: 1,
         autoDownloadResourceQuality: 'original',
         folderName: currentSpec.output_folder || 'ancient_humans_scenes',
