@@ -16,9 +16,26 @@
   let activeFrameIndex = -1;
   let activeGenerationGroupId = null;
   let activeRerollIndex = null;
+  const debugEntries = [];
+  const MAX_DEBUG_ENTRIES = 300;
+
+  function appendDebugEntry(entry) {
+    const normalized = {
+      level: entry?.level || 'info',
+      message: String(entry?.message || ''),
+      timestamp: Number(entry?.timestamp) || Date.now()
+    };
+    debugEntries.push(normalized);
+    if (debugEntries.length > MAX_DEBUG_ENTRIES) debugEntries.shift();
+    renderDebugLog();
+  }
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
+    appendDebugEntry({
+      level: 'info',
+      message: args.map(value => typeof value === 'string' ? value : JSON.stringify(value)).join(' ')
+    });
   }
 
   // Persistent Keep-Alive Port to Background Service Worker
@@ -102,6 +119,7 @@
       collection_url: currentSpec.collection_url || null,
       collection_tab_id: currentSpec.collection_tab_id || null,
       last_updated: new Date().toISOString(),
+      generation_mode: 'textToImage',
       default_model: IMAGE_MODEL,
       max_parallel_generations: currentSpec.max_parallel_generations,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
@@ -672,6 +690,7 @@
       project_name: raw.project_name || raw.project || "Google Flow Production",
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
+      generation_mode: 'textToImage',
       default_model: IMAGE_MODEL,
       max_parallel_generations: pipelineConcurrency.normalizeMaxParallel(
         raw.max_parallel_generations ?? raw.parallel_gen_value
@@ -825,16 +844,42 @@
               : 'Optional: leave empty to use the currently open Flow project page.'}
           </div>
         </div>
-        <div class="pipeline-concurrency-setting">
-          <label for="max-parallel-generations">Max active independent generations</label>
-          <input
-            id="max-parallel-generations"
-            type="number"
-            min="1"
-            value="${currentSpec.max_parallel_generations}"
-          />
-          <span>Dependent frames always run one at a time.</span>
-        </div>
+        <details class="spec-tools-panel">
+          <summary>⚙️ Settings</summary>
+          <div class="spec-settings-grid">
+            <label for="spec-generation-mode">Generation mode</label>
+            <select id="spec-generation-mode" disabled>
+              <option value="textToImage" selected>Text to Image</option>
+            </select>
+            <label for="spec-image-model">Image model</label>
+            <input id="spec-image-model" value="${escapeAttr(IMAGE_MODEL)}" disabled />
+            <label for="spec-aspect-ratio">Aspect ratio</label>
+            <select id="spec-aspect-ratio">
+              ${['16:9', '9:16', '1:1'].map(value =>
+                `<option value="${value}" ${currentSpec.default_aspect_ratio === value ? 'selected' : ''}>${value}</option>`
+              ).join('')}
+            </select>
+            <label for="max-parallel-generations">Max active independent generations</label>
+            <select id="max-parallel-generations">
+              ${Array.from({ length: pipelineConcurrency.MAX_PARALLEL }, (_, index) => index + 1).map(value =>
+                `<option value="${value}" ${currentSpec.max_parallel_generations === value ? 'selected' : ''}>${value}</option>`
+              ).join('')}
+            </select>
+            <label>Output per frame</label>
+            <input value="1 image" disabled />
+            <label>Automatic download</label>
+            <input value="Original quality" disabled />
+          </div>
+          <div class="spec-settings-note">Frame to Video and Text to Video modes will be added in a future feature.</div>
+        </details>
+        <details class="spec-tools-panel spec-debug-panel">
+          <summary>🐞 Debug Log</summary>
+          <div class="spec-debug-actions">
+            <button class="btn-link" id="btn-copy-debug-log">Copy</button>
+            <button class="btn-link" id="btn-clear-debug-log">Clear</button>
+          </div>
+          <div id="spec-debug-log" class="spec-debug-log"></div>
+        </details>
         <div class="project-stats">
           <div class="stat-box">
             <div class="stat-val" id="stat-total">${totalCount}</div>
@@ -851,10 +896,10 @@
         </div>
         <div class="pipeline-actions">
           <button class="btn btn-primary" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
-            ${pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
+            ${pipelineRunning ? (pipelinePaused ? '⏳ Finishing active generations...' : '⏳ Generating...') : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
           </button>
-          <button class="btn btn-secondary" id="btn-pause-pipeline" ${!pipelineRunning ? 'disabled' : ''}>
-            ⏸ Pause
+          <button class="btn btn-secondary" id="btn-pause-pipeline" ${!pipelineRunning || pipelinePaused ? 'disabled' : ''}>
+            ${pipelinePaused && pipelineRunning ? '⏳ Pausing...' : '⏸ Pause'}
           </button>
           <button class="btn btn-secondary" id="btn-download-all" ${completedCount === 0 ? 'disabled' : ''}>
             ⬇ Download All
@@ -885,6 +930,27 @@
     `;
 
     attachDashboardEvents();
+    renderDebugLog();
+  }
+
+  function renderDebugLog() {
+    const container = document.getElementById('spec-debug-log');
+    if (!container) return;
+    if (debugEntries.length === 0) {
+      container.innerHTML = '<div class="spec-debug-empty">No pipeline activity yet.</div>';
+      return;
+    }
+    container.innerHTML = debugEntries.map(entry => {
+      const time = new Date(entry.timestamp).toLocaleTimeString();
+      return `<div class="spec-debug-entry ${escapeAttr(entry.level)}"><span>${escapeHtml(time)}</span> ${escapeHtml(entry.message)}</div>`;
+    }).join('');
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function getDebugLogText() {
+    return debugEntries.map(entry =>
+      `[${new Date(entry.timestamp).toISOString()}] [${entry.level.toUpperCase()}] ${entry.message}`
+    ).join('\n');
   }
 
   function renderCharactersList() {
@@ -1017,6 +1083,9 @@
     const collectionUrlInput = document.getElementById('collection-url-input');
     const btnUseOpenFlow = document.getElementById('btn-use-open-flow');
     const maxParallelInput = document.getElementById('max-parallel-generations');
+    const aspectRatioInput = document.getElementById('spec-aspect-ratio');
+    const btnCopyDebugLog = document.getElementById('btn-copy-debug-log');
+    const btnClearDebugLog = document.getElementById('btn-clear-debug-log');
 
     if (maxParallelInput) {
       maxParallelInput.addEventListener('change', () => {
@@ -1024,6 +1093,27 @@
         currentSpec.max_parallel_generations = normalized;
         maxParallelInput.value = String(normalized);
         savePipelineMapping();
+      });
+    }
+
+    if (aspectRatioInput) {
+      aspectRatioInput.addEventListener('change', () => {
+        currentSpec.default_aspect_ratio = aspectRatioInput.value || '16:9';
+        savePipelineMapping();
+        log('Aspect ratio changed to', currentSpec.default_aspect_ratio);
+      });
+    }
+
+    if (btnCopyDebugLog) {
+      btnCopyDebugLog.addEventListener('click', () => {
+        navigator.clipboard.writeText(getDebugLogText()).catch(() => {});
+      });
+    }
+
+    if (btnClearDebugLog) {
+      btnClearDebugLog.addEventListener('click', () => {
+        debugEntries.length = 0;
+        renderDebugLog();
       });
     }
 
@@ -1557,6 +1647,17 @@ function createSingleCharacter(charId) {
     return effectiveSuccess;
   }
 
+  function resetFrameToPending(promptIndex) {
+    const frame = currentSpec?.visuals?.[promptIndex];
+    if (!frame) return;
+    frame.status = 'pending';
+    frame.progress = 0;
+    frame.completed_at = null;
+    frame.error = null;
+    frame.capture_conflict = null;
+    updateFrameCard(promptIndex);
+  }
+
   function executeIndependentFrameBatch(promptIndexes) {
     return new Promise(resolve => {
       const items = promptIndexes.map(prepareFrameGeneration);
@@ -1575,7 +1676,7 @@ function createSingleCharacter(charId) {
       let timeoutHandle = null;
       let settled = false;
 
-      const finish = (success, results = [], fallbackError = null) => {
+      const finish = (status, results = [], fallbackError = null) => {
         if (settled) return;
         settled = true;
         if (timeoutHandle) clearTimeout(timeoutHandle);
@@ -1587,7 +1688,11 @@ function createSingleCharacter(charId) {
         );
         items.forEach(item => {
           const result = resultMap.get(item.promptIndex);
-          const itemSuccess = success && result?.success === true;
+          if (status === 'paused' && !result) {
+            resetFrameToPending(item.promptIndex);
+            return;
+          }
+          const itemSuccess = result?.success === true;
           applyFrameGenerationResult(
             item.promptIndex,
             itemSuccess,
@@ -1596,9 +1701,13 @@ function createSingleCharacter(charId) {
         });
         updateProjectStats();
         savePipelineMapping();
-        resolve(success && items.every(item =>
-          resultMap.get(item.promptIndex)?.success === true && !item.frame.capture_conflict
-        ));
+        const completedResultsSucceeded = [...resultMap.values()].every(result =>
+          result.success === true && !currentSpec.visuals[result.promptIndex]?.capture_conflict
+        );
+        resolve({
+          success: (status === 'completed' || status === 'paused') && completedResultsSucceeded,
+          paused: status === 'paused'
+        });
       };
 
       const listener = msg => {
@@ -1613,9 +1722,9 @@ function createSingleCharacter(charId) {
 
         if (msg.type === 'PROMPT_GROUP_STATUS' && msg.data?.id === groupId) {
           const status = msg.data.status;
-          if (status === 'completed' || status === 'error' || status === 'cancelled') {
+          if (status === 'completed' || status === 'paused' || status === 'error' || status === 'cancelled') {
             finish(
-              status === 'completed',
+              status,
               Array.isArray(msg.data.results) ? msg.data.results : [],
               status === 'cancelled' ? 'Generation cancelled' : 'Parallel generation failed'
             );
@@ -1627,6 +1736,10 @@ function createSingleCharacter(charId) {
       activeGenerationGroupId = groupId;
 
       getFlowTargetTab().then(targetTab => {
+        if (pipelineRunning && pipelinePaused) {
+          finish('paused', []);
+          return;
+        }
         chrome.tabs.sendMessage(targetTab.id, {
           type: 'AUTO_FILL_FLOW',
           payloads,
@@ -1637,24 +1750,27 @@ function createSingleCharacter(charId) {
         }, response => {
           const error = chrome.runtime?.lastError;
           if (error || !response?.success) {
-            finish(false, [], error?.message || response?.error || 'Flow rejected the parallel batch');
+            finish('error', [], error?.message || response?.error || 'Flow rejected the parallel batch');
             return;
           }
 
           log('Submitted independent frames with max active generations:', maxParallel);
           timeoutHandle = setTimeout(() => {
-            finish(false, [], 'Parallel generation timed out');
+            finish('error', [], 'Parallel generation timed out');
           }, timeoutMs);
         });
       }).catch(error => {
-        finish(false, [], error.message);
+        finish('error', [], error.message);
       });
     });
   }
 
   async function generateDependentFrame(promptIndex) {
     const item = prepareFrameGeneration(promptIndex);
-    if (pipelinePaused || !pipelineRunning) return false;
+    if (pipelinePaused || !pipelineRunning) {
+      resetFrameToPending(promptIndex);
+      return null;
+    }
 
     let success = false;
     try {
@@ -1665,6 +1781,13 @@ function createSingleCharacter(charId) {
       );
     } catch (error) {
       item.frame.error = error?.message || String(error);
+    }
+
+    if (success === null) {
+      resetFrameToPending(promptIndex);
+      updateProjectStats();
+      savePipelineMapping();
+      return null;
     }
 
     const appliedSuccess = applyFrameGenerationResult(
@@ -1711,8 +1834,12 @@ function createSingleCharacter(charId) {
         );
         if (pendingIndexes.length === 0) continue;
 
-        const success = await executeIndependentFrameBatch(pendingIndexes);
-        if (!success) {
+        const outcome = await executeIndependentFrameBatch(pendingIndexes);
+        if (outcome.paused) {
+          log('Pause completed after active independent generations were mapped.');
+          break;
+        }
+        if (!outcome.success) {
           pipelinePaused = true;
           log('Independent generation batch stopped because one or more frames failed.');
         }
@@ -1738,6 +1865,10 @@ function createSingleCharacter(charId) {
       }
 
       const success = await generateDependentFrame(promptIndex);
+      if (success === null) {
+        log('Pause completed after the active dependent generation was handled.');
+        break;
+      }
       if (!success) {
         pipelinePaused = true;
         log('Dependent generation stopped after a frame failure.');
@@ -1754,12 +1885,15 @@ function createSingleCharacter(charId) {
   }
 
   function pausePipeline() {
+    if (!pipelineRunning || pipelinePaused) return;
     pipelinePaused = true;
-    pipelineRunning = false;
+    log('Pause requested. Finishing and mapping active generations before stopping.');
 
     if (activeGenerationGroupId) {
       const groupId = activeGenerationGroupId;
-      sendToFlowTab({ type: 'CANCEL_PROMPT_GROUP', groupId }).catch(() => {});
+      sendToFlowTab({ type: 'PAUSE_PROMPT_GROUP', groupId }).catch(error => {
+        log('Could not send graceful pause request:', error?.message || String(error));
+      });
     }
 
     updateUIStatus();
@@ -1920,7 +2054,7 @@ function createSingleCharacter(charId) {
       basePrompt: cleanBase,
       referenceGuidance: guidance,
       targetFilename: frame.target_filename,
-      mode: 'textToImage',
+      mode: currentSpec.generation_mode || 'textToImage',
       aspectRatio: currentSpec.default_aspect_ratio || '16:9',
       model: IMAGE_MODEL,
       outputCount: 1,
@@ -1940,6 +2074,10 @@ function createSingleCharacter(charId) {
       const payload = buildFrameGenerationPayload(frame, refImages, promptIndex);
 
       getFlowTargetTab().then(targetTab => {
+        if (pipelineRunning && pipelinePaused) {
+          resolve(null);
+          return;
+        }
         const groupId = 'spec-group-' + Date.now();
         activeGenerationGroupId = groupId;
         let timeoutHandle = null;
@@ -1951,14 +2089,18 @@ function createSingleCharacter(charId) {
           }
           if (msg.type === 'PROMPT_GROUP_STATUS' && msg.data?.id === groupId) {
             const status = msg.data.status;
-            if (status === 'completed' || status === 'error' || status === 'cancelled') {
+            if (status === 'completed' || status === 'paused' || status === 'error' || status === 'cancelled') {
               if (timeoutHandle) clearTimeout(timeoutHandle);
               chrome.runtime.onMessage.removeListener(listener);
               if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
               const result = Array.isArray(msg.data.results)
                 ? msg.data.results.find(item => item.promptIndex === promptIndex)
                 : null;
-              resolve(status === 'completed' && result?.success === true);
+              if (status === 'paused' && !result) {
+                resolve(null);
+              } else {
+                resolve((status === 'completed' || status === 'paused') && result?.success === true);
+              }
             }
           }
         };
@@ -2101,10 +2243,15 @@ function createSingleCharacter(charId) {
 
     if (btnStart) {
       btnStart.disabled = pipelineRunning || activeRerollIndex !== null || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0);
-      btnStart.innerText = pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
+      btnStart.innerText = pipelineRunning
+        ? (pipelinePaused ? '⏳ Finishing active generations...' : '⏳ Generating...')
+        : (completedCount > 0 && remainingCount > 0)
+          ? `▶ Resume Pipeline (Frame #${nextFrameNum})`
+          : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
     }
     if (btnPause) {
-      btnPause.disabled = !pipelineRunning;
+      btnPause.disabled = !pipelineRunning || pipelinePaused;
+      btnPause.innerText = pipelinePaused && pipelineRunning ? '⏳ Pausing...' : '⏸ Pause';
     }
     updateRerollControls();
   }
@@ -2119,6 +2266,11 @@ function createSingleCharacter(charId) {
 
   // Hook global incoming messages from Content Script / Background Worker
   chrome.runtime.onMessage.addListener((msg) => {
+    if (msg.type === 'ACTION_LOG' && msg.data) {
+      appendDebugEntry(msg.data);
+      return;
+    }
+
     if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && currentSpec) {
       const idx = msg.promptIndex;
       if (idx !== undefined && currentSpec.visuals[idx]) {

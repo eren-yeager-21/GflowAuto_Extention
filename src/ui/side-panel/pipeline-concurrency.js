@@ -1,10 +1,11 @@
 (function (root) {
   const DEFAULT_MAX_PARALLEL = 3;
+  const MAX_PARALLEL = 10;
 
   function normalizeMaxParallel(value) {
     const parsed = Number.parseInt(value, 10);
     if (!Number.isFinite(parsed)) return DEFAULT_MAX_PARALLEL;
-    return Math.max(1, parsed);
+    return Math.min(MAX_PARALLEL, Math.max(1, parsed));
   }
 
   function isDependentFrame(frame) {
@@ -36,6 +37,7 @@
 
   root.PipelineConcurrency = {
     DEFAULT_MAX_PARALLEL,
+    MAX_PARALLEL,
     normalizeMaxParallel,
     isDependentFrame,
     buildExecutionPlan

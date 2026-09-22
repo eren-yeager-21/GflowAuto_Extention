@@ -6,7 +6,7 @@ Reduce total generation time by keeping several independent Google Flow image ge
 
 ## Configuration
 
-The top-level JSON field max_parallel_generations controls the maximum active independent generations. It defaults to 3 and accepts any positive whole number. The older parallel_gen_value name is accepted as an alias. The side panel exposes the same setting.
+The top-level JSON field max_parallel_generations controls the maximum active independent generations. It defaults to 3 and accepts whole numbers from 1 through 10. The older parallel_gen_value name is accepted as an alias. The side panel exposes the same setting.
 
 ## Required behavior
 
@@ -19,5 +19,5 @@ The top-level JSON field max_parallel_generations controls the maximum active in
 7. Frames with frame_reference or continuity set to continue are ordering barriers and run one at a time in source order.
 8. A dependent frame starts only after its referenced predecessor is complete.
 9. If any required frame fails, stop scheduling dependent frames and show an error state.
-10. Pause cancels the active Flow batch and prevents further submissions.
+10. Pause prevents further submissions, lets accepted generations finish downloading and mapping, and returns untouched frames to Pending.
 11. The image model remains Nano Banana 2.

@@ -51,5 +51,35 @@ assert.equal(
   true,
   'the side panel must reject a result URL already assigned to another frame'
 );
+assert.equal(
+  source.includes('case"PAUSE_PROMPT_GROUP"') && source.includes('isPausing:!1'),
+  true,
+  'the content worker must support a distinct soft-pause state'
+);
+assert.equal(
+  source.includes('if(e.isPausing){e.pendingIndexes.includes(i)||e.pendingIndexes.unshift(i);return}'),
+  true,
+  'a pause during the submission delay must return the untouched frame to the pending queue'
+);
+assert.equal(
+  source.includes('if(e.isPausing){e.status="paused"') && source.includes('pendingPromptIndexes'),
+  true,
+  'a paused group must wait for active downloads and report its pending frames'
+);
+assert.equal(
+  panelSource.includes("sendToFlowTab({ type: 'PAUSE_PROMPT_GROUP', groupId })"),
+  true,
+  'the Spec Pipeline Pause button must request a graceful pause instead of cancellation'
+);
+assert.equal(
+  panelSource.includes("if (msg.type === 'ACTION_LOG' && msg.data)"),
+  true,
+  'the Spec Pipeline Debug Log must receive Flow action log entries'
+);
+assert.equal(
+  panelSource.includes('if (pipelineRunning && pipelinePaused) {'),
+  true,
+  'a pause before Flow accepts the group must prevent that group from being submitted'
+);
 
 console.log('content concurrency patch tests passed');

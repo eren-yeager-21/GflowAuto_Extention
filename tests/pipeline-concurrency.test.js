@@ -14,7 +14,8 @@ const scheduler = context.PipelineConcurrency;
 assert.equal(scheduler.normalizeMaxParallel(undefined), 3);
 assert.equal(scheduler.normalizeMaxParallel('3'), 3);
 assert.equal(scheduler.normalizeMaxParallel(0), 1);
-assert.equal(scheduler.normalizeMaxParallel(99), 99);
+assert.equal(scheduler.normalizeMaxParallel(99), 10);
+assert.equal(scheduler.MAX_PARALLEL, 10);
 
 const frames = [
   { id: 'frame_001', continuity: 'anchor' },

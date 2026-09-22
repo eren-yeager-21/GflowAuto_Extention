@@ -752,3 +752,87 @@ body {
   color: var(--text-muted);
   font-size: 10px;
 }
+
+.spec-tools-panel {
+  margin: 10px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.spec-tools-panel > summary {
+  padding: 9px 10px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.spec-settings-grid {
+  display: grid;
+  grid-template-columns: minmax(145px, 1fr) minmax(110px, 160px);
+  gap: 7px 10px;
+  align-items: center;
+  padding: 4px 10px 8px;
+}
+
+.spec-settings-grid label {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.spec-settings-grid select,
+.spec-settings-grid input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 7px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 10px;
+}
+
+.spec-settings-grid input:disabled,
+.spec-settings-grid select:disabled {
+  opacity: 0.72;
+}
+
+.spec-settings-note {
+  padding: 0 10px 9px;
+  color: var(--text-muted);
+  font-size: 9px;
+}
+
+.spec-debug-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 10px 6px;
+}
+
+.spec-debug-log {
+  max-height: 180px;
+  margin: 0 10px 10px;
+  padding: 7px;
+  overflow: auto;
+  border-radius: 5px;
+  background: #090c12;
+  color: #cbd5e1;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.spec-debug-entry.warn {
+  color: #fbbf24;
+}
+
+.spec-debug-entry.error {
+  color: #f87171;
+}
+
+.spec-debug-entry span,
+.spec-debug-empty {
+  color: #64748b;
+}
