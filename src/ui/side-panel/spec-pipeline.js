@@ -546,9 +546,13 @@
         }
         if (btnDiscard) {
           btnDiscard.addEventListener('click', () => {
+            localFrameTitleMap.clear();
             if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-              const key = getStorageKey(saved.project_name);
-              chrome.storage.local.remove([key, LATEST_KEY], () => {
+              const keysToRemove = [getStorageKey(saved.project_name), LATEST_KEY];
+              if (saved.project_dir) {
+                keysToRemove.push(getStorageKey(saved.project_dir));
+              }
+              chrome.storage.local.remove(keysToRemove, () => {
                 renderUploadScreen();
               });
             } else {
@@ -672,6 +676,7 @@
 
   // Normalizer: handles Custom Spec, beats_*.json, and saved pipeline_mapping.json
   function parseAndLoadSpec(raw) {
+    localFrameTitleMap.clear();
     const projectDir = String(
       raw.project_dir || 
       raw.project_directory || 
@@ -1064,6 +1069,7 @@
       btnReset.addEventListener('click', () => {
         savePipelineMapping();
         currentSpec = null;
+        localFrameTitleMap.clear();
         renderUploadScreen();
       });
     }
