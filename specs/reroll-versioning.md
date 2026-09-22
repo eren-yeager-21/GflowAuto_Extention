@@ -22,3 +22,4 @@ Keep the project output folder stable when a frame is re-rolled and allow the us
 14. After a successful re-roll, the frame displays a Revert button.
 15. Revert restores the previous image and Flow tile title, clears the one-level revert history, and overwrites the target file with the restored image.
 16. Revert changes the extension mapping and downloaded file; it does not delete either generated tile from Google Flow.
+17. A re-roll capture whose normalized media URL matches the image being replaced is rejected and cannot become the new mapping.

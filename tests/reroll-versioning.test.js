@@ -70,7 +70,9 @@ assert.equal(panelSource.includes('applyCapturedFrameImage'), true);
 assert.equal(panelSource.includes('result?.capturedResources'), true);
 assert.equal(panelSource.includes('frame.reroll_capture_token = captureToken'), true);
 assert.equal(panelSource.includes('mapRerollFromNewFlowTile'), true);
-assert.equal(panelSource.includes('rerollTilesBefore'), true);
+assert.equal(panelSource.includes('rerollTileSnapshotBefore'), true);
+assert.equal(panelSource.includes('Re-roll fallback skipped because the Flow tile snapshot was unavailable.'), true);
+assert.equal(panelSource.includes('Ignored the previous image while waiting for a new re-roll result'), true);
 
 const indexSource = fs.readFileSync(
   path.join(__dirname, '..', 'src', 'ui', 'side-panel', 'index.html'),

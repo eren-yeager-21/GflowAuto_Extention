@@ -1413,7 +1413,10 @@
 
   async function scanFlowTilesForReroll() {
     const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
-    return Array.isArray(response?.tiles) ? response.tiles : [];
+    return {
+      valid: Array.isArray(response?.tiles),
+      tiles: Array.isArray(response?.tiles) ? response.tiles : []
+    };
   }
 
   function replaceDownloadedFrame(frame) {
@@ -1436,9 +1439,16 @@
     });
   }
 
-  async function mapRerollFromNewFlowTile(frame, promptIndex, beforeTiles, captureToken) {
-    const afterTiles = await scanFlowTilesForReroll();
-    const newTile = rerollTileFallback.chooseNewTile(beforeTiles, afterTiles);
+  async function mapRerollFromNewFlowTile(frame, promptIndex, beforeSnapshot, captureToken) {
+    const afterSnapshot = await scanFlowTilesForReroll();
+    if (!beforeSnapshot?.valid || !afterSnapshot.valid) {
+      log('Re-roll fallback skipped because the Flow tile snapshot was unavailable.');
+      return false;
+    }
+    const newTile = rerollTileFallback.chooseNewTile(
+      beforeSnapshot.tiles,
+      afterSnapshot.tiles
+    );
     if (!newTile?.imgSrc) {
       log('Re-roll fallback could not identify a new Flow tile for Frame #' + frame.frame_number);
       return false;
@@ -1979,7 +1989,7 @@ function createSingleCharacter(charId) {
       return;
     }
 
-    const rerollTilesBefore = await scanFlowTilesForReroll();
+    const rerollTileSnapshotBefore = await scanFlowTilesForReroll();
     frame.reroll_in_progress = Boolean(rerollHistory.begin(frame));
     frame.status = 'generating';
     frame.progress = 5;
@@ -2038,7 +2048,7 @@ function createSingleCharacter(charId) {
         ok = await mapRerollFromNewFlowTile(
           frame,
           idx,
-          rerollTilesBefore,
+          rerollTileSnapshotBefore,
           captureToken
         );
       }
@@ -2390,6 +2400,13 @@ function createSingleCharacter(charId) {
         const frame = currentSpec.visuals[idx];
         if (msg.captureToken && msg.captureToken !== frame.reroll_capture_token) {
           log('Ignored a stale re-roll image capture for Frame #' + frame.frame_number);
+          return false;
+        }
+        const previousRerollUrl = frame.reroll_pending_previous?.result_url;
+        if (frame.reroll_in_progress && previousRerollUrl &&
+            rerollTileFallback.normalizeTileUrl(msg.mediaUrl) ===
+              rerollTileFallback.normalizeTileUrl(previousRerollUrl)) {
+          log('Ignored the previous image while waiting for a new re-roll result for Frame #' + frame.frame_number);
           return false;
         }
         const duplicateIndex = msg.mediaUrl

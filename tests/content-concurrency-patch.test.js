@@ -35,14 +35,15 @@ assert.equal(
   'the submitter must wait when the active-generation limit is reached'
 );
 assert.equal(
-  source.includes('e.outputItemsBeforeSubmit=o(n.selectors.outputItems).toArray()'),
+  source.includes('const beforeOutputItems=o(n.selectors.outputItems)') &&
+    source.includes('outputItemCountBeforeSubmit=beforeOutputItems.length'),
   true,
-  'each submission must snapshot existing Flow tiles'
+  'each submission must snapshot stable Flow tile state'
 );
 assert.equal(
-  source.includes('findIndex(t=>!(e.outputItemsBeforeSubmit||[]).includes(t))'),
+  source.includes('beforeResourceUrls=new Set(e.outputResourceUrlsBeforeSubmit||[])'),
   true,
-  'result lookup must select a newly created Flow tile'
+  'result lookup must identify a tile whose stable state was absent before submission'
 );
 assert.equal(
   source.includes('data-veo-prompt-key') && source.includes('e.startsWith("veo_prompt_")'),
@@ -117,5 +118,21 @@ assert.equal(
     panelSource.includes('if (keepAliveTimer) clearInterval(keepAliveTimer)'),
   true,
   'the side panel must maintain one recoverable keep-alive timer'
+);
+assert.equal(
+  source.includes('outputItemCountBeforeSubmit=beforeOutputItems.length') &&
+    source.includes('outputResourceUrlsBeforeSubmit=beforeOutputItems.toArray()'),
+  true,
+  'tile matching must snapshot stable counts and resource URLs before submission'
+);
+assert.equal(
+  source.includes('findIndex(t=>!(e.outputItemsBeforeSubmit||[]).includes(t))'),
+  false,
+  'tile matching must not use DOM node identity because Flow re-renders old cards'
+);
+assert.equal(
+  source.includes('priorResourceUrls.has(normalizeTileResourceUrl(e.src))'),
+  true,
+  'resources that existed before the prompt must be excluded from capture'
 );
 console.log('content concurrency patch tests passed');

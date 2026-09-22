@@ -23,3 +23,5 @@ The top-level JSON field max_parallel_generations controls the maximum active in
 11. The image model remains Nano Banana 2.
 12. After Flow accepts a prompt, a tile with no percentage and no media remains active until media appears or the full generation timeout expires.
 13. While the side panel is open, a named keep-alive port and periodic ping keep the extension service worker available through submission, capture, mapping, and download.
+14. Tile matching uses the pre-submit tile count and normalized media URLs; it does not depend on DOM node identity because Flow may re-render existing cards.
+15. Media URLs present before submission are excluded from completion and download, even if Flow exposes them inside the selected tile.

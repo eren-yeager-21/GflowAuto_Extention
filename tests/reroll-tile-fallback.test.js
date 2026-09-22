@@ -17,5 +17,12 @@ assert.equal(fallback.chooseNewTile([oldTile], [newTile, oldTile]).imgSrc, newTi
 assert.equal(fallback.chooseNewTile([], [newTile]).imgSrc, newTile.imgSrc);
 assert.equal(fallback.chooseNewTile([oldTile], [{ ...oldTile, title: 'Renamed old frame' }]), null);
 assert.equal(fallback.chooseNewTile([oldTile], [oldTile]), null);
+assert.equal(
+  fallback.chooseNewTile(
+    [{ ...oldTile, imgSrc: 'https://example.test/old.png?token=before' }],
+    [{ ...oldTile, imgSrc: 'https://example.test/old.png?token=after' }]
+  ),
+  null
+);
 
 console.log('reroll tile fallback tests passed');
