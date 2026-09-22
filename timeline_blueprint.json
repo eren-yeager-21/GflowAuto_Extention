@@ -35,9 +35,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_001",
           "frame": "frame_001.png",
-          "frame_file": "frame_001.png",
           "frame_number": 1,
           "duration": 1.0,
           "duration_weight": 0.4,
@@ -46,7 +44,6 @@
           "timeline_start": 0.0,
           "timeline_end": 1.0,
           "script_fragment": "The last time you were bored,",
-          "action": "The stick figure sits relaxed and slumped in the corner of a modern plush teal couch: head tilted comfortably against the backrest, torso slouched, left arm resting naturally along the sofa armrest, right arm resting flat on the cushion beside its hip with a single clean elbow bend, straight proportional stick legs resting on bright honey-oak hardwood floors",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -54,9 +51,7 @@
           }
         },
         {
-          "frame_id": "frame_002",
           "frame": "frame_002.png",
-          "frame_file": "frame_002.png",
           "frame_number": 2,
           "duration": 0.8,
           "duration_weight": 0.32,
@@ -65,7 +60,6 @@
           "timeline_start": 1.0,
           "timeline_end": 1.8,
           "script_fragment": "you reached for your phone",
-          "action": "Continuous scene in the bright cozy lavender living room: performing a natural reaching action from the teal couch, the stick figure scoots forward to the front edge of the seat cushion and leans its upper torso and head forward over its knees toward the coffee table",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -73,9 +67,7 @@
           }
         },
         {
-          "frame_id": "frame_003",
           "frame": "frame_003.png",
-          "frame_file": "frame_003.png",
           "frame_number": 3,
           "duration": 0.7,
           "duration_weight": 0.28,
@@ -84,7 +76,6 @@
           "timeline_start": 1.8,
           "timeline_end": 2.5,
           "script_fragment": "without even deciding to.",
-          "action": "Continuous scene: close-up dynamic camera angle focused on the blonde wood coffee table; the stick figure's torso is leaned closely forward from the teal couch, its thin minimalist black stick arm and simple cartoon mitten hand grasping the sleek smartphone beside the ceramic mug",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -107,9 +98,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_004",
           "frame": "frame_004.png",
-          "frame_file": "frame_004.png",
           "frame_number": 4,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -118,7 +107,6 @@
           "timeline_start": 2.5,
           "timeline_end": 3.5,
           "script_fragment": "Music,",
-          "action": "Continuous scene in the bright airy living room: the stick figure sits upright on the teal couch holding the smartphone up before its chest with both thin proportional black stick arms and simple cartoon mitten hands, elbows bent naturally at sides; a bold flat hand-drawn musical eighth-note with bright yellow acoustic soundwave rings pops out above the phone display",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -126,9 +114,7 @@
           }
         },
         {
-          "frame_id": "frame_005",
           "frame": "frame_005.png",
-          "frame_file": "frame_005.png",
           "frame_number": 5,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -137,7 +123,6 @@
           "timeline_start": 3.5,
           "timeline_end": 4.5,
           "script_fragment": "a game,",
-          "action": "Continuous scene on the teal couch in the bright living room: holding the smartphone steadily with both hands at chest height with standard proportional black stick arms and cartoon mitten hands, simple black thumbs tapping on the screen as a clean flat retro gaming D-pad controller icon with colorful directional arrows pops up above the display",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -145,9 +130,7 @@
           }
         },
         {
-          "frame_id": "frame_006",
           "frame": "frame_006.png",
-          "frame_file": "frame_006.png",
           "frame_number": 6,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -156,7 +139,6 @@
           "timeline_start": 4.5,
           "timeline_end": 5.5,
           "script_fragment": "something to watch.",
-          "action": "Continuous scene: the stick figure reclines comfortably back into the teal couch cushions with head resting against the corner throw pillow, holding the phone horizontally before its face with both simple black stick hands, elbows bent naturally at chest, stick legs resting comfortably on the seat cushion, as a crisp flat red video play triangle icon glows on the screen",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -179,9 +161,7 @@
       "visual_count": 6,
       "visuals": [
         {
-          "frame_id": "frame_007",
           "frame": "frame_007.png",
-          "frame_file": "frame_007.png",
           "frame_number": 7,
           "duration": 1.0,
           "duration_weight": 0.125,
@@ -190,7 +170,6 @@
           "timeline_start": 5.5,
           "timeline_end": 6.5,
           "script_fragment": "That reach is one of the oldest things",
-          "action": "Continuous medium-wide shot in the bright lavender living room: the stick figure remains lounging on the teal couch, hypnotized by the soft cyan smartphone glow in its simple black stick hands, while the camera pulls back slightly to frame the cozy room, wooden coffee table, and warm open doorway",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -198,9 +177,7 @@
           }
         },
         {
-          "frame_id": "frame_008",
           "frame": "frame_008.png",
-          "frame_file": "frame_008.png",
           "frame_number": 8,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -209,7 +186,6 @@
           "timeline_start": 6.5,
           "timeline_end": 8.0,
           "script_fragment": "about 40,000 years ago,",
-          "action": "Minimalist historical title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -217,9 +193,7 @@
           }
         },
         {
-          "frame_id": "frame_009",
           "frame": "frame_009.png",
-          "frame_file": "frame_009.png",
           "frame_number": 9,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -228,7 +202,6 @@
           "timeline_start": 8.0,
           "timeline_end": 9.5,
           "script_fragment": "a human sat by a fire",
-          "action": "Upper Paleolithic male stick figure with circular white head, simple dot eyes, shaggy brown hair, and one-shoulder brown fur tunic sits cross-legged on a woven straw mat on light golden sand (#F5E6C8) beside a crackling campfire",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -236,9 +209,7 @@
           }
         },
         {
-          "frame_id": "frame_010",
           "frame": "frame_010.png",
-          "frame_file": "frame_010.png",
           "frame_number": 10,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -247,7 +218,6 @@
           "timeline_start": 9.5,
           "timeline_end": 11.0,
           "script_fragment": "with the same restless itch you get",
-          "action": "Continuous scene at the Paleolithic campfire: the early human stick figure sits upright on the straw mat, fidgeting with restless energy; its white head tilts with an impatient, bored deadpan expression, while its thin proportional black stick arms and cartoon mitten hands tap nervously on its knees with a single clean elbow bend",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -255,9 +225,7 @@
           }
         },
         {
-          "frame_id": "frame_011",
           "frame": "frame_011.png",
-          "frame_file": "frame_011.png",
           "frame_number": 11,
           "duration": 1.0,
           "duration_weight": 0.125,
@@ -266,7 +234,6 @@
           "timeline_start": 11.0,
           "timeline_end": 12.0,
           "script_fragment": "and no phone,",
-          "action": "Continuous scene at the Paleolithic campfire: the early human stick figure holds both thin black stick arms outward with open cartoon mitten palms in an exaggerated, empty shrug gesture: looking down at its completely empty hands, emphasizing having nothing to hold",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -274,9 +241,7 @@
           }
         },
         {
-          "frame_id": "frame_012",
           "frame": "frame_012.png",
-          "frame_file": "frame_012.png",
           "frame_number": 12,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -285,7 +250,6 @@
           "timeline_start": 12.0,
           "timeline_end": 13.5,
           "script_fragment": "and nothing invented yet to kill it.",
-          "action": "Visual metaphor on a clean bright cream paper background (#FAF7EE): a hand-drawn modern black smartphone is centered in the frame, boldly covered by a giant thick red 'X' and slash icon",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -308,9 +272,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_013",
           "frame": "frame_013.png",
-          "frame_file": "frame_013.png",
           "frame_number": 13,
           "duration": 1.0,
           "duration_weight": 0.5,
@@ -319,7 +281,6 @@
           "timeline_start": 13.5,
           "timeline_end": 14.5,
           "script_fragment": "So, they made their own fun from scratch.",
-          "action": "Early human male stick figure with circular white head and shaggy brown hair kneels on light golden sand (#F5E6C8) under a clear starry night sky, a sudden spark of inspiration appearing as a bright yellow glowing star icon beside its head",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -327,9 +288,7 @@
           }
         },
         {
-          "frame_id": "frame_014",
           "frame": "frame_014.png",
-          "frame_file": "frame_014.png",
           "frame_number": 14,
           "duration": 1.0,
           "duration_weight": 0.5,
@@ -338,7 +297,6 @@
           "timeline_start": 14.5,
           "timeline_end": 15.5,
           "script_fragment": "So, they made their own fun from scratch.",
-          "action": "Close-up of the early human stick figure sitting cross-legged on clean golden sand: its thin black stick arms and cartoon mitten hands hold a dry hollow wooden branch and a rounded river stone, experimenting playfully by tapping them together",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -361,9 +319,7 @@
       "visual_count": 5,
       "visuals": [
         {
-          "frame_id": "frame_015",
           "frame": "frame_015.png",
-          "frame_file": "frame_015.png",
           "frame_number": 15,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -372,7 +328,6 @@
           "timeline_start": 15.5,
           "timeline_end": 16.5,
           "script_fragment": "And what they came up with",
-          "action": "Continuous at the campfire: the early human stick figure grins with wide happy dot eyes, rhythmically tapping two sticks against a hollow log; small bright yellow musical sound shockwaves pop outward with each tap into the warm firelight",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -380,9 +335,7 @@
           }
         },
         {
-          "frame_id": "frame_016",
           "frame": "frame_016.png",
-          "frame_file": "frame_016.png",
           "frame_number": 16,
           "duration": 1.5,
           "duration_weight": 0.25,
@@ -391,7 +344,6 @@
           "timeline_start": 16.5,
           "timeline_end": 18.0,
           "script_fragment": "on those long empty nights",
-          "action": "Clean 3-panel split layout on pure white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -399,9 +351,7 @@
           }
         },
         {
-          "frame_id": "frame_017",
           "frame": "frame_017.png",
-          "frame_file": "frame_017.png",
           "frame_number": 17,
           "duration": 1.5,
           "duration_weight": 0.25,
@@ -410,7 +360,6 @@
           "timeline_start": 18.0,
           "timeline_end": 19.5,
           "script_fragment": "became music,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -418,9 +367,7 @@
           }
         },
         {
-          "frame_id": "frame_018",
           "frame": "frame_018.png",
-          "frame_file": "frame_018.png",
           "frame_number": 18,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -429,7 +376,6 @@
           "timeline_start": 19.5,
           "timeline_end": 20.5,
           "script_fragment": "games,",
-          "action": "Clean educational prop card on bright warm cream paper canvas (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -437,9 +383,7 @@
           }
         },
         {
-          "frame_id": "frame_019",
           "frame": "frame_019.png",
-          "frame_file": "frame_019.png",
           "frame_number": 19,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -448,7 +392,6 @@
           "timeline_start": 20.5,
           "timeline_end": 21.5,
           "script_fragment": "and sex.",
-          "action": "Bright, cheerful daytime Paleolithic setting: two early human stick figures (one male with shaggy hair, one female with wavy hair and bone bead) sit together on a woven straw mat beside a sparkling blue stream under a bright cyan daytime sky (#A0D2EB) and leafy green acacia trees",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -471,9 +414,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_020",
           "frame": "frame_020.png",
-          "frame_file": "frame_020.png",
           "frame_number": 20,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -482,7 +423,6 @@
           "timeline_start": 21.5,
           "timeline_end": 23.0,
           "script_fragment": "And one of those three quietly turned into a business",
-          "action": "Skeptical narrator stick figure avatar with white circular head, arched cocked eyebrow, and a knowing witty smirk stands against a clean warm cream background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -490,9 +430,7 @@
           }
         },
         {
-          "frame_id": "frame_021",
           "frame": "frame_021.png",
-          "frame_file": "frame_021.png",
           "frame_number": 21,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -501,7 +439,6 @@
           "timeline_start": 23.0,
           "timeline_end": 24.5,
           "script_fragment": "we still call the oldest profession on Earth.",
-          "action": "Title concept card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -524,9 +461,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_022",
           "frame": "frame_022.png",
-          "frame_file": "frame_022.png",
           "frame_number": 22,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -535,7 +470,6 @@
           "timeline_start": 24.5,
           "timeline_end": 26.0,
           "script_fragment": "It runs from a bone flute in a freezing cave",
-          "action": "Bright sunlit Classical Antiquity setting: interior of a Roman Pompeii lupanar tavern with pale weathered limestone masonry walls, warm terracotta floor tiles, draped crimson linen curtains, and bright Mediterranean daylight pouring through an open stone archway",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -543,9 +477,7 @@
           }
         },
         {
-          "frame_id": "frame_023",
           "frame": "frame_023.png",
-          "frame_file": "frame_023.png",
           "frame_number": 23,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -554,7 +486,6 @@
           "timeline_start": 26.0,
           "timeline_end": 27.0,
           "script_fragment": "runs from a bone flute in a freezing cave",
-          "action": "Inside the pale limestone cave: early human male stick figure sits on clean golden sand beside bright golden-orange campfire flames (#FFA028), raising the pale carved bone flute with both thin black stick arms toward mouth, testing the first musical note",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -562,9 +493,7 @@
           }
         },
         {
-          "frame_id": "frame_024",
           "frame": "frame_024.png",
-          "frame_file": "frame_024.png",
           "frame_number": 24,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -573,7 +502,6 @@
           "timeline_start": 27.0,
           "timeline_end": 28.5,
           "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
-          "action": "Close-up macro view of the ancient pale Pompeii Roman plaster wall in bright Mediterranean daylight: authentic historical Roman graffiti scratched into the stucco showing tallies and numerals 'II AS' and 'VI AS' beside a simple line-art coin purse",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -596,9 +524,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_025",
           "frame": "frame_025.png",
-          "frame_file": "frame_025.png",
           "frame_number": 25,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -607,7 +533,6 @@
           "timeline_start": 28.5,
           "timeline_end": 30.0,
           "script_fragment": "To get any of this,",
-          "action": "Expressive stick figure narrator avatar with white circular head and raised eyebrow stands against a clean bright warm cream background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -615,9 +540,7 @@
           }
         },
         {
-          "frame_id": "frame_026",
           "frame": "frame_026.png",
-          "frame_file": "frame_026.png",
           "frame_number": 26,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -626,7 +549,6 @@
           "timeline_start": 30.0,
           "timeline_end": 31.5,
           "script_fragment": "you have to kill one myth first",
-          "action": "Continuous scene: the expressive stick figure narrator with a determined smirk raises a thin black stick arm holding a clean cartoon sword, slashing boldly through a giant floating red word 'MYTH' on the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -634,9 +556,7 @@
           }
         },
         {
-          "frame_id": "frame_027",
           "frame": "frame_027.png",
-          "frame_file": "frame_027.png",
           "frame_number": 27,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -645,7 +565,6 @@
           "timeline_start": 31.5,
           "timeline_end": 33.0,
           "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
-          "action": "Conceptual graphic on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -668,9 +587,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_028",
           "frame": "frame_028.png",
-          "frame_file": "frame_028.png",
           "frame_number": 28,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -679,7 +596,6 @@
           "timeline_start": 33.0,
           "timeline_end": 34.5,
           "script_fragment": "The myth is that survival never stopped.",
-          "action": "Paleolithic male stick figure with circular white head, shaggy brown hair, and one-shoulder fur tunic stands tall and relaxed holding a flint spear on an expansive, sunny golden savannah grassland (#F5E6C8) under a bright clear cyan daytime sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -687,9 +603,7 @@
           }
         },
         {
-          "frame_id": "frame_029",
           "frame": "frame_029.png",
-          "frame_file": "frame_029.png",
           "frame_number": 29,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -698,7 +612,6 @@
           "timeline_start": 34.5,
           "timeline_end": 36.0,
           "script_fragment": "Every hour spent hunting, gathering, running from things.",
-          "action": "Split comparison showing the common misconception: a Neolithic farmer stick figure hunched painfully over endless tilled crop furrows under a pale daytime sky, sweating under exhausting physical toil with a hoe",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -706,9 +619,7 @@
           }
         },
         {
-          "frame_id": "frame_030",
           "frame": "frame_030.png",
-          "frame_file": "frame_030.png",
           "frame_number": 30,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -717,7 +628,6 @@
           "timeline_start": 36.0,
           "timeline_end": 37.5,
           "script_fragment": "Total exhaustion, collapse, repeat.",
-          "action": "The early human hunter-gatherer male stick figure rests comfortably on golden sand (#F5E6C8) beside a sparkling blue stream, leaning back against a smooth grey boulder with arms crossed behind head, smiling peacefully in the warm golden afternoon daylight",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -740,9 +650,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_031",
           "frame": "frame_031.png",
-          "frame_file": "frame_031.png",
           "frame_number": 31,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -751,7 +659,6 @@
           "timeline_start": 37.5,
           "timeline_end": 39.0,
           "script_fragment": "It feels like it must be true.",
-          "action": "Skeptical narrator stick figure with white circular head and deadpan expression stands on clean warm cream background (#FAF7EE), stroking its chin thoughtfully with a thin black stick hand beneath a large floating hand-drawn question mark",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -759,9 +666,7 @@
           }
         },
         {
-          "frame_id": "frame_032",
           "frame": "frame_032.png",
-          "frame_file": "frame_032.png",
           "frame_number": 32,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -770,7 +675,6 @@
           "timeline_start": 39.0,
           "timeline_end": 40.5,
           "script_fragment": "It's completely backwards.",
-          "action": "Continuous scene: the narrator stick figure smirks knowingly with an arched eyebrow, thrusting both stick arms outward as the word 'BACKWARDS' spins 180 degrees upside down in bold black and red letters across the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -793,9 +697,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_033",
           "frame": "frame_033.png",
-          "frame_file": "frame_033.png",
           "frame_number": 33,
           "duration": 1.5,
           "duration_weight": 0.2727,
@@ -804,7 +706,6 @@
           "timeline_start": 40.5,
           "timeline_end": 42.0,
           "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
-          "action": "Academic title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -812,9 +713,7 @@
           }
         },
         {
-          "frame_id": "frame_034",
           "frame": "frame_034.png",
-          "frame_file": "frame_034.png",
           "frame_number": 34,
           "duration": 2.0,
           "duration_weight": 0.3636,
@@ -823,7 +722,6 @@
           "timeline_start": 42.0,
           "timeline_end": 44.0,
           "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
-          "action": "Expansive bright Kalahari savannah under a clear bright cyan daytime sky (#A0D2EB): anthropologist stick figure wearing a tan safari helmet and shoulder satchel walks leisurely alongside a Ju/'hoansi hunter stick figure carrying a spear across bright golden sand (#F5E6C8) and light green scrub grass",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -831,9 +729,7 @@
           }
         },
         {
-          "frame_id": "frame_035",
           "frame": "frame_035.png",
-          "frame_file": "frame_035.png",
           "frame_number": 35,
           "duration": 2.0,
           "duration_weight": 0.3636,
@@ -842,7 +738,6 @@
           "timeline_start": 44.0,
           "timeline_end": 46.0,
           "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
-          "action": "Inside a bright sunlit canvas field tent under acacia shade: anthropologist stick figure sits at a blonde wood camp desk, holding a stopwatch in one simple black stick hand and writing in a field journal with the other",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -865,9 +760,7 @@
       "visual_count": 4,
       "visuals": [
         {
-          "frame_id": "frame_036",
           "frame": "frame_036.png",
-          "frame_file": "frame_036.png",
           "frame_number": 36,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -876,7 +769,6 @@
           "timeline_start": 46.0,
           "timeline_end": 48.0,
           "script_fragment": "He didn't guess. He timed them.",
-          "action": "Medium-wide shot on the sunny golden savannah: a Ju/'hoansi hunter walks leisurely across the bright grassland under a clear cyan sky (#A0D2EB), while a stylized hand-drawn stopwatch icon ticks rhythmically in the upper corner of the frame",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -884,9 +776,7 @@
           }
         },
         {
-          "frame_id": "frame_037",
           "frame": "frame_037.png",
-          "frame_file": "frame_037.png",
           "frame_number": 37,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -895,7 +785,6 @@
           "timeline_start": 48.0,
           "timeline_end": 50.0,
           "script_fragment": "Every hour of work hunting, gathering, making tools.",
-          "action": "Clean bright ivory drafting parchment background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -903,9 +792,7 @@
           }
         },
         {
-          "frame_id": "frame_038",
           "frame": "frame_038.png",
-          "frame_file": "frame_038.png",
           "frame_number": 38,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -914,7 +801,6 @@
           "timeline_start": 50.0,
           "timeline_end": 52.0,
           "script_fragment": "The total came out to about fifteen hours a week.",
-          "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): on the 24-hour chronometer dial, a bright golden-yellow pie wedge highlights a small 4-hour section per day, labeled with clean uppercase hand-lettered text: 'WORK: 15 HOURS / WEEK' with a small neat pointing arrow",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -922,9 +808,7 @@
           }
         },
         {
-          "frame_id": "frame_039",
           "frame": "frame_039.png",
-          "frame_file": "frame_039.png",
           "frame_number": 39,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -933,7 +817,6 @@
           "timeline_start": 52.0,
           "timeline_end": 54.0,
           "script_fragment": "Fifteen.",
-          "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): the rest of the 24-hour dial fills with a serene, expansive soft cyan-blue fill labeled 'FREE TIME & LEISURE', while the bold black number '15 HOURS' pulses with clean yellow accent highlights",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -956,9 +839,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_040",
           "frame": "frame_040.png",
-          "frame_file": "frame_040.png",
           "frame_number": 40,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -967,7 +848,6 @@
           "timeline_start": 54.0,
           "timeline_end": 56.0,
           "script_fragment": "A modern full-time job is forty,",
-          "action": "The early human hunter stick figure wakes leisurely on a woven straw mat on light golden sand (#F5E6C8) beside glowing campfire stones, raising both stick arms in a wide, joyful morning stretch toward a bright sunny pastel dawn sky (#A0D2EB) filled with warm peach clouds",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -975,9 +855,7 @@
           }
         },
         {
-          "frame_id": "frame_041",
           "frame": "frame_041.png",
-          "frame_file": "frame_041.png",
           "frame_number": 41,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -986,7 +864,6 @@
           "timeline_start": 56.0,
           "timeline_end": 58.0,
           "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
-          "action": "Two early human stick figures sit relaxed together in the shade of a leafy green acacia tree on light golden ground (#F5E6C8), sharing a wooden bowl of fresh mongongo nuts and laughing in bright sunny daylight under a clear cyan sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1009,9 +886,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_042",
           "frame": "frame_042.png",
-          "frame_file": "frame_042.png",
           "frame_number": 42,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1020,7 +895,6 @@
           "timeline_start": 58.0,
           "timeline_end": 60.0,
           "script_fragment": "The people we pictured as desperate survivors were working",
-          "action": "The early human hunter walks with relaxed, unhurried strides across the sunny golden savannah (#F5E6C8), spear resting balanced lightly across shoulders, smiling in the warm morning sun",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1028,9 +902,7 @@
           }
         },
         {
-          "frame_id": "frame_043",
           "frame": "frame_043.png",
-          "frame_file": "frame_043.png",
           "frame_number": 43,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1039,7 +911,6 @@
           "timeline_start": 60.0,
           "timeline_end": 62.0,
           "script_fragment": "the equivalent of two days a week.",
-          "action": "Low wide camera angle: the hunter pauses on a gentle golden crest, gazing out across the sunny expansive savannah wilderness with birds soaring in the bright blue sky above",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1047,9 +918,7 @@
           }
         },
         {
-          "frame_id": "frame_044",
           "frame": "frame_044.png",
-          "frame_file": "frame_044.png",
           "frame_number": 44,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1058,7 +927,6 @@
           "timeline_start": 62.0,
           "timeline_end": 64.0,
           "script_fragment": "Two. Days.",
-          "action": "Bold typographical title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1081,9 +949,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_045",
           "frame": "frame_045.png",
-          "frame_file": "frame_045.png",
           "frame_number": 45,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1092,7 +958,6 @@
           "timeline_start": 64.0,
           "timeline_end": 66.0,
           "script_fragment": "The rest of that time belonged entirely to them.",
-          "action": "Close-up of the early human stick figure lying peacefully on its back in soft golden grass under a leafy acacia branch, chewing a grass blade, looking up happily at fluffy white clouds in the bright cyan sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1100,9 +965,7 @@
           }
         },
         {
-          "frame_id": "frame_046",
           "frame": "frame_046.png",
-          "frame_file": "frame_046.png",
           "frame_number": 46,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1111,7 +974,6 @@
           "timeline_start": 66.0,
           "timeline_end": 68.0,
           "script_fragment": "And they weren't spending it staring at walls.",
-          "action": "Communal campfire circle on clean golden sand (#F5E6C8) under a soft pastel twilight sky: five early human stick figures sit in a circle, actively talking, laughing, and gesturing with thin black stick arms around cheerful golden-orange campfire flames (#FFA028)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1119,9 +981,7 @@
           }
         },
         {
-          "frame_id": "frame_047",
           "frame": "frame_047.png",
-          "frame_file": "frame_047.png",
           "frame_number": 47,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1130,7 +990,6 @@
           "timeline_start": 68.0,
           "timeline_end": 70.0,
           "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
-          "action": "Medium shot at the campfire: a modern narrator stick figure avatar sits comfortably beside the ancient early humans on golden sand, gesturing conversationally toward the cheerful golden campfire flames with open stick hands",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1153,9 +1012,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_048",
           "frame": "frame_048.png",
-          "frame_file": "frame_048.png",
           "frame_number": 48,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1164,7 +1021,6 @@
           "timeline_start": 70.0,
           "timeline_end": 72.0,
           "script_fragment": "Here is what happens when you take a human brain",
-          "action": "In a stylized bright studio setting on clean warm cream background (#FAF7EE): modern stick figure narrator stands beside a large hand-drawn 2D vector brain illustration that pulses with bright yellow electric spark lines",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1172,9 +1028,7 @@
           }
         },
         {
-          "frame_id": "frame_049",
           "frame": "frame_049.png",
-          "frame_file": "frame_049.png",
           "frame_number": 49,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1183,7 +1037,6 @@
           "timeline_start": 72.0,
           "timeline_end": 74.0,
           "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
-          "action": "Centered anatomical diagram on clean warm cream background (#FAF7EE): close-up of the stylized 2D brain cross-section, showing clean colorful internal gears, glowing yellow problem-solving nodes, and electric thought sparks",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1191,9 +1044,7 @@
           }
         },
         {
-          "frame_id": "frame_050",
           "frame": "frame_050.png",
-          "frame_file": "frame_050.png",
           "frame_number": 50,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1202,7 +1053,6 @@
           "timeline_start": 74.0,
           "timeline_end": 76.0,
           "script_fragment": "and you give it six empty hours by a fire every single night.",
-          "action": "Continuous in the studio: three colorful conceptual arrows branch out from the glowing brain diagram to three clean hand-drawn icons: a bone flute, carved dice, and painted cave art on the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1225,9 +1075,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_051",
           "frame": "frame_051.png",
-          "frame_file": "frame_051.png",
           "frame_number": 51,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -1236,7 +1084,6 @@
           "timeline_start": 76.0,
           "timeline_end": 78.0,
           "script_fragment": "It doesn't sit quietly.",
-          "action": "On clean warm cream background (#FAF7EE): the narrator stick figure paces back and forth with an energetic, restless stride, thin black stick arms swinging naturally with single clean elbow bends, dot eyes alert and thinking intensely",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1244,9 +1091,7 @@
           }
         },
         {
-          "frame_id": "frame_052",
           "frame": "frame_052.png",
-          "frame_file": "frame_052.png",
           "frame_number": 52,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -1255,7 +1100,6 @@
           "timeline_start": 78.0,
           "timeline_end": 80.0,
           "script_fragment": "It can't.",
-          "action": "Continuous scene: the narrator stick figure halts, throwing both black stick arms upward in an emphatic gesture of undeniable certainty, eyes wide and deadpan against the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1278,9 +1122,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_053",
           "frame": "frame_053.png",
-          "frame_file": "frame_053.png",
           "frame_number": 53,
           "duration": 2.0,
           "duration_weight": 0.4,
@@ -1289,7 +1131,6 @@
           "timeline_start": 80.0,
           "timeline_end": 82.0,
           "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
-          "action": "Continuous scene: the expressive narrator stick figure leans forward with an arched cocked eyebrow and knowing smirk, tapping its white circular temple with a thin black index finger on clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1297,9 +1138,7 @@
           }
         },
         {
-          "frame_id": "frame_054",
           "frame": "frame_054.png",
-          "frame_file": "frame_054.png",
           "frame_number": 54,
           "duration": 3.0,
           "duration_weight": 0.6,
@@ -1308,7 +1147,6 @@
           "timeline_start": 82.0,
           "timeline_end": 85.0,
           "script_fragment": "It looks around. It fidgets. It plays.",
-          "action": "Panoramic night scene: early human male stick figure sits cross-legged on clean golden sand beside bright golden-orange campfire flames (#FFA028) under an expansive, clear midnight-indigo sky filled with twinkling star constellations",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1331,9 +1169,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_055",
           "frame": "frame_055.png",
-          "frame_file": "frame_055.png",
           "frame_number": 55,
           "duration": 3.0,
           "duration_weight": 0.4615,
@@ -1342,7 +1178,6 @@
           "timeline_start": 85.0,
           "timeline_end": 88.0,
           "script_fragment": "Night after night, season after season, thousands of years before the first city,",
-          "action": "Vast minimalist night aerial landscape: five small warm golden campfire circles flicker across a clean desert river valley floor beneath a clear, brilliant starry indigo sky and gentle rolling hill silhouettes",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1350,9 +1185,7 @@
           }
         },
         {
-          "frame_id": "frame_056",
           "frame": "frame_056.png",
-          "frame_file": "frame_056.png",
           "frame_number": 56,
           "duration": 1.5,
           "duration_weight": 0.2308,
@@ -1361,7 +1194,6 @@
           "timeline_start": 88.0,
           "timeline_end": 89.5,
           "script_fragment": "Restless brains, capable hands, and empty time",
-          "action": "Inside a sheltered pale limestone cave: early human stick figure with shaggy brown hair and circular white head kneels comfortably on a woven fur pelt on clean golden sand beside glowing campfire embers and pale river stones",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -1369,9 +1201,7 @@
           }
         },
         {
-          "frame_id": "frame_057",
           "frame": "frame_057.png",
-          "frame_file": "frame_057.png",
           "frame_number": 57,
           "duration": 2.0,
           "duration_weight": 0.3077,
@@ -1380,7 +1210,6 @@
           "timeline_start": 89.5,
           "timeline_end": 91.5,
           "script_fragment": "alltogether in the firelight. That combination is an engine.",
-          "action": "Continuous in the pale limestone cave: close-up macro action view of the carving process",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1403,9 +1232,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_058",
           "frame": "frame_058.png",
-          "frame_file": "frame_058.png",
           "frame_number": 58,
           "duration": 2.5,
           "duration_weight": 0.625,
@@ -1414,7 +1241,6 @@
           "timeline_start": 91.5,
           "timeline_end": 94.0,
           "script_fragment": "It has to make something.",
-          "action": "Continuous in the pale limestone cave: close-up action view of the flint point chiseling into the pale bone surface",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1422,9 +1248,7 @@
           }
         },
         {
-          "frame_id": "frame_059",
           "frame": "frame_059.png",
-          "frame_file": "frame_059.png",
           "frame_number": 59,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -1433,7 +1257,6 @@
           "timeline_start": 94.0,
           "timeline_end": 95.5,
           "script_fragment": "It has to make something.",
-          "action": "Continuous in the cave: side profile of the early human stick figure with minimalist circular white head, simple dot eyes, and shaggy brown hair, blowing a gentle puff of breath across the carved bone resting in its simple black cartoon stick hands; tiny stylized dust particles catch bright warm campfire light against the pale limestone cave interior",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1456,9 +1279,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_060",
           "frame": "frame_060.png",
-          "frame_file": "frame_060.png",
           "frame_number": 60,
           "duration": 1.5,
           "duration_weight": 0.4286,
@@ -1467,7 +1288,6 @@
           "timeline_start": 95.5,
           "timeline_end": 97.0,
           "script_fragment": "And the first thing it made was music.",
-          "action": "Dramatic concept title card: bold hand-lettered brushwork text 'MUSIC' in warm amber and black centered on a clean pale limestone rock texture with soft warm campfire glow",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -1475,9 +1295,7 @@
           }
         },
         {
-          "frame_id": "frame_061",
           "frame": "frame_061.png",
-          "frame_file": "frame_061.png",
           "frame_number": 61,
           "duration": 2.0,
           "duration_weight": 0.5714,
@@ -1486,7 +1304,6 @@
           "timeline_start": 97.0,
           "timeline_end": 99.0,
           "script_fragment": "And the first thing it made was music.",
-          "action": "Continuous on the title card: concentric acoustic soundwave rings in soft bright yellow vibrate outward from behind the 'MUSIC' title like luminous ripples across the clean pale limestone background",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1509,9 +1326,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_062",
           "frame": "frame_062.png",
-          "frame_file": "frame_062.png",
           "frame_number": 62,
           "duration": 3.0,
           "duration_weight": 0.375,
@@ -1520,7 +1335,6 @@
           "timeline_start": 99.0,
           "timeline_end": 102.0,
           "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
-          "action": "Minimalist hand-drawn map of Ice Age Europe on pure clean white background (#FFFFFF): northern ice sheets in soft pastel cyan, southern landmass in pastel leaf green, bold black ink coastlines",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1528,9 +1342,7 @@
           }
         },
         {
-          "frame_id": "frame_063",
           "frame": "frame_063.png",
-          "frame_file": "frame_063.png",
           "frame_number": 63,
           "duration": 3.0,
           "duration_weight": 0.375,
@@ -1539,7 +1351,6 @@
           "timeline_start": 102.0,
           "timeline_end": 105.0,
           "script_fragment": "humans sat in freezing darkness and carved flutes.",
-          "action": "Regional close-up map of southern Germany on pure clean white background (#FFFFFF): clean black border outlines with soft pastel tan and mint fills",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1547,9 +1358,7 @@
           }
         },
         {
-          "frame_id": "frame_064",
           "frame": "frame_064.png",
-          "frame_file": "frame_064.png",
           "frame_number": 64,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -1558,7 +1367,6 @@
           "timeline_start": 105.0,
           "timeline_end": 107.0,
           "script_fragment": "Not rough noisemakers. Instruments.",
-          "action": "Inside the pale limestone cave: early human male stick figure kneels proudly on clean golden sand beside glowing campfire stones, holding up the pale completed bone flute in both thin black stick arms",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1581,9 +1389,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_065",
           "frame": "frame_065.png",
-          "frame_file": "frame_065.png",
           "frame_number": 65,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -1592,7 +1398,6 @@
           "timeline_start": 107.0,
           "timeline_end": 109.0,
           "script_fragment": "The flute is made from the radius bone of a griffon vulture",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1600,9 +1405,7 @@
           }
         },
         {
-          "frame_id": "frame_066",
           "frame": "frame_066.png",
-          "frame_file": "frame_066.png",
           "frame_number": 66,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -1611,7 +1414,6 @@
           "timeline_start": 109.0,
           "timeline_end": 110.0,
           "script_fragment": "with precisely placed holes.",
-          "action": "Close-up action view: thin minimalist black stick-figure hands gently hold the pale bone flute horizontally beside the warm campfire, simple black cartoon fingers testing the precise spacing of the five cleanly drilled circular finger holes",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1619,9 +1421,7 @@
           }
         },
         {
-          "frame_id": "frame_067",
           "frame": "frame_067.png",
-          "frame_file": "frame_067.png",
           "frame_number": 67,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -1630,7 +1430,6 @@
           "timeline_start": 110.0,
           "timeline_end": 111.0,
           "script_fragment": "Five of them.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1653,9 +1452,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_068",
           "frame": "frame_068.png",
-          "frame_file": "frame_068.png",
           "frame_number": 68,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1664,7 +1461,6 @@
           "timeline_start": 111.0,
           "timeline_end": 113.0,
           "script_fragment": "Then they lift it, blow,",
-          "action": "Medium profile shot inside the pale limestone cave: early human male stick figure gently raises the completed bone flute with both thin black stick arms toward its simple line mouth, cartoon mitten fingers hovering poised over the five drilled holes in concentration",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1672,9 +1468,7 @@
           }
         },
         {
-          "frame_id": "frame_069",
           "frame": "frame_069.png",
-          "frame_file": "frame_069.png",
           "frame_number": 69,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1683,7 +1477,6 @@
           "timeline_start": 113.0,
           "timeline_end": 115.0,
           "script_fragment": "and a clear note fills the cave.",
-          "action": "Close-up profile of the early human stick figure blowing softly across the V-notch mouthpiece; eyes closed in peaceful listening concentration as warm firelight glints on cheek, bone flute, and pale limestone cavern stalactites",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1691,9 +1484,7 @@
           }
         },
         {
-          "frame_id": "frame_070",
           "frame": "frame_070.png",
-          "frame_file": "frame_070.png",
           "frame_number": 70,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -1702,7 +1493,6 @@
           "timeline_start": 115.0,
           "timeline_end": 117.0,
           "script_fragment": "and a clear note fills the cave.",
-          "action": "Wide shot of the pale Hohle Fels limestone cave cavern: luminous concentric circular soundwaves in warm soft yellow expand outward from the flute tip, echoing visibly past rock stalactites, glowing stone hearth, and natural rock pillars into the chamber",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1725,9 +1515,7 @@
       "visual_count": 4,
       "visuals": [
         {
-          "frame_id": "frame_071",
           "frame": "frame_071.png",
-          "frame_file": "frame_071.png",
           "frame_number": 71,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -1736,7 +1524,6 @@
           "timeline_start": 117.0,
           "timeline_end": 119.0,
           "script_fragment": "This isn't a guess.",
-          "action": "A knowledgeable stick figure presenter with circular white head, arched cocked eyebrow, and authoritative smile stands against a clean bright warm cream background (#FAF7EE) inside an archaeological research lab, holding up a certified historical excavation report",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1744,9 +1531,7 @@
           }
         },
         {
-          "frame_id": "frame_072",
           "frame": "frame_072.png",
-          "frame_file": "frame_072.png",
           "frame_number": 72,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -1755,7 +1540,6 @@
           "timeline_start": 119.0,
           "timeline_end": 121.0,
           "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
-          "action": "Academic title card on pure clean white background (#FFFFFF): tan safari helmet and trowel icon centered cleanly above bold uppercase black text: '2008 — PROF",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1763,9 +1547,7 @@
           }
         },
         {
-          "frame_id": "frame_073",
           "frame": "frame_073.png",
-          "frame_file": "frame_073.png",
           "frame_number": 73,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -1774,7 +1556,6 @@
           "timeline_start": 121.0,
           "timeline_end": 123.0,
           "script_fragment": "was digging in a cave called Hols",
-          "action": "Modern archaeologist stick figure wearing a tan safari helmet and utility vest kneels in a clean excavation dig trench inside Hohle Fels cave under bright yellow tripod work lights, delicately clearing pale sediment with a pointed trowel and fine brush beside white survey strings",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1782,9 +1563,7 @@
           }
         },
         {
-          "frame_id": "frame_074",
           "frame": "frame_074.png",
-          "frame_file": "frame_074.png",
           "frame_number": 74,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -1793,7 +1572,6 @@
           "timeline_start": 123.0,
           "timeline_end": 125.0,
           "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1816,9 +1594,7 @@
       "visual_count": 5,
       "visuals": [
         {
-          "frame_id": "frame_075",
           "frame": "frame_075.png",
-          "frame_file": "frame_075.png",
           "frame_number": 75,
           "duration": 1.5,
           "duration_weight": 0.15,
@@ -1827,7 +1603,6 @@
           "timeline_start": 125.0,
           "timeline_end": 126.5,
           "script_fragment": "Fitted back together, they formed a flute,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1835,9 +1610,7 @@
           }
         },
         {
-          "frame_id": "frame_076",
           "frame": "frame_076.png",
-          "frame_file": "frame_076.png",
           "frame_number": 76,
           "duration": 1.5,
           "duration_weight": 0.15,
@@ -1846,7 +1619,6 @@
           "timeline_start": 126.5,
           "timeline_end": 128.0,
           "script_fragment": "the wing bone of a griffin vulture,",
-          "action": "Wildlife illustration: a majestic wild griffon vulture soars horizontally with massive brown and cream wings outstretched across a clear, bright cyan daytime sky (#A0D2EB) above distant pale Swabian Jura cliff silhouettes",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -1854,9 +1626,7 @@
           }
         },
         {
-          "frame_id": "frame_077",
           "frame": "frame_077.png",
-          "frame_file": "frame_077.png",
           "frame_number": 77,
           "duration": 3.0,
           "duration_weight": 0.3,
@@ -1865,7 +1635,6 @@
           "timeline_start": 128.0,
           "timeline_end": 131.0,
           "script_fragment": "five finger holes, a carved mouthpiece",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1873,9 +1642,7 @@
           }
         },
         {
-          "frame_id": "frame_078",
           "frame": "frame_078.png",
-          "frame_file": "frame_078.png",
           "frame_number": 78,
           "duration": 2.0,
           "duration_weight": 0.2,
@@ -1884,7 +1651,6 @@
           "timeline_start": 131.0,
           "timeline_end": 133.0,
           "script_fragment": "about as long as your forearm,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1892,9 +1658,7 @@
           }
         },
         {
-          "frame_id": "frame_079",
           "frame": "frame_079.png",
-          "frame_file": "frame_079.png",
           "frame_number": 79,
           "duration": 2.0,
           "duration_weight": 0.2,
@@ -1903,7 +1667,6 @@
           "timeline_start": 133.0,
           "timeline_end": 135.0,
           "script_fragment": "and roughly 40,000 years old.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1926,9 +1689,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_080",
           "frame": "frame_080.png",
-          "frame_file": "frame_080.png",
           "frame_number": 80,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -1937,7 +1698,6 @@
           "timeline_start": 135.0,
           "timeline_end": 137.0,
           "script_fragment": "In another cave close by, they found more. Carved from swan bone",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -1945,9 +1705,7 @@
           }
         },
         {
-          "frame_id": "frame_081",
           "frame": "frame_081.png",
-          "frame_file": "frame_081.png",
           "frame_number": 81,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -1956,7 +1714,6 @@
           "timeline_start": 137.0,
           "timeline_end": 139.0,
           "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -1981,9 +1738,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_001",
           "frame": "frame_001.png",
-          "frame_file": "frame_001.png",
           "frame_number": 1,
           "duration": 1.0,
           "duration_weight": 0.4,
@@ -1992,7 +1747,6 @@
           "timeline_start": 0.0,
           "timeline_end": 1.0,
           "script_fragment": "The last time you were bored,",
-          "action": "The stick figure sits relaxed and slumped in the corner of a modern plush teal couch: head tilted comfortably against the backrest, torso slouched, left arm resting naturally along the sofa armrest, right arm resting flat on the cushion beside its hip with a single clean elbow bend, straight proportional stick legs resting on bright honey-oak hardwood floors",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2000,9 +1754,7 @@
           }
         },
         {
-          "frame_id": "frame_002",
           "frame": "frame_002.png",
-          "frame_file": "frame_002.png",
           "frame_number": 2,
           "duration": 0.8,
           "duration_weight": 0.32,
@@ -2011,7 +1763,6 @@
           "timeline_start": 1.0,
           "timeline_end": 1.8,
           "script_fragment": "you reached for your phone",
-          "action": "Continuous scene in the bright cozy lavender living room: performing a natural reaching action from the teal couch, the stick figure scoots forward to the front edge of the seat cushion and leans its upper torso and head forward over its knees toward the coffee table",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2019,9 +1770,7 @@
           }
         },
         {
-          "frame_id": "frame_003",
           "frame": "frame_003.png",
-          "frame_file": "frame_003.png",
           "frame_number": 3,
           "duration": 0.7,
           "duration_weight": 0.28,
@@ -2030,7 +1779,6 @@
           "timeline_start": 1.8,
           "timeline_end": 2.5,
           "script_fragment": "without even deciding to.",
-          "action": "Continuous scene: close-up dynamic camera angle focused on the blonde wood coffee table; the stick figure's torso is leaned closely forward from the teal couch, its thin minimalist black stick arm and simple cartoon mitten hand grasping the sleek smartphone beside the ceramic mug",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2053,9 +1801,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_004",
           "frame": "frame_004.png",
-          "frame_file": "frame_004.png",
           "frame_number": 4,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -2064,7 +1810,6 @@
           "timeline_start": 2.5,
           "timeline_end": 3.5,
           "script_fragment": "Music,",
-          "action": "Continuous scene in the bright airy living room: the stick figure sits upright on the teal couch holding the smartphone up before its chest with both thin proportional black stick arms and simple cartoon mitten hands, elbows bent naturally at sides; a bold flat hand-drawn musical eighth-note with bright yellow acoustic soundwave rings pops out above the phone display",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2072,9 +1817,7 @@
           }
         },
         {
-          "frame_id": "frame_005",
           "frame": "frame_005.png",
-          "frame_file": "frame_005.png",
           "frame_number": 5,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -2083,7 +1826,6 @@
           "timeline_start": 3.5,
           "timeline_end": 4.5,
           "script_fragment": "a game,",
-          "action": "Continuous scene on the teal couch in the bright living room: holding the smartphone steadily with both hands at chest height with standard proportional black stick arms and cartoon mitten hands, simple black thumbs tapping on the screen as a clean flat retro gaming D-pad controller icon with colorful directional arrows pops up above the display",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2091,9 +1833,7 @@
           }
         },
         {
-          "frame_id": "frame_006",
           "frame": "frame_006.png",
-          "frame_file": "frame_006.png",
           "frame_number": 6,
           "duration": 1.0,
           "duration_weight": 0.3333,
@@ -2102,7 +1842,6 @@
           "timeline_start": 4.5,
           "timeline_end": 5.5,
           "script_fragment": "something to watch.",
-          "action": "Continuous scene: the stick figure reclines comfortably back into the teal couch cushions with head resting against the corner throw pillow, holding the phone horizontally before its face with both simple black stick hands, elbows bent naturally at chest, stick legs resting comfortably on the seat cushion, as a crisp flat red video play triangle icon glows on the screen",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2125,9 +1864,7 @@
       "visual_count": 6,
       "visuals": [
         {
-          "frame_id": "frame_007",
           "frame": "frame_007.png",
-          "frame_file": "frame_007.png",
           "frame_number": 7,
           "duration": 1.0,
           "duration_weight": 0.125,
@@ -2136,7 +1873,6 @@
           "timeline_start": 5.5,
           "timeline_end": 6.5,
           "script_fragment": "That reach is one of the oldest things",
-          "action": "Continuous medium-wide shot in the bright lavender living room: the stick figure remains lounging on the teal couch, hypnotized by the soft cyan smartphone glow in its simple black stick hands, while the camera pulls back slightly to frame the cozy room, wooden coffee table, and warm open doorway",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2144,9 +1880,7 @@
           }
         },
         {
-          "frame_id": "frame_008",
           "frame": "frame_008.png",
-          "frame_file": "frame_008.png",
           "frame_number": 8,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -2155,7 +1889,6 @@
           "timeline_start": 6.5,
           "timeline_end": 8.0,
           "script_fragment": "about 40,000 years ago,",
-          "action": "Minimalist historical title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2163,9 +1896,7 @@
           }
         },
         {
-          "frame_id": "frame_009",
           "frame": "frame_009.png",
-          "frame_file": "frame_009.png",
           "frame_number": 9,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -2174,7 +1905,6 @@
           "timeline_start": 8.0,
           "timeline_end": 9.5,
           "script_fragment": "a human sat by a fire",
-          "action": "Upper Paleolithic male stick figure with circular white head, simple dot eyes, shaggy brown hair, and one-shoulder brown fur tunic sits cross-legged on a woven straw mat on light golden sand (#F5E6C8) beside a crackling campfire",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2182,9 +1912,7 @@
           }
         },
         {
-          "frame_id": "frame_010",
           "frame": "frame_010.png",
-          "frame_file": "frame_010.png",
           "frame_number": 10,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -2193,7 +1921,6 @@
           "timeline_start": 9.5,
           "timeline_end": 11.0,
           "script_fragment": "with the same restless itch you get",
-          "action": "Continuous scene at the Paleolithic campfire: the early human stick figure sits upright on the straw mat, fidgeting with restless energy; its white head tilts with an impatient, bored deadpan expression, while its thin proportional black stick arms and cartoon mitten hands tap nervously on its knees with a single clean elbow bend",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2201,9 +1928,7 @@
           }
         },
         {
-          "frame_id": "frame_011",
           "frame": "frame_011.png",
-          "frame_file": "frame_011.png",
           "frame_number": 11,
           "duration": 1.0,
           "duration_weight": 0.125,
@@ -2212,7 +1937,6 @@
           "timeline_start": 11.0,
           "timeline_end": 12.0,
           "script_fragment": "and no phone,",
-          "action": "Continuous scene at the Paleolithic campfire: the early human stick figure holds both thin black stick arms outward with open cartoon mitten palms in an exaggerated, empty shrug gesture: looking down at its completely empty hands, emphasizing having nothing to hold",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2220,9 +1944,7 @@
           }
         },
         {
-          "frame_id": "frame_012",
           "frame": "frame_012.png",
-          "frame_file": "frame_012.png",
           "frame_number": 12,
           "duration": 1.5,
           "duration_weight": 0.1875,
@@ -2231,7 +1953,6 @@
           "timeline_start": 12.0,
           "timeline_end": 13.5,
           "script_fragment": "and nothing invented yet to kill it.",
-          "action": "Visual metaphor on a clean bright cream paper background (#FAF7EE): a hand-drawn modern black smartphone is centered in the frame, boldly covered by a giant thick red 'X' and slash icon",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2254,9 +1975,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_013",
           "frame": "frame_013.png",
-          "frame_file": "frame_013.png",
           "frame_number": 13,
           "duration": 1.0,
           "duration_weight": 0.5,
@@ -2265,7 +1984,6 @@
           "timeline_start": 13.5,
           "timeline_end": 14.5,
           "script_fragment": "So, they made their own fun from scratch.",
-          "action": "Early human male stick figure with circular white head and shaggy brown hair kneels on light golden sand (#F5E6C8) under a clear starry night sky, a sudden spark of inspiration appearing as a bright yellow glowing star icon beside its head",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2273,9 +1991,7 @@
           }
         },
         {
-          "frame_id": "frame_014",
           "frame": "frame_014.png",
-          "frame_file": "frame_014.png",
           "frame_number": 14,
           "duration": 1.0,
           "duration_weight": 0.5,
@@ -2284,7 +2000,6 @@
           "timeline_start": 14.5,
           "timeline_end": 15.5,
           "script_fragment": "So, they made their own fun from scratch.",
-          "action": "Close-up of the early human stick figure sitting cross-legged on clean golden sand: its thin black stick arms and cartoon mitten hands hold a dry hollow wooden branch and a rounded river stone, experimenting playfully by tapping them together",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2307,9 +2022,7 @@
       "visual_count": 5,
       "visuals": [
         {
-          "frame_id": "frame_015",
           "frame": "frame_015.png",
-          "frame_file": "frame_015.png",
           "frame_number": 15,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -2318,7 +2031,6 @@
           "timeline_start": 15.5,
           "timeline_end": 16.5,
           "script_fragment": "And what they came up with",
-          "action": "Continuous at the campfire: the early human stick figure grins with wide happy dot eyes, rhythmically tapping two sticks against a hollow log; small bright yellow musical sound shockwaves pop outward with each tap into the warm firelight",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2326,9 +2038,7 @@
           }
         },
         {
-          "frame_id": "frame_016",
           "frame": "frame_016.png",
-          "frame_file": "frame_016.png",
           "frame_number": 16,
           "duration": 1.5,
           "duration_weight": 0.25,
@@ -2337,7 +2047,6 @@
           "timeline_start": 16.5,
           "timeline_end": 18.0,
           "script_fragment": "on those long empty nights",
-          "action": "Clean 3-panel split layout on pure white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2345,9 +2054,7 @@
           }
         },
         {
-          "frame_id": "frame_017",
           "frame": "frame_017.png",
-          "frame_file": "frame_017.png",
           "frame_number": 17,
           "duration": 1.5,
           "duration_weight": 0.25,
@@ -2356,7 +2063,6 @@
           "timeline_start": 18.0,
           "timeline_end": 19.5,
           "script_fragment": "became music,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2364,9 +2070,7 @@
           }
         },
         {
-          "frame_id": "frame_018",
           "frame": "frame_018.png",
-          "frame_file": "frame_018.png",
           "frame_number": 18,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -2375,7 +2079,6 @@
           "timeline_start": 19.5,
           "timeline_end": 20.5,
           "script_fragment": "games,",
-          "action": "Clean educational prop card on bright warm cream paper canvas (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2383,9 +2086,7 @@
           }
         },
         {
-          "frame_id": "frame_019",
           "frame": "frame_019.png",
-          "frame_file": "frame_019.png",
           "frame_number": 19,
           "duration": 1.0,
           "duration_weight": 0.1667,
@@ -2394,7 +2095,6 @@
           "timeline_start": 20.5,
           "timeline_end": 21.5,
           "script_fragment": "and sex.",
-          "action": "Bright, cheerful daytime Paleolithic setting: two early human stick figures (one male with shaggy hair, one female with wavy hair and bone bead) sit together on a woven straw mat beside a sparkling blue stream under a bright cyan daytime sky (#A0D2EB) and leafy green acacia trees",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2417,9 +2117,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_020",
           "frame": "frame_020.png",
-          "frame_file": "frame_020.png",
           "frame_number": 20,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -2428,7 +2126,6 @@
           "timeline_start": 21.5,
           "timeline_end": 23.0,
           "script_fragment": "And one of those three quietly turned into a business",
-          "action": "Skeptical narrator stick figure avatar with white circular head, arched cocked eyebrow, and a knowing witty smirk stands against a clean warm cream background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2436,9 +2133,7 @@
           }
         },
         {
-          "frame_id": "frame_021",
           "frame": "frame_021.png",
-          "frame_file": "frame_021.png",
           "frame_number": 21,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -2447,7 +2142,6 @@
           "timeline_start": 23.0,
           "timeline_end": 24.5,
           "script_fragment": "we still call the oldest profession on Earth.",
-          "action": "Title concept card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2470,9 +2164,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_022",
           "frame": "frame_022.png",
-          "frame_file": "frame_022.png",
           "frame_number": 22,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -2481,7 +2173,6 @@
           "timeline_start": 24.5,
           "timeline_end": 26.0,
           "script_fragment": "It runs from a bone flute in a freezing cave",
-          "action": "Bright sunlit Classical Antiquity setting: interior of a Roman Pompeii lupanar tavern with pale weathered limestone masonry walls, warm terracotta floor tiles, draped crimson linen curtains, and bright Mediterranean daylight pouring through an open stone archway",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2489,9 +2180,7 @@
           }
         },
         {
-          "frame_id": "frame_023",
           "frame": "frame_023.png",
-          "frame_file": "frame_023.png",
           "frame_number": 23,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -2500,7 +2189,6 @@
           "timeline_start": 26.0,
           "timeline_end": 27.0,
           "script_fragment": "runs from a bone flute in a freezing cave",
-          "action": "Inside the pale limestone cave: early human male stick figure sits on clean golden sand beside bright golden-orange campfire flames (#FFA028), raising the pale carved bone flute with both thin black stick arms toward mouth, testing the first musical note",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2508,9 +2196,7 @@
           }
         },
         {
-          "frame_id": "frame_024",
           "frame": "frame_024.png",
-          "frame_file": "frame_024.png",
           "frame_number": 24,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -2519,7 +2205,6 @@
           "timeline_start": 27.0,
           "timeline_end": 28.5,
           "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
-          "action": "Close-up macro view of the ancient pale Pompeii Roman plaster wall in bright Mediterranean daylight: authentic historical Roman graffiti scratched into the stucco showing tallies and numerals 'II AS' and 'VI AS' beside a simple line-art coin purse",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2542,9 +2227,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_025",
           "frame": "frame_025.png",
-          "frame_file": "frame_025.png",
           "frame_number": 25,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2553,7 +2236,6 @@
           "timeline_start": 28.5,
           "timeline_end": 30.0,
           "script_fragment": "To get any of this,",
-          "action": "Expressive stick figure narrator avatar with white circular head and raised eyebrow stands against a clean bright warm cream background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2561,9 +2243,7 @@
           }
         },
         {
-          "frame_id": "frame_026",
           "frame": "frame_026.png",
-          "frame_file": "frame_026.png",
           "frame_number": 26,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2572,7 +2252,6 @@
           "timeline_start": 30.0,
           "timeline_end": 31.5,
           "script_fragment": "you have to kill one myth first",
-          "action": "Continuous scene: the expressive stick figure narrator with a determined smirk raises a thin black stick arm holding a clean cartoon sword, slashing boldly through a giant floating red word 'MYTH' on the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2580,9 +2259,7 @@
           }
         },
         {
-          "frame_id": "frame_027",
           "frame": "frame_027.png",
-          "frame_file": "frame_027.png",
           "frame_number": 27,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2591,7 +2268,6 @@
           "timeline_start": 31.5,
           "timeline_end": 33.0,
           "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
-          "action": "Conceptual graphic on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2614,9 +2290,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_028",
           "frame": "frame_028.png",
-          "frame_file": "frame_028.png",
           "frame_number": 28,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2625,7 +2299,6 @@
           "timeline_start": 33.0,
           "timeline_end": 34.5,
           "script_fragment": "The myth is that survival never stopped.",
-          "action": "Paleolithic male stick figure with circular white head, shaggy brown hair, and one-shoulder fur tunic stands tall and relaxed holding a flint spear on an expansive, sunny golden savannah grassland (#F5E6C8) under a bright clear cyan daytime sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2633,9 +2306,7 @@
           }
         },
         {
-          "frame_id": "frame_029",
           "frame": "frame_029.png",
-          "frame_file": "frame_029.png",
           "frame_number": 29,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2644,7 +2315,6 @@
           "timeline_start": 34.5,
           "timeline_end": 36.0,
           "script_fragment": "Every hour spent hunting, gathering, running from things.",
-          "action": "Split comparison showing the common misconception: a Neolithic farmer stick figure hunched painfully over endless tilled crop furrows under a pale daytime sky, sweating under exhausting physical toil with a hoe",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2652,9 +2322,7 @@
           }
         },
         {
-          "frame_id": "frame_030",
           "frame": "frame_030.png",
-          "frame_file": "frame_030.png",
           "frame_number": 30,
           "duration": 1.5,
           "duration_weight": 0.3333,
@@ -2663,7 +2331,6 @@
           "timeline_start": 36.0,
           "timeline_end": 37.5,
           "script_fragment": "Total exhaustion, collapse, repeat.",
-          "action": "The early human hunter-gatherer male stick figure rests comfortably on golden sand (#F5E6C8) beside a sparkling blue stream, leaning back against a smooth grey boulder with arms crossed behind head, smiling peacefully in the warm golden afternoon daylight",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2686,9 +2353,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_031",
           "frame": "frame_031.png",
-          "frame_file": "frame_031.png",
           "frame_number": 31,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -2697,7 +2362,6 @@
           "timeline_start": 37.5,
           "timeline_end": 39.0,
           "script_fragment": "It feels like it must be true.",
-          "action": "Skeptical narrator stick figure with white circular head and deadpan expression stands on clean warm cream background (#FAF7EE), stroking its chin thoughtfully with a thin black stick hand beneath a large floating hand-drawn question mark",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2705,9 +2369,7 @@
           }
         },
         {
-          "frame_id": "frame_032",
           "frame": "frame_032.png",
-          "frame_file": "frame_032.png",
           "frame_number": 32,
           "duration": 1.5,
           "duration_weight": 0.5,
@@ -2716,7 +2378,6 @@
           "timeline_start": 39.0,
           "timeline_end": 40.5,
           "script_fragment": "It's completely backwards.",
-          "action": "Continuous scene: the narrator stick figure smirks knowingly with an arched eyebrow, thrusting both stick arms outward as the word 'BACKWARDS' spins 180 degrees upside down in bold black and red letters across the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2739,9 +2400,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_033",
           "frame": "frame_033.png",
-          "frame_file": "frame_033.png",
           "frame_number": 33,
           "duration": 1.5,
           "duration_weight": 0.2727,
@@ -2750,7 +2409,6 @@
           "timeline_start": 40.5,
           "timeline_end": 42.0,
           "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
-          "action": "Academic title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -2758,9 +2416,7 @@
           }
         },
         {
-          "frame_id": "frame_034",
           "frame": "frame_034.png",
-          "frame_file": "frame_034.png",
           "frame_number": 34,
           "duration": 2.0,
           "duration_weight": 0.3636,
@@ -2769,7 +2425,6 @@
           "timeline_start": 42.0,
           "timeline_end": 44.0,
           "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
-          "action": "Expansive bright Kalahari savannah under a clear bright cyan daytime sky (#A0D2EB): anthropologist stick figure wearing a tan safari helmet and shoulder satchel walks leisurely alongside a Ju/'hoansi hunter stick figure carrying a spear across bright golden sand (#F5E6C8) and light green scrub grass",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2777,9 +2432,7 @@
           }
         },
         {
-          "frame_id": "frame_035",
           "frame": "frame_035.png",
-          "frame_file": "frame_035.png",
           "frame_number": 35,
           "duration": 2.0,
           "duration_weight": 0.3636,
@@ -2788,7 +2441,6 @@
           "timeline_start": 44.0,
           "timeline_end": 46.0,
           "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
-          "action": "Inside a bright sunlit canvas field tent under acacia shade: anthropologist stick figure sits at a blonde wood camp desk, holding a stopwatch in one simple black stick hand and writing in a field journal with the other",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2811,9 +2463,7 @@
       "visual_count": 4,
       "visuals": [
         {
-          "frame_id": "frame_036",
           "frame": "frame_036.png",
-          "frame_file": "frame_036.png",
           "frame_number": 36,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -2822,7 +2472,6 @@
           "timeline_start": 46.0,
           "timeline_end": 48.0,
           "script_fragment": "He didn't guess. He timed them.",
-          "action": "Medium-wide shot on the sunny golden savannah: a Ju/'hoansi hunter walks leisurely across the bright grassland under a clear cyan sky (#A0D2EB), while a stylized hand-drawn stopwatch icon ticks rhythmically in the upper corner of the frame",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2830,9 +2479,7 @@
           }
         },
         {
-          "frame_id": "frame_037",
           "frame": "frame_037.png",
-          "frame_file": "frame_037.png",
           "frame_number": 37,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -2841,7 +2488,6 @@
           "timeline_start": 48.0,
           "timeline_end": 50.0,
           "script_fragment": "Every hour of work hunting, gathering, making tools.",
-          "action": "Clean bright ivory drafting parchment background (#FAF7EE)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2849,9 +2495,7 @@
           }
         },
         {
-          "frame_id": "frame_038",
           "frame": "frame_038.png",
-          "frame_file": "frame_038.png",
           "frame_number": 38,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -2860,7 +2504,6 @@
           "timeline_start": 50.0,
           "timeline_end": 52.0,
           "script_fragment": "The total came out to about fifteen hours a week.",
-          "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): on the 24-hour chronometer dial, a bright golden-yellow pie wedge highlights a small 4-hour section per day, labeled with clean uppercase hand-lettered text: 'WORK: 15 HOURS / WEEK' with a small neat pointing arrow",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2868,9 +2511,7 @@
           }
         },
         {
-          "frame_id": "frame_039",
           "frame": "frame_039.png",
-          "frame_file": "frame_039.png",
           "frame_number": 39,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -2879,7 +2520,6 @@
           "timeline_start": 52.0,
           "timeline_end": 54.0,
           "script_fragment": "Fifteen.",
-          "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): the rest of the 24-hour dial fills with a serene, expansive soft cyan-blue fill labeled 'FREE TIME & LEISURE', while the bold black number '15 HOURS' pulses with clean yellow accent highlights",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -2902,9 +2542,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_040",
           "frame": "frame_040.png",
-          "frame_file": "frame_040.png",
           "frame_number": 40,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -2913,7 +2551,6 @@
           "timeline_start": 54.0,
           "timeline_end": 56.0,
           "script_fragment": "A modern full-time job is forty,",
-          "action": "The early human hunter stick figure wakes leisurely on a woven straw mat on light golden sand (#F5E6C8) beside glowing campfire stones, raising both stick arms in a wide, joyful morning stretch toward a bright sunny pastel dawn sky (#A0D2EB) filled with warm peach clouds",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2921,9 +2558,7 @@
           }
         },
         {
-          "frame_id": "frame_041",
           "frame": "frame_041.png",
-          "frame_file": "frame_041.png",
           "frame_number": 41,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -2932,7 +2567,6 @@
           "timeline_start": 56.0,
           "timeline_end": 58.0,
           "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
-          "action": "Two early human stick figures sit relaxed together in the shade of a leafy green acacia tree on light golden ground (#F5E6C8), sharing a wooden bowl of fresh mongongo nuts and laughing in bright sunny daylight under a clear cyan sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2955,9 +2589,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_042",
           "frame": "frame_042.png",
-          "frame_file": "frame_042.png",
           "frame_number": 42,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -2966,7 +2598,6 @@
           "timeline_start": 58.0,
           "timeline_end": 60.0,
           "script_fragment": "The people we pictured as desperate survivors were working",
-          "action": "The early human hunter walks with relaxed, unhurried strides across the sunny golden savannah (#F5E6C8), spear resting balanced lightly across shoulders, smiling in the warm morning sun",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2974,9 +2605,7 @@
           }
         },
         {
-          "frame_id": "frame_043",
           "frame": "frame_043.png",
-          "frame_file": "frame_043.png",
           "frame_number": 43,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -2985,7 +2614,6 @@
           "timeline_start": 60.0,
           "timeline_end": 62.0,
           "script_fragment": "the equivalent of two days a week.",
-          "action": "Low wide camera angle: the hunter pauses on a gentle golden crest, gazing out across the sunny expansive savannah wilderness with birds soaring in the bright blue sky above",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -2993,9 +2621,7 @@
           }
         },
         {
-          "frame_id": "frame_044",
           "frame": "frame_044.png",
-          "frame_file": "frame_044.png",
           "frame_number": 44,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3004,7 +2630,6 @@
           "timeline_start": 62.0,
           "timeline_end": 64.0,
           "script_fragment": "Two. Days.",
-          "action": "Bold typographical title card on pure clean white background (#FFFFFF)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3027,9 +2652,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_045",
           "frame": "frame_045.png",
-          "frame_file": "frame_045.png",
           "frame_number": 45,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3038,7 +2661,6 @@
           "timeline_start": 64.0,
           "timeline_end": 66.0,
           "script_fragment": "The rest of that time belonged entirely to them.",
-          "action": "Close-up of the early human stick figure lying peacefully on its back in soft golden grass under a leafy acacia branch, chewing a grass blade, looking up happily at fluffy white clouds in the bright cyan sky (#A0D2EB)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3046,9 +2668,7 @@
           }
         },
         {
-          "frame_id": "frame_046",
           "frame": "frame_046.png",
-          "frame_file": "frame_046.png",
           "frame_number": 46,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3057,7 +2677,6 @@
           "timeline_start": 66.0,
           "timeline_end": 68.0,
           "script_fragment": "And they weren't spending it staring at walls.",
-          "action": "Communal campfire circle on clean golden sand (#F5E6C8) under a soft pastel twilight sky: five early human stick figures sit in a circle, actively talking, laughing, and gesturing with thin black stick arms around cheerful golden-orange campfire flames (#FFA028)",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3065,9 +2684,7 @@
           }
         },
         {
-          "frame_id": "frame_047",
           "frame": "frame_047.png",
-          "frame_file": "frame_047.png",
           "frame_number": 47,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3076,7 +2693,6 @@
           "timeline_start": 68.0,
           "timeline_end": 70.0,
           "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
-          "action": "Medium shot at the campfire: a modern narrator stick figure avatar sits comfortably beside the ancient early humans on golden sand, gesturing conversationally toward the cheerful golden campfire flames with open stick hands",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3099,9 +2715,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_048",
           "frame": "frame_048.png",
-          "frame_file": "frame_048.png",
           "frame_number": 48,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3110,7 +2724,6 @@
           "timeline_start": 70.0,
           "timeline_end": 72.0,
           "script_fragment": "Here is what happens when you take a human brain",
-          "action": "In a stylized bright studio setting on clean warm cream background (#FAF7EE): modern stick figure narrator stands beside a large hand-drawn 2D vector brain illustration that pulses with bright yellow electric spark lines",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3118,9 +2731,7 @@
           }
         },
         {
-          "frame_id": "frame_049",
           "frame": "frame_049.png",
-          "frame_file": "frame_049.png",
           "frame_number": 49,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3129,7 +2740,6 @@
           "timeline_start": 72.0,
           "timeline_end": 74.0,
           "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
-          "action": "Centered anatomical diagram on clean warm cream background (#FAF7EE): close-up of the stylized 2D brain cross-section, showing clean colorful internal gears, glowing yellow problem-solving nodes, and electric thought sparks",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3137,9 +2747,7 @@
           }
         },
         {
-          "frame_id": "frame_050",
           "frame": "frame_050.png",
-          "frame_file": "frame_050.png",
           "frame_number": 50,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3148,7 +2756,6 @@
           "timeline_start": 74.0,
           "timeline_end": 76.0,
           "script_fragment": "and you give it six empty hours by a fire every single night.",
-          "action": "Continuous in the studio: three colorful conceptual arrows branch out from the glowing brain diagram to three clean hand-drawn icons: a bone flute, carved dice, and painted cave art on the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3171,9 +2778,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_051",
           "frame": "frame_051.png",
-          "frame_file": "frame_051.png",
           "frame_number": 51,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -3182,7 +2787,6 @@
           "timeline_start": 76.0,
           "timeline_end": 78.0,
           "script_fragment": "It doesn't sit quietly.",
-          "action": "On clean warm cream background (#FAF7EE): the narrator stick figure paces back and forth with an energetic, restless stride, thin black stick arms swinging naturally with single clean elbow bends, dot eyes alert and thinking intensely",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3190,9 +2794,7 @@
           }
         },
         {
-          "frame_id": "frame_052",
           "frame": "frame_052.png",
-          "frame_file": "frame_052.png",
           "frame_number": 52,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -3201,7 +2803,6 @@
           "timeline_start": 78.0,
           "timeline_end": 80.0,
           "script_fragment": "It can't.",
-          "action": "Continuous scene: the narrator stick figure halts, throwing both black stick arms upward in an emphatic gesture of undeniable certainty, eyes wide and deadpan against the clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3224,9 +2825,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_053",
           "frame": "frame_053.png",
-          "frame_file": "frame_053.png",
           "frame_number": 53,
           "duration": 2.0,
           "duration_weight": 0.4,
@@ -3235,7 +2834,6 @@
           "timeline_start": 80.0,
           "timeline_end": 82.0,
           "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
-          "action": "Continuous scene: the expressive narrator stick figure leans forward with an arched cocked eyebrow and knowing smirk, tapping its white circular temple with a thin black index finger on clean warm cream background (#FAF7EE)",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3243,9 +2841,7 @@
           }
         },
         {
-          "frame_id": "frame_054",
           "frame": "frame_054.png",
-          "frame_file": "frame_054.png",
           "frame_number": 54,
           "duration": 3.0,
           "duration_weight": 0.6,
@@ -3254,7 +2850,6 @@
           "timeline_start": 82.0,
           "timeline_end": 85.0,
           "script_fragment": "It looks around. It fidgets. It plays.",
-          "action": "Panoramic night scene: early human male stick figure sits cross-legged on clean golden sand beside bright golden-orange campfire flames (#FFA028) under an expansive, clear midnight-indigo sky filled with twinkling star constellations",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3277,9 +2872,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_055",
           "frame": "frame_055.png",
-          "frame_file": "frame_055.png",
           "frame_number": 55,
           "duration": 3.0,
           "duration_weight": 0.4615,
@@ -3288,7 +2881,6 @@
           "timeline_start": 85.0,
           "timeline_end": 88.0,
           "script_fragment": "Night after night, season after season, thousands of years before the first city,",
-          "action": "Vast minimalist night aerial landscape: five small warm golden campfire circles flicker across a clean desert river valley floor beneath a clear, brilliant starry indigo sky and gentle rolling hill silhouettes",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3296,9 +2888,7 @@
           }
         },
         {
-          "frame_id": "frame_056",
           "frame": "frame_056.png",
-          "frame_file": "frame_056.png",
           "frame_number": 56,
           "duration": 1.5,
           "duration_weight": 0.2308,
@@ -3307,7 +2897,6 @@
           "timeline_start": 88.0,
           "timeline_end": 89.5,
           "script_fragment": "Restless brains, capable hands, and empty time",
-          "action": "Inside a sheltered pale limestone cave: early human stick figure with shaggy brown hair and circular white head kneels comfortably on a woven fur pelt on clean golden sand beside glowing campfire embers and pale river stones",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -3315,9 +2904,7 @@
           }
         },
         {
-          "frame_id": "frame_057",
           "frame": "frame_057.png",
-          "frame_file": "frame_057.png",
           "frame_number": 57,
           "duration": 2.0,
           "duration_weight": 0.3077,
@@ -3326,7 +2913,6 @@
           "timeline_start": 89.5,
           "timeline_end": 91.5,
           "script_fragment": "alltogether in the firelight. That combination is an engine.",
-          "action": "Continuous in the pale limestone cave: close-up macro action view of the carving process",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3349,9 +2935,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_058",
           "frame": "frame_058.png",
-          "frame_file": "frame_058.png",
           "frame_number": 58,
           "duration": 2.5,
           "duration_weight": 0.625,
@@ -3360,7 +2944,6 @@
           "timeline_start": 91.5,
           "timeline_end": 94.0,
           "script_fragment": "It has to make something.",
-          "action": "Continuous in the pale limestone cave: close-up action view of the flint point chiseling into the pale bone surface",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3368,9 +2951,7 @@
           }
         },
         {
-          "frame_id": "frame_059",
           "frame": "frame_059.png",
-          "frame_file": "frame_059.png",
           "frame_number": 59,
           "duration": 1.5,
           "duration_weight": 0.375,
@@ -3379,7 +2960,6 @@
           "timeline_start": 94.0,
           "timeline_end": 95.5,
           "script_fragment": "It has to make something.",
-          "action": "Continuous in the cave: side profile of the early human stick figure with minimalist circular white head, simple dot eyes, and shaggy brown hair, blowing a gentle puff of breath across the carved bone resting in its simple black cartoon stick hands; tiny stylized dust particles catch bright warm campfire light against the pale limestone cave interior",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3402,9 +2982,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_060",
           "frame": "frame_060.png",
-          "frame_file": "frame_060.png",
           "frame_number": 60,
           "duration": 1.5,
           "duration_weight": 0.4286,
@@ -3413,7 +2991,6 @@
           "timeline_start": 95.5,
           "timeline_end": 97.0,
           "script_fragment": "And the first thing it made was music.",
-          "action": "Dramatic concept title card: bold hand-lettered brushwork text 'MUSIC' in warm amber and black centered on a clean pale limestone rock texture with soft warm campfire glow",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -3421,9 +2998,7 @@
           }
         },
         {
-          "frame_id": "frame_061",
           "frame": "frame_061.png",
-          "frame_file": "frame_061.png",
           "frame_number": 61,
           "duration": 2.0,
           "duration_weight": 0.5714,
@@ -3432,7 +3007,6 @@
           "timeline_start": 97.0,
           "timeline_end": 99.0,
           "script_fragment": "And the first thing it made was music.",
-          "action": "Continuous on the title card: concentric acoustic soundwave rings in soft bright yellow vibrate outward from behind the 'MUSIC' title like luminous ripples across the clean pale limestone background",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3455,9 +3029,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_062",
           "frame": "frame_062.png",
-          "frame_file": "frame_062.png",
           "frame_number": 62,
           "duration": 3.0,
           "duration_weight": 0.375,
@@ -3466,7 +3038,6 @@
           "timeline_start": 99.0,
           "timeline_end": 102.0,
           "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
-          "action": "Minimalist hand-drawn map of Ice Age Europe on pure clean white background (#FFFFFF): northern ice sheets in soft pastel cyan, southern landmass in pastel leaf green, bold black ink coastlines",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3474,9 +3045,7 @@
           }
         },
         {
-          "frame_id": "frame_063",
           "frame": "frame_063.png",
-          "frame_file": "frame_063.png",
           "frame_number": 63,
           "duration": 3.0,
           "duration_weight": 0.375,
@@ -3485,7 +3054,6 @@
           "timeline_start": 102.0,
           "timeline_end": 105.0,
           "script_fragment": "humans sat in freezing darkness and carved flutes.",
-          "action": "Regional close-up map of southern Germany on pure clean white background (#FFFFFF): clean black border outlines with soft pastel tan and mint fills",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3493,9 +3061,7 @@
           }
         },
         {
-          "frame_id": "frame_064",
           "frame": "frame_064.png",
-          "frame_file": "frame_064.png",
           "frame_number": 64,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -3504,7 +3070,6 @@
           "timeline_start": 105.0,
           "timeline_end": 107.0,
           "script_fragment": "Not rough noisemakers. Instruments.",
-          "action": "Inside the pale limestone cave: early human male stick figure kneels proudly on clean golden sand beside glowing campfire stones, holding up the pale completed bone flute in both thin black stick arms",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3527,9 +3092,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_065",
           "frame": "frame_065.png",
-          "frame_file": "frame_065.png",
           "frame_number": 65,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -3538,7 +3101,6 @@
           "timeline_start": 107.0,
           "timeline_end": 109.0,
           "script_fragment": "The flute is made from the radius bone of a griffon vulture",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3546,9 +3108,7 @@
           }
         },
         {
-          "frame_id": "frame_066",
           "frame": "frame_066.png",
-          "frame_file": "frame_066.png",
           "frame_number": 66,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -3557,7 +3117,6 @@
           "timeline_start": 109.0,
           "timeline_end": 110.0,
           "script_fragment": "with precisely placed holes.",
-          "action": "Close-up action view: thin minimalist black stick-figure hands gently hold the pale bone flute horizontally beside the warm campfire, simple black cartoon fingers testing the precise spacing of the five cleanly drilled circular finger holes",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3565,9 +3124,7 @@
           }
         },
         {
-          "frame_id": "frame_067",
           "frame": "frame_067.png",
-          "frame_file": "frame_067.png",
           "frame_number": 67,
           "duration": 1.0,
           "duration_weight": 0.25,
@@ -3576,7 +3133,6 @@
           "timeline_start": 110.0,
           "timeline_end": 111.0,
           "script_fragment": "Five of them.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3599,9 +3155,7 @@
       "visual_count": 3,
       "visuals": [
         {
-          "frame_id": "frame_068",
           "frame": "frame_068.png",
-          "frame_file": "frame_068.png",
           "frame_number": 68,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3610,7 +3164,6 @@
           "timeline_start": 111.0,
           "timeline_end": 113.0,
           "script_fragment": "Then they lift it, blow,",
-          "action": "Medium profile shot inside the pale limestone cave: early human male stick figure gently raises the completed bone flute with both thin black stick arms toward its simple line mouth, cartoon mitten fingers hovering poised over the five drilled holes in concentration",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3618,9 +3171,7 @@
           }
         },
         {
-          "frame_id": "frame_069",
           "frame": "frame_069.png",
-          "frame_file": "frame_069.png",
           "frame_number": 69,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3629,7 +3180,6 @@
           "timeline_start": 113.0,
           "timeline_end": 115.0,
           "script_fragment": "and a clear note fills the cave.",
-          "action": "Close-up profile of the early human stick figure blowing softly across the V-notch mouthpiece; eyes closed in peaceful listening concentration as warm firelight glints on cheek, bone flute, and pale limestone cavern stalactites",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3637,9 +3187,7 @@
           }
         },
         {
-          "frame_id": "frame_070",
           "frame": "frame_070.png",
-          "frame_file": "frame_070.png",
           "frame_number": 70,
           "duration": 2.0,
           "duration_weight": 0.3333,
@@ -3648,7 +3196,6 @@
           "timeline_start": 115.0,
           "timeline_end": 117.0,
           "script_fragment": "and a clear note fills the cave.",
-          "action": "Wide shot of the pale Hohle Fels limestone cave cavern: luminous concentric circular soundwaves in warm soft yellow expand outward from the flute tip, echoing visibly past rock stalactites, glowing stone hearth, and natural rock pillars into the chamber",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3671,9 +3218,7 @@
       "visual_count": 4,
       "visuals": [
         {
-          "frame_id": "frame_071",
           "frame": "frame_071.png",
-          "frame_file": "frame_071.png",
           "frame_number": 71,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -3682,7 +3227,6 @@
           "timeline_start": 117.0,
           "timeline_end": 119.0,
           "script_fragment": "This isn't a guess.",
-          "action": "A knowledgeable stick figure presenter with circular white head, arched cocked eyebrow, and authoritative smile stands against a clean bright warm cream background (#FAF7EE) inside an archaeological research lab, holding up a certified historical excavation report",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3690,9 +3234,7 @@
           }
         },
         {
-          "frame_id": "frame_072",
           "frame": "frame_072.png",
-          "frame_file": "frame_072.png",
           "frame_number": 72,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -3701,7 +3243,6 @@
           "timeline_start": 119.0,
           "timeline_end": 121.0,
           "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
-          "action": "Academic title card on pure clean white background (#FFFFFF): tan safari helmet and trowel icon centered cleanly above bold uppercase black text: '2008 — PROF",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3709,9 +3250,7 @@
           }
         },
         {
-          "frame_id": "frame_073",
           "frame": "frame_073.png",
-          "frame_file": "frame_073.png",
           "frame_number": 73,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -3720,7 +3259,6 @@
           "timeline_start": 121.0,
           "timeline_end": 123.0,
           "script_fragment": "was digging in a cave called Hols",
-          "action": "Modern archaeologist stick figure wearing a tan safari helmet and utility vest kneels in a clean excavation dig trench inside Hohle Fels cave under bright yellow tripod work lights, delicately clearing pale sediment with a pointed trowel and fine brush beside white survey strings",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3728,9 +3266,7 @@
           }
         },
         {
-          "frame_id": "frame_074",
           "frame": "frame_074.png",
-          "frame_file": "frame_074.png",
           "frame_number": 74,
           "duration": 2.0,
           "duration_weight": 0.25,
@@ -3739,7 +3275,6 @@
           "timeline_start": 123.0,
           "timeline_end": 125.0,
           "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3762,9 +3297,7 @@
       "visual_count": 5,
       "visuals": [
         {
-          "frame_id": "frame_075",
           "frame": "frame_075.png",
-          "frame_file": "frame_075.png",
           "frame_number": 75,
           "duration": 1.5,
           "duration_weight": 0.15,
@@ -3773,7 +3306,6 @@
           "timeline_start": 125.0,
           "timeline_end": 126.5,
           "script_fragment": "Fitted back together, they formed a flute,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3781,9 +3313,7 @@
           }
         },
         {
-          "frame_id": "frame_076",
           "frame": "frame_076.png",
-          "frame_file": "frame_076.png",
           "frame_number": 76,
           "duration": 1.5,
           "duration_weight": 0.15,
@@ -3792,7 +3322,6 @@
           "timeline_start": 126.5,
           "timeline_end": 128.0,
           "script_fragment": "the wing bone of a griffin vulture,",
-          "action": "Wildlife illustration: a majestic wild griffon vulture soars horizontally with massive brown and cream wings outstretched across a clear, bright cyan daytime sky (#A0D2EB) above distant pale Swabian Jura cliff silhouettes",
           "continuity": "anchor",
           "transition": {
             "type": "cut",
@@ -3800,9 +3329,7 @@
           }
         },
         {
-          "frame_id": "frame_077",
           "frame": "frame_077.png",
-          "frame_file": "frame_077.png",
           "frame_number": 77,
           "duration": 3.0,
           "duration_weight": 0.3,
@@ -3811,7 +3338,6 @@
           "timeline_start": 128.0,
           "timeline_end": 131.0,
           "script_fragment": "five finger holes, a carved mouthpiece",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3819,9 +3345,7 @@
           }
         },
         {
-          "frame_id": "frame_078",
           "frame": "frame_078.png",
-          "frame_file": "frame_078.png",
           "frame_number": 78,
           "duration": 2.0,
           "duration_weight": 0.2,
@@ -3830,7 +3354,6 @@
           "timeline_start": 131.0,
           "timeline_end": 133.0,
           "script_fragment": "about as long as your forearm,",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3838,9 +3361,7 @@
           }
         },
         {
-          "frame_id": "frame_079",
           "frame": "frame_079.png",
-          "frame_file": "frame_079.png",
           "frame_number": 79,
           "duration": 2.0,
           "duration_weight": 0.2,
@@ -3849,7 +3370,6 @@
           "timeline_start": 133.0,
           "timeline_end": 135.0,
           "script_fragment": "and roughly 40,000 years old.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3872,9 +3392,7 @@
       "visual_count": 2,
       "visuals": [
         {
-          "frame_id": "frame_080",
           "frame": "frame_080.png",
-          "frame_file": "frame_080.png",
           "frame_number": 80,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -3883,7 +3401,6 @@
           "timeline_start": 135.0,
           "timeline_end": 137.0,
           "script_fragment": "In another cave close by, they found more. Carved from swan bone",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "anchor",
           "transition": {
             "type": "crossfade",
@@ -3891,9 +3408,7 @@
           }
         },
         {
-          "frame_id": "frame_081",
           "frame": "frame_081.png",
-          "frame_file": "frame_081.png",
           "frame_number": 81,
           "duration": 2.0,
           "duration_weight": 0.5,
@@ -3902,7 +3417,6 @@
           "timeline_start": 137.0,
           "timeline_end": 139.0,
           "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
-          "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
           "continuity": "continue",
           "transition": {
             "type": "cut",
@@ -3915,8 +3429,7 @@
   "render_sequence": [
     {
       "frame_number": 1,
-      "frame_id": "frame_001",
-      "frame_file": "frame_001.png",
+      "frame": "frame_001.png",
       "beat_id": "beat_001",
       "start_time": 0.0,
       "end_time": 1.0,
@@ -3925,7 +3438,6 @@
       "timestamp_end": "00:01",
       "script_fragment": "The last time you were bored,",
       "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
-      "action": "The stick figure sits relaxed and slumped in the corner of a modern plush teal couch: head tilted comfortably against the backrest, torso slouched, left arm resting naturally along the sofa armrest, right arm resting flat on the cushion beside its hip with a single clean elbow bend, straight proportional stick legs resting on bright honey-oak hardwood floors",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -3933,8 +3445,7 @@
     },
     {
       "frame_number": 2,
-      "frame_id": "frame_002",
-      "frame_file": "frame_002.png",
+      "frame": "frame_002.png",
       "beat_id": "beat_001",
       "start_time": 1.0,
       "end_time": 1.8,
@@ -3943,7 +3454,6 @@
       "timestamp_end": "00:01.8",
       "script_fragment": "you reached for your phone",
       "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
-      "action": "Continuous scene in the bright cozy lavender living room: performing a natural reaching action from the teal couch, the stick figure scoots forward to the front edge of the seat cushion and leans its upper torso and head forward over its knees toward the coffee table",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -3951,8 +3461,7 @@
     },
     {
       "frame_number": 3,
-      "frame_id": "frame_003",
-      "frame_file": "frame_003.png",
+      "frame": "frame_003.png",
       "beat_id": "beat_001",
       "start_time": 1.8,
       "end_time": 2.5,
@@ -3961,7 +3470,6 @@
       "timestamp_end": "00:02.5",
       "script_fragment": "without even deciding to.",
       "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
-      "action": "Continuous scene: close-up dynamic camera angle focused on the blonde wood coffee table; the stick figure's torso is leaned closely forward from the teal couch, its thin minimalist black stick arm and simple cartoon mitten hand grasping the sleek smartphone beside the ceramic mug",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -3969,8 +3477,7 @@
     },
     {
       "frame_number": 4,
-      "frame_id": "frame_004",
-      "frame_file": "frame_004.png",
+      "frame": "frame_004.png",
       "beat_id": "beat_002",
       "start_time": 2.5,
       "end_time": 3.5,
@@ -3979,7 +3486,6 @@
       "timestamp_end": "00:03.5",
       "script_fragment": "Music,",
       "narration_context": "Music, a game, something to watch.",
-      "action": "Continuous scene in the bright airy living room: the stick figure sits upright on the teal couch holding the smartphone up before its chest with both thin proportional black stick arms and simple cartoon mitten hands, elbows bent naturally at sides; a bold flat hand-drawn musical eighth-note with bright yellow acoustic soundwave rings pops out above the phone display",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -3987,8 +3493,7 @@
     },
     {
       "frame_number": 5,
-      "frame_id": "frame_005",
-      "frame_file": "frame_005.png",
+      "frame": "frame_005.png",
       "beat_id": "beat_002",
       "start_time": 3.5,
       "end_time": 4.5,
@@ -3997,7 +3502,6 @@
       "timestamp_end": "00:04.5",
       "script_fragment": "a game,",
       "narration_context": "Music, a game, something to watch.",
-      "action": "Continuous scene on the teal couch in the bright living room: holding the smartphone steadily with both hands at chest height with standard proportional black stick arms and cartoon mitten hands, simple black thumbs tapping on the screen as a clean flat retro gaming D-pad controller icon with colorful directional arrows pops up above the display",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4005,8 +3509,7 @@
     },
     {
       "frame_number": 6,
-      "frame_id": "frame_006",
-      "frame_file": "frame_006.png",
+      "frame": "frame_006.png",
       "beat_id": "beat_002",
       "start_time": 4.5,
       "end_time": 5.5,
@@ -4015,7 +3518,6 @@
       "timestamp_end": "00:05.5",
       "script_fragment": "something to watch.",
       "narration_context": "Music, a game, something to watch.",
-      "action": "Continuous scene: the stick figure reclines comfortably back into the teal couch cushions with head resting against the corner throw pillow, holding the phone horizontally before its face with both simple black stick hands, elbows bent naturally at chest, stick legs resting comfortably on the seat cushion, as a crisp flat red video play triangle icon glows on the screen",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4023,8 +3525,7 @@
     },
     {
       "frame_number": 7,
-      "frame_id": "frame_007",
-      "frame_file": "frame_007.png",
+      "frame": "frame_007.png",
       "beat_id": "beat_003",
       "start_time": 5.5,
       "end_time": 6.5,
@@ -4033,7 +3534,6 @@
       "timestamp_end": "00:06.5",
       "script_fragment": "That reach is one of the oldest things",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Continuous medium-wide shot in the bright lavender living room: the stick figure remains lounging on the teal couch, hypnotized by the soft cyan smartphone glow in its simple black stick hands, while the camera pulls back slightly to frame the cozy room, wooden coffee table, and warm open doorway",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4041,8 +3541,7 @@
     },
     {
       "frame_number": 8,
-      "frame_id": "frame_008",
-      "frame_file": "frame_008.png",
+      "frame": "frame_008.png",
       "beat_id": "beat_003",
       "start_time": 6.5,
       "end_time": 8.0,
@@ -4051,7 +3550,6 @@
       "timestamp_end": "00:08",
       "script_fragment": "about 40,000 years ago,",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Minimalist historical title card on pure clean white background (#FFFFFF)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4059,8 +3557,7 @@
     },
     {
       "frame_number": 9,
-      "frame_id": "frame_009",
-      "frame_file": "frame_009.png",
+      "frame": "frame_009.png",
       "beat_id": "beat_003",
       "start_time": 8.0,
       "end_time": 9.5,
@@ -4069,7 +3566,6 @@
       "timestamp_end": "00:09.5",
       "script_fragment": "a human sat by a fire",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Upper Paleolithic male stick figure with circular white head, simple dot eyes, shaggy brown hair, and one-shoulder brown fur tunic sits cross-legged on a woven straw mat on light golden sand (#F5E6C8) beside a crackling campfire",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4077,8 +3573,7 @@
     },
     {
       "frame_number": 10,
-      "frame_id": "frame_010",
-      "frame_file": "frame_010.png",
+      "frame": "frame_010.png",
       "beat_id": "beat_003",
       "start_time": 9.5,
       "end_time": 11.0,
@@ -4087,7 +3582,6 @@
       "timestamp_end": "00:11",
       "script_fragment": "with the same restless itch you get",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Continuous scene at the Paleolithic campfire: the early human stick figure sits upright on the straw mat, fidgeting with restless energy; its white head tilts with an impatient, bored deadpan expression, while its thin proportional black stick arms and cartoon mitten hands tap nervously on its knees with a single clean elbow bend",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4095,8 +3589,7 @@
     },
     {
       "frame_number": 11,
-      "frame_id": "frame_011",
-      "frame_file": "frame_011.png",
+      "frame": "frame_011.png",
       "beat_id": "beat_003",
       "start_time": 11.0,
       "end_time": 12.0,
@@ -4105,7 +3598,6 @@
       "timestamp_end": "00:12",
       "script_fragment": "and no phone,",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Continuous scene at the Paleolithic campfire: the early human stick figure holds both thin black stick arms outward with open cartoon mitten palms in an exaggerated, empty shrug gesture: looking down at its completely empty hands, emphasizing having nothing to hold",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4113,8 +3605,7 @@
     },
     {
       "frame_number": 12,
-      "frame_id": "frame_012",
-      "frame_file": "frame_012.png",
+      "frame": "frame_012.png",
       "beat_id": "beat_003",
       "start_time": 12.0,
       "end_time": 13.5,
@@ -4123,7 +3614,6 @@
       "timestamp_end": "00:13.5",
       "script_fragment": "and nothing invented yet to kill it.",
       "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
-      "action": "Visual metaphor on a clean bright cream paper background (#FAF7EE): a hand-drawn modern black smartphone is centered in the frame, boldly covered by a giant thick red 'X' and slash icon",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4131,8 +3621,7 @@
     },
     {
       "frame_number": 13,
-      "frame_id": "frame_013",
-      "frame_file": "frame_013.png",
+      "frame": "frame_013.png",
       "beat_id": "beat_004",
       "start_time": 13.5,
       "end_time": 14.5,
@@ -4141,7 +3630,6 @@
       "timestamp_end": "00:14.5",
       "script_fragment": "So, they made their own fun from scratch.",
       "narration_context": "So, they made their own fun from scratch.",
-      "action": "Early human male stick figure with circular white head and shaggy brown hair kneels on light golden sand (#F5E6C8) under a clear starry night sky, a sudden spark of inspiration appearing as a bright yellow glowing star icon beside its head",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4149,8 +3637,7 @@
     },
     {
       "frame_number": 14,
-      "frame_id": "frame_014",
-      "frame_file": "frame_014.png",
+      "frame": "frame_014.png",
       "beat_id": "beat_004",
       "start_time": 14.5,
       "end_time": 15.5,
@@ -4159,7 +3646,6 @@
       "timestamp_end": "00:15.5",
       "script_fragment": "So, they made their own fun from scratch.",
       "narration_context": "So, they made their own fun from scratch.",
-      "action": "Close-up of the early human stick figure sitting cross-legged on clean golden sand: its thin black stick arms and cartoon mitten hands hold a dry hollow wooden branch and a rounded river stone, experimenting playfully by tapping them together",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4167,8 +3653,7 @@
     },
     {
       "frame_number": 15,
-      "frame_id": "frame_015",
-      "frame_file": "frame_015.png",
+      "frame": "frame_015.png",
       "beat_id": "beat_005",
       "start_time": 15.5,
       "end_time": 16.5,
@@ -4177,7 +3662,6 @@
       "timestamp_end": "00:16.5",
       "script_fragment": "And what they came up with",
       "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
-      "action": "Continuous at the campfire: the early human stick figure grins with wide happy dot eyes, rhythmically tapping two sticks against a hollow log; small bright yellow musical sound shockwaves pop outward with each tap into the warm firelight",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4185,8 +3669,7 @@
     },
     {
       "frame_number": 16,
-      "frame_id": "frame_016",
-      "frame_file": "frame_016.png",
+      "frame": "frame_016.png",
       "beat_id": "beat_005",
       "start_time": 16.5,
       "end_time": 18.0,
@@ -4195,7 +3678,6 @@
       "timestamp_end": "00:18",
       "script_fragment": "on those long empty nights",
       "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
-      "action": "Clean 3-panel split layout on pure white background (#FFFFFF)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4203,8 +3685,7 @@
     },
     {
       "frame_number": 17,
-      "frame_id": "frame_017",
-      "frame_file": "frame_017.png",
+      "frame": "frame_017.png",
       "beat_id": "beat_005",
       "start_time": 18.0,
       "end_time": 19.5,
@@ -4213,7 +3694,6 @@
       "timestamp_end": "00:19.5",
       "script_fragment": "became music,",
       "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4221,8 +3701,7 @@
     },
     {
       "frame_number": 18,
-      "frame_id": "frame_018",
-      "frame_file": "frame_018.png",
+      "frame": "frame_018.png",
       "beat_id": "beat_005",
       "start_time": 19.5,
       "end_time": 20.5,
@@ -4231,7 +3710,6 @@
       "timestamp_end": "00:20.5",
       "script_fragment": "games,",
       "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
-      "action": "Clean educational prop card on bright warm cream paper canvas (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4239,8 +3717,7 @@
     },
     {
       "frame_number": 19,
-      "frame_id": "frame_019",
-      "frame_file": "frame_019.png",
+      "frame": "frame_019.png",
       "beat_id": "beat_005",
       "start_time": 20.5,
       "end_time": 21.5,
@@ -4249,7 +3726,6 @@
       "timestamp_end": "00:21.5",
       "script_fragment": "and sex.",
       "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
-      "action": "Bright, cheerful daytime Paleolithic setting: two early human stick figures (one male with shaggy hair, one female with wavy hair and bone bead) sit together on a woven straw mat beside a sparkling blue stream under a bright cyan daytime sky (#A0D2EB) and leafy green acacia trees",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4257,8 +3733,7 @@
     },
     {
       "frame_number": 20,
-      "frame_id": "frame_020",
-      "frame_file": "frame_020.png",
+      "frame": "frame_020.png",
       "beat_id": "beat_006",
       "start_time": 21.5,
       "end_time": 23.0,
@@ -4267,7 +3742,6 @@
       "timestamp_end": "00:23",
       "script_fragment": "And one of those three quietly turned into a business",
       "narration_context": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
-      "action": "Skeptical narrator stick figure avatar with white circular head, arched cocked eyebrow, and a knowing witty smirk stands against a clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4275,8 +3749,7 @@
     },
     {
       "frame_number": 21,
-      "frame_id": "frame_021",
-      "frame_file": "frame_021.png",
+      "frame": "frame_021.png",
       "beat_id": "beat_006",
       "start_time": 23.0,
       "end_time": 24.5,
@@ -4285,7 +3758,6 @@
       "timestamp_end": "00:24.5",
       "script_fragment": "we still call the oldest profession on Earth.",
       "narration_context": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
-      "action": "Title concept card on pure clean white background (#FFFFFF)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4293,8 +3765,7 @@
     },
     {
       "frame_number": 22,
-      "frame_id": "frame_022",
-      "frame_file": "frame_022.png",
+      "frame": "frame_022.png",
       "beat_id": "beat_007",
       "start_time": 24.5,
       "end_time": 26.0,
@@ -4303,7 +3774,6 @@
       "timestamp_end": "00:26",
       "script_fragment": "It runs from a bone flute in a freezing cave",
       "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
-      "action": "Bright sunlit Classical Antiquity setting: interior of a Roman Pompeii lupanar tavern with pale weathered limestone masonry walls, warm terracotta floor tiles, draped crimson linen curtains, and bright Mediterranean daylight pouring through an open stone archway",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4311,8 +3781,7 @@
     },
     {
       "frame_number": 23,
-      "frame_id": "frame_023",
-      "frame_file": "frame_023.png",
+      "frame": "frame_023.png",
       "beat_id": "beat_007",
       "start_time": 26.0,
       "end_time": 27.0,
@@ -4321,7 +3790,6 @@
       "timestamp_end": "00:27",
       "script_fragment": "runs from a bone flute in a freezing cave",
       "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
-      "action": "Inside the pale limestone cave: early human male stick figure sits on clean golden sand beside bright golden-orange campfire flames (#FFA028), raising the pale carved bone flute with both thin black stick arms toward mouth, testing the first musical note",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4329,8 +3797,7 @@
     },
     {
       "frame_number": 24,
-      "frame_id": "frame_024",
-      "frame_file": "frame_024.png",
+      "frame": "frame_024.png",
       "beat_id": "beat_007",
       "start_time": 27.0,
       "end_time": 28.5,
@@ -4339,7 +3806,6 @@
       "timestamp_end": "00:28.5",
       "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
       "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
-      "action": "Close-up macro view of the ancient pale Pompeii Roman plaster wall in bright Mediterranean daylight: authentic historical Roman graffiti scratched into the stucco showing tallies and numerals 'II AS' and 'VI AS' beside a simple line-art coin purse",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4347,8 +3813,7 @@
     },
     {
       "frame_number": 25,
-      "frame_id": "frame_025",
-      "frame_file": "frame_025.png",
+      "frame": "frame_025.png",
       "beat_id": "beat_008",
       "start_time": 28.5,
       "end_time": 30.0,
@@ -4357,7 +3822,6 @@
       "timestamp_end": "00:30",
       "script_fragment": "To get any of this,",
       "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
-      "action": "Expressive stick figure narrator avatar with white circular head and raised eyebrow stands against a clean bright warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4365,8 +3829,7 @@
     },
     {
       "frame_number": 26,
-      "frame_id": "frame_026",
-      "frame_file": "frame_026.png",
+      "frame": "frame_026.png",
       "beat_id": "beat_008",
       "start_time": 30.0,
       "end_time": 31.5,
@@ -4375,7 +3838,6 @@
       "timestamp_end": "00:31.5",
       "script_fragment": "you have to kill one myth first",
       "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
-      "action": "Continuous scene: the expressive stick figure narrator with a determined smirk raises a thin black stick arm holding a clean cartoon sword, slashing boldly through a giant floating red word 'MYTH' on the clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4383,8 +3845,7 @@
     },
     {
       "frame_number": 27,
-      "frame_id": "frame_027",
-      "frame_file": "frame_027.png",
+      "frame": "frame_027.png",
       "beat_id": "beat_008",
       "start_time": 31.5,
       "end_time": 33.0,
@@ -4393,7 +3854,6 @@
       "timestamp_end": "00:33",
       "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
       "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
-      "action": "Conceptual graphic on pure clean white background (#FFFFFF)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4401,8 +3861,7 @@
     },
     {
       "frame_number": 28,
-      "frame_id": "frame_028",
-      "frame_file": "frame_028.png",
+      "frame": "frame_028.png",
       "beat_id": "beat_009",
       "start_time": 33.0,
       "end_time": 34.5,
@@ -4411,7 +3870,6 @@
       "timestamp_end": "00:34.5",
       "script_fragment": "The myth is that survival never stopped.",
       "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
-      "action": "Paleolithic male stick figure with circular white head, shaggy brown hair, and one-shoulder fur tunic stands tall and relaxed holding a flint spear on an expansive, sunny golden savannah grassland (#F5E6C8) under a bright clear cyan daytime sky (#A0D2EB)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4419,8 +3877,7 @@
     },
     {
       "frame_number": 29,
-      "frame_id": "frame_029",
-      "frame_file": "frame_029.png",
+      "frame": "frame_029.png",
       "beat_id": "beat_009",
       "start_time": 34.5,
       "end_time": 36.0,
@@ -4429,7 +3886,6 @@
       "timestamp_end": "00:36",
       "script_fragment": "Every hour spent hunting, gathering, running from things.",
       "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
-      "action": "Split comparison showing the common misconception: a Neolithic farmer stick figure hunched painfully over endless tilled crop furrows under a pale daytime sky, sweating under exhausting physical toil with a hoe",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4437,8 +3893,7 @@
     },
     {
       "frame_number": 30,
-      "frame_id": "frame_030",
-      "frame_file": "frame_030.png",
+      "frame": "frame_030.png",
       "beat_id": "beat_009",
       "start_time": 36.0,
       "end_time": 37.5,
@@ -4447,7 +3902,6 @@
       "timestamp_end": "00:37.5",
       "script_fragment": "Total exhaustion, collapse, repeat.",
       "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
-      "action": "The early human hunter-gatherer male stick figure rests comfortably on golden sand (#F5E6C8) beside a sparkling blue stream, leaning back against a smooth grey boulder with arms crossed behind head, smiling peacefully in the warm golden afternoon daylight",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4455,8 +3909,7 @@
     },
     {
       "frame_number": 31,
-      "frame_id": "frame_031",
-      "frame_file": "frame_031.png",
+      "frame": "frame_031.png",
       "beat_id": "beat_010",
       "start_time": 37.5,
       "end_time": 39.0,
@@ -4465,7 +3918,6 @@
       "timestamp_end": "00:39",
       "script_fragment": "It feels like it must be true.",
       "narration_context": "It feels like it must be true. It's completely backwards.",
-      "action": "Skeptical narrator stick figure with white circular head and deadpan expression stands on clean warm cream background (#FAF7EE), stroking its chin thoughtfully with a thin black stick hand beneath a large floating hand-drawn question mark",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4473,8 +3925,7 @@
     },
     {
       "frame_number": 32,
-      "frame_id": "frame_032",
-      "frame_file": "frame_032.png",
+      "frame": "frame_032.png",
       "beat_id": "beat_010",
       "start_time": 39.0,
       "end_time": 40.5,
@@ -4483,7 +3934,6 @@
       "timestamp_end": "00:40.5",
       "script_fragment": "It's completely backwards.",
       "narration_context": "It feels like it must be true. It's completely backwards.",
-      "action": "Continuous scene: the narrator stick figure smirks knowingly with an arched eyebrow, thrusting both stick arms outward as the word 'BACKWARDS' spins 180 degrees upside down in bold black and red letters across the clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4491,8 +3941,7 @@
     },
     {
       "frame_number": 33,
-      "frame_id": "frame_033",
-      "frame_file": "frame_033.png",
+      "frame": "frame_033.png",
       "beat_id": "beat_011",
       "start_time": 40.5,
       "end_time": 42.0,
@@ -4501,7 +3950,6 @@
       "timestamp_end": "00:42",
       "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
       "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
-      "action": "Academic title card on pure clean white background (#FFFFFF)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4509,8 +3957,7 @@
     },
     {
       "frame_number": 34,
-      "frame_id": "frame_034",
-      "frame_file": "frame_034.png",
+      "frame": "frame_034.png",
       "beat_id": "beat_011",
       "start_time": 42.0,
       "end_time": 44.0,
@@ -4519,7 +3966,6 @@
       "timestamp_end": "00:44",
       "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
       "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
-      "action": "Expansive bright Kalahari savannah under a clear bright cyan daytime sky (#A0D2EB): anthropologist stick figure wearing a tan safari helmet and shoulder satchel walks leisurely alongside a Ju/'hoansi hunter stick figure carrying a spear across bright golden sand (#F5E6C8) and light green scrub grass",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4527,8 +3973,7 @@
     },
     {
       "frame_number": 35,
-      "frame_id": "frame_035",
-      "frame_file": "frame_035.png",
+      "frame": "frame_035.png",
       "beat_id": "beat_011",
       "start_time": 44.0,
       "end_time": 46.0,
@@ -4537,7 +3982,6 @@
       "timestamp_end": "00:46",
       "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
       "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
-      "action": "Inside a bright sunlit canvas field tent under acacia shade: anthropologist stick figure sits at a blonde wood camp desk, holding a stopwatch in one simple black stick hand and writing in a field journal with the other",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4545,8 +3989,7 @@
     },
     {
       "frame_number": 36,
-      "frame_id": "frame_036",
-      "frame_file": "frame_036.png",
+      "frame": "frame_036.png",
       "beat_id": "beat_012",
       "start_time": 46.0,
       "end_time": 48.0,
@@ -4555,7 +3998,6 @@
       "timestamp_end": "00:48",
       "script_fragment": "He didn't guess. He timed them.",
       "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
-      "action": "Medium-wide shot on the sunny golden savannah: a Ju/'hoansi hunter walks leisurely across the bright grassland under a clear cyan sky (#A0D2EB), while a stylized hand-drawn stopwatch icon ticks rhythmically in the upper corner of the frame",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4563,8 +4005,7 @@
     },
     {
       "frame_number": 37,
-      "frame_id": "frame_037",
-      "frame_file": "frame_037.png",
+      "frame": "frame_037.png",
       "beat_id": "beat_012",
       "start_time": 48.0,
       "end_time": 50.0,
@@ -4573,7 +4014,6 @@
       "timestamp_end": "00:50",
       "script_fragment": "Every hour of work hunting, gathering, making tools.",
       "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
-      "action": "Clean bright ivory drafting parchment background (#FAF7EE)",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4581,8 +4021,7 @@
     },
     {
       "frame_number": 38,
-      "frame_id": "frame_038",
-      "frame_file": "frame_038.png",
+      "frame": "frame_038.png",
       "beat_id": "beat_012",
       "start_time": 50.0,
       "end_time": 52.0,
@@ -4591,7 +4030,6 @@
       "timestamp_end": "00:52",
       "script_fragment": "The total came out to about fifteen hours a week.",
       "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
-      "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): on the 24-hour chronometer dial, a bright golden-yellow pie wedge highlights a small 4-hour section per day, labeled with clean uppercase hand-lettered text: 'WORK: 15 HOURS / WEEK' with a small neat pointing arrow",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4599,8 +4037,7 @@
     },
     {
       "frame_number": 39,
-      "frame_id": "frame_039",
-      "frame_file": "frame_039.png",
+      "frame": "frame_039.png",
       "beat_id": "beat_012",
       "start_time": 52.0,
       "end_time": 54.0,
@@ -4609,7 +4046,6 @@
       "timestamp_end": "00:54",
       "script_fragment": "Fifteen.",
       "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
-      "action": "Continuous on the clean bright ivory drafting parchment (#FAF7EE): the rest of the 24-hour dial fills with a serene, expansive soft cyan-blue fill labeled 'FREE TIME & LEISURE', while the bold black number '15 HOURS' pulses with clean yellow accent highlights",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4617,8 +4053,7 @@
     },
     {
       "frame_number": 40,
-      "frame_id": "frame_040",
-      "frame_file": "frame_040.png",
+      "frame": "frame_040.png",
       "beat_id": "beat_013",
       "start_time": 54.0,
       "end_time": 56.0,
@@ -4627,7 +4062,6 @@
       "timestamp_end": "00:56",
       "script_fragment": "A modern full-time job is forty,",
       "narration_context": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
-      "action": "The early human hunter stick figure wakes leisurely on a woven straw mat on light golden sand (#F5E6C8) beside glowing campfire stones, raising both stick arms in a wide, joyful morning stretch toward a bright sunny pastel dawn sky (#A0D2EB) filled with warm peach clouds",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4635,8 +4069,7 @@
     },
     {
       "frame_number": 41,
-      "frame_id": "frame_041",
-      "frame_file": "frame_041.png",
+      "frame": "frame_041.png",
       "beat_id": "beat_013",
       "start_time": 56.0,
       "end_time": 58.0,
@@ -4645,7 +4078,6 @@
       "timestamp_end": "00:58",
       "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
       "narration_context": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
-      "action": "Two early human stick figures sit relaxed together in the shade of a leafy green acacia tree on light golden ground (#F5E6C8), sharing a wooden bowl of fresh mongongo nuts and laughing in bright sunny daylight under a clear cyan sky (#A0D2EB)",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4653,8 +4085,7 @@
     },
     {
       "frame_number": 42,
-      "frame_id": "frame_042",
-      "frame_file": "frame_042.png",
+      "frame": "frame_042.png",
       "beat_id": "beat_014",
       "start_time": 58.0,
       "end_time": 60.0,
@@ -4663,7 +4094,6 @@
       "timestamp_end": "01:00",
       "script_fragment": "The people we pictured as desperate survivors were working",
       "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
-      "action": "The early human hunter walks with relaxed, unhurried strides across the sunny golden savannah (#F5E6C8), spear resting balanced lightly across shoulders, smiling in the warm morning sun",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4671,8 +4101,7 @@
     },
     {
       "frame_number": 43,
-      "frame_id": "frame_043",
-      "frame_file": "frame_043.png",
+      "frame": "frame_043.png",
       "beat_id": "beat_014",
       "start_time": 60.0,
       "end_time": 62.0,
@@ -4681,7 +4110,6 @@
       "timestamp_end": "01:02",
       "script_fragment": "the equivalent of two days a week.",
       "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
-      "action": "Low wide camera angle: the hunter pauses on a gentle golden crest, gazing out across the sunny expansive savannah wilderness with birds soaring in the bright blue sky above",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4689,8 +4117,7 @@
     },
     {
       "frame_number": 44,
-      "frame_id": "frame_044",
-      "frame_file": "frame_044.png",
+      "frame": "frame_044.png",
       "beat_id": "beat_014",
       "start_time": 62.0,
       "end_time": 64.0,
@@ -4699,7 +4126,6 @@
       "timestamp_end": "01:04",
       "script_fragment": "Two. Days.",
       "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
-      "action": "Bold typographical title card on pure clean white background (#FFFFFF)",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4707,8 +4133,7 @@
     },
     {
       "frame_number": 45,
-      "frame_id": "frame_045",
-      "frame_file": "frame_045.png",
+      "frame": "frame_045.png",
       "beat_id": "beat_015",
       "start_time": 64.0,
       "end_time": 66.0,
@@ -4717,7 +4142,6 @@
       "timestamp_end": "01:06",
       "script_fragment": "The rest of that time belonged entirely to them.",
       "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
-      "action": "Close-up of the early human stick figure lying peacefully on its back in soft golden grass under a leafy acacia branch, chewing a grass blade, looking up happily at fluffy white clouds in the bright cyan sky (#A0D2EB)",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4725,8 +4149,7 @@
     },
     {
       "frame_number": 46,
-      "frame_id": "frame_046",
-      "frame_file": "frame_046.png",
+      "frame": "frame_046.png",
       "beat_id": "beat_015",
       "start_time": 66.0,
       "end_time": 68.0,
@@ -4735,7 +4158,6 @@
       "timestamp_end": "01:08",
       "script_fragment": "And they weren't spending it staring at walls.",
       "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
-      "action": "Communal campfire circle on clean golden sand (#F5E6C8) under a soft pastel twilight sky: five early human stick figures sit in a circle, actively talking, laughing, and gesturing with thin black stick arms around cheerful golden-orange campfire flames (#FFA028)",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4743,8 +4165,7 @@
     },
     {
       "frame_number": 47,
-      "frame_id": "frame_047",
-      "frame_file": "frame_047.png",
+      "frame": "frame_047.png",
       "beat_id": "beat_015",
       "start_time": 68.0,
       "end_time": 70.0,
@@ -4753,7 +4174,6 @@
       "timestamp_end": "01:10",
       "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
       "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
-      "action": "Medium shot at the campfire: a modern narrator stick figure avatar sits comfortably beside the ancient early humans on golden sand, gesturing conversationally toward the cheerful golden campfire flames with open stick hands",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4761,8 +4181,7 @@
     },
     {
       "frame_number": 48,
-      "frame_id": "frame_048",
-      "frame_file": "frame_048.png",
+      "frame": "frame_048.png",
       "beat_id": "beat_016",
       "start_time": 70.0,
       "end_time": 72.0,
@@ -4771,7 +4190,6 @@
       "timestamp_end": "01:12",
       "script_fragment": "Here is what happens when you take a human brain",
       "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
-      "action": "In a stylized bright studio setting on clean warm cream background (#FAF7EE): modern stick figure narrator stands beside a large hand-drawn 2D vector brain illustration that pulses with bright yellow electric spark lines",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4779,8 +4197,7 @@
     },
     {
       "frame_number": 49,
-      "frame_id": "frame_049",
-      "frame_file": "frame_049.png",
+      "frame": "frame_049.png",
       "beat_id": "beat_016",
       "start_time": 72.0,
       "end_time": 74.0,
@@ -4789,7 +4206,6 @@
       "timestamp_end": "01:14",
       "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
       "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
-      "action": "Centered anatomical diagram on clean warm cream background (#FAF7EE): close-up of the stylized 2D brain cross-section, showing clean colorful internal gears, glowing yellow problem-solving nodes, and electric thought sparks",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4797,8 +4213,7 @@
     },
     {
       "frame_number": 50,
-      "frame_id": "frame_050",
-      "frame_file": "frame_050.png",
+      "frame": "frame_050.png",
       "beat_id": "beat_016",
       "start_time": 74.0,
       "end_time": 76.0,
@@ -4807,7 +4222,6 @@
       "timestamp_end": "01:16",
       "script_fragment": "and you give it six empty hours by a fire every single night.",
       "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
-      "action": "Continuous in the studio: three colorful conceptual arrows branch out from the glowing brain diagram to three clean hand-drawn icons: a bone flute, carved dice, and painted cave art on the clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4815,8 +4229,7 @@
     },
     {
       "frame_number": 51,
-      "frame_id": "frame_051",
-      "frame_file": "frame_051.png",
+      "frame": "frame_051.png",
       "beat_id": "beat_017",
       "start_time": 76.0,
       "end_time": 78.0,
@@ -4825,7 +4238,6 @@
       "timestamp_end": "01:18",
       "script_fragment": "It doesn't sit quietly.",
       "narration_context": "It doesn't sit quietly. It can't.",
-      "action": "On clean warm cream background (#FAF7EE): the narrator stick figure paces back and forth with an energetic, restless stride, thin black stick arms swinging naturally with single clean elbow bends, dot eyes alert and thinking intensely",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4833,8 +4245,7 @@
     },
     {
       "frame_number": 52,
-      "frame_id": "frame_052",
-      "frame_file": "frame_052.png",
+      "frame": "frame_052.png",
       "beat_id": "beat_017",
       "start_time": 78.0,
       "end_time": 80.0,
@@ -4843,7 +4254,6 @@
       "timestamp_end": "01:20",
       "script_fragment": "It can't.",
       "narration_context": "It doesn't sit quietly. It can't.",
-      "action": "Continuous scene: the narrator stick figure halts, throwing both black stick arms upward in an emphatic gesture of undeniable certainty, eyes wide and deadpan against the clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4851,8 +4261,7 @@
     },
     {
       "frame_number": 53,
-      "frame_id": "frame_053",
-      "frame_file": "frame_053.png",
+      "frame": "frame_053.png",
       "beat_id": "beat_018",
       "start_time": 80.0,
       "end_time": 82.0,
@@ -4861,7 +4270,6 @@
       "timestamp_end": "01:22",
       "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
       "narration_context": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
-      "action": "Continuous scene: the expressive narrator stick figure leans forward with an arched cocked eyebrow and knowing smirk, tapping its white circular temple with a thin black index finger on clean warm cream background (#FAF7EE)",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4869,8 +4277,7 @@
     },
     {
       "frame_number": 54,
-      "frame_id": "frame_054",
-      "frame_file": "frame_054.png",
+      "frame": "frame_054.png",
       "beat_id": "beat_018",
       "start_time": 82.0,
       "end_time": 85.0,
@@ -4879,7 +4286,6 @@
       "timestamp_end": "01:25",
       "script_fragment": "It looks around. It fidgets. It plays.",
       "narration_context": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
-      "action": "Panoramic night scene: early human male stick figure sits cross-legged on clean golden sand beside bright golden-orange campfire flames (#FFA028) under an expansive, clear midnight-indigo sky filled with twinkling star constellations",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4887,8 +4293,7 @@
     },
     {
       "frame_number": 55,
-      "frame_id": "frame_055",
-      "frame_file": "frame_055.png",
+      "frame": "frame_055.png",
       "beat_id": "beat_019",
       "start_time": 85.0,
       "end_time": 88.0,
@@ -4897,7 +4302,6 @@
       "timestamp_end": "01:28",
       "script_fragment": "Night after night, season after season, thousands of years before the first city,",
       "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
-      "action": "Vast minimalist night aerial landscape: five small warm golden campfire circles flicker across a clean desert river valley floor beneath a clear, brilliant starry indigo sky and gentle rolling hill silhouettes",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -4905,8 +4309,7 @@
     },
     {
       "frame_number": 56,
-      "frame_id": "frame_056",
-      "frame_file": "frame_056.png",
+      "frame": "frame_056.png",
       "beat_id": "beat_019",
       "start_time": 88.0,
       "end_time": 89.5,
@@ -4915,7 +4318,6 @@
       "timestamp_end": "01:29.5",
       "script_fragment": "Restless brains, capable hands, and empty time",
       "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
-      "action": "Inside a sheltered pale limestone cave: early human stick figure with shaggy brown hair and circular white head kneels comfortably on a woven fur pelt on clean golden sand beside glowing campfire embers and pale river stones",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4923,8 +4325,7 @@
     },
     {
       "frame_number": 57,
-      "frame_id": "frame_057",
-      "frame_file": "frame_057.png",
+      "frame": "frame_057.png",
       "beat_id": "beat_019",
       "start_time": 89.5,
       "end_time": 91.5,
@@ -4933,7 +4334,6 @@
       "timestamp_end": "01:31.5",
       "script_fragment": "alltogether in the firelight. That combination is an engine.",
       "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
-      "action": "Continuous in the pale limestone cave: close-up macro action view of the carving process",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4941,8 +4341,7 @@
     },
     {
       "frame_number": 58,
-      "frame_id": "frame_058",
-      "frame_file": "frame_058.png",
+      "frame": "frame_058.png",
       "beat_id": "beat_020",
       "start_time": 91.5,
       "end_time": 94.0,
@@ -4951,7 +4350,6 @@
       "timestamp_end": "01:34",
       "script_fragment": "It has to make something.",
       "narration_context": "It has to make something.",
-      "action": "Continuous in the pale limestone cave: close-up action view of the flint point chiseling into the pale bone surface",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4959,8 +4357,7 @@
     },
     {
       "frame_number": 59,
-      "frame_id": "frame_059",
-      "frame_file": "frame_059.png",
+      "frame": "frame_059.png",
       "beat_id": "beat_020",
       "start_time": 94.0,
       "end_time": 95.5,
@@ -4969,7 +4366,6 @@
       "timestamp_end": "01:35.5",
       "script_fragment": "It has to make something.",
       "narration_context": "It has to make something.",
-      "action": "Continuous in the cave: side profile of the early human stick figure with minimalist circular white head, simple dot eyes, and shaggy brown hair, blowing a gentle puff of breath across the carved bone resting in its simple black cartoon stick hands; tiny stylized dust particles catch bright warm campfire light against the pale limestone cave interior",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4977,8 +4373,7 @@
     },
     {
       "frame_number": 60,
-      "frame_id": "frame_060",
-      "frame_file": "frame_060.png",
+      "frame": "frame_060.png",
       "beat_id": "beat_021",
       "start_time": 95.5,
       "end_time": 97.0,
@@ -4987,7 +4382,6 @@
       "timestamp_end": "01:37",
       "script_fragment": "And the first thing it made was music.",
       "narration_context": "And the first thing it made was music.",
-      "action": "Dramatic concept title card: bold hand-lettered brushwork text 'MUSIC' in warm amber and black centered on a clean pale limestone rock texture with soft warm campfire glow",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -4995,8 +4389,7 @@
     },
     {
       "frame_number": 61,
-      "frame_id": "frame_061",
-      "frame_file": "frame_061.png",
+      "frame": "frame_061.png",
       "beat_id": "beat_021",
       "start_time": 97.0,
       "end_time": 99.0,
@@ -5005,7 +4398,6 @@
       "timestamp_end": "01:39",
       "script_fragment": "And the first thing it made was music.",
       "narration_context": "And the first thing it made was music.",
-      "action": "Continuous on the title card: concentric acoustic soundwave rings in soft bright yellow vibrate outward from behind the 'MUSIC' title like luminous ripples across the clean pale limestone background",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5013,8 +4405,7 @@
     },
     {
       "frame_number": 62,
-      "frame_id": "frame_062",
-      "frame_file": "frame_062.png",
+      "frame": "frame_062.png",
       "beat_id": "beat_022",
       "start_time": 99.0,
       "end_time": 102.0,
@@ -5023,7 +4414,6 @@
       "timestamp_end": "01:42",
       "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
       "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
-      "action": "Minimalist hand-drawn map of Ice Age Europe on pure clean white background (#FFFFFF): northern ice sheets in soft pastel cyan, southern landmass in pastel leaf green, bold black ink coastlines",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5031,8 +4421,7 @@
     },
     {
       "frame_number": 63,
-      "frame_id": "frame_063",
-      "frame_file": "frame_063.png",
+      "frame": "frame_063.png",
       "beat_id": "beat_022",
       "start_time": 102.0,
       "end_time": 105.0,
@@ -5041,7 +4430,6 @@
       "timestamp_end": "01:45",
       "script_fragment": "humans sat in freezing darkness and carved flutes.",
       "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
-      "action": "Regional close-up map of southern Germany on pure clean white background (#FFFFFF): clean black border outlines with soft pastel tan and mint fills",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5049,8 +4437,7 @@
     },
     {
       "frame_number": 64,
-      "frame_id": "frame_064",
-      "frame_file": "frame_064.png",
+      "frame": "frame_064.png",
       "beat_id": "beat_022",
       "start_time": 105.0,
       "end_time": 107.0,
@@ -5059,7 +4446,6 @@
       "timestamp_end": "01:47",
       "script_fragment": "Not rough noisemakers. Instruments.",
       "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
-      "action": "Inside the pale limestone cave: early human male stick figure kneels proudly on clean golden sand beside glowing campfire stones, holding up the pale completed bone flute in both thin black stick arms",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5067,8 +4453,7 @@
     },
     {
       "frame_number": 65,
-      "frame_id": "frame_065",
-      "frame_file": "frame_065.png",
+      "frame": "frame_065.png",
       "beat_id": "beat_023",
       "start_time": 107.0,
       "end_time": 109.0,
@@ -5077,7 +4462,6 @@
       "timestamp_end": "01:49",
       "script_fragment": "The flute is made from the radius bone of a griffon vulture",
       "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5085,8 +4469,7 @@
     },
     {
       "frame_number": 66,
-      "frame_id": "frame_066",
-      "frame_file": "frame_066.png",
+      "frame": "frame_066.png",
       "beat_id": "beat_023",
       "start_time": 109.0,
       "end_time": 110.0,
@@ -5095,7 +4478,6 @@
       "timestamp_end": "01:50",
       "script_fragment": "with precisely placed holes.",
       "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
-      "action": "Close-up action view: thin minimalist black stick-figure hands gently hold the pale bone flute horizontally beside the warm campfire, simple black cartoon fingers testing the precise spacing of the five cleanly drilled circular finger holes",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5103,8 +4485,7 @@
     },
     {
       "frame_number": 67,
-      "frame_id": "frame_067",
-      "frame_file": "frame_067.png",
+      "frame": "frame_067.png",
       "beat_id": "beat_023",
       "start_time": 110.0,
       "end_time": 111.0,
@@ -5113,7 +4494,6 @@
       "timestamp_end": "01:51",
       "script_fragment": "Five of them.",
       "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5121,8 +4501,7 @@
     },
     {
       "frame_number": 68,
-      "frame_id": "frame_068",
-      "frame_file": "frame_068.png",
+      "frame": "frame_068.png",
       "beat_id": "beat_024",
       "start_time": 111.0,
       "end_time": 113.0,
@@ -5131,7 +4510,6 @@
       "timestamp_end": "01:53",
       "script_fragment": "Then they lift it, blow,",
       "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
-      "action": "Medium profile shot inside the pale limestone cave: early human male stick figure gently raises the completed bone flute with both thin black stick arms toward its simple line mouth, cartoon mitten fingers hovering poised over the five drilled holes in concentration",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5139,8 +4517,7 @@
     },
     {
       "frame_number": 69,
-      "frame_id": "frame_069",
-      "frame_file": "frame_069.png",
+      "frame": "frame_069.png",
       "beat_id": "beat_024",
       "start_time": 113.0,
       "end_time": 115.0,
@@ -5149,7 +4526,6 @@
       "timestamp_end": "01:55",
       "script_fragment": "and a clear note fills the cave.",
       "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
-      "action": "Close-up profile of the early human stick figure blowing softly across the V-notch mouthpiece; eyes closed in peaceful listening concentration as warm firelight glints on cheek, bone flute, and pale limestone cavern stalactites",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5157,8 +4533,7 @@
     },
     {
       "frame_number": 70,
-      "frame_id": "frame_070",
-      "frame_file": "frame_070.png",
+      "frame": "frame_070.png",
       "beat_id": "beat_024",
       "start_time": 115.0,
       "end_time": 117.0,
@@ -5167,7 +4542,6 @@
       "timestamp_end": "01:57",
       "script_fragment": "and a clear note fills the cave.",
       "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
-      "action": "Wide shot of the pale Hohle Fels limestone cave cavern: luminous concentric circular soundwaves in warm soft yellow expand outward from the flute tip, echoing visibly past rock stalactites, glowing stone hearth, and natural rock pillars into the chamber",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5175,8 +4549,7 @@
     },
     {
       "frame_number": 71,
-      "frame_id": "frame_071",
-      "frame_file": "frame_071.png",
+      "frame": "frame_071.png",
       "beat_id": "beat_025",
       "start_time": 117.0,
       "end_time": 119.0,
@@ -5185,7 +4558,6 @@
       "timestamp_end": "01:59",
       "script_fragment": "This isn't a guess.",
       "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
-      "action": "A knowledgeable stick figure presenter with circular white head, arched cocked eyebrow, and authoritative smile stands against a clean bright warm cream background (#FAF7EE) inside an archaeological research lab, holding up a certified historical excavation report",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5193,8 +4565,7 @@
     },
     {
       "frame_number": 72,
-      "frame_id": "frame_072",
-      "frame_file": "frame_072.png",
+      "frame": "frame_072.png",
       "beat_id": "beat_025",
       "start_time": 119.0,
       "end_time": 121.0,
@@ -5203,7 +4574,6 @@
       "timestamp_end": "02:01",
       "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
       "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
-      "action": "Academic title card on pure clean white background (#FFFFFF): tan safari helmet and trowel icon centered cleanly above bold uppercase black text: '2008 — PROF",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5211,8 +4581,7 @@
     },
     {
       "frame_number": 73,
-      "frame_id": "frame_073",
-      "frame_file": "frame_073.png",
+      "frame": "frame_073.png",
       "beat_id": "beat_025",
       "start_time": 121.0,
       "end_time": 123.0,
@@ -5221,7 +4590,6 @@
       "timestamp_end": "02:03",
       "script_fragment": "was digging in a cave called Hols",
       "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
-      "action": "Modern archaeologist stick figure wearing a tan safari helmet and utility vest kneels in a clean excavation dig trench inside Hohle Fels cave under bright yellow tripod work lights, delicately clearing pale sediment with a pointed trowel and fine brush beside white survey strings",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5229,8 +4597,7 @@
     },
     {
       "frame_number": 74,
-      "frame_id": "frame_074",
-      "frame_file": "frame_074.png",
+      "frame": "frame_074.png",
       "beat_id": "beat_025",
       "start_time": 123.0,
       "end_time": 125.0,
@@ -5239,7 +4606,6 @@
       "timestamp_end": "02:05",
       "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
       "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5247,8 +4613,7 @@
     },
     {
       "frame_number": 75,
-      "frame_id": "frame_075",
-      "frame_file": "frame_075.png",
+      "frame": "frame_075.png",
       "beat_id": "beat_026",
       "start_time": 125.0,
       "end_time": 126.5,
@@ -5257,7 +4622,6 @@
       "timestamp_end": "02:06.5",
       "script_fragment": "Fitted back together, they formed a flute,",
       "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5265,8 +4629,7 @@
     },
     {
       "frame_number": 76,
-      "frame_id": "frame_076",
-      "frame_file": "frame_076.png",
+      "frame": "frame_076.png",
       "beat_id": "beat_026",
       "start_time": 126.5,
       "end_time": 128.0,
@@ -5275,7 +4638,6 @@
       "timestamp_end": "02:08",
       "script_fragment": "the wing bone of a griffin vulture,",
       "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
-      "action": "Wildlife illustration: a majestic wild griffon vulture soars horizontally with massive brown and cream wings outstretched across a clear, bright cyan daytime sky (#A0D2EB) above distant pale Swabian Jura cliff silhouettes",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5283,8 +4645,7 @@
     },
     {
       "frame_number": 77,
-      "frame_id": "frame_077",
-      "frame_file": "frame_077.png",
+      "frame": "frame_077.png",
       "beat_id": "beat_026",
       "start_time": 128.0,
       "end_time": 131.0,
@@ -5293,7 +4654,6 @@
       "timestamp_end": "02:11",
       "script_fragment": "five finger holes, a carved mouthpiece",
       "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5301,8 +4661,7 @@
     },
     {
       "frame_number": 78,
-      "frame_id": "frame_078",
-      "frame_file": "frame_078.png",
+      "frame": "frame_078.png",
       "beat_id": "beat_026",
       "start_time": 131.0,
       "end_time": 133.0,
@@ -5311,7 +4670,6 @@
       "timestamp_end": "02:13",
       "script_fragment": "about as long as your forearm,",
       "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5319,8 +4677,7 @@
     },
     {
       "frame_number": 79,
-      "frame_id": "frame_079",
-      "frame_file": "frame_079.png",
+      "frame": "frame_079.png",
       "beat_id": "beat_026",
       "start_time": 133.0,
       "end_time": 135.0,
@@ -5329,7 +4686,6 @@
       "timestamp_end": "02:15",
       "script_fragment": "and roughly 40,000 years old.",
       "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
@@ -5337,8 +4693,7 @@
     },
     {
       "frame_number": 80,
-      "frame_id": "frame_080",
-      "frame_file": "frame_080.png",
+      "frame": "frame_080.png",
       "beat_id": "beat_027",
       "start_time": 135.0,
       "end_time": 137.0,
@@ -5347,7 +4702,6 @@
       "timestamp_end": "02:17",
       "script_fragment": "In another cave close by, they found more. Carved from swan bone",
       "narration_context": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "crossfade",
         "duration": 0.3
@@ -5355,8 +4709,7 @@
     },
     {
       "frame_number": 81,
-      "frame_id": "frame_081",
-      "frame_file": "frame_081.png",
+      "frame": "frame_081.png",
       "beat_id": "beat_027",
       "start_time": 137.0,
       "end_time": 139.0,
@@ -5365,7 +4718,6 @@
       "timestamp_end": "02:19",
       "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
       "narration_context": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
-      "action": "2D hand-drawn animated explainer style matching ref_prop_vulture_bone_flute_clean",
       "transition": {
         "type": "cut",
         "duration": 0.0
