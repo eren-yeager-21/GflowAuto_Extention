@@ -1909,16 +1909,21 @@ function createSingleCharacter(charId) {
       return;
     }
 
+    const frame = currentSpec.visuals[idx];
+    if (!frame) return;
+    activeRerollIndex = idx;
+    updateUIStatus();
+
     try {
       await getFlowTargetTab();
     } catch (error) {
+      activeRerollIndex = null;
+      updateUIStatus();
       setCollectionDestinationStatus(error.message, true);
       alert(error.message);
       return;
     }
 
-    const frame = currentSpec.visuals[idx];
-    activeRerollIndex = idx;
     frame.reroll_in_progress = Boolean(rerollHistory.begin(frame));
     frame.status = 'generating';
     frame.progress = 5;
@@ -1963,7 +1968,7 @@ function createSingleCharacter(charId) {
     frame.formatted_reference_guidance = formatReferenceGuidance(frame, idx);
 
     try {
-      const ok = await executeFrameGeneration(frame, refImages, idx);
+      const ok = await executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 });
       applyFrameGenerationResult(idx, ok);
     } catch (err) {
       applyFrameGenerationResult(idx, false, err?.message || String(err));
@@ -2069,9 +2074,12 @@ function createSingleCharacter(charId) {
     };
   }
 
-  function executeFrameGeneration(frame, refImages, promptIndex) {
+  function executeFrameGeneration(frame, refImages, promptIndex, options = {}) {
     return new Promise((resolve) => {
       const payload = buildFrameGenerationPayload(frame, refImages, promptIndex);
+      if (Number.isInteger(options.maxRetries)) {
+        payload.maxRetries = Math.max(0, options.maxRetries);
+      }
 
       getFlowTargetTab().then(targetTab => {
         if (pipelineRunning && pipelinePaused) {

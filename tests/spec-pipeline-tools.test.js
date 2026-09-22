@@ -16,5 +16,12 @@ assert.equal(source.includes('id="spec-debug-log"'), true);
 assert.equal(source.includes('id="btn-copy-debug-log"'), true);
 assert.equal(source.includes('id="btn-clear-debug-log"'), true);
 assert.equal(source.includes("frame.status = 'pending';") && source.includes("status === 'paused' && !result"), true);
+assert.equal(source.includes('executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 })'), true);
+assert.equal(source.includes('payload.maxRetries = Math.max(0, options.maxRetries);'), true);
+
+const rerollStart = source.indexOf('async function regenerateSingleFrame');
+const rerollLock = source.indexOf('activeRerollIndex = idx;', rerollStart);
+const rerollTabLookup = source.indexOf('await getFlowTargetTab();', rerollStart);
+assert.equal(rerollStart >= 0 && rerollLock > rerollStart && rerollLock < rerollTabLookup, true);
 
 console.log('spec pipeline tools tests passed');
