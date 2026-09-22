@@ -43,22 +43,39 @@
 
   // Persistent Keep-Alive Port to Background Service Worker
   let keepAlivePort = null;
+  let keepAliveTimer = null;
+  let keepAliveRetryTimer = null;
   function maintainKeepAlivePort() {
+    if (keepAlivePort) return;
     try {
       if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.connect) {
         keepAlivePort = chrome.runtime.connect({ name: 'spec-pipeline-keepalive' });
+        const sendPing = () => {
+          if (!keepAlivePort) return;
+          try { keepAlivePort.postMessage({ type: 'PING' }); } catch (e) {}
+        };
         keepAlivePort.onDisconnect.addListener(() => {
           keepAlivePort = null;
-          setTimeout(maintainKeepAlivePort, 1000);
-        });
-        setInterval(() => {
-          if (keepAlivePort) {
-            try { keepAlivePort.postMessage({ type: 'PING' }); } catch (e) {}
+          if (keepAliveTimer) clearInterval(keepAliveTimer);
+          keepAliveTimer = null;
+          if (!keepAliveRetryTimer) {
+            keepAliveRetryTimer = setTimeout(() => {
+              keepAliveRetryTimer = null;
+              maintainKeepAlivePort();
+            }, 1000);
           }
-        }, 15000);
+        });
+        sendPing();
+        keepAliveTimer = setInterval(sendPing, 15000);
       }
     } catch (e) {
       console.warn('[SpecPipeline] Could not connect keep-alive port:', e);
+      if (!keepAliveRetryTimer) {
+        keepAliveRetryTimer = setTimeout(() => {
+          keepAliveRetryTimer = null;
+          maintainKeepAlivePort();
+        }, 1000);
+      }
     }
   }
   maintainKeepAlivePort();

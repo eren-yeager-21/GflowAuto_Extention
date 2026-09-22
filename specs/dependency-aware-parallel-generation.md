@@ -21,3 +21,5 @@ The top-level JSON field max_parallel_generations controls the maximum active in
 9. If any required frame fails, stop scheduling dependent frames and show an error state.
 10. Pause prevents further submissions, lets accepted generations finish downloading and mapping, and returns untouched frames to Pending.
 11. The image model remains Nano Banana 2.
+12. After Flow accepts a prompt, a tile with no percentage and no media remains active until media appears or the full generation timeout expires.
+13. While the side panel is open, a named keep-alive port and periodic ping keep the extension service worker available through submission, capture, mapping, and download.

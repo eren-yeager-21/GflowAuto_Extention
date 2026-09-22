@@ -9,6 +9,9 @@ const source = fs.readFileSync(
 const panelSource = fs.readFileSync(
   path.join(__dirname, '..', 'src', 'ui', 'side-panel', 'spec-pipeline.js'),
   'utf8'
+);const backgroundSource = fs.readFileSync(
+  path.join(__dirname, '..', 'assets', 'index.ts-B2QzyOff.js'),
+  'utf8'
 );
 
 assert.equal(
@@ -92,5 +95,27 @@ assert.equal(
   source.includes('capturedResources') && source.includes('captureToken:c.captureToken||""'),
   true,
   'captured image metadata must be returned with the terminal group result'
+);
+assert.equal(
+  source.includes('Tile ${r+1} is accepted and still waiting for generation progress...'),
+  true,
+  'an accepted placeholder tile must remain active while Flow starts generation'
+);
+assert.equal(
+  source.includes('error (no % and no image/video after 3 retries)') || source.includes('w=h.length+g.length'),
+  false,
+  'a placeholder without early progress must not be treated as a terminal error'
+);
+assert.equal(
+  backgroundSource.includes('chrome.runtime.onConnect.addListener') &&
+    backgroundSource.includes('spec-pipeline-keepalive'),
+  true,
+  'the background worker must receive the side-panel keep-alive port'
+);
+assert.equal(
+  panelSource.includes('keepAliveTimer = setInterval(sendPing, 15000)') &&
+    panelSource.includes('if (keepAliveTimer) clearInterval(keepAliveTimer)'),
+  true,
+  'the side panel must maintain one recoverable keep-alive timer'
 );
 console.log('content concurrency patch tests passed');
