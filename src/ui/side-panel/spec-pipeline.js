@@ -808,6 +808,9 @@
     savePipelineMapping();
     renderPipelineDashboard();
     checkFlowCharacters();
+    setTimeout(() => {
+      syncFlowProjectTiles(true).catch(() => {});
+    }, 800);
   }
 
   function renderPipelineDashboard() {
@@ -904,7 +907,7 @@
       <!-- Visual Sequence Section -->
       <div class="section-title">
         <span>Visual Production Sequence (${totalCount} Frames)</span>
-        <button class="btn-link" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button>
+        <button class="btn-link" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles and refresh image previews">🔄 Sync Tiles & Previews</button>
       </div>
       <div class="frames-list" id="frames-container">
         ${renderFramesList()}
@@ -1011,7 +1014,10 @@
         ` : ''}
 
         <div class="frame-preview-container" id="frame-img-box-${idx}" style="display: ${f.result_url ? 'block' : 'none'};">
-          <img src="${escapeAttr(f.result_url || '')}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame ${f.frame_number}" />
+          <img src="${escapeAttr(f.result_url || '')}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame ${f.frame_number}" referrerpolicy="no-referrer" loading="lazy" onerror="this.style.display='none'; const fb=this.parentElement.querySelector('.frame-img-fallback'); if(fb) fb.style.display='block';" onload="this.style.display='block'; const fb=this.parentElement.querySelector('.frame-img-fallback'); if(fb) fb.style.display='none';" />
+          <div class="frame-img-fallback" id="frame-fallback-${idx}" style="display: none; padding: 10px 8px; text-align: center; font-size: 11px; color: var(--text-muted); background: rgba(255,255,255,0.03);">
+            <span>⚠️ Preview expired &bull; Click <strong style='color: var(--primary);'>Sync Tiles &amp; Previews</strong> to reload</span>
+          </div>
         </div>
 
         <div class="frame-footer">
@@ -1079,7 +1085,7 @@
     if (btnDownloadAll) btnDownloadAll.addEventListener('click', downloadAllCompleted);
 
     const btnSyncTiles = document.getElementById('btn-sync-tiles');
-    if (btnSyncTiles) btnSyncTiles.addEventListener('click', syncFlowProjectTiles);
+    if (btnSyncTiles) btnSyncTiles.addEventListener('click', () => syncFlowProjectTiles(false));
 
     document.querySelectorAll('.flow-title-val').forEach(el => {
       el.addEventListener('blur', (e) => {
@@ -1462,45 +1468,71 @@ function createSingleCharacter(charId) {
     }
   }
 
-  async function syncFlowProjectTiles() {
-    const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
+  async function syncFlowProjectTiles(isSilent = false) {
+    try {
+      const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
 
       if (!response || !Array.isArray(response.tiles) || !currentSpec) {
-        alert('No tiles found or unable to communicate with Google Flow tab.\n\nPlease ensure your Google Flow project tab is open and refreshed.');
+        if (!isSilent) {
+          alert('No tiles found or unable to communicate with Google Flow tab.\n\nPlease ensure your Google Flow project tab is open and refreshed.');
+        }
         return;
       }
       const tiles = response.tiles;
       let matchedCount = 0;
 
-      currentSpec.visuals.forEach((v) => {
-        if (v.flow_tile_title && !/^(frame_\d+\.png|test_frame_\d+\.png)$/i.test(v.flow_tile_title)) {
-          registerLocalFrameTitle(v.target_filename, v.flow_tile_title);
-          return;
+      currentSpec.visuals.forEach((v, idx) => {
+        let matchedTile = null;
+
+        // 1. Match by registered flow tile title
+        if (v.flow_tile_title) {
+          const targetTitle = v.flow_tile_title.toLowerCase().trim();
+          matchedTile = tiles.find(t => {
+            const cleanT = t.title.replace(/(\u2026|\.{3})$/, '').toLowerCase().trim();
+            return cleanT === targetTitle || targetTitle.startsWith(cleanT) || cleanT.startsWith(targetTitle);
+          });
         }
 
-        const promptLower = (v.prompt || '').toLowerCase();
-        const matchedTile = tiles.find(t => {
-          const cleanT = t.title.replace(/(\u2026|\.{3})$/, '').toLowerCase().trim();
-          return cleanT.length > 5 && promptLower.includes(cleanT);
-        });
+        // 2. Match by prompt substring
+        if (!matchedTile) {
+          const promptLower = (v.prompt || '').toLowerCase();
+          matchedTile = tiles.find(t => {
+            const cleanT = t.title.replace(/(\u2026|\.{3})$/, '').toLowerCase().trim();
+            return cleanT.length > 5 && promptLower.includes(cleanT);
+          });
+        }
+
+        // 3. Fallback: match by sequence index if within bounds
+        if (!matchedTile && tiles[idx]) {
+          matchedTile = tiles[idx];
+        }
 
         if (matchedTile) {
-          v.flow_tile_title = matchedTile.title;
-          registerLocalFrameTitle(v.target_filename, matchedTile.title);
-          if (matchedTile.imgSrc && !v.result_url) {
+          if (matchedTile.title) {
+            v.flow_tile_title = matchedTile.title;
+            registerLocalFrameTitle(v.target_filename, matchedTile.title);
+          }
+          if (matchedTile.imgSrc) {
             v.result_url = matchedTile.imgSrc;
             v.status = 'completed';
             v.progress = 100;
           }
+          updateFrameCard(idx);
           matchedCount++;
         }
       });
 
       updateProjectStats();
       updateUIStatus();
-      renderPipelineDashboard();
       savePipelineMapping();
-      alert(`Synced with Flow! ${matchedCount} tile title(s) mapped.`);
+      if (!isSilent) {
+        alert(`Synced with Flow! ${matchedCount} tile(s) and previews updated.`);
+      }
+    } catch (e) {
+      if (!isSilent) {
+        console.warn('[SpecPipeline] Error syncing Flow tiles:', e);
+      }
+    }
   }
 
   function checkFlowCharacters() {
@@ -2032,9 +2064,23 @@ function createSingleCharacter(charId) {
 
     const imgBox = document.getElementById(`frame-img-box-${idx}`);
     const imgEl = document.getElementById(`frame-img-${idx}`);
-    if (imgBox && imgEl && f.result_url) {
-      imgEl.src = f.result_url;
-      imgBox.style.display = 'block';
+    if (imgBox && imgEl) {
+      if (f.result_url) {
+        if (imgEl.src !== f.result_url) {
+          imgEl.src = f.result_url;
+        }
+        imgEl.style.display = 'block';
+        const fb = imgBox.querySelector('.frame-img-fallback');
+        if (fb) fb.style.display = 'none';
+        imgBox.style.display = 'block';
+      } else {
+        imgBox.style.display = 'none';
+      }
+    }
+
+    const dlBtn = card.querySelector('.btn-download-frame');
+    if (dlBtn) {
+      dlBtn.style.display = f.result_url ? 'inline-block' : 'none';
     }
   }
 
