@@ -17,6 +17,7 @@
   let activeGenerationGroupId = null;
   let activeRerollIndex = null;
   let activeSpecTab = 'control';
+  const activeFrameDownloads = new Set();
   const debugEntries = [];
   const MAX_DEBUG_ENTRIES = 300;
 
@@ -1017,7 +1018,7 @@
             <button class="btn btn-secondary btn-xs btn-edit-prompt" data-index="${idx}">✏️ Edit</button>
             <button class="btn btn-secondary btn-xs btn-regen-frame" data-index="${idx}" ${pipelineRunning || activeRerollIndex !== null ? 'disabled' : ''}>🔄 Re-roll</button>
             <button class="btn btn-secondary btn-xs btn-revert-frame" data-index="${idx}" title="Restore the image used before the latest re-roll" style="display: ${f.reroll_previous ? 'inline-block' : 'none'};" ${pipelineRunning || activeRerollIndex !== null ? 'disabled' : ''}>↩ Revert</button>
-            <button class="btn btn-secondary btn-xs btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-block' : 'none'};">⬇</button>
+            <button class="btn btn-secondary btn-xs btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-block' : 'none'};" ${activeFrameDownloads.has(idx) ? 'disabled' : ''}>⬇</button>
           </div>
         </div>
 
@@ -1876,6 +1877,15 @@ function createSingleCharacter(charId) {
     savePipelineMapping();
   }
 
+  async function waitForRerollMapping(frame, timeoutMs = 10000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeoutMs) {
+      if (frame.reroll_previous || !frame.reroll_pending_previous) return true;
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    return false;
+  }
+
   async function regenerateSingleFrame(idx) {
     if (!currentSpec || pipelineRunning || activeRerollIndex !== null) return;
 
@@ -1944,8 +1954,16 @@ function createSingleCharacter(charId) {
     frame.formatted_reference_guidance = formatReferenceGuidance(frame, idx);
 
     try {
-      const ok = await executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 });
-      applyFrameGenerationResult(idx, ok);
+      let ok = await executeFrameGeneration(frame, refImages, idx, { maxRetries: 0 });
+      if (ok && frame.reroll_pending_previous) {
+        log('Re-roll generation finished; waiting for image mapping:', frame.frame_number);
+        ok = await waitForRerollMapping(frame);
+      }
+      applyFrameGenerationResult(
+        idx,
+        ok,
+        ok ? null : 'Re-roll image mapping was not received; the previous image was kept.'
+      );
     } catch (err) {
       applyFrameGenerationResult(idx, false, err?.message || String(err));
     }
@@ -2039,6 +2057,7 @@ function createSingleCharacter(charId) {
       aspectRatio: currentSpec.default_aspect_ratio || '16:9',
       model: IMAGE_MODEL,
       outputCount: 1,
+      singleResourceOnly: true,
       autoDownloadResourceQuality: 'original',
       folderName: currentSpec.output_folder || 'ancient_humans_scenes',
       referenceFolder: currentSpec.reference_folder || 'Branded_references',
@@ -2131,13 +2150,25 @@ function createSingleCharacter(charId) {
   }
 
   function downloadSingleFrame(idx) {
-    const frame = currentSpec.visuals[idx];
-    if (!frame.result_url) return;
-    chrome.downloads.download({
+    const frame = currentSpec?.visuals?.[idx];
+    if (!frame?.result_url || activeFrameDownloads.has(idx)) return;
+    activeFrameDownloads.add(idx);
+    updateFrameCard(idx);
+    chrome.runtime.sendMessage({
+      type: 'DOWNLOAD_RESOURCE',
       url: frame.result_url,
-      filename: `${currentSpec.output_folder}/${frame.target_filename}`,
-      saveAs: false,
-      conflictAction: 'overwrite'
+      filename: frame.target_filename,
+      folder: currentSpec.output_folder,
+      autoChangeFileName: true
+    }, response => {
+      const error = chrome.runtime?.lastError;
+      setTimeout(() => {
+        activeFrameDownloads.delete(idx);
+        updateFrameCard(idx);
+      }, 1000);
+      if (error || !response?.success) {
+        log('Frame download failed:', error?.message || response?.error || frame.target_filename);
+      }
     });
   }
 
@@ -2187,8 +2218,10 @@ function createSingleCharacter(charId) {
 
     const rerollBtn = card.querySelector('.btn-regen-frame');
     const revertBtn = card.querySelector('.btn-revert-frame');
+    const downloadBtn = card.querySelector('.btn-download-frame');
     const controlsBusy = pipelineRunning || activeRerollIndex !== null;
     if (rerollBtn) rerollBtn.disabled = controlsBusy;
+    if (downloadBtn) downloadBtn.disabled = activeFrameDownloads.has(idx);
     if (revertBtn) {
       revertBtn.disabled = controlsBusy;
       revertBtn.style.display = f.reroll_previous ? 'inline-block' : 'none';

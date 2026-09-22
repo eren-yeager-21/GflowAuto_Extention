@@ -59,7 +59,10 @@ const panelSource = fs.readFileSync(
   path.join(__dirname, '..', 'src', 'ui', 'side-panel', 'spec-pipeline.js'),
   'utf8'
 );
-assert.equal(panelSource.includes("conflictAction: 'overwrite'"), true);
+assert.equal(panelSource.includes("type: 'DOWNLOAD_RESOURCE'"), true);
+assert.equal(panelSource.includes('activeFrameDownloads.has(idx)'), true);
+assert.equal(panelSource.includes('waitForRerollMapping(frame)'), true);
+assert.equal(panelSource.includes('singleResourceOnly: true'), true);
 assert.equal(panelSource.includes('btn-revert-frame'), true);
 assert.equal(panelSource.includes('rerollHistory.commit(frame)'), true);
 assert.equal(panelSource.includes('reroll_previous: rerollHistory.normalizeSnapshot'), true);

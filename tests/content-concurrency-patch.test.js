@@ -82,4 +82,10 @@ assert.equal(
   'a pause before Flow accepts the group must prevent that group from being submitted'
 );
 
+assert.equal(
+  source.includes('c.singleResourceOnly?g.resourceElements.slice(0,1):g.resourceElements'),
+  true,
+  'a Spec frame must capture and download only one Flow resource'
+);
+
 console.log('content concurrency patch tests passed');
