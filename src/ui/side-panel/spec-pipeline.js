@@ -509,7 +509,7 @@
     checkSavedSession((saved) => {
       const completedCount = saved && saved.visuals ? saved.visuals.filter(v => v.status === 'completed').length : 0;
       const totalCount = saved && saved.visuals ? saved.visuals.length : 0;
-      const hasResumable = completedCount > 0 && totalCount > 0;
+      const hasResumable = Boolean(saved && totalCount > 0);
 
       specView.innerHTML = `
         <div class="spec-header">
@@ -831,7 +831,7 @@
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
-            <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
+            <button class="btn-link" id="btn-reset-spec" title="Start a new video project or switch specification">➕ New Project / Switch Spec</button>
           </div>
         </div>
         <div class="collection-destination">
