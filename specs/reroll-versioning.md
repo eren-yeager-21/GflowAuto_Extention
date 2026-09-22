@@ -25,3 +25,4 @@ Keep the project output folder stable when a frame is re-rolled and allow the us
 17. A re-roll capture whose normalized media URL matches the image being replaced is rejected and cannot become the new mapping.
 18. Blob and filesystem URLs are rejected because they cannot be reliably rendered or restored from the extension side panel.
 19. While a re-roll is active, a capture must carry the exact active re-roll token.
+20. A token-bearing capture received after a re-roll finishes, after Revert, or after session restoration is rejected unless that frame still holds the matching active token. Late notifications must not overwrite saved mappings or other frames.

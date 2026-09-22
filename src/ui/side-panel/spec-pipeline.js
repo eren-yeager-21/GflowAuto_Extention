@@ -12,6 +12,7 @@
 
   // State
   let currentSpec = null;
+  let activeSessionStorageKey = null;
   let pipelineRunning = false;
   let pipelinePaused = false;
   let activeFrameIndex = -1;
@@ -232,14 +233,36 @@
 
   const STORAGE_KEY_PREFIX = 'flow_pipeline_session_';
   const LATEST_KEY = 'flow_pipeline_latest_project';
+  const LATEST_SESSION_KEY = 'flow_pipeline_latest_session';
 
   function getSpecView() {
     return document.getElementById('spec-pipeline-app');
   }
 
   function getStorageKey(projectName) {
-    const safeName = (projectName || 'default').toLowerCase().replace(/[^a-z0-9_]/g, '_');
+    const safeName = String(projectName || 'default').toLowerCase().replace(/[^a-z0-9_]/g, '_');
     return `${STORAGE_KEY_PREFIX}${safeName}`;
+  }
+
+  function createSessionStorageKey(projectName) {
+    return `${getStorageKey(projectName)}__${crypto.randomUUID()}`;
+  }
+
+  function getSavedSessionEntries(stored) {
+    return Object.entries(stored || {})
+      .filter(([key, value]) => key.startsWith(STORAGE_KEY_PREFIX) &&
+        value && typeof value.project_name === 'string' &&
+        Array.isArray(value.visuals) && value.visuals.length > 0 &&
+        value.visuals.every(frame => frame && typeof frame === 'object'))
+      .map(([key, data]) => ({
+        key, data,
+        completedCount: data.visuals.filter(frame => frame.status === 'completed').length,
+        totalCount: data.visuals.length,
+        isLatest: stored[LATEST_SESSION_KEY]
+          ? key === stored[LATEST_SESSION_KEY]
+          : key === getStorageKey(stored[LATEST_KEY])
+      }))
+      .sort((a, b) => (Date.parse(b.data.last_updated) || 0) - (Date.parse(a.data.last_updated) || 0));
   }
 
   function generateMappingData() {
@@ -288,42 +311,42 @@
 
   function savePipelineMapping() {
     const data = generateMappingData();
-    if (!data) return;
+    if (!data) return Promise.resolve(true);
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-      const key = getStorageKey(data.project_name);
-      chrome.storage.local.set({
+      const key = activeSessionStorageKey || (activeSessionStorageKey = createSessionStorageKey(data.project_name));
+      return chrome.storage.local.set({
         [key]: data,
-        [LATEST_KEY]: data.project_name
-      }).catch(() => {});
+        [LATEST_KEY]: data.project_name,
+        [LATEST_SESSION_KEY]: key
+      }).then(() => true).catch(error => {
+        diagnostic('session_save_failed', 'The current session could not be saved.', {
+          project: data.project_name, error: error?.message || String(error)
+        }, 'error', 'session');
+        return false;
+      });
     }
+    diagnostic('session_save_failed', 'Extension storage is unavailable.', null, 'error', 'session');
+    return Promise.resolve(false);
   }
 
-  function checkSavedSession(callback) {
+  function checkSavedSessions(callback) {
     if (typeof chrome === 'undefined' || !chrome.storage || !chrome.storage.local) {
-      if (callback) callback(null);
+      callback([], 'Extension storage is unavailable.');
       return;
     }
-    chrome.storage.local.get([LATEST_KEY], (res) => {
-      const latestProj = res && res[LATEST_KEY];
-      if (!latestProj) {
-        if (callback) callback(null);
+    chrome.storage.local.get(null, stored => {
+      const error = chrome.runtime?.lastError;
+      if (error) {
+        diagnostic('session_list_failed', 'Saved sessions could not be read.', { error: error.message }, 'error', 'session');
+        callback([], error.message);
         return;
       }
-      const key = getStorageKey(latestProj);
-      chrome.storage.local.get([key], (projRes) => {
-        const saved = projRes && projRes[key];
-        if (saved) {
-          if (saved.frame_title_mapping) {
-            Object.entries(saved.frame_title_mapping).forEach(([k, val]) => registerLocalFrameTitle(k, val));
-          }
-          if (saved.visuals) {
-            saved.visuals.forEach(v => {
-              if (v.flow_tile_title) registerLocalFrameTitle(v.target_filename, v.flow_tile_title);
-            });
-          }
-        }
-        if (callback) callback(saved || null);
-      });
+      const sessions = getSavedSessionEntries(stored);
+      diagnostic('session_list_loaded', 'Loaded saved session list.', {
+        sessionCount: sessions.length,
+        sessionsWithCompletedFrames: sessions.filter(session => session.completedCount > 0).length
+      }, 'info', 'session');
+      callback(sessions, null);
     });
   }
 
@@ -641,10 +664,8 @@
     const specView = getSpecView();
     if (!specView) return;
 
-    checkSavedSession((saved) => {
-      const completedCount = saved && saved.visuals ? saved.visuals.filter(v => v.status === 'completed').length : 0;
-      const totalCount = saved && saved.visuals ? saved.visuals.length : 0;
-      const hasResumable = completedCount > 0 && totalCount > 0;
+    checkSavedSessions((sessions, storageError) => {
+      const preferredIndex = Math.max(0, sessions.findIndex(session => session.isLatest));
 
       specView.innerHTML = `
         <div class="spec-header">
@@ -652,20 +673,26 @@
           <p>Upload a structured storyboard or spec file (.json) to automate character creation, sequential frame chaining, and downloads.</p>
         </div>
 
-        ${hasResumable ? `
+        ${storageError ? `<div class="resume-banner" role="alert">Unable to read saved sessions: ${escapeHtml(storageError)}</div>` : ''}
+        ${sessions.length ? `
           <div class="resume-banner" id="resume-banner">
             <div class="resume-banner-title">
-              <span>🔄 Saved Session Available: ${escapeHtml(saved.project_name)}</span>
+              <label for="saved-session-select">🔄 Saved Sessions (${sessions.length})</label>
             </div>
-            <div class="resume-banner-sub">
-              Progress: <strong>${completedCount}/${totalCount} frames completed</strong>. Last saved: ${new Date(saved.last_updated).toLocaleTimeString()}
-            </div>
+            <select id="saved-session-select" class="saved-session-select">
+              ${sessions.map((session, index) => {
+                const timestamp = Date.parse(session.data.last_updated);
+                const savedAt = Number.isFinite(timestamp) ? new Date(timestamp).toLocaleString() : 'Save time unknown';
+                const label = `${session.data.project_name} — ${session.completedCount}/${session.totalCount} completed — ${savedAt}`;
+                return `<option value="${index}" ${index === preferredIndex ? 'selected' : ''}>${escapeHtml(label)}</option>`;
+              }).join('')}
+            </select>
+            <div class="resume-banner-sub">Select the session with your previous progress. Opening it does not start generation.</div>
             <div style="display: flex; gap: 8px;">
-              <button class="btn btn-primary btn-sm" id="btn-resume-session">▶ Resume Session</button>
-              <button class="btn btn-secondary btn-sm" id="btn-discard-session">Discard & Start Fresh</button>
+              <button class="btn btn-primary btn-sm" id="btn-resume-session">▶ Resume Selected Session</button>
             </div>
           </div>
-        ` : ''}
+        ` : !storageError ? '<div class="resume-banner-sub">No saved sessions found. If you exported a mapping, open pipeline_mapping.json below to restore it.</div>' : ''}
 
         <div class="dropzone" id="spec-dropzone">
           <div class="dropzone-icon">📁</div>
@@ -682,24 +709,12 @@
 
       setupDropzone();
 
-      if (hasResumable) {
+      if (sessions.length) {
         const btnResume = document.getElementById('btn-resume-session');
-        const btnDiscard = document.getElementById('btn-discard-session');
         if (btnResume) {
           btnResume.addEventListener('click', () => {
-            parseAndLoadSpec(saved);
-          });
-        }
-        if (btnDiscard) {
-          btnDiscard.addEventListener('click', () => {
-            if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-              const key = getStorageKey(saved.project_name);
-              chrome.storage.local.remove([key, LATEST_KEY], () => {
-                renderUploadScreen();
-              });
-            } else {
-              renderUploadScreen();
-            }
+            const selected = sessions[Number(document.getElementById('saved-session-select')?.value)];
+            if (selected) parseAndLoadSpec(selected.data, { storageKey: selected.key });
           });
         }
       }
@@ -816,7 +831,7 @@
   }
 
   // Normalizer: handles Custom Spec, beats_*.json, and saved pipeline_mapping.json
-  function parseAndLoadSpec(raw) {
+  function parseAndLoadSpec(raw, options = {}) {
     const spec = {
       project_name: raw.project_name || raw.project || "Google Flow Production",
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
@@ -863,6 +878,9 @@
       });
     }
 
+    // Only the selected session may supply frame titles during normalization.
+    localFrameTitleMap.clear();
+    currentSpec = null;
     // Pre-register known tile mappings before resolving guidance
     if (raw.frame_title_mapping && typeof raw.frame_title_mapping === 'object') {
       Object.entries(raw.frame_title_mapping).forEach(([k, val]) => {
@@ -922,6 +940,7 @@
     });
 
     currentSpec = spec;
+    activeSessionStorageKey = options.storageKey || createSessionStorageKey(spec.project_name);
 
     // Dynamically format reference guidance with registered tile titles
     spec.visuals.forEach((v, i) => {
@@ -954,7 +973,7 @@
           <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
-            <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
+            <button class="btn-link" id="btn-reset-spec" ${pipelineRunning || activeRerollIndex !== null ? 'disabled' : ''}>Switch Spec</button>
           </div>
         </div>
         <div class="collection-destination">
@@ -1243,9 +1262,15 @@
     }
 
     if (btnReset) {
-      btnReset.addEventListener('click', () => {
-        savePipelineMapping();
+      btnReset.addEventListener('click', async () => {
+        if (pipelineRunning || activeRerollIndex !== null) return;
+        const saved = await savePipelineMapping();
+        if (!saved) {
+          alert('Could not save this session. Use Save Mapping to export a copy before switching.');
+          return;
+        }
         currentSpec = null;
+        activeSessionStorageKey = null;
         renderUploadScreen();
       });
     }
@@ -2490,6 +2515,8 @@ function createSingleCharacter(charId) {
   }
 
   function updateUIStatus() {
+    const btnSwitch = document.getElementById('btn-reset-spec');
+    if (btnSwitch) btnSwitch.disabled = pipelineRunning || activeRerollIndex !== null;
     const btnStart = document.getElementById('btn-start-pipeline');
     const btnPause = document.getElementById('btn-pause-pipeline');
     if (!currentSpec) return;
@@ -2554,9 +2581,11 @@ function createSingleCharacter(charId) {
           );
           return false;
         }
-        if (frame.reroll_in_progress && frame.reroll_capture_token &&
-            msg.captureToken !== frame.reroll_capture_token) {
-          diagnostic('capture_rejected_stale_token', 'Ignored a capture without the active re-roll token.', {
+        // A late token-bearing notification remains stale after the re-roll ends
+        // or a saved session is restored, when this frame has no active token.
+        if ((msg.captureToken || frame.reroll_in_progress || frame.reroll_capture_token) &&
+            (!frame.reroll_capture_token || msg.captureToken !== frame.reroll_capture_token)) {
+          diagnostic('capture_rejected_stale_token', 'Ignored a capture without a matching active re-roll token.', {
             promptIndex: idx,
             frameNumber: frame.frame_number,
             receivedToken: msg.captureToken || null,

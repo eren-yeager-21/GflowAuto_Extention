@@ -879,3 +879,16 @@ body {
 .spec-debug-empty {
   color: #64748b;
 }
+
+.saved-session-select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+}
