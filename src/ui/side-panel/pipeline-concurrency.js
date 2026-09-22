@@ -12,19 +12,32 @@
     return Boolean(frame.frame_reference || frame.frame_ref) || frame.continuity === 'continue';
   }
 
-  function partitionFrameIndexes(visuals) {
-    const independent = [];
-    const dependent = [];
+  function buildExecutionPlan(visuals) {
+    const plan = [];
+    let independentIndexes = [];
+
+    const flushIndependent = () => {
+      if (independentIndexes.length === 0) return;
+      plan.push({ type: 'independent', indexes: independentIndexes });
+      independentIndexes = [];
+    };
+
     (Array.isArray(visuals) ? visuals : []).forEach((frame, index) => {
-      (isDependentFrame(frame) ? dependent : independent).push(index);
+      if (isDependentFrame(frame)) {
+        flushIndependent();
+        plan.push({ type: 'dependent', index });
+      } else {
+        independentIndexes.push(index);
+      }
     });
-    return { independent, dependent };
+    flushIndependent();
+    return plan;
   }
 
   root.PipelineConcurrency = {
     DEFAULT_MAX_PARALLEL,
     normalizeMaxParallel,
     isDependentFrame,
-    partitionFrameIndexes
+    buildExecutionPlan
   };
 })(typeof globalThis !== 'undefined' ? globalThis : window);

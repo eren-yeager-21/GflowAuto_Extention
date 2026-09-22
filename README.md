@@ -26,4 +26,4 @@ You can also set the collection_url field to an https://flow.google.com/... addr
 
 ## Parallel image generation
 
-Set max_parallel_generations at the top level of the JSON to control active independent image generations. The default is 3, and the side panel accepts any positive whole number. Frames with frame_reference or continuity set to continue still run one at a time after their referenced frame completes.
+Set max_parallel_generations at the top level of the JSON to control active independent image generations. The default is 3, and the side panel accepts any positive whole number. The extension uses one prompt-box submitter and keeps up to that many accepted independent generations active. Frames with frame_reference or continuity set to continue remain in source order and run one at a time after their referenced frame completes.

@@ -1543,9 +1543,10 @@ function createSingleCharacter(charId) {
   function executeIndependentFrameBatch(promptIndexes) {
     return new Promise(resolve => {
       const items = promptIndexes.map(prepareFrameGeneration);
-      const payloads = items.map(item =>
-        buildFrameGenerationPayload(item.frame, item.refImages, item.promptIndex)
-      );
+      const payloads = items.map(item => ({
+        ...buildFrameGenerationPayload(item.frame, item.refImages, item.promptIndex),
+        deferGenerationWait: true
+      }));
       const maxParallel = pipelineConcurrency.normalizeMaxParallel(
         currentSpec.max_parallel_generations
       );
@@ -1612,8 +1613,8 @@ function createSingleCharacter(charId) {
           payloads,
           groupId,
           concurrentPrompts: maxParallel,
-          promptDelaySecondsMin: 1,
-          promptDelaySecondsMax: 2
+          promptDelaySecondsMin: 2,
+          promptDelaySecondsMax: 3
         }, response => {
           const error = chrome.runtime?.lastError;
           if (error || !response?.success) {
@@ -1680,49 +1681,51 @@ function createSingleCharacter(charId) {
 
     updateUIStatus();
 
-    const partition = pipelineConcurrency.partitionFrameIndexes(currentSpec.visuals);
-    const independentPending = partition.independent.filter(
-      index => currentSpec.visuals[index].status !== 'completed'
-    );
+    const executionPlan = pipelineConcurrency.buildExecutionPlan(currentSpec.visuals);
 
-    if (independentPending.length > 0 && !pipelinePaused) {
-      const independentSuccess = await executeIndependentFrameBatch(independentPending);
-      if (!independentSuccess) {
-        pipelinePaused = true;
-        log('Independent generation batch stopped because one or more frames failed.');
-      }
-    }
+    for (const step of executionPlan) {
+      if (pipelinePaused || !pipelineRunning) break;
 
-    if (!pipelinePaused) {
-      for (const promptIndex of partition.dependent) {
-        if (pipelinePaused || !pipelineRunning) break;
+      if (step.type === 'independent') {
+        const pendingIndexes = step.indexes.filter(
+          index => currentSpec.visuals[index].status !== 'completed'
+        );
+        if (pendingIndexes.length === 0) continue;
 
-        const frame = currentSpec.visuals[promptIndex];
-        if (frame.status === 'completed') continue;
-
-        const dependency = resolveReferencedVisual(frame, promptIndex);
-        if (!dependency || dependency.status !== 'completed') {
-          applyFrameGenerationResult(
-            promptIndex,
-            false,
-            dependency
-              ? 'Referenced frame did not complete successfully'
-              : 'Referenced frame was not found'
-          );
-          pipelinePaused = true;
-          log('Dependent frame blocked:', frame.id || promptIndex);
-          break;
-        }
-
-        const success = await generateDependentFrame(promptIndex);
+        const success = await executeIndependentFrameBatch(pendingIndexes);
         if (!success) {
           pipelinePaused = true;
-          log('Dependent generation stopped after a frame failure.');
-          break;
+          log('Independent generation batch stopped because one or more frames failed.');
         }
-
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        continue;
       }
+
+      const promptIndex = step.index;
+      const frame = currentSpec.visuals[promptIndex];
+      if (frame.status === 'completed') continue;
+
+      const dependency = resolveReferencedVisual(frame, promptIndex);
+      if (!dependency || dependency.status !== 'completed') {
+        applyFrameGenerationResult(
+          promptIndex,
+          false,
+          dependency
+            ? 'Referenced frame did not complete successfully'
+            : 'Referenced frame was not found'
+        );
+        pipelinePaused = true;
+        log('Dependent frame blocked:', frame.id || promptIndex);
+        break;
+      }
+
+      const success = await generateDependentFrame(promptIndex);
+      if (!success) {
+        pipelinePaused = true;
+        log('Dependent generation stopped after a frame failure.');
+        break;
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 1200));
     }
 
     pipelineRunning = false;
