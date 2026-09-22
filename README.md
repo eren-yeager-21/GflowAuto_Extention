@@ -23,3 +23,7 @@ Unlocked VEO Automation Chrome Extension for Google Flow, featuring the Spec-Dri
 4. Start the pipeline.
 
 You can also set the collection_url field to an https://flow.google.com/... address in the JSON. Capturing the open page is recommended when multiple Flow tabs use the same project URL.
+
+## Parallel image generation
+
+Set max_parallel_generations at the top level of the JSON to control active independent image generations. The default is 3, and the side panel accepts any positive whole number. Frames with frame_reference or continuity set to continue still run one at a time after their referenced frame completes.

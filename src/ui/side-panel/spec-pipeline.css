@@ -717,3 +717,38 @@ body {
   background: rgba(16, 185, 129, 0.16);
   color: #34d399;
 }
+
+.pipeline-concurrency-setting {
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  gap: 5px 10px;
+  align-items: center;
+  margin: 10px 0 12px;
+  padding: 9px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.pipeline-concurrency-setting label {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pipeline-concurrency-setting input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.pipeline-concurrency-setting span {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-size: 10px;
+}

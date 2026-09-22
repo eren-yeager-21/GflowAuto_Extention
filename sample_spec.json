@@ -1,6 +1,7 @@
 {
   "project_name": "Ancient Humans Pleasure",
   "collection_url": "",
+  "max_parallel_generations": 3,
   "default_model": "Nano Banana 2",
   "default_aspect_ratio": "16:9",
   "output_folder": "ancient_humans_scenes",

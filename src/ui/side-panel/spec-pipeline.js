@@ -2,9 +2,10 @@
 
 (function () {
   const flowDestination = globalThis.FlowDestination;
+  const pipelineConcurrency = globalThis.PipelineConcurrency;
   const IMAGE_MODEL = 'Nano Banana 2';
-  if (!flowDestination) {
-    throw new Error('Flow destination helper was not loaded.');
+  if (!flowDestination || !pipelineConcurrency) {
+    throw new Error('A required side-panel helper was not loaded.');
   }
 
   // State
@@ -12,6 +13,7 @@
   let pipelineRunning = false;
   let pipelinePaused = false;
   let activeFrameIndex = -1;
+  let activeGenerationGroupId = null;
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
@@ -99,6 +101,7 @@
       collection_tab_id: currentSpec.collection_tab_id || null,
       last_updated: new Date().toISOString(),
       default_model: IMAGE_MODEL,
+      max_parallel_generations: currentSpec.max_parallel_generations,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
       output_folder: currentSpec.output_folder,
       characters: currentSpec.characters.map(c => ({
@@ -667,6 +670,9 @@
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
       default_model: IMAGE_MODEL,
+      max_parallel_generations: pipelineConcurrency.normalizeMaxParallel(
+        raw.max_parallel_generations ?? raw.parallel_gen_value
+      ),
       default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
       output_folder: raw.output_folder || "ancient_humans_scenes",
       characters: [],
@@ -814,6 +820,16 @@
               ? 'Generation is locked to this Flow page.'
               : 'Optional: leave empty to use the currently open Flow project page.'}
           </div>
+        </div>
+        <div class="pipeline-concurrency-setting">
+          <label for="max-parallel-generations">Max active independent generations</label>
+          <input
+            id="max-parallel-generations"
+            type="number"
+            min="1"
+            value="${currentSpec.max_parallel_generations}"
+          />
+          <span>Dependent frames always run one at a time.</span>
         </div>
         <div class="project-stats">
           <div class="stat-box">
@@ -995,6 +1011,16 @@
     const btnDownloadAll = document.getElementById('btn-download-all');
     const collectionUrlInput = document.getElementById('collection-url-input');
     const btnUseOpenFlow = document.getElementById('btn-use-open-flow');
+    const maxParallelInput = document.getElementById('max-parallel-generations');
+
+    if (maxParallelInput) {
+      maxParallelInput.addEventListener('change', () => {
+        const normalized = pipelineConcurrency.normalizeMaxParallel(maxParallelInput.value);
+        currentSpec.max_parallel_generations = normalized;
+        maxParallelInput.value = String(normalized);
+        savePipelineMapping();
+      });
+    }
 
     if (collectionUrlInput) {
       collectionUrlInput.addEventListener('change', () => saveCollectionDestination(collectionUrlInput.value));
@@ -1478,7 +1504,160 @@ function createSingleCharacter(charId) {
     });
   }
 
-  // Sequential generation loop with automatic resumption
+  function prepareFrameGeneration(promptIndex) {
+    const frame = currentSpec.visuals[promptIndex];
+    frame.status = 'generating';
+    frame.progress = 5;
+    frame.error = null;
+    activeFrameIndex = promptIndex;
+    updateFrameCard(promptIndex);
+
+    const refImages = [];
+    const refFrameVisual = resolveReferencedVisual(frame, promptIndex);
+    const resolvedRefTitle = resolveFlowTileTitleForFrame(frame, promptIndex);
+
+    if (refFrameVisual) {
+      const refNameForFlow = resolvedRefTitle || refFrameVisual.target_filename;
+      if (refFrameVisual.result_url) {
+        refImages.push({ name: refNameForFlow, base64: refFrameVisual.result_url });
+      } else if (refFrameVisual.target_filename) {
+        refImages.push({ name: refNameForFlow, referenceExistingOnly: true });
+      }
+    }
+
+    frame.prompt = frame.prompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
+    frame.formatted_reference_guidance = formatReferenceGuidance(frame, promptIndex);
+    return { frame, refImages, promptIndex };
+  }
+
+  function applyFrameGenerationResult(promptIndex, success, error = null) {
+    const frame = currentSpec?.visuals?.[promptIndex];
+    if (!frame) return;
+    frame.status = success ? 'completed' : 'error';
+    frame.progress = success ? 100 : frame.progress;
+    frame.completed_at = success ? new Date().toISOString() : null;
+    frame.error = success ? null : (error || 'Generation failed');
+    updateFrameCard(promptIndex);
+  }
+
+  function executeIndependentFrameBatch(promptIndexes) {
+    return new Promise(resolve => {
+      const items = promptIndexes.map(prepareFrameGeneration);
+      const payloads = items.map(item =>
+        buildFrameGenerationPayload(item.frame, item.refImages, item.promptIndex)
+      );
+      const maxParallel = pipelineConcurrency.normalizeMaxParallel(
+        currentSpec.max_parallel_generations
+      );
+      const groupId = 'spec-parallel-' + Date.now();
+      const timeoutMs = Math.max(
+        300000,
+        Math.ceil(payloads.length / maxParallel) * 300000
+      );
+      let timeoutHandle = null;
+      let settled = false;
+
+      const finish = (success, results = [], fallbackError = null) => {
+        if (settled) return;
+        settled = true;
+        if (timeoutHandle) clearTimeout(timeoutHandle);
+        chrome.runtime.onMessage.removeListener(listener);
+        if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
+
+        const resultMap = new Map(
+          results.map(result => [result.promptIndex, result])
+        );
+        items.forEach(item => {
+          const result = resultMap.get(item.promptIndex);
+          const itemSuccess = success && result?.success === true;
+          applyFrameGenerationResult(
+            item.promptIndex,
+            itemSuccess,
+            result?.error || fallbackError
+          );
+        });
+        updateProjectStats();
+        savePipelineMapping();
+        resolve(success && items.every(item => resultMap.get(item.promptIndex)?.success === true));
+      };
+
+      const listener = msg => {
+        if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId) {
+          const promptIndex = Number(msg.data.promptIndex);
+          const frame = currentSpec?.visuals?.[promptIndex];
+          if (frame) {
+            frame.progress = msg.data.percentage || frame.progress;
+            updateFrameCard(promptIndex);
+          }
+        }
+
+        if (msg.type === 'PROMPT_GROUP_STATUS' && msg.data?.id === groupId) {
+          const status = msg.data.status;
+          if (status === 'completed' || status === 'error' || status === 'cancelled') {
+            finish(
+              status === 'completed',
+              Array.isArray(msg.data.results) ? msg.data.results : [],
+              status === 'cancelled' ? 'Generation cancelled' : 'Parallel generation failed'
+            );
+          }
+        }
+      };
+
+      chrome.runtime.onMessage.addListener(listener);
+      activeGenerationGroupId = groupId;
+
+      getFlowTargetTab().then(targetTab => {
+        chrome.tabs.sendMessage(targetTab.id, {
+          type: 'AUTO_FILL_FLOW',
+          payloads,
+          groupId,
+          concurrentPrompts: maxParallel,
+          promptDelaySecondsMin: 1,
+          promptDelaySecondsMax: 2
+        }, response => {
+          const error = chrome.runtime?.lastError;
+          if (error || !response?.success) {
+            finish(false, [], error?.message || response?.error || 'Flow rejected the parallel batch');
+            return;
+          }
+
+          log('Submitted independent frames with max active generations:', maxParallel);
+          timeoutHandle = setTimeout(() => {
+            finish(false, [], 'Parallel generation timed out');
+          }, timeoutMs);
+        });
+      }).catch(error => {
+        finish(false, [], error.message);
+      });
+    });
+  }
+
+  async function generateDependentFrame(promptIndex) {
+    const item = prepareFrameGeneration(promptIndex);
+    if (pipelinePaused || !pipelineRunning) return false;
+
+    let success = false;
+    try {
+      success = await executeFrameGeneration(
+        item.frame,
+        item.refImages,
+        promptIndex
+      );
+    } catch (error) {
+      item.frame.error = error?.message || String(error);
+    }
+
+    applyFrameGenerationResult(
+      promptIndex,
+      success,
+      item.frame.error || 'Generation failed after configured retries'
+    );
+    updateProjectStats();
+    savePipelineMapping();
+    return success;
+  }
+
+  // Dependency-aware generation with parallel independent submissions
   async function startPipeline() {
     if (!currentSpec || pipelineRunning) return;
 
@@ -1500,117 +1679,67 @@ function createSingleCharacter(charId) {
     pipelinePaused = false;
 
     updateUIStatus();
-    // Iterate through pending frames
-    for (let i = 0; i < currentSpec.visuals.length; i++) {
-      if (pipelinePaused) {
-        break;
+
+    const partition = pipelineConcurrency.partitionFrameIndexes(currentSpec.visuals);
+    const independentPending = partition.independent.filter(
+      index => currentSpec.visuals[index].status !== 'completed'
+    );
+
+    if (independentPending.length > 0 && !pipelinePaused) {
+      const independentSuccess = await executeIndependentFrameBatch(independentPending);
+      if (!independentSuccess) {
+        pipelinePaused = true;
+        log('Independent generation batch stopped because one or more frames failed.');
       }
+    }
 
-      const frame = currentSpec.visuals[i];
-      if (frame.status === 'completed') continue;
-
-      activeFrameIndex = i;
-      frame.status = 'generating';
-      frame.progress = 5;
-      updateFrameCard(i);
-
-      // Check if reference from previous frame or frame_reference is needed
-      let refImages = [];
-      let refFrameVisual = null;
-      if (frame.frame_reference) {
-        const cleanRef = String(frame.frame_reference).replace(/\(.*?\)/g, '').trim();
-        refFrameVisual = currentSpec.visuals.find(v => 
-          v.id === cleanRef || 
-          v.target_filename === cleanRef || 
-          v.target_filename === `${cleanRef}.png` ||
-          (v.frame_number && String(v.frame_number) === cleanRef) ||
-          (v.frame_number && `frame_${String(v.frame_number).padStart(3, '0')}` === cleanRef)
-        );
-      } else if (frame.continuity === 'continue' && i > 0) {
-        refFrameVisual = currentSpec.visuals[i - 1];
-      }
-
-      // Resolve the actual Google Flow tile title for tagging reference frame
-      const resolvedRefTitle = resolveFlowTileTitleForFrame(frame, i);
-
-      if (refFrameVisual) {
-        const refNameForFlow = resolvedRefTitle || refFrameVisual.target_filename;
-        if (refFrameVisual.result_url) {
-          refImages.push({
-            name: refNameForFlow,
-            base64: refFrameVisual.result_url
-          });
-        } else if (refFrameVisual.target_filename) {
-          refImages.push({
-            name: refNameForFlow,
-            referenceExistingOnly: true
-          });
-        }
-      }
-
-      // Ensure reference guidance is updated dynamically with the latest Flow title
-      frame.prompt = frame.prompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
-      frame.formatted_reference_guidance = formatReferenceGuidance(frame, i);
-
-
-      // Execute frame generation with automatic per-frame retries
-      const maxRetries = currentSpec.max_retries || currentSpec.global_settings?.max_retries || 3;
-      let frameSuccess = false;
-
-      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    if (!pipelinePaused) {
+      for (const promptIndex of partition.dependent) {
         if (pipelinePaused || !pipelineRunning) break;
 
-        if (attempt > 1) {
-          log(`🔄 Retrying Frame #${i + 1} (Attempt ${attempt}/${maxRetries})...`);
-          frame.progress = 10;
-          updateFrameCard(i);
-          await new Promise(r => setTimeout(r, 2000));
+        const frame = currentSpec.visuals[promptIndex];
+        if (frame.status === 'completed') continue;
+
+        const dependency = resolveReferencedVisual(frame, promptIndex);
+        if (!dependency || dependency.status !== 'completed') {
+          applyFrameGenerationResult(
+            promptIndex,
+            false,
+            dependency
+              ? 'Referenced frame did not complete successfully'
+              : 'Referenced frame was not found'
+          );
+          pipelinePaused = true;
+          log('Dependent frame blocked:', frame.id || promptIndex);
+          break;
         }
 
-        try {
-          const success = await executeFrameGeneration(frame, refImages, i);
-          if (success) {
-            frame.status = 'completed';
-            frame.progress = 100;
-            frame.completed_at = new Date().toISOString();
-            frameSuccess = true;
-            break;
-          } else {
-            log(`⚠️ Frame #${i + 1} attempt ${attempt} failed.`);
-          }
-        } catch (err) {
-          log(`⚠️ Frame #${i + 1} attempt ${attempt} error: ${err?.message || err}`);
+        const success = await generateDependentFrame(promptIndex);
+        if (!success) {
+          pipelinePaused = true;
+          log('Dependent generation stopped after a frame failure.');
+          break;
         }
+
+        await new Promise(resolve => setTimeout(resolve, 1200));
       }
-
-      if (!frameSuccess) {
-        frame.status = 'error';
-        pipelineRunning = false;
-        pipelinePaused = true;
-        log(`❌ Frame #${i + 1} failed after ${maxRetries} attempts. Pipeline paused to maintain sequence continuity.`);
-        updateFrameCard(i);
-        updateProjectStats();
-        savePipelineMapping();
-        break;
-      }
-
-      updateFrameCard(i);
-      updateProjectStats();
-      savePipelineMapping();
-
-      if (!pipelineRunning) break;
-      await new Promise(r => setTimeout(r, 1200));
     }
 
     pipelineRunning = false;
     updateUIStatus();
-    log("Pipeline finished");
+    log(pipelinePaused ? 'Pipeline paused' : 'Pipeline finished');
     savePipelineMapping();
   }
 
   function pausePipeline() {
     pipelinePaused = true;
     pipelineRunning = false;
+
+    if (activeGenerationGroupId) {
+      const groupId = activeGenerationGroupId;
+      sendToFlowTab({ type: 'CANCEL_PROMPT_GROUP', groupId }).catch(() => {});
+    }
+
     updateUIStatus();
     savePipelineMapping();
   }
@@ -1688,74 +1817,70 @@ function createSingleCharacter(charId) {
     savePipelineMapping();
   }
 
+  function buildFrameGenerationPayload(frame, refImages, promptIndex) {
+    const safeRefImages = Array.isArray(refImages) ? [...refImages] : [];
+    const rawCharRefs = (Array.isArray(frame.character_references) ? frame.character_references : [])
+      .map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim())
+      .filter(Boolean);
+
+    const resolvedCharRefs = resolveCharacterReferenceLabels(rawCharRefs, currentSpec?.characters || []);
+    const declaredCharRefs = resolvedCharRefs.length > 0 ? resolvedCharRefs : rawCharRefs;
+    const knownCharNames = new Set(
+      (currentSpec?.characters || []).flatMap(c => [
+        c.id, c.name, (c.flow_tag || '').replace(/^@/, '')
+      ]).filter(Boolean).map(s => s.toLowerCase().replace(/[\s_-]+/g, ''))
+    );
+    const cleanChars = [...new Set(declaredCharRefs)];
+
+    const otherRefs = [
+      ...(Array.isArray(frame.style_references) ? frame.style_references : []),
+      ...(Array.isArray(frame.image_references) ? frame.image_references : [])
+    ].map(c => (
+      typeof c === 'string' ? c : (c.tag || c.name || c.id || '')
+    ).replace(/^@/, '').trim()).filter(Boolean);
+
+    otherRefs.forEach(ref => {
+      const norm = ref.toLowerCase().replace(/[\s_-]+/g, '');
+      if (knownCharNames.has(norm)) {
+        if (!cleanChars.includes(ref)) cleanChars.push(ref);
+      } else if (!safeRefImages.some(img => img.name === ref) && !cleanChars.includes(ref)) {
+        safeRefImages.push({ name: ref, referenceExistingOnly: true });
+      }
+    });
+
+    const rawPrompt = (frame.prompt || '').trim();
+    const cleanBase = rawPrompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
+    const guidance = formatReferenceGuidance(frame, promptIndex);
+    frame.formatted_reference_guidance = guidance;
+    const finalPrompt = guidance ? cleanBase + '\n\n' + guidance : cleanBase;
+
+    return {
+      prompt: finalPrompt,
+      basePrompt: cleanBase,
+      referenceGuidance: guidance,
+      targetFilename: frame.target_filename,
+      mode: 'textToImage',
+      aspectRatio: currentSpec.default_aspect_ratio || '16:9',
+      model: IMAGE_MODEL,
+      outputCount: 1,
+      autoDownloadResourceQuality: 'original',
+      folderName: currentSpec.output_folder || 'ancient_humans_scenes',
+      referenceFolder: currentSpec.reference_folder || 'Branded_references',
+      autoChangeFileName: true,
+      maxRetries: currentSpec.max_retries || currentSpec.global_settings?.max_retries || 3,
+      promptIndex,
+      images: safeRefImages,
+      characters: cleanChars
+    };
+  }
+
   function executeFrameGeneration(frame, refImages, promptIndex) {
     return new Promise((resolve) => {
-      // 1. Explicit character references from frame (e.g. "@women_early_human", "@male_early_human")
-      const rawCharRefs = (Array.isArray(frame.character_references) ? frame.character_references : [])
-        .map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim())
-        .filter(Boolean);
-
-      const resolvedCharRefs = resolveCharacterReferenceLabels(rawCharRefs, currentSpec?.characters || []);
-      const declaredCharRefs = resolvedCharRefs.length > 0 ? resolvedCharRefs : rawCharRefs;
-
-      const knownCharNames = new Set(
-        (currentSpec?.characters || []).flatMap(c => [
-          c.id, c.name, (c.flow_tag || '').replace(/^@/, '')
-        ]).filter(Boolean).map(s => s.toLowerCase().replace(/[\s_-]+/g, ''))
-      );
-
-      const cleanChars = [...new Set(declaredCharRefs)];
-
-      // 2. Style, image, and extra references
-      const otherRefs = [
-        ...(Array.isArray(frame.style_references) ? frame.style_references : []),
-        ...(Array.isArray(frame.image_references) ? frame.image_references : [])
-      ].map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim()).filter(Boolean);
-
-      otherRefs.forEach(ref => {
-        const norm = ref.toLowerCase().replace(/[\s_-]+/g, '');
-        if (knownCharNames.has(norm)) {
-          if (!cleanChars.includes(ref)) cleanChars.push(ref);
-        } else {
-          if (!refImages.some(img => img.name === ref) && !cleanChars.includes(ref)) {
-            refImages.push({
-              name: ref,
-              referenceExistingOnly: true
-            });
-          }
-        }
-      });
-      
-      // Assemble clean base image prompt and decoupled reference guidance
-      const rawPrompt = (frame.prompt || '').trim();
-      const cleanBase = rawPrompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
-
-      const guidance = formatReferenceGuidance(frame, promptIndex);
-      frame.formatted_reference_guidance = guidance;
-
-      const finalPrompt = guidance ? `${cleanBase}\n\n${guidance}` : cleanBase;
-
-      const payload = {
-        prompt: finalPrompt,
-        basePrompt: cleanBase,
-        referenceGuidance: guidance,
-        targetFilename: frame.target_filename,
-        mode: 'textToImage',
-        aspectRatio: currentSpec.default_aspect_ratio || '16:9',
-        model: IMAGE_MODEL,
-        outputCount: 1,
-        autoDownloadResourceQuality: 'original',
-        folderName: currentSpec.output_folder || 'ancient_humans_scenes',
-        referenceFolder: currentSpec.reference_folder || 'Branded_references',
-        autoChangeFileName: true,
-        maxRetries: 1,
-        promptIndex: promptIndex,
-        images: refImages,
-        characters: cleanChars
-      };
+      const payload = buildFrameGenerationPayload(frame, refImages, promptIndex);
 
       getFlowTargetTab().then(targetTab => {
         const groupId = 'spec-group-' + Date.now();
+        activeGenerationGroupId = groupId;
         let timeoutHandle = null;
 
         const listener = (msg) => {
@@ -1768,7 +1893,11 @@ function createSingleCharacter(charId) {
             if (status === 'completed' || status === 'error' || status === 'cancelled') {
               if (timeoutHandle) clearTimeout(timeoutHandle);
               chrome.runtime.onMessage.removeListener(listener);
-              resolve(status === 'completed');
+              if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
+              const result = Array.isArray(msg.data.results)
+                ? msg.data.results.find(item => item.promptIndex === promptIndex)
+                : null;
+              resolve(status === 'completed' && result?.success === true);
             }
           }
         };
@@ -1785,6 +1914,7 @@ function createSingleCharacter(charId) {
           const error = chrome.runtime?.lastError;
           if (error || !response?.success) {
             chrome.runtime.onMessage.removeListener(listener);
+            if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
             frame.status = 'error';
             updateFrameCard(promptIndex);
             alert(
@@ -1798,10 +1928,12 @@ function createSingleCharacter(charId) {
           console.log('[SpecPipeline] Configured Flow collection accepted AUTO_FILL_FLOW');
           timeoutHandle = setTimeout(() => {
             chrome.runtime.onMessage.removeListener(listener);
-            resolve(frame.status === 'completed');
+            if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
+            resolve(false);
           }, 300000);
         });
       }).catch(error => {
+        if (activeGenerationGroupId?.startsWith('spec-group-')) activeGenerationGroupId = null;
         frame.status = 'error';
         updateFrameCard(promptIndex);
         setCollectionDestinationStatus(error.message, true);
