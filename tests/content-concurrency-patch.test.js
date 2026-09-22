@@ -51,7 +51,7 @@ assert.equal(
   'new tiles must receive a stable per-prompt selector'
 );
 assert.equal(
-  panelSource.includes('Duplicate Flow tile capture blocked:'),
+  panelSource.includes('capture_rejected_duplicate'),
   true,
   'the side panel must reject a result URL already assigned to another frame'
 );
@@ -114,8 +114,8 @@ assert.equal(
   'the background worker must receive the side-panel keep-alive port'
 );
 assert.equal(
-  panelSource.includes('keepAliveTimer = setInterval(sendPing, 15000)') &&
-    panelSource.includes('if (keepAliveTimer) clearInterval(keepAliveTimer)'),
+  /keepAliveTimer\s*=\s*setInterval\(sendPing,\s*\d+\)/.test(panelSource) &&
+    panelSource.includes('clearInterval(keepAliveTimer)'),
   true,
   'the side panel must maintain one recoverable keep-alive timer'
 );
@@ -131,8 +131,37 @@ assert.equal(
   'tile matching must not use DOM node identity because Flow re-renders old cards'
 );
 assert.equal(
-  source.includes('priorResourceUrls.has(normalizeTileResourceUrl(e.src))'),
+  source.includes('return i.hasPercentage||!i.hasResource') &&
+    source.includes('t&&beforeResourceUrls.has(t)?0:-1'),
+  true,
+  'tile matching must require generation state or a verified inserted position'
+);
+assert.equal(
+  source.includes('i?!beforeResourceUrls.has(i):s.isGenerating'),
+  false,
+  'a newly visible URL alone must not identify a generated tile'
+);
+assert.equal(
+  source.includes('priorResourceUrls.has(normalizeTileResourceUrl(e.currentSrc||e.src))'),
   true,
   'resources that existed before the prompt must be excluded from capture'
+);
+assert.equal(
+  source.includes('event:"pre_submit_snapshot"') &&
+    source.includes('event:"tile_candidate_selected"') &&
+    source.includes('event:"tile_candidate_wait"') &&
+    source.includes('event:"media_capture_emitted"'),
+  true,
+  'the content worker must emit structured tile-selection diagnostics'
+);
+assert.equal(
+  source.includes('currentSrc||e.src') && source.includes('currentSrc||P[e].src'),
+  true,
+  'capture must prefer the browser-selected current media source'
+);
+assert.equal(
+  source.includes('mediaType:String(P[e].tagName||"").toLowerCase()'),
+  true,
+  'capture diagnostics must record whether Flow emitted an image or video element'
 );
 console.log('content concurrency patch tests passed');

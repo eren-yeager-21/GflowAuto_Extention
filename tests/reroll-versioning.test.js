@@ -69,16 +69,22 @@ assert.equal(panelSource.includes('reroll_previous: rerollHistory.normalizeSnaps
 assert.equal(panelSource.includes('applyCapturedFrameImage'), true);
 assert.equal(panelSource.includes('result?.capturedResources'), true);
 assert.equal(panelSource.includes('frame.reroll_capture_token = captureToken'), true);
-assert.equal(panelSource.includes('mapRerollFromNewFlowTile'), true);
-assert.equal(panelSource.includes('rerollTileSnapshotBefore'), true);
-assert.equal(panelSource.includes('Re-roll fallback skipped because the Flow tile snapshot was unavailable.'), true);
-assert.equal(panelSource.includes('Ignored the previous image while waiting for a new re-roll result'), true);
+assert.equal(panelSource.includes('mapRerollFromNewFlowTile'), false);
+assert.equal(panelSource.includes('rerollTileSnapshotBefore'), false);
+assert.equal(panelSource.includes('reroll_mapping_missing'), true);
+assert.equal(panelSource.includes('capture_rejected_previous_image'), true);
+assert.equal(panelSource.includes('capture_rejected_unusable_url'), true);
+assert.equal(
+  panelSource.includes('msg.captureToken !== frame.reroll_capture_token'),
+  true,
+  'a re-roll must accept only captures carrying its active token'
+);
 
 const indexSource = fs.readFileSync(
   path.join(__dirname, '..', 'src', 'ui', 'side-panel', 'index.html'),
   'utf8'
 );
 assert.equal(indexSource.includes('./reroll-history.js'), true);
-assert.equal(indexSource.includes('./reroll-tile-fallback.js'), true);
+assert.equal(indexSource.includes('./media-url.js'), true);
 
 console.log('re-roll versioning tests passed');

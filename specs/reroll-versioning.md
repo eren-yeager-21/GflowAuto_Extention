@@ -15,7 +15,7 @@ Keep the project output folder stable when a frame is re-rolled and allow the us
 7. Re-roll waits for the captured image to be mapped before it finalizes the frame and clears temporary state.
 8. The Flow completion result carries the captured image URL, filename, tile title, and re-roll correlation token so mapping does not depend on a separate runtime event.
 9. A re-roll started from a restored saved session maps its result and exposes Revert without requiring Start Pipeline first.
-10. If the primary capture message or result metadata is unavailable, the extension compares the Flow tiles before and after generation and maps the newly added tile.
+10. If the correlated capture result is unavailable or unusable, the re-roll fails safely, preserves the previous image, and records diagnostic details; it never guesses from other visible Flow cards.
 11. Starting a re-roll snapshots the frame's current image URL, Flow tile title, and completion time.
 12. The snapshot becomes the revert version only after the new generated image is captured successfully.
 13. A failed re-roll leaves the current image and existing revert version intact.
@@ -23,3 +23,5 @@ Keep the project output folder stable when a frame is re-rolled and allow the us
 15. Revert restores the previous image and Flow tile title, clears the one-level revert history, and overwrites the target file with the restored image.
 16. Revert changes the extension mapping and downloaded file; it does not delete either generated tile from Google Flow.
 17. A re-roll capture whose normalized media URL matches the image being replaced is rejected and cannot become the new mapping.
+18. Blob and filesystem URLs are rejected because they cannot be reliably rendered or restored from the extension side panel.
+19. While a re-roll is active, a capture must carry the exact active re-roll token.

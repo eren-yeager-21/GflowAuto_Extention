@@ -4,9 +4,9 @@
   const flowDestination = globalThis.FlowDestination;
   const pipelineConcurrency = globalThis.PipelineConcurrency;
   const rerollHistory = globalThis.RerollHistory;
-  const rerollTileFallback = globalThis.RerollTileFallback;
+  const mediaUrlTools = globalThis.MediaUrlTools;
   const IMAGE_MODEL = 'Nano Banana 2';
-  if (!flowDestination || !pipelineConcurrency || !rerollHistory || !rerollTileFallback) {
+  if (!flowDestination || !pipelineConcurrency || !rerollHistory || !mediaUrlTools) {
     throw new Error('A required side-panel helper was not loaded.');
   }
 
@@ -20,44 +20,136 @@
   let activeSpecTab = 'control';
   const activeFrameDownloads = new Set();
   const debugEntries = [];
-  const MAX_DEBUG_ENTRIES = 300;
+  const MAX_DEBUG_ENTRIES = 500;
+  const DEBUG_STORAGE_KEY = 'spec_pipeline_diagnostics_v1';
+  let debugPersistTimer = null;
+  let debugLogLoaded = false;
+
+  function summarizeMediaUrl(url) {
+    const value = String(url || '');
+    if (!value) return { present: false };
+    const scheme = value.includes(':') ? value.slice(0, value.indexOf(':')).toLowerCase() : 'relative';
+    let host = '';
+    let pathTail = '';
+    try {
+      const parsed = new URL(value);
+      host = parsed.host;
+      pathTail = parsed.pathname.split('/').filter(Boolean).slice(-2).join('/');
+    } catch (_) {
+      pathTail = value.split(/[?#]/)[0].slice(-80);
+    }
+    return {
+      present: true,
+      scheme,
+      host,
+      pathTail,
+      length: value.length,
+      renderRisk: scheme === 'blob' || scheme === 'filesystem'
+    };
+  }
+
+  function sanitizeDiagnosticMessage(message) {
+    return String(message || '').replace(/\b(?:https?|blob|data|filesystem):[^\s]+/gi, match => {
+      const scheme = match.slice(0, match.indexOf(':')).toLowerCase();
+      return `[${scheme}-url length=${match.length}]`;
+    });
+  }
+  function sanitizeDiagnosticDetails(value, depth = 0) {
+    if (depth > 3) return '[max-depth]';
+    if (value === null || value === undefined) return value;
+    if (typeof value === 'string') {
+      const sanitized = sanitizeDiagnosticMessage(value);
+      return sanitized.length > 300 ? `${sanitized.slice(0, 300)}…` : sanitized;
+    }
+    if (typeof value === 'number' || typeof value === 'boolean') return value;
+    if (Array.isArray(value)) return value.slice(0, 20).map(item => sanitizeDiagnosticDetails(item, depth + 1));
+    if (typeof value === 'object') {
+      return Object.fromEntries(Object.entries(value).slice(0, 30).map(([key, item]) => [
+        key,
+        sanitizeDiagnosticDetails(item, depth + 1)
+      ]));
+    }
+    return String(value);
+  }
+
+  function persistDebugEntries() {
+    if (!chrome?.storage?.local) return;
+    if (debugPersistTimer) clearTimeout(debugPersistTimer);
+    debugPersistTimer = setTimeout(() => {
+      debugPersistTimer = null;
+      chrome.storage.local.set({ [DEBUG_STORAGE_KEY]: debugEntries.slice(-MAX_DEBUG_ENTRIES) });
+    }, 150);
+  }
+
+  function loadDebugEntries() {
+    if (debugLogLoaded || !chrome?.storage?.local) return;
+    debugLogLoaded = true;
+    chrome.storage.local.get([DEBUG_STORAGE_KEY], result => {
+      const saved = Array.isArray(result?.[DEBUG_STORAGE_KEY]) ? result[DEBUG_STORAGE_KEY] : [];
+      const merged = [...saved, ...debugEntries]
+        .filter(entry => entry && Number(entry.timestamp))
+        .sort((a, b) => a.timestamp - b.timestamp)
+        .slice(-MAX_DEBUG_ENTRIES);
+      debugEntries.splice(0, debugEntries.length, ...merged);
+      renderDebugLog();
+    });
+  }
 
   function appendDebugEntry(entry) {
     const normalized = {
       level: entry?.level || 'info',
-      message: String(entry?.message || ''),
+      source: entry?.source || 'side-panel',
+      event: entry?.event || 'message',
+      message: sanitizeDiagnosticMessage(entry?.message),
+      details: sanitizeDiagnosticDetails(entry?.details || null),
       timestamp: Number(entry?.timestamp) || Date.now()
     };
     debugEntries.push(normalized);
     if (debugEntries.length > MAX_DEBUG_ENTRIES) debugEntries.shift();
+    persistDebugEntries();
     renderDebugLog();
+  }
+
+  function diagnostic(event, message, details = null, level = 'info', source = 'side-panel') {
+    appendDebugEntry({ level, source, event, message, details });
   }
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
-    appendDebugEntry({
-      level: 'info',
-      message: args.map(value => typeof value === 'string' ? value : JSON.stringify(value)).join(' ')
-    });
+    diagnostic(
+      'message',
+      args.map(value => typeof value === 'string' ? value : JSON.stringify(value)).join(' ')
+    );
   }
 
   // Persistent Keep-Alive Port to Background Service Worker
   let keepAlivePort = null;
   let keepAliveTimer = null;
   let keepAliveRetryTimer = null;
+
   function maintainKeepAlivePort() {
     if (keepAlivePort) return;
+
     try {
-      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.connect) {
+      if (chrome?.runtime?.connect) {
         keepAlivePort = chrome.runtime.connect({ name: 'spec-pipeline-keepalive' });
+
         const sendPing = () => {
           if (!keepAlivePort) return;
-          try { keepAlivePort.postMessage({ type: 'PING' }); } catch (e) {}
+          try {
+            keepAlivePort.postMessage({ type: 'KEEPALIVE_PING', timestamp: Date.now() });
+          } catch (_) {
+            // The disconnect listener schedules reconnection.
+          }
         };
+
         keepAlivePort.onDisconnect.addListener(() => {
+          diagnostic('keepalive_disconnected', 'The background keep-alive port disconnected; reconnecting.', null, 'warn', 'lifecycle');
           keepAlivePort = null;
-          if (keepAliveTimer) clearInterval(keepAliveTimer);
-          keepAliveTimer = null;
+          if (keepAliveTimer) {
+            clearInterval(keepAliveTimer);
+            keepAliveTimer = null;
+          }
           if (!keepAliveRetryTimer) {
             keepAliveRetryTimer = setTimeout(() => {
               keepAliveRetryTimer = null;
@@ -65,11 +157,15 @@
             }, 1000);
           }
         });
+
+        diagnostic('keepalive_connected', 'The side panel connected to the background keep-alive port.', null, 'info', 'lifecycle');
         sendPing();
-        keepAliveTimer = setInterval(sendPing, 15000);
+        keepAliveTimer = setInterval(sendPing, 20000);
       }
-    } catch (e) {
-      console.warn('[SpecPipeline] Could not connect keep-alive port:', e);
+    } catch (error) {
+      diagnostic('keepalive_connect_failed', 'Could not connect the background keep-alive port.', {
+        error: error?.message || String(error)
+      }, 'warn', 'lifecycle');
       if (!keepAliveRetryTimer) {
         keepAliveRetryTimer = setTimeout(() => {
           keepAliveRetryTimer = null;
@@ -78,7 +174,21 @@
       }
     }
   }
+
   maintainKeepAlivePort();
+
+  window.addEventListener('error', event => {
+    diagnostic('uncaught_error', event.message || 'Uncaught side-panel error.', {
+      filename: event.filename || null,
+      line: event.lineno || null,
+      column: event.colno || null
+    }, 'error', 'lifecycle');
+  });
+  window.addEventListener('unhandledrejection', event => {
+    diagnostic('unhandled_rejection', 'Unhandled side-panel promise rejection.', {
+      reason: event.reason?.message || String(event.reason || 'Unknown rejection')
+    }, 'error', 'lifecycle');
+  });
 
   // Local Frame Title Mapping Registry (frame_key -> generated Flow tile title)
   // Maps: "frame_001.png" -> "Smartphone vibrating on nightsta…", "frame_001" -> "Smartphone vibrating on nightsta…"
@@ -493,6 +603,7 @@
   };
 
   function initUI() {
+    loadDebugEntries();
     const tabSpecBtn = document.getElementById('tab-btn-spec');
     const tabClassicBtn = document.getElementById('tab-btn-classic');
     const specContainer = document.getElementById('spec-container');
@@ -919,15 +1030,19 @@
     }
     container.innerHTML = debugEntries.map(entry => {
       const time = new Date(entry.timestamp).toLocaleTimeString();
-      return `<div class="spec-debug-entry ${escapeAttr(entry.level)}"><span>${escapeHtml(time)}</span> ${escapeHtml(entry.message)}</div>`;
+      const context = [entry.source, entry.event].filter(Boolean).join('/');
+      const details = entry.details ? ` ${JSON.stringify(entry.details)}` : '';
+      return `<div class="spec-debug-entry ${escapeAttr(entry.level)}"><span>${escapeHtml(time)}</span> <strong>[${escapeHtml(context)}]</strong> ${escapeHtml(entry.message + details)}</div>`;
     }).join('');
     container.scrollTop = container.scrollHeight;
   }
 
   function getDebugLogText() {
-    return debugEntries.map(entry =>
-      `[${new Date(entry.timestamp).toISOString()}] [${entry.level.toUpperCase()}] ${entry.message}`
-    ).join('\n');
+    return debugEntries.map(entry => {
+      const context = [entry.source, entry.event].filter(Boolean).join('/');
+      const details = entry.details ? ` ${JSON.stringify(entry.details)}` : '';
+      return `[${new Date(entry.timestamp).toISOString()}] [${entry.level.toUpperCase()}] [${context}] ${entry.message}${details}`;
+    }).join('\n');
   }
 
   function renderCharactersList() {
@@ -1027,7 +1142,7 @@
         ` : ''}
 
         <div class="frame-preview-container" id="frame-img-box-${idx}" style="display: ${f.result_url ? 'block' : 'none'};">
-          <img src="${escapeAttr(f.result_url || '')}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame ${f.frame_number}" />
+          <img src="${escapeAttr(f.result_url || '')}" class="frame-preview-img" id="frame-img-${idx}" data-index="${idx}" alt="Frame ${f.frame_number}" />
         </div>
 
         <div class="frame-footer">
@@ -1108,6 +1223,9 @@
     if (btnClearDebugLog) {
       btnClearDebugLog.addEventListener('click', () => {
         debugEntries.length = 0;
+        if (debugPersistTimer) clearTimeout(debugPersistTimer);
+        debugPersistTimer = null;
+        chrome.storage.local.remove([DEBUG_STORAGE_KEY]);
         renderDebugLog();
       });
     }
@@ -1228,6 +1346,27 @@
         const idx = parseInt(e.target.dataset.index, 10);
         downloadSingleFrame(idx);
       });
+    });
+    document.querySelectorAll('.frame-preview-img').forEach(img => {
+      img.addEventListener('load', event => {
+        const idx = Number(event.currentTarget.dataset.index);
+        const frame = currentSpec?.visuals?.[idx];
+        diagnostic('preview_loaded', 'Mapped frame preview loaded successfully.', {
+          promptIndex: idx,
+          frameNumber: frame?.frame_number,
+          media: summarizeMediaUrl(event.currentTarget.currentSrc || event.currentTarget.src)
+        }, 'info', 'preview');
+      }, { once: true });
+      img.addEventListener('error', event => {
+        const idx = Number(event.currentTarget.dataset.index);
+        const frame = currentSpec?.visuals?.[idx];
+        diagnostic('preview_load_failed', 'Mapped frame preview could not be loaded.', {
+          promptIndex: idx,
+          frameNumber: frame?.frame_number,
+          tileTitle: frame?.flow_tile_title || null,
+          media: summarizeMediaUrl(event.currentTarget.currentSrc || event.currentTarget.src || frame?.result_url)
+        }, 'error', 'preview');
+      }, { once: true });
     });
   }
 
@@ -1409,67 +1548,6 @@
 
     if (callback) callback(response);
     return response;
-  }
-
-  async function scanFlowTilesForReroll() {
-    const response = await sendToFlowTab({ type: 'SCAN_PROJECT_TILES' });
-    return {
-      valid: Array.isArray(response?.tiles),
-      tiles: Array.isArray(response?.tiles) ? response.tiles : []
-    };
-  }
-
-  function replaceDownloadedFrame(frame) {
-    return new Promise(resolve => {
-      chrome.runtime.sendMessage({
-        type: 'DOWNLOAD_RESOURCE',
-        url: frame.result_url,
-        filename: frame.target_filename,
-        folder: currentSpec.output_folder,
-        autoChangeFileName: true
-      }, response => {
-        const error = chrome.runtime?.lastError;
-        if (error || !response?.success) {
-          log('Fallback re-roll download failed:', error?.message || response?.error || frame.target_filename);
-          resolve(false);
-          return;
-        }
-        resolve(true);
-      });
-    });
-  }
-
-  async function mapRerollFromNewFlowTile(frame, promptIndex, beforeSnapshot, captureToken) {
-    const afterSnapshot = await scanFlowTilesForReroll();
-    if (!beforeSnapshot?.valid || !afterSnapshot.valid) {
-      log('Re-roll fallback skipped because the Flow tile snapshot was unavailable.');
-      return false;
-    }
-    const newTile = rerollTileFallback.chooseNewTile(
-      beforeSnapshot.tiles,
-      afterSnapshot.tiles
-    );
-    if (!newTile?.imgSrc) {
-      log('Re-roll fallback could not identify a new Flow tile for Frame #' + frame.frame_number);
-      return false;
-    }
-
-    const mapped = applyCapturedFrameImage({
-      type: 'SPEC_FRAME_IMAGE_CAPTURED',
-      promptIndex,
-      mediaUrl: newTile.imgSrc,
-      filename: frame.target_filename,
-      tileTitle: newTile.title || frame.target_filename,
-      captureToken
-    });
-    if (!mapped) return false;
-
-    await replaceDownloadedFrame(frame);
-    log('Re-roll mapped from the newly detected Flow tile:', {
-      frame: frame.frame_number,
-      tileTitle: newTile.title || ''
-    });
-    return true;
   }
 
 function createSingleCharacter(charId) {
@@ -1989,7 +2067,12 @@ function createSingleCharacter(charId) {
       return;
     }
 
-    const rerollTileSnapshotBefore = await scanFlowTilesForReroll();
+    diagnostic('reroll_started', 'Re-roll requested.', {
+      frameIndex: idx,
+      frameNumber: frame.frame_number,
+      currentMedia: summarizeMediaUrl(frame.result_url),
+      currentTileTitle: frame.flow_tile_title || null
+    });
     frame.reroll_in_progress = Boolean(rerollHistory.begin(frame));
     frame.status = 'generating';
     frame.progress = 5;
@@ -2044,12 +2127,16 @@ function createSingleCharacter(charId) {
         ok = true;
       }
       if (!ok && frame.reroll_pending_previous) {
-        log('Primary re-roll mapping was unavailable; scanning Flow for the newly added tile.');
-        ok = await mapRerollFromNewFlowTile(
-          frame,
-          idx,
-          rerollTileSnapshotBefore,
-          captureToken
+        diagnostic(
+          'reroll_mapping_missing',
+          'Generation finished without a verified new media capture; the previous image will be kept.',
+          {
+            frameIndex: idx,
+            frameNumber: frame.frame_number,
+            captureToken,
+            previousMedia: summarizeMediaUrl(frame.reroll_pending_previous?.result_url)
+          },
+          'error'
         );
       }
       if (ok && frame.reroll_pending_previous) {
@@ -2185,6 +2272,16 @@ function createSingleCharacter(charId) {
         const groupId = 'spec-group-' + Date.now();
         activeGenerationGroupId = groupId;
         let timeoutHandle = null;
+        let lastLoggedStatus = null;
+        diagnostic('generation_group_created', 'Prepared one-frame Flow generation group.', {
+          groupId,
+          promptIndex,
+          frameNumber: frame.frame_number,
+          reroll: Boolean(options.captureToken),
+          captureToken: options.captureToken || null,
+          referenceCount: Array.isArray(refImages) ? refImages.length : 0,
+          targetFilename: frame.target_filename
+        });
 
         const listener = (msg) => {
           if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId) {
@@ -2193,6 +2290,29 @@ function createSingleCharacter(charId) {
           }
           if (msg.type === 'PROMPT_GROUP_STATUS' && msg.data?.id === groupId) {
             const status = msg.data.status;
+            if (status !== lastLoggedStatus) {
+              lastLoggedStatus = status;
+              const statusResult = Array.isArray(msg.data.results)
+                ? msg.data.results.find(item => item.promptIndex === promptIndex)
+                : null;
+              diagnostic('generation_group_status', `Flow generation group is ${status}.`, {
+                groupId,
+                promptIndex,
+                processedCount: msg.data.processedCount,
+                totalCount: msg.data.totalCount,
+                result: statusResult ? {
+                  success: statusResult.success,
+                  downloadComplete: statusResult.downloadComplete,
+                  error: statusResult.error || null,
+                  capturedResourceCount: Array.isArray(statusResult.capturedResources)
+                    ? statusResult.capturedResources.length
+                    : 0,
+                  capturedMedia: Array.isArray(statusResult.capturedResources)
+                    ? statusResult.capturedResources.map(resource => summarizeMediaUrl(resource.mediaUrl))
+                    : []
+                } : null
+              }, status === 'error' || status === 'cancelled' ? 'error' : 'info');
+            }
             if (status === 'completed' || status === 'paused' || status === 'error' || status === 'cancelled') {
               if (timeoutHandle) clearTimeout(timeoutHandle);
               chrome.runtime.onMessage.removeListener(listener);
@@ -2242,10 +2362,19 @@ function createSingleCharacter(charId) {
             return;
           }
 
-          console.log('[SpecPipeline] Configured Flow collection accepted AUTO_FILL_FLOW');
+          diagnostic('generation_submitted', 'Flow content script accepted the generation request.', {
+            groupId,
+            promptIndex,
+            targetTabId: targetTab.id
+          });
           timeoutHandle = setTimeout(() => {
             chrome.runtime.onMessage.removeListener(listener);
             if (activeGenerationGroupId === groupId) activeGenerationGroupId = null;
+            diagnostic('generation_timeout', 'No terminal Flow generation status was received within five minutes.', {
+              groupId,
+              promptIndex,
+              frameNumber: frame.frame_number
+            }, 'error');
             resolve(false);
           }, 300000);
         });
@@ -2393,20 +2522,53 @@ function createSingleCharacter(charId) {
   }
 
   function applyCapturedFrameImage(msg) {
-    if (!currentSpec) return false;
+    if (!currentSpec) {
+      diagnostic('capture_rejected_no_spec', 'Ignored a media capture because no spec session is loaded.', {
+        promptIndex: msg?.promptIndex,
+        media: summarizeMediaUrl(msg?.mediaUrl)
+      }, 'warn', 'capture');
+      return false;
+    }
 
-      const idx = msg.promptIndex;
-      if (idx !== undefined && currentSpec.visuals[idx]) {
-        const frame = currentSpec.visuals[idx];
-        if (msg.captureToken && msg.captureToken !== frame.reroll_capture_token) {
-          log('Ignored a stale re-roll image capture for Frame #' + frame.frame_number);
+    const idx = msg.promptIndex;
+    if (idx !== undefined && currentSpec.visuals[idx]) {
+      const frame = currentSpec.visuals[idx];
+        const mediaSummary = summarizeMediaUrl(msg.mediaUrl);
+        diagnostic('capture_received', 'Received a Flow media capture candidate.', {
+          promptIndex: idx,
+          frameNumber: frame.frame_number,
+          tileTitle: msg.tileTitle || null,
+          filename: msg.filename || null,
+          captureToken: msg.captureToken || null,
+          expectedCaptureToken: frame.reroll_capture_token || null,
+          rerollInProgress: Boolean(frame.reroll_in_progress),
+          media: mediaSummary
+        }, mediaSummary.renderRisk ? 'warn' : 'info', 'capture');
+        if (!mediaSummary.present || mediaSummary.renderRisk) {
+          diagnostic(
+            'capture_rejected_unusable_url',
+            'Rejected a media URL that cannot be safely rendered and persisted by the side panel.',
+            { promptIndex: idx, frameNumber: frame.frame_number, media: mediaSummary },
+            'error',
+            'capture'
+          );
+          return false;
+        }
+        if (frame.reroll_in_progress && frame.reroll_capture_token &&
+            msg.captureToken !== frame.reroll_capture_token) {
+          diagnostic('capture_rejected_stale_token', 'Ignored a capture without the active re-roll token.', {
+            promptIndex: idx,
+            frameNumber: frame.frame_number,
+            receivedToken: msg.captureToken || null,
+            expectedToken: frame.reroll_capture_token
+          }, 'warn', 'capture');
           return false;
         }
         const previousRerollUrl = frame.reroll_pending_previous?.result_url;
         if (frame.reroll_in_progress && previousRerollUrl &&
-            rerollTileFallback.normalizeTileUrl(msg.mediaUrl) ===
-              rerollTileFallback.normalizeTileUrl(previousRerollUrl)) {
-          log('Ignored the previous image while waiting for a new re-roll result for Frame #' + frame.frame_number);
+            mediaUrlTools.normalize(msg.mediaUrl) ===
+              mediaUrlTools.normalize(previousRerollUrl)) {
+          diagnostic('capture_rejected_previous_image', 'Rejected the image currently assigned to this frame while waiting for a new re-roll result.', { promptIndex: idx, frameNumber: frame.frame_number, media: mediaSummary }, 'warn', 'capture');
           return false;
         }
         const duplicateIndex = msg.mediaUrl
@@ -2420,10 +2582,12 @@ function createSingleCharacter(charId) {
             `Flow returned the tile already assigned to Frame #${duplicateFrame.frame_number}.`;
           frame.error = frame.capture_conflict;
           frame.status = 'error';
-          log('Duplicate Flow tile capture blocked:', {
-            frame: frame.frame_number,
-            duplicateOf: duplicateFrame.frame_number
-          });
+          diagnostic('capture_rejected_duplicate', 'Rejected media already assigned to another frame.', {
+            promptIndex: idx,
+            frameNumber: frame.frame_number,
+            duplicateOfFrame: duplicateFrame.frame_number,
+            media: mediaSummary
+          }, 'error', 'capture');
           updateFrameCard(idx);
           updateProjectStats();
           savePipelineMapping();
@@ -2459,17 +2623,29 @@ function createSingleCharacter(charId) {
         } else if (!frame.flow_tile_title) {
           frame.flow_tile_title = msg.filename || frame.target_filename;
         }
+        diagnostic('capture_mapped', 'Mapped verified Flow media to the frame.', {
+          promptIndex: idx,
+          frameNumber: frame.frame_number,
+          tileTitle: frame.flow_tile_title || null,
+          media: mediaSummary,
+          revertAvailable: Boolean(frame.reroll_previous)
+        }, 'info', 'capture');
         updateFrameCard(idx);
         savePipelineMapping();
-        return true;
-      }
-      return false;
+      return true;
+    }
+    return false;
   }
 
   // Hook global incoming messages from Content Script / Background Worker
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.type === 'ACTION_LOG' && msg.data) {
-      appendDebugEntry(msg.data);
+      appendDebugEntry({ ...msg.data, source: msg.data.source || 'content-script' });
+      return;
+    }
+
+    if (msg.type === 'CONTENT_SCRIPT_RESET') {
+      diagnostic('content_script_reset', 'The Flow content script initialized or reloaded.', null, 'info', 'lifecycle');
       return;
     }
 
