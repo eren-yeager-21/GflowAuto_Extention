@@ -1509,6 +1509,7 @@ function createSingleCharacter(charId) {
     frame.status = 'generating';
     frame.progress = 5;
     frame.error = null;
+    frame.capture_conflict = null;
     activeFrameIndex = promptIndex;
     updateFrameCard(promptIndex);
 
@@ -1532,12 +1533,16 @@ function createSingleCharacter(charId) {
 
   function applyFrameGenerationResult(promptIndex, success, error = null) {
     const frame = currentSpec?.visuals?.[promptIndex];
-    if (!frame) return;
-    frame.status = success ? 'completed' : 'error';
-    frame.progress = success ? 100 : frame.progress;
-    frame.completed_at = success ? new Date().toISOString() : null;
-    frame.error = success ? null : (error || 'Generation failed');
+    if (!frame) return false;
+    const effectiveSuccess = success && !frame.capture_conflict;
+    frame.status = effectiveSuccess ? 'completed' : 'error';
+    frame.progress = effectiveSuccess ? 100 : frame.progress;
+    frame.completed_at = effectiveSuccess ? new Date().toISOString() : null;
+    frame.error = effectiveSuccess
+      ? null
+      : (frame.capture_conflict || error || 'Generation failed');
     updateFrameCard(promptIndex);
+    return effectiveSuccess;
   }
 
   function executeIndependentFrameBatch(promptIndexes) {
@@ -1579,7 +1584,9 @@ function createSingleCharacter(charId) {
         });
         updateProjectStats();
         savePipelineMapping();
-        resolve(success && items.every(item => resultMap.get(item.promptIndex)?.success === true));
+        resolve(success && items.every(item =>
+          resultMap.get(item.promptIndex)?.success === true && !item.frame.capture_conflict
+        ));
       };
 
       const listener = msg => {
@@ -1648,14 +1655,14 @@ function createSingleCharacter(charId) {
       item.frame.error = error?.message || String(error);
     }
 
-    applyFrameGenerationResult(
+    const appliedSuccess = applyFrameGenerationResult(
       promptIndex,
       success,
       item.frame.error || 'Generation failed after configured retries'
     );
     updateProjectStats();
     savePipelineMapping();
-    return success;
+    return appliedSuccess;
   }
 
   // Dependency-aware generation with parallel independent submissions
@@ -1767,6 +1774,8 @@ function createSingleCharacter(charId) {
     const frame = currentSpec.visuals[idx];
     frame.status = 'generating';
     frame.progress = 5;
+    frame.error = null;
+    frame.capture_conflict = null;
     updateFrameCard(idx);
 
     let refImages = [];
@@ -1806,13 +1815,9 @@ function createSingleCharacter(charId) {
 
     try {
       const ok = await executeFrameGeneration(frame, refImages, idx);
-      frame.status = ok ? 'completed' : 'error';
-      if (ok) {
-        frame.progress = 100;
-        frame.completed_at = new Date().toISOString();
-      }
+      applyFrameGenerationResult(idx, ok);
     } catch (err) {
-      frame.status = 'error';
+      applyFrameGenerationResult(idx, false, err?.message || String(err));
     }
 
     updateFrameCard(idx);
@@ -2046,16 +2051,38 @@ function createSingleCharacter(charId) {
     if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && currentSpec) {
       const idx = msg.promptIndex;
       if (idx !== undefined && currentSpec.visuals[idx]) {
-        currentSpec.visuals[idx].result_url = msg.mediaUrl;
+        const frame = currentSpec.visuals[idx];
+        const duplicateIndex = msg.mediaUrl
+          ? currentSpec.visuals.findIndex((visual, visualIndex) =>
+              visualIndex !== idx && visual.result_url === msg.mediaUrl
+            )
+          : -1;
+        if (duplicateIndex >= 0) {
+          const duplicateFrame = currentSpec.visuals[duplicateIndex];
+          frame.capture_conflict =
+            `Flow returned the tile already assigned to Frame #${duplicateFrame.frame_number}.`;
+          frame.error = frame.capture_conflict;
+          frame.status = 'error';
+          log('Duplicate Flow tile capture blocked:', {
+            frame: frame.frame_number,
+            duplicateOf: duplicateFrame.frame_number
+          });
+          updateFrameCard(idx);
+          updateProjectStats();
+          savePipelineMapping();
+          return;
+        }
+
+        frame.result_url = msg.mediaUrl;
         if (msg.tileTitle) {
-          currentSpec.visuals[idx].flow_tile_title = msg.tileTitle;
-          registerLocalFrameTitle(currentSpec.visuals[idx].target_filename, msg.tileTitle);
-          if (currentSpec.visuals[idx].id) {
-            registerLocalFrameTitle(currentSpec.visuals[idx].id, msg.tileTitle);
+          frame.flow_tile_title = msg.tileTitle;
+          registerLocalFrameTitle(frame.target_filename, msg.tileTitle);
+          if (frame.id) {
+            registerLocalFrameTitle(frame.id, msg.tileTitle);
           }
-          if (currentSpec.visuals[idx].frame_number) {
-            registerLocalFrameTitle(String(currentSpec.visuals[idx].frame_number), msg.tileTitle);
-            registerLocalFrameTitle(`frame_${String(currentSpec.visuals[idx].frame_number).padStart(3, '0')}`, msg.tileTitle);
+          if (frame.frame_number) {
+            registerLocalFrameTitle(String(frame.frame_number), msg.tileTitle);
+            registerLocalFrameTitle(`frame_${String(frame.frame_number).padStart(3, '0')}`, msg.tileTitle);
           }
           // Propagate updated tile title to subsequent dependent frames' guidance
           for (let k = idx + 1; k < currentSpec.visuals.length; k++) {
@@ -2069,8 +2096,8 @@ function createSingleCharacter(charId) {
               updateFrameCard(k);
             }
           }
-        } else if (!currentSpec.visuals[idx].flow_tile_title) {
-          currentSpec.visuals[idx].flow_tile_title = msg.filename || currentSpec.visuals[idx].target_filename;
+        } else if (!frame.flow_tile_title) {
+          frame.flow_tile_title = msg.filename || frame.target_filename;
         }
         updateFrameCard(idx);
         savePipelineMapping();
