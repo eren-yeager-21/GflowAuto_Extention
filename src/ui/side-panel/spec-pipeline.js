@@ -103,7 +103,8 @@
       default_model: IMAGE_MODEL,
       max_parallel_generations: currentSpec.max_parallel_generations,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
-      output_folder: currentSpec.output_folder,
+      project_dir: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
+      output_folder: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
       characters: currentSpec.characters.map(c => ({
         id: c.id,
         name: c.name,
@@ -135,16 +136,31 @@
     };
   }
 
+  let autoSaveMappingTimer = null;
+  function autoSaveMappingToDisk() {
+    if (autoSaveMappingTimer) clearTimeout(autoSaveMappingTimer);
+    autoSaveMappingTimer = setTimeout(() => {
+      try {
+        exportMappingFile();
+      } catch (_) {}
+    }, 1500);
+  }
+
   function savePipelineMapping() {
     const data = generateMappingData();
     if (!data) return;
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       const key = getStorageKey(data.project_name);
-      chrome.storage.local.set({
+      const toSet = {
         [key]: data,
         [LATEST_KEY]: data.project_name
-      }).catch(() => {});
+      };
+      if (data.project_dir) {
+        toSet[getStorageKey(data.project_dir)] = data;
+      }
+      chrome.storage.local.set(toSet).catch(() => {});
     }
+    autoSaveMappingToDisk();
   }
 
   function checkSavedSession(callback) {
@@ -182,7 +198,7 @@
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const safeFolder = (currentSpec.output_folder || 'flow_pipeline').trim();
+    const safeFolder = (currentSpec.project_dir || currentSpec.output_folder || 'flow_pipeline').trim();
     const filename = `${safeFolder}/pipeline_mapping.json`;
     if (typeof chrome !== 'undefined' && chrome.downloads && chrome.downloads.download) {
       chrome.downloads.download({
@@ -385,6 +401,7 @@
     project_name: "Ancient Humans Pleasure - Character Suite",
     default_model: "Nano Banana 2",
     default_aspect_ratio: "16:9",
+    project_dir: "ancient_humans_scenes",
     output_folder: "ancient_humans_scenes",
     characters: [
       {
@@ -506,7 +523,7 @@
               <span>🔄 Saved Session Available: ${escapeHtml(saved.project_name)}</span>
             </div>
             <div class="resume-banner-sub">
-              Progress: <strong>${completedCount}/${totalCount} frames completed</strong>. Last saved: ${new Date(saved.last_updated).toLocaleTimeString()}
+              ${saved.project_dir ? `Folder: <strong>${escapeHtml(saved.project_dir)}</strong> &bull; ` : ''}Progress: <strong>${completedCount}/${totalCount} frames completed</strong>. Last saved: ${new Date(saved.last_updated).toLocaleTimeString()}
             </div>
             <div style="display: flex; gap: 8px;">
               <button class="btn btn-primary btn-sm" id="btn-resume-session">▶ Resume Session</button>
@@ -612,6 +629,7 @@
       project_name: "Ancient Humans Pleasure",
       default_model: "Nano Banana 2",
       default_aspect_ratio: "16:9",
+      project_dir: "ancient_humans_scenes",
       output_folder: "ancient_humans_scenes",
       characters: [
         { id: "CHAR_HOST", name: "expression_stick_figure", flow_tag: "@expression_stick_figure", status: "checking" },
@@ -665,8 +683,18 @@
 
   // Normalizer: handles Custom Spec, beats_*.json, and saved pipeline_mapping.json
   function parseAndLoadSpec(raw) {
+    const projectDir = String(
+      raw.project_dir || 
+      raw.project_directory || 
+      raw.output_folder || 
+      raw.output_dir || 
+      raw.project_name || 
+      "ancient_humans_scenes"
+    ).trim();
+
     const spec = {
       project_name: raw.project_name || raw.project || "Google Flow Production",
+      project_dir: projectDir,
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
       default_model: IMAGE_MODEL,
@@ -674,7 +702,7 @@
         raw.max_parallel_generations ?? raw.parallel_gen_value
       ),
       default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
-      output_folder: raw.output_folder || "ancient_humans_scenes",
+      output_folder: projectDir,
       characters: [],
       visuals: []
     };
@@ -797,7 +825,10 @@
     specView.innerHTML = `
       <div class="project-card">
         <div class="project-title-row">
-          <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
+          <div>
+            <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">📁 Project Folder: <strong>${escapeHtml(currentSpec.project_dir || currentSpec.output_folder || '')}</strong></div>
+          </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
             <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
@@ -1872,7 +1903,7 @@ function createSingleCharacter(charId) {
       model: IMAGE_MODEL,
       outputCount: 1,
       autoDownloadResourceQuality: 'original',
-      folderName: currentSpec.output_folder || 'ancient_humans_scenes',
+      folderName: currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes',
       referenceFolder: currentSpec.reference_folder || 'Branded_references',
       autoChangeFileName: true,
       maxRetries: currentSpec.max_retries || currentSpec.global_settings?.max_retries || 3,
@@ -1954,9 +1985,10 @@ function createSingleCharacter(charId) {
   function downloadSingleFrame(idx) {
     const frame = currentSpec.visuals[idx];
     if (!frame.result_url) return;
+    const targetFolder = (currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes').trim();
     chrome.downloads.download({
       url: frame.result_url,
-      filename: `${currentSpec.output_folder}/${frame.target_filename}`,
+      filename: `${targetFolder}/${frame.target_filename}`,
       saveAs: false
     });
   }
