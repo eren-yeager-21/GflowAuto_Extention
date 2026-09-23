@@ -1159,38 +1159,14 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
           ` : ''}
         </div>
 
-        <!-- Image Preview Container -->
-        <div class="frame-image-container" id="frame-img-box-${idx}">
-          <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
-            #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
-          </div>
+        <!-- Image Preview Container (only displayed when actual image is generated) -->
+        <div class="frame-image-container" id="frame-img-box-${idx}" style="display: ${f.result_url ? 'flex' : 'none'};">
           ${f.result_url ? `
+            <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
+              #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
+            </div>
             <img src="${escapeAttr(f.result_url)}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame #${f.frame_number}" />
-          ` : `
-            <svg viewBox="0 0 600 240" width="100%" height="220" style="background:#ffffff; border-radius:8px;">
-              <defs>
-                <pattern id="dot-grid-${idx}" width="16" height="16" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="0.8" fill="#d1d5db" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#dot-grid-${idx})" />
-              <path d="M 120 180 Q 280 120 480 170" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round" />
-              <path d="M 150 190 Q 280 140 460 180" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" />
-              <path d="M 330 60 Q 400 40 450 70" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,4" />
-              <circle cx="270" cy="120" r="10" fill="none" stroke="#111827" stroke-width="2.5" />
-              <line x1="270" y1="130" x2="270" y2="160" stroke="#111827" stroke-width="2.5" />
-              <line x1="270" y1="140" x2="255" y2="150" stroke="#111827" stroke-width="2.5" />
-              <line x1="270" y1="140" x2="285" y2="135" stroke="#111827" stroke-width="2.5" />
-              <line x1="270" y1="160" x2="260" y2="175" stroke="#111827" stroke-width="2.5" />
-              <line x1="270" y1="160" x2="280" y2="175" stroke="#111827" stroke-width="2.5" />
-              <circle cx="295" cy="115" r="10" fill="none" stroke="#111827" stroke-width="2.5" />
-              <line x1="295" y1="125" x2="295" y2="155" stroke="#111827" stroke-width="2.5" />
-              <line x1="295" y1="135" x2="285" y2="145" stroke="#111827" stroke-width="2.5" />
-              <line x1="295" y1="135" x2="315" y2="125" stroke="#111827" stroke-width="2.5" />
-              <line x1="295" y1="155" x2="288" y2="172" stroke="#111827" stroke-width="2.5" />
-              <line x1="295" y1="155" x2="305" y2="172" stroke="#111827" stroke-width="2.5" />
-            </svg>
-          `}
+          ` : ''}
         </div>
 
         <!-- Card Footer -->
@@ -1201,7 +1177,7 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
             <span>1920x1080 • 24fps</span>
           </div>
           <div class="frame-footer-actions">
-            <button class="btn-footer-preview btn-preview-zoom" data-index="${idx}" title="Preview image">👁</button>
+            <button class="btn-footer-preview btn-preview-zoom" data-index="${idx}" title="Preview image" style="display: ${f.result_url ? 'inline-flex' : 'none'};">👁</button>
             <button class="btn-footer-edit btn-edit-prompt" data-index="${idx}">✏️ Edit Spec</button>
             <button class="btn-footer-reroll btn-regen-frame" data-index="${idx}" ${pipelineRunning ? 'disabled' : ''}>🔄 Re-roll</button>
             <button class="btn-dark-pill btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-flex' : 'none'}; padding: 6px 10px;" title="Download frame">⬇</button>
@@ -2184,15 +2160,26 @@ function createSingleCharacter(charId) {
     }
 
     const imgBox = document.getElementById(`frame-img-box-${idx}`);
-    if (imgBox && f.result_url) {
-      const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
-      const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
-      imgBox.innerHTML = `
-        <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
-          #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
-        </div>
-        <img src="${escapeAttr(f.result_url)}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame #${f.frame_number}" />
-      `;
+    if (imgBox) {
+      if (f.result_url) {
+        const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
+        const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
+        imgBox.innerHTML = `
+          <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
+            #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
+          </div>
+          <img src="${escapeAttr(f.result_url)}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame #${f.frame_number}" />
+        `;
+        imgBox.style.display = 'flex';
+      } else {
+        imgBox.style.display = 'none';
+        imgBox.innerHTML = '';
+      }
+    }
+
+    const btnZoom = card.querySelector('.btn-preview-zoom');
+    if (btnZoom) {
+      btnZoom.style.display = f.result_url ? 'inline-flex' : 'none';
     }
 
     const btnDownload = card.querySelector('.btn-download-frame');
