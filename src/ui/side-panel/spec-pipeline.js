@@ -11,6 +11,27 @@
   let pipelineRunning = false;
   let pipelinePaused = false;
   let activeFrameIndex = -1;
+  let activeFilter = 'all'; // 'all' | 'pending' | 'completed' (NO 'anchors')
+  let searchQuery = '';
+
+  function formatFrameDuration(start, end) {
+    if (!start && !end) return '';
+    const cleanStart = (start || '00:00.0').trim();
+    const cleanEnd = (end || '').trim();
+    if (!cleanEnd) return `🕒 ${cleanStart}`;
+
+    function toSeconds(t) {
+      const parts = t.split(':').map(Number);
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      return 0;
+    }
+    const s1 = toSeconds(cleanStart);
+    const s2 = toSeconds(cleanEnd);
+    const diff = Math.max(0, Math.round((s2 - s1) * 10) / 10);
+    const diffStr = diff > 0 ? ` (${diff}s)` : '';
+    return `🕒 ${cleanStart} - ${cleanEnd}${diffStr}`;
+  }
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
@@ -836,6 +857,7 @@
     const completedCount = currentSpec.visuals.filter(v => v.status === 'completed').length;
     const totalCount = currentSpec.visuals.length;
     const remainingCount = totalCount - completedCount;
+    const percentFinished = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
     const nextPendingIndex = currentSpec.visuals.findIndex(v => v.status !== 'completed');
     const nextFrameNum = nextPendingIndex >= 0 ? currentSpec.visuals[nextPendingIndex].frame_number : totalCount;
 
@@ -843,79 +865,144 @@
     if (!specView) return;
 
     specView.innerHTML = `
-      <div class="project-card">
-        <div class="project-title-row">
-          <div>
-            <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">📁 Project: <strong>${escapeHtml(getProjectRootFolder())}</strong> <span style="font-size: 10px; color: var(--text-secondary);">(Frames ➔ 📁 <code>${escapeHtml(getProjectFramesFolder())}</code>)</span></div>
+      <!-- Project Header Box -->
+      <div class="project-header-box">
+        <div class="project-title-area">
+          <div class="project-title-row">
+            <span class="project-title">${escapeHtml(currentSpec.project_name)}</span>
+            <span class="badge-spec-count">${totalCount} Frames Spec</span>
           </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
-            <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
-          </div>
-        </div>
-        <div class="collection-destination">
-          <label for="collection-url-input">Google Flow collection URL</label>
-          <div class="collection-destination-row">
-            <input
-              id="collection-url-input"
-              type="url"
-              value="${escapeAttr(currentSpec.collection_url || '')}"
-              placeholder="Open your collection in Flow and paste its URL"
-              spellcheck="false"
-            />
-            <button class="btn btn-secondary btn-sm" id="btn-use-open-flow">Use open Flow page</button>
-          </div>
-          <div id="collection-destination-status" class="collection-destination-status" role="status" aria-live="polite">
-            ${currentSpec.collection_url
-              ? 'Generation is locked to this Flow page.'
-              : 'Optional: leave empty to use the currently open Flow project page.'}
+          <div class="project-folder-label">
+            📁 <strong>${escapeHtml(getProjectRootFolder())}</strong> <span>(Frames ➔ ${escapeHtml(getProjectFramesFolder())})</span>
           </div>
         </div>
-        <div class="project-stats">
-          <div class="stat-box">
-            <div class="stat-val" id="stat-total">${totalCount}</div>
-            <div class="stat-lbl">Total Frames</div>
+        <div class="project-header-actions">
+          <button class="btn-dark-pill" id="btn-export-mapping" title="Save mapping JSON to output folder">💾 Save Mapping</button>
+          <button class="btn-dark-pill" id="btn-reset-spec">🔄 Switch Spec ⌵</button>
+        </div>
+      </div>
+
+      <!-- Google Flow Collection Destination Card -->
+      <div class="collection-destination">
+        <div class="collection-header-row">
+          <div class="collection-title">
+            <span>🔗</span>
+            <span>Google Flow Collection URL</span>
           </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-completed" style="color: var(--success-color);">${completedCount}</div>
-            <div class="stat-lbl">Completed</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-pending">${remainingCount}</div>
-            <div class="stat-lbl">Remaining</div>
+          <div class="collection-synced-badge" id="collection-destination-status">
+            <span>✔ Synced with Tab #${currentSpec.collection_tab_id || '3'}</span>
           </div>
         </div>
-        <div class="pipeline-actions">
-          <button class="btn btn-primary" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
+        <div class="collection-input-row">
+          <input
+            id="collection-url-input"
+            type="url"
+            value="${escapeAttr(currentSpec.collection_url || '')}"
+            placeholder="https://flow.google.com/collection/..."
+            spellcheck="false"
+          />
+          <button class="btn-dark-pill" id="btn-use-open-flow">🎯 Use open Flow page</button>
+        </div>
+        <div class="collection-helper">
+          Leave empty to automatically target the currently open Flow canvas in your active browser window.
+        </div>
+      </div>
+
+      <!-- Metrics Dashboard (3-Box Grid) -->
+      <div class="metrics-dashboard-grid">
+        <div class="metric-card">
+          <span class="metric-card-label">TOTAL FRAMES</span>
+          <span class="metric-card-val" id="stat-total">${totalCount}</span>
+          <span class="metric-card-sub">Full sequence</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-card-label completed">COMPLETED</span>
+          <span class="metric-card-val completed" id="stat-completed">${completedCount}</span>
+          <span class="metric-card-sub" id="stat-completed-pct">${percentFinished}% finished</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-card-label">REMAINING</span>
+          <span class="metric-card-val" id="stat-pending">${remainingCount}</span>
+          <span class="metric-card-sub" id="stat-pending-sub">🕒 Pending start</span>
+        </div>
+      </div>
+
+      <!-- Pipeline Progress Row & Action Buttons -->
+      <div class="pipeline-progress-container">
+        <div class="pipeline-status-row">
+          <span id="pipeline-status-text">${pipelineRunning ? 'Pipeline Generating...' : 'Pipeline Idle • Ready'}</span>
+          <span id="pipeline-progress-text">${completedCount}/${totalCount} (${percentFinished}%)</span>
+        </div>
+        <div class="pipeline-progress-track">
+          <div class="pipeline-progress-bar" id="pipeline-progress-bar" style="width: ${percentFinished}%;"></div>
+        </div>
+        <div class="pipeline-action-buttons">
+          <button class="btn-start-pipeline" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
             ${pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
           </button>
-          <button class="btn btn-secondary" id="btn-pause-pipeline" ${!pipelineRunning ? 'disabled' : ''}>
+          <button class="btn-pause-pipeline" id="btn-pause-pipeline" style="display: ${pipelineRunning ? 'inline-flex' : 'none'};">
             ⏸ Pause
           </button>
-          <button class="btn btn-secondary" id="btn-download-all" ${completedCount === 0 ? 'disabled' : ''}>
+          <button class="btn-download-all" id="btn-download-all" ${completedCount === 0 ? 'disabled' : ''}>
             ⬇ Download All
           </button>
         </div>
       </div>
 
-      <!-- Characters Section -->
-      <div class="section-title">
-        <span>Characters & References (${currentSpec.characters.length})</span>
-        <div style="display: flex; gap: 6px;">
-          <button class="btn-link" id="btn-recheck-chars">Verify with Flow</button>
-          <button class="btn-link" id="btn-create-missing-chars">➕ Create Missing</button>
+      <!-- Collapsible Characters & References -->
+      <div class="section-accordion-header" id="toggle-chars-section">
+        <div class="accordion-title-left">
+          <span id="chars-chevron">❯</span>
+          <span>CHARACTERS & REFERENCES</span>
+          <span class="accordion-badge">${currentSpec.characters.length}</span>
+        </div>
+        <div class="accordion-actions-right">
+          <button class="btn-dark-pill" id="btn-recheck-chars" style="padding: 4px 10px; font-size: 11px;">✔ Verify with Flow</button>
+          <button class="btn-add-frame" id="btn-create-missing-chars" style="padding: 4px 10px; font-size: 11px;">+ Add Seed</button>
         </div>
       </div>
-      <div class="characters-list" id="chars-container">
+      <div class="characters-list" id="chars-container" style="display: none;">
         ${renderCharactersList()}
       </div>
 
-      <!-- Visual Sequence Section -->
-      <div class="section-title">
-        <span>Visual Production Sequence (${totalCount} Frames)</span>
-        <button class="btn-link" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button>
+      <!-- Visual Production Sequence Header -->
+      <div class="sequence-header-row">
+        <div class="sequence-title-area">
+          <span class="sequence-title">VISUAL PRODUCTION SEQUENCE</span>
+          <span class="badge-sequence-count">${totalCount} Frames</span>
+        </div>
+        <div class="sequence-header-actions">
+          <button class="btn-dark-pill" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button>
+          <button class="btn-add-frame" id="btn-add-frame" style="padding: 5px 12px; font-size: 11px;">+ Add Frame</button>
+        </div>
       </div>
+
+      <!-- Search & Filter Bar -->
+      <div class="sequence-search-box">
+        <span class="sequence-search-icon">🔍</span>
+        <input
+          type="text"
+          id="frames-search-input"
+          class="sequence-search-input"
+          placeholder="Filter by narration, prompt keyword, or title..."
+          value="${escapeAttr(searchQuery)}"
+        />
+      </div>
+
+      <!-- Filter Pills: ONLY All, Pending, Completed (NO Anchors Only) -->
+      <div class="filter-pills-row">
+        <button class="filter-pill ${activeFilter === 'all' ? 'active' : ''}" data-filter="all" id="pill-filter-all">
+          All (${totalCount})
+        </button>
+        <button class="filter-pill ${activeFilter === 'pending' ? 'active' : ''}" data-filter="pending" id="pill-filter-pending">
+          Pending (${remainingCount})
+        </button>
+        <button class="filter-pill ${activeFilter === 'completed' ? 'active' : ''}" data-filter="completed" id="pill-filter-completed">
+          Completed (${completedCount})
+        </button>
+      </div>
+
+      <!-- Frames List -->
       <div class="frames-list" id="frames-container">
         ${renderFramesList()}
       </div>
@@ -926,7 +1013,7 @@
 
   function renderCharactersList() {
     if (!currentSpec || currentSpec.characters.length === 0) {
-      return `<div style="color: var(--text-muted); font-size: 11px;">No character seeds specified.</div>`;
+      return `<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No character seeds specified.</div>`;
     }
     return currentSpec.characters.map(c => `
       <div class="character-card" id="char-card-${escapeAttr(c.id)}">
@@ -943,7 +1030,7 @@
               ${c.status === 'verified' ? '✓ Registered in Flow' : c.status === 'creating' ? '⏳ Creating in Flow...' : '⚠️ Missing in Flow'}
             </span>
             ${c.status !== 'verified' ? `
-              <button class="btn btn-secondary btn-xs btn-create-char" data-id="${escapeAttr(c.id)}" ${c.status === 'creating' ? 'disabled' : ''}>
+              <button class="btn-dark-pill btn-create-char" data-id="${escapeAttr(c.id)}" ${c.status === 'creating' ? 'disabled' : ''} style="padding: 4px 8px; font-size: 11px;">
                 ➕ Create in Flow
               </button>
             ` : ''}
@@ -968,84 +1055,282 @@
 
   function renderFramesList() {
     if (!currentSpec || currentSpec.visuals.length === 0) {
-      return `<div style="color: var(--text-muted); font-size: 11px;">No frames found in spec.</div>`;
+      return `<div style="color: var(--text-muted); font-size: 12px; padding: 24px; text-align: center;">No frames found in spec.</div>`;
     }
 
-    return currentSpec.visuals.map((f, idx) => {
+    const filtered = currentSpec.visuals.filter((f, idx) => {
+      if (activeFilter === 'pending' && f.status === 'completed') return false;
+      if (activeFilter === 'completed' && f.status !== 'completed') return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchPrompt = f.prompt && f.prompt.toLowerCase().includes(q);
+        const matchScript = f.verbatim_script && f.verbatim_script.toLowerCase().includes(q);
+        const matchTitle = (f.flow_tile_title || getLocalFrameTitle(f.target_filename) || '').toLowerCase().includes(q);
+        const matchFile = f.target_filename && f.target_filename.toLowerCase().includes(q);
+        if (!matchPrompt && !matchScript && !matchTitle && !matchFile) return false;
+      }
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      return `<div style="color: var(--text-muted); font-size: 12px; padding: 24px; text-align: center;">No frames matching your filter.</div>`;
+    }
+
+    return filtered.map((f) => {
+      const idx = currentSpec.visuals.indexOf(f);
       const flowTitle = f.flow_tile_title || getLocalFrameTitle(f.target_filename) || '';
       const refTitle = resolveFlowTileTitleForFrame(f, idx);
-      const hasRef = Boolean(f.frame_reference || (f.continuity === 'continue' && idx > 0));
+      const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
       const refLabel = f.frame_reference || (currentSpec.visuals[idx - 1] ? currentSpec.visuals[idx - 1].target_filename : 'Previous Frame');
+      const timeStr = formatFrameDuration(f.timestamp_start, f.timestamp_end);
+      const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
+
       return `
       <div class="frame-card ${f.status === 'generating' ? 'active' : ''} ${f.status === 'completed' ? 'completed' : ''} ${f.status === 'error' ? 'failed' : ''}" id="frame-card-${idx}">
+        <!-- Card Header -->
         <div class="frame-card-header">
-          <div class="frame-id-row">
-            <span class="frame-num">Frame #${f.frame_number}</span>
-            <span class="continuity-badge ${f.continuity}">
-              ${f.continuity === 'continue' ? '🔗 Continue (Chains Frame #' + (f.frame_number - 1) + ')' : '📍 Anchor (New Scene)'}
-            </span>
+          <div class="frame-header-left">
+            <span class="frame-title-text">Frame #${f.frame_number}</span>
+            ${isAnchor ? `
+              <span class="continuity-pill anchor">• Anchor (New Scene)</span>
+            ` : `
+              <span class="continuity-pill chained">🔗 Chains Frame #${f.frame_number > 1 ? f.frame_number - 1 : 1}</span>
+            `}
+            ${timeStr ? `<span class="timestamp-pill">${escapeHtml(timeStr)}</span>` : ''}
           </div>
-          <span class="badge ${f.status === 'completed' ? 'badge-verified' : f.status === 'error' ? 'badge-missing' : ''}" id="frame-status-${idx}">
-            ${f.status === 'generating' ? 'Generating ' + f.progress + '%' : f.status.toUpperCase()}
-          </span>
+          <div class="status-pill ${f.status === 'completed' ? 'completed' : f.status === 'generating' ? 'generating' : f.status === 'error' ? 'failed' : 'pending'}" id="frame-status-${idx}">
+            <span class="status-indicator-dot"></span>
+            <span>${f.status === 'generating' ? `Generating ${f.progress}%` : f.status === 'completed' ? 'Completed' : f.status === 'error' ? 'Failed' : 'Pending'}</span>
+          </div>
         </div>
 
+        <!-- Narration Script Box -->
         ${f.verbatim_script ? `
-          <div class="frame-verbatim-script" style="margin: 6px 0 8px 0; padding: 7px 9px; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; font-size: 11px;">
-            <div style="font-weight: 600; color: #60a5fa; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center;">
-              <span>🎙 Narration Script:</span>
-              ${(f.timestamp_start || f.timestamp_end) ? `<span style="font-family: monospace; color: var(--text-muted); font-size: 10px;">⏱ ${escapeHtml(f.timestamp_start || '00:00')} - ${escapeHtml(f.timestamp_end || '')}</span>` : ''}
+          <div class="frame-narration-box">
+            <div class="narration-header">
+              <span>🎙</span>
+              <span>NARRATION SCRIPT</span>
             </div>
-            <div style="color: var(--text-primary); font-style: italic; line-height: 1.35;">"${escapeHtml(f.verbatim_script)}"</div>
-          </div>
-        ` : ((f.timestamp_start || f.timestamp_end) ? `
-          <div style="margin: 4px 0 6px 0; font-family: monospace; color: var(--text-muted); font-size: 10px; display: flex; align-items: center; gap: 4px;">
-            <span>⏱</span> <strong>${escapeHtml(f.timestamp_start || '00:00')}</strong> - <strong>${escapeHtml(f.timestamp_end || '')}</strong>
-          </div>
-        ` : '')}
-
-        <div class="frame-prompt-text" id="frame-prompt-${idx}" title="Click Edit Prompt to customize">${escapeHtml(f.prompt)}</div>
-
-        ${f.formatted_reference_guidance ? `
-          <div class="frame-guidance-container" style="margin: 6px 0; padding: 6px 8px; background: rgba(0,0,0,0.03); border-left: 3px solid #1a73e8; border-radius: 4px; font-size: 10px; color: var(--text-secondary, #555);">
-            <div style="font-weight: 600; color: #1a73e8; margin-bottom: 2px;">📌 Reference Guidance (Appended automatically during generation)</div>
-            <div style="white-space: pre-wrap; font-family: monospace; font-size: 9.5px; line-height: 1.35; max-height: 80px; overflow-y: auto;">${escapeHtml(f.formatted_reference_guidance)}</div>
+            <div class="narration-text">"${escapeHtml(f.verbatim_script)}"</div>
           </div>
         ` : ''}
 
-        <div class="frame-tile-title-row">
-          <span class="flow-title-label">🏷 Flow Title:</span>
-          <span class="flow-title-val" id="flow-title-val-${idx}" data-index="${idx}" title="Click to manually edit Flow title mapping" contenteditable="true">${escapeHtml(flowTitle)}</span>
+        <!-- Visual Production Prompt Box -->
+        <div class="frame-prompt-box">
+          <div class="prompt-header-row">
+            <span class="prompt-header-label">VISUAL PRODUCTION PROMPT</span>
+            <button class="btn-copy-prompt-text" data-index="${idx}" title="Copy prompt to clipboard">
+              📋 Copy
+            </button>
+          </div>
+          <div class="prompt-content-text collapsed" id="frame-prompt-${idx}">${escapeHtml(f.prompt)}</div>
+          <button class="btn-toggle-prompt-expand" data-index="${idx}">Show full prompt ⌵</button>
         </div>
 
-        ${hasRef ? `
-          <div class="frame-ref-indicator">
-            <span>🔗 Ref:</span> <code>${escapeHtml(refLabel)}</code>
-            ${refTitle ? `<span class="mapped-arrow">➔</span> <span class="mapped-flow-name">"${escapeHtml(refTitle)}"</span>` : ''}
+        <!-- Reference & Style Continuity Directives Accordion -->
+        <div class="directives-accordion" id="directives-accordion-${idx}">
+          <div class="directives-accordion-toggle" data-index="${idx}">
+            <div class="directives-toggle-left">
+              <span>🛡</span>
+              <span>Reference & Style Continuity Directives</span>
+              <span class="badge-auto-appended">Auto-Appended</span>
+            </div>
+            <span class="directives-chevron">⌵</span>
           </div>
-        ` : ''}
-
-        <div class="frame-preview-container" id="frame-img-box-${idx}" style="display: ${f.result_url ? 'block' : 'none'};">
-          <img src="${escapeAttr(f.result_url || '')}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame ${f.frame_number}" />
-        </div>
-
-        <div class="frame-footer">
-          <span style="color: var(--text-muted); font-family: monospace;">${escapeHtml(f.target_filename)}</span>
-          <div class="frame-actions">
-            <button class="btn btn-secondary btn-xs btn-edit-prompt" data-index="${idx}">✏️ Edit</button>
-            <button class="btn btn-secondary btn-xs btn-regen-frame" data-index="${idx}" ${pipelineRunning ? 'disabled' : ''}>🔄 Re-roll</button>
-            <button class="btn btn-secondary btn-xs btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-block' : 'none'};">⬇</button>
+          <div class="directives-content">
+${escapeHtml(f.formatted_reference_guidance || formatReferenceGuidance(f, idx))}
+${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
           </div>
         </div>
 
-        ${f.status === 'generating' ? `
-          <div class="progress-bar-container">
-            <div class="progress-bar-fill" id="frame-prog-${idx}" style="width: ${f.progress}%;"></div>
+        <!-- Flow Title & Chain Mapping row -->
+        <div class="frame-flow-title-row">
+          <div class="flow-title-side">
+            <span>Flow Title:</span>
+            <strong class="flow-title-val" id="flow-title-val-${idx}" data-index="${idx}" contenteditable="true" title="Click to manually edit Flow title mapping">${escapeHtml(flowTitle || 'None')}</strong>
           </div>
-        ` : ''}
+          ${!isAnchor ? `
+            <div class="flow-ref-side">
+              <span>Ref:</span>
+              <span class="flow-ref-file">${escapeHtml(refLabel)}</span>
+              <span class="flow-ref-arrow">➔</span>
+              <span class="flow-ref-target">"${escapeHtml(refTitle || 'Pending reference')}"</span>
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Image Preview Container -->
+        <div class="frame-image-container" id="frame-img-box-${idx}">
+          <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
+            #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
+          </div>
+          ${f.result_url ? `
+            <img src="${escapeAttr(f.result_url)}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame #${f.frame_number}" />
+          ` : `
+            <svg viewBox="0 0 600 240" width="100%" height="220" style="background:#ffffff; border-radius:8px;">
+              <defs>
+                <pattern id="dot-grid-${idx}" width="16" height="16" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="0.8" fill="#d1d5db" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#dot-grid-${idx})" />
+              <path d="M 120 180 Q 280 120 480 170" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M 150 190 Q 280 140 460 180" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M 330 60 Q 400 40 450 70" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,4" />
+              <circle cx="270" cy="120" r="10" fill="none" stroke="#111827" stroke-width="2.5" />
+              <line x1="270" y1="130" x2="270" y2="160" stroke="#111827" stroke-width="2.5" />
+              <line x1="270" y1="140" x2="255" y2="150" stroke="#111827" stroke-width="2.5" />
+              <line x1="270" y1="140" x2="285" y2="135" stroke="#111827" stroke-width="2.5" />
+              <line x1="270" y1="160" x2="260" y2="175" stroke="#111827" stroke-width="2.5" />
+              <line x1="270" y1="160" x2="280" y2="175" stroke="#111827" stroke-width="2.5" />
+              <circle cx="295" cy="115" r="10" fill="none" stroke="#111827" stroke-width="2.5" />
+              <line x1="295" y1="125" x2="295" y2="155" stroke="#111827" stroke-width="2.5" />
+              <line x1="295" y1="135" x2="285" y2="145" stroke="#111827" stroke-width="2.5" />
+              <line x1="295" y1="135" x2="315" y2="125" stroke="#111827" stroke-width="2.5" />
+              <line x1="295" y1="155" x2="288" y2="172" stroke="#111827" stroke-width="2.5" />
+              <line x1="295" y1="155" x2="305" y2="172" stroke="#111827" stroke-width="2.5" />
+            </svg>
+          `}
+        </div>
+
+        <!-- Card Footer -->
+        <div class="frame-card-footer">
+          <div class="file-meta">
+            <span>📄</span>
+            <span>${escapeHtml(f.target_filename)}</span>
+            <span>1920x1080 • 24fps</span>
+          </div>
+          <div class="frame-footer-actions">
+            <button class="btn-footer-preview btn-preview-zoom" data-index="${idx}" title="Preview image">👁</button>
+            <button class="btn-footer-edit btn-edit-prompt" data-index="${idx}">✏️ Edit Spec</button>
+            <button class="btn-footer-reroll btn-regen-frame" data-index="${idx}" ${pipelineRunning ? 'disabled' : ''}>🔄 Re-roll</button>
+            <button class="btn-dark-pill btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-flex' : 'none'}; padding: 6px 10px;" title="Download frame">⬇</button>
+          </div>
+        </div>
       </div>
-    `;
+      `;
     }).join('');
+  }
+
+  function attachFrameSpecificEvents() {
+    document.querySelectorAll('.flow-title-val').forEach(el => {
+      el.addEventListener('blur', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        const newTitle = e.target.innerText.trim();
+        if (currentSpec && currentSpec.visuals && currentSpec.visuals[idx]) {
+          currentSpec.visuals[idx].flow_tile_title = newTitle;
+          registerLocalFrameTitle(currentSpec.visuals[idx].target_filename, newTitle);
+          if (currentSpec.visuals[idx].id) {
+            registerLocalFrameTitle(currentSpec.visuals[idx].id, newTitle);
+          }
+          savePipelineMapping();
+        }
+      });
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.target.blur();
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-copy-prompt-text').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        const frame = currentSpec?.visuals?.[idx];
+        if (frame && frame.prompt) {
+          navigator.clipboard.writeText(frame.prompt).then(() => {
+            const original = btn.innerText;
+            btn.innerText = '✓ Copied!';
+            btn.style.color = '#34d399';
+            setTimeout(() => {
+              btn.innerText = original;
+              btn.style.color = '';
+            }, 1600);
+          }).catch(() => {
+            const el = document.getElementById(`frame-prompt-${idx}`);
+            if (el) {
+              const range = document.createRange();
+              range.selectNodeContents(el);
+              const sel = window.getSelection();
+              sel.removeAllRanges();
+              sel.addRange(range);
+              document.execCommand('copy');
+              btn.innerText = '✓ Copied!';
+              setTimeout(() => { btn.innerText = '📋 Copy'; }, 1600);
+            }
+          });
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-toggle-prompt-expand').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = e.target.dataset.index;
+        const content = document.getElementById(`frame-prompt-${idx}`);
+        if (content) {
+          const isCollapsed = content.classList.toggle('collapsed');
+          e.target.innerText = isCollapsed ? 'Show full prompt ⌵' : 'Show less ⌃';
+        }
+      });
+    });
+
+    document.querySelectorAll('.directives-accordion-toggle').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const idx = el.dataset.index;
+        const accordion = document.getElementById(`directives-accordion-${idx}`);
+        if (accordion) {
+          accordion.classList.toggle('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-edit-prompt').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        toggleEditPrompt(idx, e.target);
+      });
+    });
+
+    document.querySelectorAll('.btn-regen-frame').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        regenerateSingleFrame(idx);
+      });
+    });
+
+    document.querySelectorAll('.btn-download-frame').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        downloadSingleFrame(idx);
+      });
+    });
+
+    document.querySelectorAll('.btn-preview-zoom').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        const frame = currentSpec?.visuals?.[idx];
+        if (frame && frame.result_url) {
+          let modal = document.querySelector('.spec-preview-modal');
+          if (!modal) {
+            modal = document.createElement('div');
+            modal.className = 'spec-preview-modal';
+            document.body.appendChild(modal);
+          }
+          modal.innerHTML = `
+            <div class="preview-modal-content">
+              <button class="preview-modal-close">✕</button>
+              <img src="${escapeAttr(frame.result_url)}" class="preview-modal-img" />
+            </div>
+          `;
+          modal.onclick = (evt) => {
+            if (evt.target === modal || evt.target.classList.contains('preview-modal-close')) {
+              modal.remove();
+            }
+          };
+        }
+      });
+    });
   }
 
   function attachDashboardEvents() {
@@ -1086,23 +1371,41 @@
     const btnSyncTiles = document.getElementById('btn-sync-tiles');
     if (btnSyncTiles) btnSyncTiles.addEventListener('click', syncFlowProjectTiles);
 
-    document.querySelectorAll('.flow-title-val').forEach(el => {
-      el.addEventListener('blur', (e) => {
-        const idx = parseInt(e.target.dataset.index, 10);
-        const newTitle = e.target.innerText.trim();
-        if (currentSpec && currentSpec.visuals && currentSpec.visuals[idx]) {
-          currentSpec.visuals[idx].flow_tile_title = newTitle;
-          registerLocalFrameTitle(currentSpec.visuals[idx].target_filename, newTitle);
-          if (currentSpec.visuals[idx].id) {
-            registerLocalFrameTitle(currentSpec.visuals[idx].id, newTitle);
-          }
-          savePipelineMapping();
+    const toggleChars = document.getElementById('toggle-chars-section');
+    if (toggleChars) {
+      toggleChars.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return;
+        const charsContainer = document.getElementById('chars-container');
+        const chevron = document.getElementById('chars-chevron');
+        if (charsContainer) {
+          const isHidden = charsContainer.style.display === 'none';
+          charsContainer.style.display = isHidden ? 'flex' : 'none';
+          if (chevron) chevron.innerText = isHidden ? '▼' : '❯';
         }
       });
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          e.target.blur();
+    }
+
+    const searchInput = document.getElementById('frames-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        const container = document.getElementById('frames-container');
+        if (container) {
+          container.innerHTML = renderFramesList();
+          attachFrameSpecificEvents();
+        }
+      });
+    }
+
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        const container = document.getElementById('frames-container');
+        if (container) {
+          container.innerHTML = renderFramesList();
+          attachFrameSpecificEvents();
         }
       });
     });
@@ -1126,48 +1429,17 @@
           navigator.clipboard.writeText(promptText).then(() => {
             const originalText = e.target.innerText;
             e.target.innerText = '✓ Copied!';
-            e.target.style.color = '#34a853';
+            e.target.style.color = '#34d399';
             setTimeout(() => {
               e.target.innerText = originalText;
               e.target.style.color = '';
             }, 1800);
-          }).catch(() => {
-            const el = document.getElementById(`char-prompt-text-${charId}`);
-            if (el) {
-              const range = document.createRange();
-              range.selectNodeContents(el);
-              const sel = window.getSelection();
-              sel.removeAllRanges();
-              sel.addRange(range);
-              document.execCommand('copy');
-              e.target.innerText = '✓ Copied!';
-              setTimeout(() => { e.target.innerText = '📋 Copy Prompt'; }, 1800);
-            }
           });
         }
       });
     });
 
-    document.querySelectorAll('.btn-edit-prompt').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const idx = parseInt(e.target.dataset.index, 10);
-        toggleEditPrompt(idx, e.target);
-      });
-    });
-
-    document.querySelectorAll('.btn-regen-frame').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const idx = parseInt(e.target.dataset.index, 10);
-        regenerateSingleFrame(idx);
-      });
-    });
-
-    document.querySelectorAll('.btn-download-frame').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const idx = parseInt(e.target.dataset.index, 10);
-        downloadSingleFrame(idx);
-      });
-    });
+    attachFrameSpecificEvents();
   }
 
   function setCollectionDestinationStatus(message, isError = false, isSuccess = false) {
@@ -1902,13 +2174,8 @@ function createSingleCharacter(charId) {
     
     const badge = document.getElementById(`frame-status-${idx}`);
     if (badge) {
-      badge.className = `badge ${f.status === 'completed' ? 'badge-verified' : f.status === 'error' ? 'badge-missing' : ''}`;
-      badge.innerText = f.status === 'generating' ? `Generating ${f.progress}%` : f.status.toUpperCase();
-    }
-
-    const progFill = document.getElementById(`frame-prog-${idx}`);
-    if (progFill) {
-      progFill.style.width = `${f.progress}%`;
+      badge.className = `status-pill ${f.status === 'completed' ? 'completed' : f.status === 'generating' ? 'generating' : f.status === 'error' ? 'failed' : 'pending'}`;
+      badge.innerHTML = `<span class="status-indicator-dot"></span><span>${f.status === 'generating' ? `Generating ${f.progress}%` : f.status === 'completed' ? 'Completed' : f.status === 'error' ? 'Failed' : 'Pending'}</span>`;
     }
 
     const titleVal = document.getElementById(`flow-title-val-${idx}`);
@@ -1916,16 +2183,21 @@ function createSingleCharacter(charId) {
       titleVal.innerText = f.flow_tile_title;
     }
 
-    const guidanceEl = card.querySelector('.frame-guidance-container div:last-child');
-    if (guidanceEl && f.formatted_reference_guidance) {
-      guidanceEl.innerText = f.formatted_reference_guidance;
+    const imgBox = document.getElementById(`frame-img-box-${idx}`);
+    if (imgBox && f.result_url) {
+      const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
+      const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
+      imgBox.innerHTML = `
+        <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
+          #${paddedNum} ${isAnchor ? 'Anchor Scene' : 'Chained Frame'}
+        </div>
+        <img src="${escapeAttr(f.result_url)}" class="frame-preview-img" id="frame-img-${idx}" alt="Frame #${f.frame_number}" />
+      `;
     }
 
-    const imgBox = document.getElementById(`frame-img-box-${idx}`);
-    const imgEl = document.getElementById(`frame-img-${idx}`);
-    if (imgBox && imgEl && f.result_url) {
-      imgEl.src = f.result_url;
-      imgBox.style.display = 'block';
+    const btnDownload = card.querySelector('.btn-download-frame');
+    if (btnDownload) {
+      btnDownload.style.display = f.result_url ? 'inline-flex' : 'none';
     }
   }
 
@@ -1933,11 +2205,34 @@ function createSingleCharacter(charId) {
     if (!currentSpec) return;
     const completedCount = currentSpec.visuals.filter(v => v.status === 'completed').length;
     const totalCount = currentSpec.visuals.length;
+    const remainingCount = totalCount - completedCount;
+    const pct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
+    const elTotal = document.getElementById('stat-total');
     const elComp = document.getElementById('stat-completed');
     const elPend = document.getElementById('stat-pending');
+    const elCompPct = document.getElementById('stat-completed-pct');
+    const elPendSub = document.getElementById('stat-pending-sub');
+    const elProgBar = document.getElementById('pipeline-progress-bar');
+    const elProgText = document.getElementById('pipeline-progress-text');
+    const elStatusText = document.getElementById('pipeline-status-text');
+
+    if (elTotal) elTotal.innerText = totalCount;
     if (elComp) elComp.innerText = completedCount;
-    if (elPend) elPend.innerText = totalCount - completedCount;
+    if (elPend) elPend.innerText = remainingCount;
+    if (elCompPct) elCompPct.innerText = `${pct}% finished`;
+    if (elPendSub) elPendSub.innerText = remainingCount === 0 ? '✓ Complete' : pipelineRunning ? '🕒 In progress' : '🕒 Pending start';
+    if (elProgBar) elProgBar.style.width = `${pct}%`;
+    if (elProgText) elProgText.innerText = `${completedCount}/${totalCount} (${pct}%)`;
+    if (elStatusText) elStatusText.innerText = pipelineRunning ? 'Pipeline Generating...' : completedCount === totalCount ? 'Pipeline Finished' : 'Pipeline Idle • Ready';
+
+    // Update filter pills (strictly NO Anchors Only)
+    const pillAll = document.getElementById('pill-filter-all');
+    const pillPending = document.getElementById('pill-filter-pending');
+    const pillComp = document.getElementById('pill-filter-completed');
+    if (pillAll) pillAll.innerText = `All (${totalCount})`;
+    if (pillPending) pillPending.innerText = `Pending (${remainingCount})`;
+    if (pillComp) pillComp.innerText = `Completed (${completedCount})`;
 
     const btnDownloadAll = document.getElementById('btn-download-all');
     if (btnDownloadAll) btnDownloadAll.disabled = (completedCount === 0);
@@ -1957,6 +2252,7 @@ function createSingleCharacter(charId) {
       btnStart.innerText = pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
     }
     if (btnPause) {
+      btnPause.style.display = pipelineRunning ? 'inline-flex' : 'none';
       btnPause.disabled = !pipelineRunning;
     }
   }
