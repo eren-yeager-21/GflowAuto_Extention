@@ -99,7 +99,8 @@
       last_updated: new Date().toISOString(),
       default_model: currentSpec.default_model,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
-      output_folder: currentSpec.output_folder,
+      output_folder: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
+      project_dir: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
       characters: currentSpec.characters.map(c => ({
         id: c.id,
         name: c.name,
@@ -135,10 +136,14 @@
     if (!data) return;
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       const key = getStorageKey(data.project_name);
-      chrome.storage.local.set({
+      const toSet = {
         [key]: data,
         [LATEST_KEY]: data.project_name
-      }).catch(() => {});
+      };
+      if (data.project_dir) {
+        toSet[getStorageKey(data.project_dir)] = data;
+      }
+      chrome.storage.local.set(toSet).catch(() => {});
     }
   }
 
@@ -177,7 +182,7 @@
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const safeFolder = (currentSpec.output_folder || 'flow_pipeline').trim();
+    const safeFolder = (currentSpec.project_dir || currentSpec.output_folder || 'flow_pipeline').trim();
     const filename = `${safeFolder}/pipeline_mapping.json`;
     if (typeof chrome !== 'undefined' && chrome.downloads && chrome.downloads.download) {
       chrome.downloads.download({
@@ -192,6 +197,16 @@
       a.download = 'pipeline_mapping.json';
       a.click();
     }
+  }
+
+  function sanitizeProjectDir(rawDir) {
+    if (!rawDir) return '';
+    let dir = String(rawDir).trim().replace(/\\/g, '/');
+    if (/^[a-zA-Z]:/.test(dir) || dir.startsWith('/')) {
+      const segments = dir.split('/').filter(Boolean);
+      return segments[segments.length - 1] || '';
+    }
+    return dir.replace(/^\/+|\/+$/g, '');
   }
 
   function escapeRegex(str) {
@@ -380,6 +395,7 @@
     project_name: "Ancient Humans Pleasure - Character Suite",
     default_model: "Nano Banana 2",
     default_aspect_ratio: "16:9",
+    project_dir: "ancient_humans_scenes",
     output_folder: "ancient_humans_scenes",
     characters: [
       {
@@ -501,7 +517,7 @@
               <span>🔄 Saved Session Available: ${escapeHtml(saved.project_name)}</span>
             </div>
             <div class="resume-banner-sub">
-              Progress: <strong>${completedCount}/${totalCount} frames completed</strong>. Last saved: ${new Date(saved.last_updated).toLocaleTimeString()}
+              ${saved.project_dir ? `Folder: <strong>${escapeHtml(saved.project_dir)}</strong> &bull; ` : ''}Progress: <strong>${completedCount}/${totalCount} frames completed</strong>. Last saved: ${new Date(saved.last_updated).toLocaleTimeString()}
             </div>
             <div style="display: flex; gap: 8px;">
               <button class="btn btn-primary btn-sm" id="btn-resume-session">▶ Resume Session</button>
@@ -536,8 +552,9 @@
         if (btnDiscard) {
           btnDiscard.addEventListener('click', () => {
             if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-              const key = getStorageKey(saved.project_name);
-              chrome.storage.local.remove([key, LATEST_KEY], () => {
+              const keys = [getStorageKey(saved.project_name), LATEST_KEY];
+              if (saved.project_dir) keys.push(getStorageKey(saved.project_dir));
+              chrome.storage.local.remove(keys, () => {
                 renderUploadScreen();
               });
             } else {
@@ -607,6 +624,7 @@
       project_name: "Ancient Humans Pleasure",
       default_model: "Nano Banana 2",
       default_aspect_ratio: "16:9",
+      project_dir: "ancient_humans_scenes",
       output_folder: "ancient_humans_scenes",
       characters: [
         { id: "CHAR_HOST", name: "expression_stick_figure", flow_tag: "@expression_stick_figure", status: "checking" },
@@ -628,7 +646,7 @@
         {
           id: "frame_002",
           frame_number: 2,
-          prompt: "Pure white background split into three clean vertical panels separated by bold black dashed lines. Left panel: a pair of headphones with a floating musical eighth note. Center panel: a video game controller gamepad. Right panel: a video play button on a screen. Bold uppercase hand-lettered labels beneath each: MUSIC, GAME, WATCH. Flat ink illustration, comic strip layout, no characters.",
+          prompt: "Pure white background split into three clean vertical panels separated by bold black dashed lines. Left panel: a pair pair of headphones with a floating musical eighth note. Center panel: a video game controller gamepad. Right panel: a video play button on a screen. Bold uppercase hand-lettered labels beneath each: MUSIC, GAME, WATCH. Flat ink illustration, comic strip layout, no characters.",
           character_references: ["@expression_stick_figure", "@title_reference"],
           continuity: "continue",
           target_filename: "frame_002.png",
@@ -660,13 +678,28 @@
 
   // Normalizer: handles Custom Spec, beats_*.json, and saved pipeline_mapping.json
   function parseAndLoadSpec(raw) {
+    const rawDir = String(
+      raw.project_dir || 
+      (raw.global_settings && raw.global_settings.project_dir) ||
+      raw.project_directory || 
+      raw.output_folder || 
+      (raw.global_settings && raw.global_settings.output_folder) ||
+      raw.output_dir || 
+      raw.project_name || 
+      raw.project || 
+      "ancient_humans_scenes"
+    ).trim();
+    const projectDir = sanitizeProjectDir(rawDir) || "ancient_humans_scenes";
+
     const spec = {
       project_name: raw.project_name || raw.project || "Google Flow Production",
+      project_dir: projectDir,
+      raw_project_dir: rawDir,
       collection_url: raw.collection_url || raw.flow_collection_url || raw.collection?.url || "",
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
-      default_model: raw.default_model || raw.model || "Nano Banana 2",
-      default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || "16:9",
-      output_folder: raw.output_folder || "ancient_humans_scenes",
+      default_model: raw.default_model || raw.model || (raw.global_settings && raw.global_settings.model) || "Nano Banana 2",
+      default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || (raw.global_settings && raw.global_settings.aspect_ratio) || "16:9",
+      output_folder: projectDir,
       characters: [],
       visuals: []
     };
@@ -788,7 +821,10 @@
     specView.innerHTML = `
       <div class="project-card">
         <div class="project-title-row">
-          <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
+          <div>
+            <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">📁 Project Folder: <strong>${escapeHtml(currentSpec.project_dir || currentSpec.output_folder || '')}</strong></div>
+          </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
             <button class="btn-link" id="btn-reset-spec">Switch Spec</button>
@@ -1733,7 +1769,7 @@ function createSingleCharacter(charId) {
         model: currentSpec.default_model || 'Nano Banana 2',
         outputCount: 1,
         autoDownloadResourceQuality: 'original',
-        folderName: currentSpec.output_folder || 'ancient_humans_scenes',
+        folderName: currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes',
         referenceFolder: currentSpec.reference_folder || 'Branded_references',
         autoChangeFileName: true,
         maxRetries: 1,
@@ -1802,9 +1838,10 @@ function createSingleCharacter(charId) {
   function downloadSingleFrame(idx) {
     const frame = currentSpec.visuals[idx];
     if (!frame.result_url) return;
+    const targetFolder = (currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes').trim();
     chrome.downloads.download({
       url: frame.result_url,
-      filename: `${currentSpec.output_folder}/${frame.target_filename}`,
+      filename: `${targetFolder}/${frame.target_filename}`,
       saveAs: false
     });
   }
