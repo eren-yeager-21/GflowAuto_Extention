@@ -176,13 +176,31 @@
     });
   }
 
+  function getProjectFramesFolder() {
+    const base = (currentSpec?.project_dir || currentSpec?.output_folder || 'ancient_humans_scenes')
+      .trim().replace(/\\/g, '/').replace(/\/+$/, '');
+    if (base.endsWith('/frames')) {
+      return base;
+    }
+    return `${base}/frames`;
+  }
+
+  function getProjectRootFolder() {
+    const base = (currentSpec?.project_dir || currentSpec?.output_folder || 'ancient_humans_scenes')
+      .trim().replace(/\\/g, '/').replace(/\/+$/, '');
+    if (base.endsWith('/frames')) {
+      return base.slice(0, -'/frames'.length) || base;
+    }
+    return base;
+  }
+
   function exportMappingFile() {
     const data = generateMappingData();
     if (!data) return;
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const safeFolder = (currentSpec.project_dir || currentSpec.output_folder || 'flow_pipeline').trim();
+    const safeFolder = getProjectRootFolder();
     const filename = `${safeFolder}/pipeline_mapping.json`;
     if (typeof chrome !== 'undefined' && chrome.downloads && chrome.downloads.download) {
       chrome.downloads.download({
@@ -823,7 +841,7 @@
         <div class="project-title-row">
           <div>
             <div class="project-name">${escapeHtml(currentSpec.project_name)}</div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">📁 Project Folder: <strong>${escapeHtml(currentSpec.project_dir || currentSpec.output_folder || '')}</strong></div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">📁 Project: <strong>${escapeHtml(getProjectRootFolder())}</strong> <span style="font-size: 10px; color: var(--text-secondary);">(Frames ➔ 📁 <code>${escapeHtml(getProjectFramesFolder())}</code>)</span></div>
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
             <button class="btn-link" id="btn-export-mapping" title="Save mapping JSON to output folder">📋 Save Mapping</button>
@@ -1769,7 +1787,7 @@ function createSingleCharacter(charId) {
         model: currentSpec.default_model || 'Nano Banana 2',
         outputCount: 1,
         autoDownloadResourceQuality: 'original',
-        folderName: currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes',
+        folderName: getProjectFramesFolder(),
         referenceFolder: currentSpec.reference_folder || 'Branded_references',
         autoChangeFileName: true,
         maxRetries: 1,
@@ -1838,10 +1856,10 @@ function createSingleCharacter(charId) {
   function downloadSingleFrame(idx) {
     const frame = currentSpec.visuals[idx];
     if (!frame.result_url) return;
-    const targetFolder = (currentSpec.project_dir || currentSpec.output_folder || 'ancient_humans_scenes').trim();
+    const framesFolder = getProjectFramesFolder();
     chrome.downloads.download({
       url: frame.result_url,
-      filename: `${targetFolder}/${frame.target_filename}`,
+      filename: `${framesFolder}/${frame.target_filename}`,
       saveAs: false
     });
   }

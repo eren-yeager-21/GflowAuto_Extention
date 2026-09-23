@@ -10,6 +10,24 @@ function sanitizeProjectDir(rawDir) {
   return dir.replace(/^\/+|\/+$/g, '');
 }
 
+function getProjectFramesFolder(spec) {
+  const base = (spec.project_dir || spec.output_folder || 'ancient_humans_scenes')
+    .trim().replace(/\\/g, '/').replace(/\/+$/, '');
+  if (base.endsWith('/frames')) {
+    return base;
+  }
+  return `${base}/frames`;
+}
+
+function getProjectRootFolder(spec) {
+  const base = (spec.project_dir || spec.output_folder || 'ancient_humans_scenes')
+    .trim().replace(/\\/g, '/').replace(/\/+$/, '');
+  if (base.endsWith('/frames')) {
+    return base.slice(0, -'/frames'.length) || base;
+  }
+  return base;
+}
+
 function mockParseSpec(raw) {
   const rawDir = String(
     raw.project_dir || 
@@ -37,14 +55,19 @@ function mockParseSpec(raw) {
 
 function mockGeneratePayload(spec, frame) {
   return {
-    folderName: (spec.project_dir || spec.output_folder || 'ancient_humans_scenes').trim(),
+    folderName: getProjectFramesFolder(spec),
     targetFilename: frame.target_filename
   };
 }
 
 function mockDownloadPath(spec, frame) {
-  const targetFolder = (spec.project_dir || spec.output_folder || 'ancient_humans_scenes').trim();
-  return `${targetFolder}/${frame.target_filename}`;
+  const framesFolder = getProjectFramesFolder(spec);
+  return `${framesFolder}/${frame.target_filename}`;
+}
+
+function mockMappingPath(spec) {
+  const rootFolder = getProjectRootFolder(spec);
+  return `${rootFolder}/pipeline_mapping.json`;
 }
 
 // Test 1: Absolute Windows path provided in project_dir
@@ -55,8 +78,9 @@ const specWindows = mockParseSpec({
 });
 assert.equal(specWindows.project_dir, "sapiens_vs_neanderthals");
 assert.equal(specWindows.output_folder, "sapiens_vs_neanderthals");
-assert.equal(mockGeneratePayload(specWindows, specWindows.visuals[0]).folderName, "sapiens_vs_neanderthals");
-assert.equal(mockDownloadPath(specWindows, specWindows.visuals[0]), "sapiens_vs_neanderthals/frame_001.png");
+assert.equal(mockGeneratePayload(specWindows, specWindows.visuals[0]).folderName, "sapiens_vs_neanderthals/frames");
+assert.equal(mockDownloadPath(specWindows, specWindows.visuals[0]), "sapiens_vs_neanderthals/frames/frame_001.png");
+assert.equal(mockMappingPath(specWindows), "sapiens_vs_neanderthals/pipeline_mapping.json");
 
 // Test 2: Simple folder name in project_dir
 const specRelative = mockParseSpec({
@@ -65,20 +89,25 @@ const specRelative = mockParseSpec({
   visuals: [{ id: "frame_001", target_filename: "frame_001.png" }]
 });
 assert.equal(specRelative.project_dir, "sapiens_vs_neanderthals");
-assert.equal(mockDownloadPath(specRelative, specRelative.visuals[0]), "sapiens_vs_neanderthals/frame_001.png");
+assert.equal(mockDownloadPath(specRelative, specRelative.visuals[0]), "sapiens_vs_neanderthals/frames/frame_001.png");
+assert.equal(mockMappingPath(specRelative), "sapiens_vs_neanderthals/pipeline_mapping.json");
 
-// Test 3: Fallback when only output_folder is provided
-const specLegacy = mockParseSpec({
-  project_name: "Legacy Project",
-  output_folder: "legacy_scenes",
+// Test 3: If project_dir already specifies frames subfolder, avoid frames/frames duplicate
+const specExplicitFrames = mockParseSpec({
+  project_name: "Sapiens vs Neanderthals",
+  project_dir: "sapiens_vs_neanderthals/frames",
   visuals: [{ id: "frame_001", target_filename: "frame_001.png" }]
 });
-assert.equal(specLegacy.project_dir, "legacy_scenes");
-assert.equal(mockDownloadPath(specLegacy, specLegacy.visuals[0]), "legacy_scenes/frame_001.png");
+assert.equal(mockDownloadPath(specExplicitFrames, specExplicitFrames.visuals[0]), "sapiens_vs_neanderthals/frames/frame_001.png");
+assert.equal(mockMappingPath(specExplicitFrames), "sapiens_vs_neanderthals/pipeline_mapping.json");
 
 // Test 4: Default fallback
-const specDefault = mockParseSpec({});
+const specDefault = mockParseSpec({
+  visuals: [{ id: "frame_001", target_filename: "frame_001.png" }]
+});
 assert.equal(specDefault.project_dir, "ancient_humans_scenes");
+assert.equal(mockDownloadPath(specDefault, specDefault.visuals[0]), "ancient_humans_scenes/frames/frame_001.png");
+assert.equal(mockMappingPath(specDefault), "ancient_humans_scenes/pipeline_mapping.json");
 
 // Test 5: Nested in global_settings
 const specGlobal = mockParseSpec({
@@ -89,6 +118,6 @@ const specGlobal = mockParseSpec({
   visuals: [{ id: "frame_001", target_filename: "frame_001.png" }]
 });
 assert.equal(specGlobal.project_dir, "sapiens_vs_neanderthals");
-assert.equal(mockDownloadPath(specGlobal, specGlobal.visuals[0]), "sapiens_vs_neanderthals/frame_001.png");
+assert.equal(mockDownloadPath(specGlobal, specGlobal.visuals[0]), "sapiens_vs_neanderthals/frames/frame_001.png");
 
-console.log('project-dir session tests passed');
+console.log('project-dir session tests passed (frames subfolder verified)');
