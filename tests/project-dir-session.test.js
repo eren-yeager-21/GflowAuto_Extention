@@ -48,6 +48,10 @@ function mockParseSpec(raw) {
     output_folder: projectDir,
     visuals: (raw.visuals || []).map((v, i) => ({
       id: v.id || `frame_${String(i + 1).padStart(3, '0')}`,
+      frame_number: v.frame_number || i + 1,
+      timestamp_start: v.timestamp_start || v.start_time || null,
+      timestamp_end: v.timestamp_end || v.end_time || null,
+      verbatim_script: v.verbatim_script || v.script || v.narration || null,
       target_filename: v.target_filename || `frame_${String(i + 1).padStart(3, '0')}.png`
     }))
   };
@@ -119,5 +123,22 @@ const specGlobal = mockParseSpec({
 });
 assert.equal(specGlobal.project_dir, "sapiens_vs_neanderthals");
 assert.equal(mockDownloadPath(specGlobal, specGlobal.visuals[0]), "sapiens_vs_neanderthals/frames/frame_001.png");
+
+// Test 6: Verbatim script & timestamp display fields
+const specWithScript = mockParseSpec({
+  project_name: "How Humans Learned to Have Fun",
+  project_dir: "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
+  visuals: [{
+    id: "frame_001",
+    frame_number: 1,
+    timestamp_start: "00:00",
+    timestamp_end: "00:01",
+    verbatim_script: "The last time you were bored,",
+    target_filename: "frame_001.png"
+  }]
+});
+assert.equal(specWithScript.visuals[0].timestamp_start, "00:00");
+assert.equal(specWithScript.visuals[0].timestamp_end, "00:01");
+assert.equal(specWithScript.visuals[0].verbatim_script, "The last time you were bored,");
 
 console.log('project-dir session tests passed (frames subfolder verified)');

@@ -112,6 +112,9 @@
       visuals: currentSpec.visuals.map(v => ({
         id: v.id,
         frame_number: v.frame_number,
+        timestamp_start: v.timestamp_start || null,
+        timestamp_end: v.timestamp_end || null,
+        verbatim_script: v.verbatim_script || null,
         prompt: v.prompt,
         negative: v.negative,
         character_references: v.character_references,
@@ -791,6 +794,9 @@
       return {
         id: v.id || `frame_${numPad}`,
         frame_number: num,
+        timestamp_start: v.timestamp_start || v.start_time || null,
+        timestamp_end: v.timestamp_end || v.end_time || null,
+        verbatim_script: v.verbatim_script || v.script || v.narration || null,
         prompt: basePrompt,
         negative: v.negative || v.negative_prompt || "",
         character_references: charRefs,
@@ -983,6 +989,20 @@
             ${f.status === 'generating' ? 'Generating ' + f.progress + '%' : f.status.toUpperCase()}
           </span>
         </div>
+
+        ${f.verbatim_script ? `
+          <div class="frame-verbatim-script" style="margin: 6px 0 8px 0; padding: 7px 9px; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; font-size: 11px;">
+            <div style="font-weight: 600; color: #60a5fa; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center;">
+              <span>🎙 Narration Script:</span>
+              ${(f.timestamp_start || f.timestamp_end) ? `<span style="font-family: monospace; color: var(--text-muted); font-size: 10px;">⏱ ${escapeHtml(f.timestamp_start || '00:00')} - ${escapeHtml(f.timestamp_end || '')}</span>` : ''}
+            </div>
+            <div style="color: var(--text-primary); font-style: italic; line-height: 1.35;">"${escapeHtml(f.verbatim_script)}"</div>
+          </div>
+        ` : ((f.timestamp_start || f.timestamp_end) ? `
+          <div style="margin: 4px 0 6px 0; font-family: monospace; color: var(--text-muted); font-size: 10px; display: flex; align-items: center; gap: 4px;">
+            <span>⏱</span> <strong>${escapeHtml(f.timestamp_start || '00:00')}</strong> - <strong>${escapeHtml(f.timestamp_end || '')}</strong>
+          </div>
+        ` : '')}
 
         <div class="frame-prompt-text" id="frame-prompt-${idx}" title="Click Edit Prompt to customize">${escapeHtml(f.prompt)}</div>
 
