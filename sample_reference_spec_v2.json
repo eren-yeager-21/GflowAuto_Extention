@@ -1,0 +1,131 @@
+{
+  "project_name": "Explainer Style Sample Suite",
+  "default_model": "Nano Banana 2",
+  "default_aspect_ratio": "16:9",
+  "output_folder": "explainer_sample_scenes",
+  "characters": [
+    {
+      "id": "CHAR_NEOLITHIC_FARMER",
+      "name": "early_farmer_stickfigure",
+      "flow_tag": "@early_farmer_stickfigure",
+      "reference_image": "ref_char_farmer_standing_hut.png",
+      "character_prompt": "Minimalist black ink line art stick figure early Neolithic farmer wearing simple coarse linen tunic, hunched posture holding a primitive wooden hoe, exhausted expression. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_TRIBAL_STORYTELLER",
+      "name": "tribal_storyteller",
+      "flow_tag": "@tribal_storyteller",
+      "reference_image": "ref_char_tribal_campfire_circle.png",
+      "character_prompt": "Minimalist black ink line art stick figure elder tribal storyteller with white hair wisps and animal hide mantle, sitting by campfire with animated expressive gesturing arms. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A sleek modern smartphone vibrating violently on a dark wooden nightstand displaying a glowing 06:00 digital alarm with bold radiating black ink soundwave zigzags. High contrast, warm cream background (#FAF7EE), full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_001.png",
+      "flow_tile_title": "Smartphone vibrating on nightsta…"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Wide shot of an ancient hunter-gatherer waking peacefully on a bed of dry golden straw, stretching arms outward into soft warm dawn light. Beside the straw bed is a crackling campfire enclosed in smooth river stones and a chipped flint spear leaning against a large boulder. Vast open savannah background, warm sandy gold palette (#EED9B3), clear morning sky, full-bleed 16:9 shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_002.png",
+      "flow_tile_title": "Hunter waking peacefully on stra…"
+    },
+    {
+      "id": "frame_003",
+      "frame_number": 3,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Expressive stick-figure host avatar standing center-stage with an arched eyebrow and a knowing smirk, index finger raised upward in an explanatory gesture. Above him float small ink question marks and a thought bubble showing an antique dusty textbook. Crisp white background (#FFFFFF), clean bold vector outlines, full-bleed 16:9 shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_003.png",
+      "flow_tile_title": "Stick-figure host avatar with ar…"
+    },
+    {
+      "id": "frame_004",
+      "frame_number": 4,
+      "prompt": "Minimalist hand-drawn title card on clean white background (#FFFFFF). A stylized tan safari pith helmet with brown leather band is centered above bold uppercase hand-lettered black ink text: '1963 — RICHARD LEE'. Clean negative space, perfectly balanced composition, zero gradients, 16:9 wide shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, ornate serif font, realistic hat, textures, dark muddy lighting, blurry",
+      "character_references": [
+        "@title_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_004.png",
+      "flow_tile_title": "Title card 1963 RICHARD LEE…"
+    },
+    {
+      "id": "frame_005",
+      "frame_number": 5,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Field researcher stick figure wearing a tan safari pith helmet and brown utility satchel walking steadily across golden desert sand dunes, diligently writing in a small spiral notebook with a pen. Pale sand terrain (#EED9B3), clear sky, warm afternoon lighting, full-bleed 16:9 wide shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_005.png",
+      "flow_tile_title": "Field researcher in safari helme…"
+    },
+    {
+      "id": "frame_006",
+      "frame_number": 6,
+      "prompt": "Minimalist hand-drawn world map infographic on crisp white background with title 'SITES WORLDWIDE' in bold hand-lettered uppercase ink font. Continents colored with flat pastel fills: cyan North America, pastel pink South America, soft yellow Europe, warm orange Asia, leaf green Africa, and tan Australia. Red teardrop location marker pins placed on archaeological study sites with black text callouts. Clean black ink coastlines, zero gradients, 16:9 wide composition.",
+      "negative": "photorealistic, 3D render, CGI, satellite map, topography, glossy, gradients, dark muddy lighting, realistic terrain, blurry",
+      "character_references": [
+        "@maps_reference"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_006.png",
+      "flow_tile_title": "World map infographic SITES WORL…"
+    },
+    {
+      "id": "frame_007",
+      "frame_number": 7,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Female hunter-gatherer stick figure with long wavy brown hair and small carved bone hairpin walking across a sunlit desert sand ridge, smiling as she carries a woven gathering pouch filled with harvested mongongo nuts. Golden sand dunes, warm soft lighting, full-bleed 16:9 shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@women_early_human"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_007.png",
+      "flow_tile_title": "Female gatherer walking on sand …"
+    },
+    {
+      "id": "frame_008",
+      "frame_number": 8,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Comparative split-screen layout divided down the center by a crisp vertical dashed black line. Left side: modern stick figure slouched exhaustedly at an office desk under fluorescent light, surrounded by a mountain of paperwork and a giant ticking wall clock. Right side: prehistoric hunter resting peacefully on golden savannah grass under an endless open blue sky with a crackling campfire. Bold uppercase hand-lettered labels: 'YOU' above left panel, 'HIM' above right panel. Full-bleed 16:9 wide shot.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@ref_comp_split_screen_dual",
+        "@male_early_human",
+        "@narrator_stickfigure"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_008.png",
+      "flow_tile_title": "Split screen YOU vs HIM office v…"
+    }
+  ]
+}

@@ -1,0 +1,1014 @@
+{
+  "project_name": "Ancient Humans Free Time - Hunter vs Farmer",
+  "default_model": "Nano Banana 2",
+  "default_aspect_ratio": "16:9",
+  "output_folder": "ancient_humans_free_time_scenes",
+  "characters": [
+    {
+      "id": "CHAR_NEOLITHIC_FARMER",
+      "name": "early_farmer_stickfigure",
+      "flow_tag": "@early_farmer_stickfigure",
+      "reference_image": "ref_char_farmer_standing_hut.png",
+      "character_prompt": "Minimalist black ink line art stick figure early Neolithic farmer wearing simple coarse linen tunic, hunched posture holding a primitive wooden hoe, exhausted expression. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_TRIBAL_STORYTELLER",
+      "name": "tribal_storyteller",
+      "flow_tag": "@tribal_storyteller",
+      "reference_image": "ref_char_tribal_campfire_circle.png",
+      "character_prompt": "Minimalist black ink line art stick figure elder tribal storyteller with white hair wisps and animal hide mantle, sitting by campfire with animated expressive gesturing arms. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    },
+    {
+      "id": "CHAR_URBAN_SPECIALIST",
+      "name": "urban_craft_specialist",
+      "flow_tag": "@urban_craft_specialist",
+      "reference_image": "ref_char_urban_specialists.png",
+      "character_prompt": "Minimalist black ink line art stick figure ancient bronze age artisan and craftsman holding a hammer in mud-brick workshop. Clean bold outlines, flat color fills, zero gradients, pure white background."
+    }
+  ],
+  "visuals": [
+    {
+      "id": "frame_001",
+      "frame_number": 1,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A modern sleek smartphone lying flat on a wooden nightstand vibrating furiously, displaying a glowing 06:00 alarm on its screen with bold radiating black ink sound wave zigzags. High contrast, warm cream background, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_001.png",
+      "flow_tile_title": "Smartphone vibrating on nightsta…"
+    },
+    {
+      "id": "frame_002",
+      "frame_number": 2,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A minimalist stick-figure character with circular white head and tired half-lidded eyes lying in a modern bed tangled in messy sheets, staring exhaustedly toward a vibrating alarm on the nightstand. Warm muted bedroom lighting, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": "frame_001",
+      "continuity": "continue",
+      "target_filename": "frame_002.png",
+      "flow_tile_title": "Hand slamming smartphone screen …"
+    },
+    {
+      "id": "frame_003",
+      "frame_number": 3,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A black ink stick-figure arm and hand slamming down forcefully onto the glowing screen of a smartphone lying on a wooden nightstand to silence it, small black impact sparks radiating. High contrast, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": "frame_002.png",
+      "continuity": "continue",
+      "target_filename": "frame_003.png",
+      "flow_tile_title": "Exhausted character staring at a…"
+    },
+    {
+      "id": "frame_004",
+      "frame_number": 4,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A clean calendar grid filled with dense schedule blocks, overlapping ticking black ink clock hands, and an endless vertical column of checklist boxes with red exclamation marks. Flat cel-shading, high contrast graphic layout, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_004.png",
+      "flow_tile_title": "Calendar grid with schedule blocks"
+    },
+    {
+      "id": "frame_005",
+      "frame_number": 5,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A crowd of silhouette stick-figure office commuters in trench coats and dark umbrellas walking briskly into a massive sleek glass metro entrance under cold overcast gray sky, heads bowed in unison. Full-bleed 16:9 wide establishing shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_005.png",
+      "flow_tile_title": "Arm slamming smartphone screen a…"
+    },
+    {
+      "id": "frame_006",
+      "frame_number": 6,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Minimalist stick figure sitting up in bed in a dark bedroom illuminated only by the cold blue glow of a smartphone screen, finger tapping the screen to set tomorrow's alarm. Deep blue-black shadows, warm amber streetlamp glow through blinds, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_006.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_007",
+      "frame_number": 7,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Bold hand-drawn brush lettering displaying 'REWIND 50,000 YEARS' centered across a warm antique parchment canvas, with an ink spiral vortex rewinding backward in time. Clean graphic poster aesthetic, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_007.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_008",
+      "frame_number": 8,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A wide view looking out from inside a limestone cave mouth at dawn. Paleolithic hunter-gatherer stick figure resting peacefully on soft moss bedding, bathed in warm golden morning sunlight streaming through the cave entrance over green valley treetops. Serene morning atmosphere, full-bleed 16:9 wide establishing shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_008.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_009",
+      "frame_number": 9,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Clean triptych panel arrangement showcasing three ancient items: Left, a hand-crafted wooden spear with knapped flint blade; Center, two soft folded brown animal fur pelts; Right, a small warm crackling campfire with glowing orange embers. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_009.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_010",
+      "frame_number": 10,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter-gatherer stick figure in animal fur pelt sitting up on a rock ledger, stretching both arms high above head with a wide contented yawn in the fresh morning mountain air, cave entrance arching overhead. Warm sunrise palette, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": "frame_008",
+      "continuity": "continue",
+      "target_filename": "frame_010.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_011",
+      "frame_number": 11,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Bold handwritten black ink typography in center reading 'WHAT SHOULD I DO TODAY?' floating above a serene open African savanna horizon with flat acacia trees and flying bird silhouettes in soft morning light. Clean aesthetic, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_011.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_012",
+      "frame_number": 12,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure in vintage brown fedora standing centered against pale cream background, holding open hands forward in gentle debate with an animated skeptical facial expression, a stylized pink brain icon floating beside him. Full-bleed 16:9 medium shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_012.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_013",
+      "frame_number": 13,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Dramatic visualization of the popular myth: a terrified stick figure caveman clutching a spear, running desperately through a freezing blizzard while a gigantic shadowy saber-toothed cat with glowing yellow eyes lunges from dark rocks. High drama, jagged ink lines, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_013.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_014",
+      "frame_number": 14,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A heavy antique leather-bound history book lying open on a mahogany desk under dim library lamp, showing an ornate Victorian etching titled 'The Savage State of Primitive Man'. Warm sepia ink tones, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_014.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_015",
+      "frame_number": 15,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A deep vertical cross-section through geological soil strata: top layer showing modern asphalt, middle layers showing medieval earth, and deepest underground stratum glowing softly where ancient bones and flint tools lie preserved in stone. Full-bleed 16:9 graphic diagram, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_015.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_016",
+      "frame_number": 16,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Stick figure field archaeologist wearing tan safari hat and utility vest kneeling inside an excavation pit, carefully using a delicate wooden brush to clear away fine desert sand from a pristine ancient human skull and arm bone. Warm earth tones, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": "frame_015",
+      "continuity": "continue",
+      "target_filename": "frame_016.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_017",
+      "frame_number": 17,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure in brown fedora gesturing with an inquisitive expression toward a glowing question mark floating in air, surrounded by subtle clock gears. Cream wall background, clean editorial style, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_017.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_018",
+      "frame_number": 18,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Four neat graphic squares displaying modern convenience machines: a washing machine, a dishwasher, a microwave with digital timer, and a sleek car, each accompanied by small green circular arrow time-saving icons. Full-bleed 16:9 clean layout, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@narrator_stickfigure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_018.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_019",
+      "frame_number": 19,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Split screen comparison: Left side, a stressed modern stick figure slouched over a glowing laptop buried under paperwork; Right side, a relaxed paleolithic stick figure lounging peacefully against a warm boulder under a wide blue sky. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_comp_split_screen_dual"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_019.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_020",
+      "frame_number": 20,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A stylized glass hourglass in center with golden sand slipping away rapidly into empty air, accompanied by bold clean text: 'WHERE DID ALL OF YOUR TIME GO?'. High contrast, minimalist graphic directing, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_020.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_021",
+      "frame_number": 21,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Wide establishing shot of a sun-bleached desert canyon in the Middle East, with neat archaeological excavation trenches, white shade canopies, and survey stakes under a vast pale blue sky. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure",
+        "@maps_country_reference"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_021.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_022",
+      "frame_number": 22,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Historical stylized parchment map of the Middle East and Fertile Crescent region with delicate vintage coastline linework, subtle warm beige fill, and glowing red excavation map pins marking archaeological dig sites. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@maps_reference"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_022.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_023",
+      "frame_number": 23,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. An overhead archaeological view of two ancient excavated grave plots side-by-side in earth: one revealing a large tall human skeleton with strong broad shoulders, the other revealing a shorter, hunched skeleton. Clean diagrammatic linework, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_021",
+      "continuity": "continue",
+      "target_filename": "frame_023.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_024",
+      "frame_number": 24,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Horizontal timeline axis across canvas: on the left side, 'PALEOLITHIC HUNTERS' with icon of campfire and spear; on the right side, 'EARLY FARMING REVOLUTION' with icon of wheat sheaf and sickle, separated by a temporal bracket. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_024.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_025",
+      "frame_number": 25,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Clear botanical-style medical sketch of the tall hunter-gatherer skeleton standing upright: thick dense femur bones, broad sturdy ribcage, strong shoulder joints, radiating health and physical power. Clean pure cream background, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_025.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_026",
+      "frame_number": 26,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Close-up profile of the ancient hunter-gatherer skull jaw, showing teeth worn smooth by coarse fibrous diet but completely solid and white with zero dental cavities, and clean smooth jaw joints. Scientific illustration clarity, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_025",
+      "continuity": "continue",
+      "target_filename": "frame_026.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_027",
+      "frame_number": 27,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter-gatherer stick figure moving dynamically with agile athleticism across rugged natural landscape: leaping across a sparkling mountain stream holding spear gracefully, showcasing natural functional human movement. Wide 16:9 landscape, full-bleed shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_027.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_028",
+      "frame_number": 28,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Close-up profile of the second skull (early farmer), showing decayed teeth riddled with dark black pitted cavities, uneven tooth loss, and inflamed jawbone socket erosion from high-carbohydrate grain diet. High contrast medical sketch, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@early_farmer_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_agricultural_furrows"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_028.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_029",
+      "frame_number": 29,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Detailed side view of a severely curved, arthritic human spinal column, highlighting bone spurs and compressed vertebrae discs with subtle orange-red stress lines caused by chronic manual grinding and bending. Clean cream background, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@early_farmer_stickfigure"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_027",
+      "continuity": "continue",
+      "target_filename": "frame_029.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_030",
+      "frame_number": 30,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Two skeleton cards standing side by side: Skeleton A is tall, broad, and upright; Skeleton B is short, hunched, and fragile. A large bold black question mark floats centered between them: 'WHICH IS WHICH?'. Clean graphic card layout, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_030.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_031",
+      "frame_number": 31,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. An ink hand pointer pointing toward the tall strong skeleton card, while above it floats a light thought cloud showing a cozy stone farmhouse with stacked grain sacks and farming tools. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "style_references": [
+        "@ref_env_agricultural_furrows"
+      ],
+      "frame_reference": "frame_029",
+      "continuity": "continue",
+      "target_filename": "frame_031.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_032",
+      "frame_number": 32,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. An ink hand pointer pointing toward the hunched damaged skeleton card, while a thought cloud above depicts a shivering stick figure shivering in cold snow clutching a crude wooden spear. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@expression_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_030",
+      "continuity": "continue",
+      "target_filename": "frame_032.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_033",
+      "frame_number": 33,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Dramatic split reveal: Above the tall strong skeleton appears a bold green checkmark and the label 'HUNTER-GATHERER'; above the short arthritic skeleton appears a bold red cross ❌ and the label 'EARLY FARMER'. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@early_farmer_stickfigure"
+      ],
+      "style_references": [
+        "@ref_comp_split_screen_dual"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_033.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_034",
+      "frame_number": 34,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure in brown fedora leaning forward intently with one finger raised, wide engaging eyes, captivating the audience with the paradox of progress. Full-bleed 16:9 cinematic shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_034.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_035",
+      "frame_number": 35,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Historical stylized parchment world map showing glowing excavation pins across the Americas, Europe, Asia, and Africa, indicating widespread archaeological skeletal discoveries confirming the pattern. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@maps_reference"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_035.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_036",
+      "frame_number": 36,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Clean infographic showing a downward trending red graph line labeled 'Average Human Height & Bone Density' transitioning sharply downward from hunter-gatherers to early agriculturalists. Full-bleed 16:9 graphic layout, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_036.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_037",
+      "frame_number": 37,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Three vertical penalty panels: Panel 1 showing a human silhouette shrinking in height; Panel 2 showing teeth decaying with cavities; Panel 3 showing an early farmer hunched in arthritis. High contrast editorial style, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@early_farmer_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_agricultural_furrows"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_037.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_038",
+      "frame_number": 38,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Early Neolithic farmer stick figure in rough linen tunic bent double over dry cracked earth in a wheat field under a blistering hot sun, one hand clutching lower back in exhaustion. High contrast, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@early_farmer_stickfigure"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_038.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_039",
+      "frame_number": 39,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. An ornate open leather journal resting on an antique wooden table where the center binding is formed by a delicate white spinal column, and handwritten ink diary entries transition into biological bone rings. Conceptual editorial art, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_039.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_040",
+      "frame_number": 40,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A vintage brass magnifying glass examining the cross-section of an ancient fossilized femur bone, revealing clean concentric growth rings and dense healthy mineral trabeculae. Clean scientific illustration, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_038",
+      "continuity": "continue",
+      "target_filename": "frame_040.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_041",
+      "frame_number": 41,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A balanced brass scale: on the light elevated pan rests a single slender hunting spear; on the heavy deeply sinking pan rests stone granaries, grain sacks, and village huts burdened by heavy weight. Minimalist allegory, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_041.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_042",
+      "frame_number": 42,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure in brown fedora gesturing with an open conversational hand toward an ancient glowing portal archway that leads into a sunny paleolithic mountain valley. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_042.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_043",
+      "frame_number": 43,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Early morning light spreading across a peaceful hunter camp near a mountain stream. Paleolithic stick figure waking up peacefully on a bed of dry reeds and furs, stretching with easy contentment, birds chirping on tree branches. Full-bleed 16:9 wide establishing shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_043.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_044",
+      "frame_number": 44,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A communal morning campfire burning in the center of an ancient camp clearing under broad acacia trees. A small group of friendly stick-figure hunter-gatherers sitting around warm embers, sharing smoked meat and wild hazelnuts in relaxed smiling conversation. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@female_early_human",
+        "@fire_reference"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": "frame_042",
+      "continuity": "continue",
+      "target_filename": "frame_044.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_045",
+      "frame_number": 45,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Close view by the morning fire: two paleolithic stick figures in animal pelts in friendly discussion, one pointing toward distant hills where deer tracks were seen, smiling with mutual warmth. Clean ink lines, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_043",
+      "continuity": "continue",
+      "target_filename": "frame_045.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_046",
+      "frame_number": 46,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The circle of ancient tribe members around the fire nodding in shared consensus, open friendly gestures, demonstrating an egalitarian society with no bosses or forced schedules. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@female_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_044",
+      "continuity": "continue",
+      "target_filename": "frame_046.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_047",
+      "frame_number": 47,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Abundant camp provisions: horizontal wooden smoking rack laden with strips of dried venison, paired with several woven fiber baskets overflowing with fresh dark berries, nuts, and edible wild roots. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_047.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_048",
+      "frame_number": 48,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Peaceful morning camp activities: in the background, female stick-figure gatherers stroll leisurely through a wildflower meadow with shoulder baskets; in the foreground, paleolithic hunter sits cross-legged on a flat rock under shade working on his spear. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@female_early_human",
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_048.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_049",
+      "frame_number": 49,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Close-up shot of paleolithic hunter's hands holding a curved flint scraper tool, steadily scraping a taut animal pelt pegged to the ground, turning the stiff leather into soft, supple hide. Warm amber lighting, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_047",
+      "continuity": "continue",
+      "target_filename": "frame_049.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_050",
+      "frame_number": 50,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The paleolithic hunter smiling with quiet pride as he holds up the finished supple leather tunic, a fellow tribesman examining the craftsmanship with an approving thumbs up and respectful smile. Warm afternoon camp glow, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_048",
+      "continuity": "continue",
+      "target_filename": "frame_050.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_051",
+      "frame_number": 51,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter stick figure reclining comfortably against a grand shady baobab tree in the warm early afternoon, legs crossed, hands behind head, lazily watching gentle white clouds float across a vast open sky. Complete tranquility, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_051.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_052",
+      "frame_number": 52,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Paleolithic hunter standing alert on a rocky hill ridge at sunrise, gripping spear, looking out over the vast golden savanna grasses where distant game herds graze. Clean silhouettes, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_052.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_053",
+      "frame_number": 53,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. A classic Hollywood movie clapperboard with dramatic tiger pounce scene crossed out with a bold red ❌, replaced with a calm stick figure walking steadily forward on a flat line. Full-bleed 16:9 graphic shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_053.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_054",
+      "frame_number": 54,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Vast golden savanna plain: in the far distance, an agile kudu antelope sprints at lightning speed kicking up dust; in the foreground, a lone human hunter walks forward at an unhurried, relentless walking pace under the warm sun. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_054.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_055",
+      "frame_number": 55,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Close-up low camera angle of the hunter's strong bare feet and spear tip pacing steadily across savanna soil, tracking fresh animal hoofprints pressed into dry dirt. Full-bleed 16:9 dynamic shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": "frame_053",
+      "continuity": "continue",
+      "target_filename": "frame_055.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_056",
+      "frame_number": 56,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Side-by-side scientific comparison: human figure running with blue cooling arrows and evaporating sweat drops labeled 'Efficient Thermoregulation'; animal silhouette glowing with fiery red overheating heat waves unable to cool down. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_056.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_057",
+      "frame_number": 57,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The culmination of persistence hunting: the large antelope lies exhausted in the shade of a thorn tree, breathing heavily; the stick figure hunter walks up calmly and respectfully with spear lowered, showing the power of human endurance. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_057.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_058",
+      "frame_number": 58,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Striking silhouette of a stick figure hunter walking with spear against a vast burning orange and crimson African sunset horizon. Large bold lettering in sky: 'THE ONLY THING THAT NEVER HAS TO STOP'. Full-bleed 16:9 cinematic wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_058.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_059",
+      "frame_number": 59,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Dusk falling over the valley as the hunter arrives back at camp with meat safely carried over shoulders; tribespeople rush forward with joyous open arms to welcome him home. Warm campfire glow lighting the twilight. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@female_early_human",
+        "@fire_reference"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_059.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_060",
+      "frame_number": 60,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Night scene under a canopy of bright stars. The hunter reclining peacefully by the glowing campfire surrounded by companions laughing, sharing roasted food, relaxed and free from any impending alarm. Full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@male_early_human",
+        "@fire_reference"
+      ],
+      "style_references": [
+        "@ref_env_camp_night_stars"
+      ],
+      "frame_reference": "frame_058",
+      "continuity": "continue",
+      "target_filename": "frame_060.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_061",
+      "frame_number": 61,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure in brown fedora looking directly at camera with an amused, knowing smile and tilted head, crossing arms as if reading the viewer's skeptical mind. Pale cream background, full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_061.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_062",
+      "frame_number": 62,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Bold vintage typography centered on canvas: 'A ROMANTIC FANTASY? OR MEASURED REALITY?' with decorative black ink flourishes and a questioning eyebrow icon. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_062.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_063",
+      "frame_number": 63,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. The host narrator stick figure pulling down a vintage rolled map chart from above, revealing an archival photograph frame from the 1960s. Engaging documentary style. Full-bleed 16:9 shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure",
+        "@maps_country_reference"
+      ],
+      "style_references": [],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_063.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_064",
+      "frame_number": 64,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Stylized parchment map of Southern Africa highlighting the red sands of the Kalahari Desert basin, with a dashed red expedition route marked '1963 — Richard Lee Expedition'. Clean cartographic linework, full-bleed 16:9 wide shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@maps_reference",
+        "@title_reference"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": null,
+      "continuity": "anchor",
+      "target_filename": "frame_064.png",
+      "flow_tile_title": null
+    },
+    {
+      "id": "frame_065",
+      "frame_number": 65,
+      "prompt": "Minimalist black ink line art illustration with flat color fills, edge-to-edge full-bleed composition, zero gradients. Stick figure anthropologist Richard Lee wearing safari hat, short-sleeve field shirt, and khaki shorts, stepping out from a vintage safari jeep onto the vast red sand dunes of the Kalahari Desert, holding a field notebook and pen looking into the desert horizon. Full-bleed 16:9 cinematic shot, no borders, no padding.",
+      "negative": "photorealistic, 3D render, CGI, glossy, hyper-detailed skin, gradients, airbrush, dark muddy lighting, realistic human faces, detailed anatomical skeleton, painterly textures, oil painting, realistic photograph, 3D models",
+      "character_references": [
+        "@archieologiest_stick_figure",
+        "@maps_country_reference"
+      ],
+      "style_references": [
+        "@ref_env_savannah_wide"
+      ],
+      "frame_reference": "frame_065",
+      "continuity": "continue",
+      "target_filename": "frame_065.png",
+      "flow_tile_title": null
+    }
+  ],
+  "frame_title_mapping": {
+    "frame_001.png": "Smartphone vibrating on nightsta…",
+    "frame_001": "Smartphone vibrating on nightsta…",
+    "frame_002.png": "Hand slamming smartphone screen …",
+    "frame_002": "Hand slamming smartphone screen …",
+    "frame_003.png": "Exhausted character staring at a…",
+    "frame_003": "Exhausted character staring at a…",
+    "frame_004.png": "Calendar grid with schedule blocks",
+    "frame_004": "Calendar grid with schedule blocks",
+    "frame_005.png": "Arm slamming smartphone screen a…",
+    "frame_005": "Arm slamming smartphone screen a…"
+  }
+}

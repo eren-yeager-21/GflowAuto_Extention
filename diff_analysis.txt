@@ -1,0 +1,469 @@
+Orig length: 34386, Curr length: 43850
+
+=== insert orig[3257:3257] vs curr[3257:3418] ===
+ORIG:
+
+CURR:
+const _im=e.images[o];if(_im.referenceExistingOnly||!_im.base64){I(`⏩ Image ${_im.name} is an existing project frame reference, skipping upload step.`);continue}
+
+=== replace orig[3305:3316] vs curr[3466:3469] ===
+ORIG:
+e.images[o]
+CURR:
+_im
+
+=== insert orig[5074:5074] vs curr[5227:5377] ===
+ORIG:
+
+CURR:
+if(e.images?.[t]?.referenceExistingOnly||!e.images?.[t]?.base64){I(`⏩ Skipping upload for existing frame reference: ${e.images?.[t]?.name}`);return!0}
+
+=== replace orig[13887:13888] vs curr[14190:14283] ===
+ORIG:
+,
+CURR:
+;const ensureCaretAtEnd=(e)=>{try{const t=o(e).get(0);if(t){t.focus();const e=document.create
+
+=== insert orig[13889:13889] vs curr[14284:14419] ===
+ORIG:
+
+CURR:
+ange(),n=window.getSelection();e.selectNodeContents(t),e.collapse(!1),n.removeAllRanges(),n.addRange(e)}}catch(t){}};const tagReference
+
+=== replace orig[13896:13899] vs curr[14426:14478] ===
+ORIG:
+e,t
+CURR:
+refName,isCharHint,t,folderHint='Branded_references'
+
+=== replace orig[13909:13912] vs curr[14488:14534] ===
+ORIG:
+n=e
+CURR:
+cleanName=String(refName||'').replace(/^@/,'')
+
+=== replace orig[13933:13935] vs curr[14555:15284] ===
+ORIG:
+""
+CURR:
+'').trim();if(!cleanName)return!1;const noEllipsis=cleanName.replace(/(\u2026|\.{2,})$/,'').trim(),noBranded=noEllipsis.replace(/(_branded|-branded)$/i,'').trim(),withSpaces=noBranded.replace(/[_-]+/g,' ').trim(),withoutPrefix=withSpaces.replace(/^(ref\s*char|ref\s*env|ref\s*prop|ref\s*info|ref\s*comp|ref|frame)\s+/i,'').trim(),words=(withoutPrefix||withSpaces).split(/\s+/).filter(Boolean),twoWords=words.length>=2?words.slice(0,2).join(' '):(withoutPrefix||withSpaces),firstWord=words[0]||twoWord
+
+=== replace orig[13940:13952] vs curr[15289:15290] ===
+ORIG:
+\ud83c\udfaf
+CURR:
+🎯
+
+=== delete orig[13973:13983] vs curr[15311:15311] ===
+ORIG:
+image via 
+CURR:
+
+
+=== insert orig[13994:13994] vs curr[15322:15323] ===
+ORIG:
+
+CURR:
+"
+
+=== replace orig[13996:13998] vs curr[15325:15420] ===
+ORIG:
+n}
+CURR:
+cleanName}" (hints: [${imageQueries.join(', ')}], isChar: ${isCharHint}, folder: ${folderHint})
+
+=== replace orig[14029:14030] vs curr[15451:15452] ===
+ORIG:
+"
+CURR:
+'
+
+=== replace orig[14031:14034] vs curr[15453:15456] ===
+ORIG:
+","
+CURR:
+','
+
+=== replace orig[14040:14041] vs curr[15462:15463] ===
+ORIG:
+"
+CURR:
+'
+
+=== replace orig[14054:14055] vs curr[15476:15477] ===
+ORIG:
+3
+CURR:
+4
+
+=== replace orig[14058:14075] vs curr[15480:15693] ===
+ORIG:
+,o(a.selectUpload
+CURR:
+;const tabs=isCharHint?[{name:'Characters',sel:'flow-add-menu-popover-content mat-list-item:has(mat-icon:contains("accessibility_new")), flow-add-menu-popover-content mat-list-item:contains("Characters")'},{name:'
+
+=== replace orig[14080:14081] vs curr[15698:16435] ===
+ORIG:
+T
+CURR:
+s',sel:'flow-add-menu-popover-content mat-list-item:has(mat-icon:contains("image")), flow-add-menu-popover-content mat-list-item:contains("Images")'},{name:'All',sel:'flow-add-menu-popover-content mat-list-item:has(mat-icon:contains("dashboard")), flow-add-menu-popover-content mat-list-item:contains("All")'}]:[{name:'Images',sel:'flow-add-menu-popover-content mat-list-item:has(mat-icon:contains("image")), flow-add-menu-popover-content mat-list-item:contains("Images")'},{name:'All',sel:'flow-add-
+
+=== replace orig[14082:14085] vs curr[16436:16650] ===
+ORIG:
+pe)
+CURR:
+_new")), flow-add-menu-popover-content mat-list-item:contains("Characters")'}];const searchInPopover=async e=>{const t=o('flow-add-menu-popover-content input.search-input, flow-add-menu-popover-content input');if(t
+
+=== replace orig[14094:14096] vs curr[16659:16661] ===
+ORIG:
+&&
+CURR:
+){
+
+=== replace orig[14104:14118] vs curr[16669:16845] ===
+ORIG:
+a.selectUpload
+CURR:
+t.first(),'Click search input');const a=t.get(0);a.focus(),a.value='',a.dispatchEvent(new Event('input',{bubbles:!0})),await s(100),await u(e),await s(600)}};const findMatching
+
+=== replace orig[14119:14129] vs curr[16846:17199] ===
+ORIG:
+mageType,"
+CURR:
+tem=(e,t=!1)=>{const n=o('flow-add-menu-popover-content flow-add-menu-asset-list button[role="option"], flow-add-menu-popover-content flow-add-menu-asset-list div.cdk-virtual-scroll-content-wrapper > div, flow-add-menu-popover-content flow-character-tile');if(0===n.length)return null;for(let a=0;a<n.length;a++){const r=n.eq(a),s=(r.text()||'').toLower
+
+=== replace orig[14130:14165] vs curr[17200:17239] ===
+ORIG:
+lick select upload image option"),a
+CURR:
+ase(),i=(r.attr('aria-label')||'').toLo
+
+=== replace orig[14166:14176] vs curr[17240:17277] ===
+ORIG:
+ait u(n),a
+CURR:
+erCase(),c=(r.attr('title')||'').toLo
+
+=== replace orig[14177:14216] vs curr[17278:17356] ===
+ORIG:
+ait s(1e3),o(a.firstFoundedItemSelector
+CURR:
+erCase(),l=`${s} ${i} ${c}`;if(t){const e=r.find('mat-icon:contains("folder")'
+
+=== replace orig[14226:14229] vs curr[17366:17436] ===
+ORIG:
+?(a
+CURR:
+||l.includes('folder');for(const t of folderCandidates){const n=t.toLo
+
+=== replace orig[14230:14250] vs curr[17437:17840] ===
+ORIG:
+ait i(a.firstFounded
+CURR:
+erCase();if(l.includes(n)||(e&&(l.includes('brand')||l.includes('ref'))))return r}}else for(const t of e){const e=t.toLowerCase();if(e.length>=3&&l.includes(e))return r}}return null};let selected=!1;for(const e of tabs){if(selected)break;const t=o(e.sel);if(0===t.length)continue;await i(t.first(),`Click ${e.name} tab in @ menu`),await s(350);for(const t of imageQueries){if(selected)break;await search
+
+=== replace orig[14251:14254] vs curr[17841:17899] ===
+ORIG:
+tem
+CURR:
+nPopover(t);const a=findMatchingItem([t,withoutPrefix,with
+
+=== replace orig[14255:14264] vs curr[17900:17941] ===
+ORIG:
+elector,"
+CURR:
+paces,cleanName]);if(a&&a.length>0){I(`✅ 
+
+=== replace orig[14270:14296] vs curr[17947:18068] ===
+ORIG:
+ first founded image item"
+CURR:
+ed reference item for "${cleanName}" in ${e.name} tab matching "${t}"`),await i(a,`Select reference item matching "${t}"`
+
+=== replace orig[14311:14327] vs curr[18083:18118] ===
+ORIG:
+o(a.firstFounded
+CURR:
+selected=!0;break}}if(!selected&&('
+
+=== replace orig[14328:14340] vs curr[18119:18268] ===
+ORIG:
+temSelector)
+CURR:
+mages'===e.name||'All'===e.name))for(const t of folderCandidates){if(selected)break;await searchInPopover(t);const a=findMatchingItem([t],!0);if(a&&a
+
+=== insert orig[14349:14349] vs curr[18277:18529] ===
+ORIG:
+
+CURR:
+){I(`📁 Found folder "${t}" in ${e.name} tab, navigating inside...`),await i(a,`Open folder ${t}`),await s(500);for(const t of imageQueries){if(selected)break;await searchInPopover(t);const a=findMatchingItem([t,withoutPrefix,withSpaces,cleanName]);if(a
+
+=== delete orig[14352:14614] vs curr[18532:18532] ===
+ORIG:
+wait i(a.promptTextarea,"Click prompt textarea")):await i(a.promptTextarea,"Click prompt textarea")},k=async(e,t)=>{I(`\ud83c\udfaf Selecting character via @ mention: ${e}`);const n=t.selectors;await p("@","Digit2",50),await s(300),o(n.selectUploadCharacterType)
+CURR:
+
+
+=== replace orig[14623:14625] vs curr[18541:18623] ===
+ORIG:
+&&
+CURR:
+){I(`✅ Selected reference item for "${cleanName}" inside folder matching "${t}"`),
+
+=== replace orig[14633:14648] vs curr[18631:18660] ===
+ORIG:
+n.selectUploadC
+CURR:
+a,`Select reference item matc
+
+=== replace orig[14649:14837] vs curr[18661:18672] ===
+ORIG:
+aracterType,"Click select upload character option"),await u(e),await s(1e3),o(n.firstFoundedItemSelector).length>0?(await i(n.firstFoundedItemSelector,"Select first founded character item"
+CURR:
+ing "${t}"`
+
+=== replace orig[14852:14868] vs curr[18687:18795] ===
+ORIG:
+o(n.firstFounded
+CURR:
+selected=!0;break}}}}}selected||(C(`⚠️ Could not find reference item matching "${cleanName}" in Characters, 
+
+=== replace orig[14869:14890] vs curr[18796:18901] ===
+ORIG:
+temSelector).length>0
+CURR:
+mages (including folder "${folderHint}"), or All tabs.`),await p('Escape','Escape',27)),a?.promptTextarea
+
+=== replace orig[14892:14901] vs curr[18903:18921] ===
+ORIG:
+await i(n
+CURR:
+ensureCaretAtEnd(a
+
+=== replace orig[14916:14922] vs curr[18936:19016] ===
+ORIG:
+,"Clic
+CURR:
+);return selected},R=async(e,t,f)=>tagReference(e,!1,t,f||'Branded_references'),
+
+=== replace orig[14923:14993] vs curr[19017:19076] ===
+ORIG:
+ prompt textarea")):await i(n.promptTextarea,"Click prompt textarea")}
+CURR:
+=async(e,t,f)=>tagReference(e,!0,t,f||'Branded_references')
+
+=== replace orig[15038:15050] vs curr[19121:19122] ===
+ORIG:
+\ud83d\udcdd
+CURR:
+📝
+
+=== replace orig[15202:15203] vs curr[19274:19470] ===
+ORIG:
+a
+CURR:
+const pmEl=o(r.promptTextarea).get(0);if(pmEl){pmEl.focus();try{document.execCommand('selectAll',!1,null),document.execCommand('delete',!1,null)}catch(err){}pmEl.innerText='',pmEl.dispatchEvent(ne
+
+=== replace orig[15204:15248] vs curr[19471:19501] ===
+ORIG:
+ait i(r.promptTextarea,"Prompt textarea",n),
+CURR:
+ Event('input',{bubbles:!0}))}
+
+=== replace orig[15256:15259] vs curr[19509:19512] ===
+ORIG:
+1e3
+CURR:
+400
+
+=== replace orig[15589:15858] vs curr[19842:19898] ===
+ORIG:
+$=g?[]:l(x,e.images),v=d(x,e.characters),T=[...$.map(e=>({index:e.index,length:e.length,type:"image",targetIndex:e.imageIndex})),...v.map(e=>({index:e.index,length:e.length,type:"character",targetIndex:e.characterIndex}))];T.sort((e,t)=>e.index-t.index);const P=[];let 
+CURR:
+refFolder=e.referenceFolder||'Branded_references',tagged
+
+=== replace orig[15859:15888] vs curr[19899:19906] ===
+ORIG:
+=0;for(const e of T)e.index>=
+CURR:
+et=new 
+
+=== insert orig[15889:15889] vs curr[19907:19915] ===
+ORIG:
+
+CURR:
+et;if(!g
+
+=== replace orig[15891:15926] vs curr[19917:19935] ===
+ORIG:
+(P.push(e),S=e.index+e.length);if(P
+CURR:
+e.images&&e.images
+
+=== replace orig[15936:16088] vs curr[19945:20027] ===
+ORIG:
+{I(`\ud83d\udca1 Found ${P.length} inline match(es) in prompt. Typing inline...`);let o=0;for(const a of P){const i=x.substring(o,a.index+a.length);if(i
+CURR:
+for(const im of e.images){const name=(im.name||'').replace(/^@/,'').trim();if(name
+
+=== replace orig[16090:16092] vs curr[20029:20053] ===
+ORIG:
+(a
+CURR:
+!taggedSet.has(name.toLo
+
+=== replace orig[16093:16103] vs curr[20054:20088] ===
+ORIG:
+ait u(i),a
+CURR:
+erCase())){taggedSet.add(name.toLo
+
+=== replace orig[16104:16111] vs curr[20089:20182] ===
+ORIG:
+ait s(1
+CURR:
+erCase()),await R(name,t,refFolder),ensureCaretAtEnd(r.promptTextarea),await u(" "),await s(2
+
+=== replace orig[16116:16119] vs curr[20187:20371] ===
+ORIG:
+),a
+CURR:
+}}if(e.characters&&e.characters.length>0)for(const ch of e.characters){const name=(typeof ch==='string'?ch:ch.name||ch.id||'').replace(/^@/,'').trim();if(name&&!taggedSet.has(name.toLo
+
+=== replace orig[16120:16132] vs curr[20372:20406] ===
+ORIG:
+ait u(" "),a
+CURR:
+erCase())){taggedSet.add(name.toLo
+
+=== replace orig[16133:16140] vs curr[20407:20500] ===
+ORIG:
+ait s(1
+CURR:
+erCase()),await k(name,t,refFolder),ensureCaretAtEnd(r.promptTextarea),await u(" "),await s(2
+
+=== replace orig[16145:16192] vs curr[20505:20533] ===
+ORIG:
+,"image"===a.type){const o=e.images[a.targetInd
+CURR:
+}}ensureCaretAtEnd(r.promptT
+
+=== replace orig[16194:16196] vs curr[20535:20542] ===
+ORIG:
+];
+CURR:
+tarea),
+
+=== replace orig[16202:16277] vs curr[20548:20550] ===
+ORIG:
+R(o.name,t)}else if("character"===a.type){const o=e.characters[a.targetInde
+CURR:
+u(
+
+=== replace orig[16278:16280] vs curr[20551:20553] ===
+ORIG:
+];
+CURR:
+),
+
+=== replace orig[16286:16370] vs curr[20559:20562] ===
+ORIG:
+k(o,t)}o=a.index+a.length}if(o<x.length){const e=x.substring(o);await u(e),await s(1
+CURR:
+s(6
+
+=== replace orig[16374:16381] vs curr[20566:20567] ===
+ORIG:
+)}}else
+CURR:
+,
+
+=== replace orig[16382:16383] vs curr[20568:20866] ===
+ORIG:
+g
+CURR:
+0),I(`✍️ Filled complete prompt (${x.length} chars): ${x.substring(0,80)}...`);const b=await a(r.submitButton,n);if(!b||0===b.length)return C("Could not find submit button"),!1;if(Math.random()<.2?await i(r.submitButton,"Submit button",n):await p("Enter","Enter",13),e.outputPreviousPrompt?.tileIds
+
+=== replace orig[16387:16393] vs curr[20870:20942] ===
+ORIG:
+images
+CURR:
+outputPreviousPrompt.tileIds.length>0){const e=o(r.downloadDoneButton);e
+
+=== delete orig[16396:16403] vs curr[20945:20945] ===
+ORIG:
+.images
+CURR:
+
+
+=== replace orig[16414:16433] vs curr[20956:20957] ===
+ORIG:
+await(async(e,t)=>{
+CURR:
+(
+
+=== replace orig[16435:17220] vs curr[20959:20961] ===
+ORIG:
+`\ud83c\udfaf Fallback: Mentioning all ${e.length} uploaded images at start...`);for(const o of e)o.name&&(await R(o.name,t),await u(" "),await s(200))})(e.images,t),e.characters&&e.characters.length>0&&await(async(e,t)=>{I(`\ud83c\udfaf Fallback: Mentioning all ${e.length} characters at start...`);for(const o of e)o&&(await k(o,t),await u(" "),await s(200))})(e.characters,t),await u(x);I(`\u270d\ufe0f  Filled prompt: ${x.substring(0,50)}...`),await s(1e3,n,!0);const b=await a(r.submitButton,n);
+CURR:
+"❌
+
+=== insert orig[22047:22047] vs curr[25788:26839] ===
+ORIG:
+
+CURR:
+if(c.targetFilename){for(const m of h){const s=D(m,d);try{await n(s,"Hover tile",l);await a(`${s} ${u.moreOptionsButtonInHoverTile}`,l,1500)&&await i(`${s} ${u.moreOptionsButtonInHoverTile}`,"Click more options",l);await s(500,l);const ren=o('mat-menu-item:contains("Rename"), [role="menuitem"]:contains("Rename"), button:contains("Rename"), flow-menu-item:contains("Rename")');if(ren.length>0){await i(ren.first(),"Click Rename",l);await s(500,l);const inp=o('input[type="text"]:focus, mat-dialog-co
+
+=== insert orig[24379:24379] vs curr[29171:29786] ===
+ORIG:
+
+CURR:
+o){let tileTitle="";try{const container=P[e].closest("flow-grid-tile-container, flow-tile, [aria-label]")||(h[e]?o(D(h[e],d)).get(0):null);if(container){const footerTitle=container.querySelector(".footer-title, span[class*=\"title\"], flow-tile-hover-footer");tileTitle=(footerTitle?footerTitle.innerText.trim():null)||container.getAttribute("aria-label")||"";tileTitle=tileTitle.replace(/^image\s*/i,"").trim();}}catch(_tErr){}try{chrome.runtime.sendMessage({type:"SPEC_FRAME_IMAGE_CAPTURED",promptI
+
+=== insert orig[24594:24594] vs curr[30001:30068] ===
+ORIG:
+
+CURR:
+if(c.targetFilename){a=c.targetFilename;i=c.folderName.trim()}else 
+
+=== insert orig[32734:32734] vs curr[38208:41349] ===
+ORIG:
+
+CURR:
+CREATE_FLOW_CHARACTER":return(async()=>{try{const charName=(e.data?.name||"").replace(/^@/,"").trim();const rawPrompt=e.data?.prompt||e.data?.description||"";const refName=e.data?.refImageName||"";I(`🚀 Starting character creation in Flow for "${charName}" with prompt:`,rawPrompt.substring(0,60));const switchCharTab=async()=>{const t=Array.from(document.querySelectorAll('mat-list-item, button, a, [role="listitem"]')).find(b=>/characters/i.test(b.textContent||'')&&!/new character/i.test(b.textCont
+
+=== replace orig[32757:32758] vs curr[41372:41373] ===
+ORIG:
+ 
+CURR:
+(
+
+=== replace orig[32763:32784] vs curr[41378:41430] ===
+ORIG:
+ function(){const e=a
+CURR:
+()=>{try{const activeNav=document.querySelector('flo
+
+=== replace orig[32785:32791] vs curr[41431:41687] ===
+ORIG:
+ait ne
+CURR:
+-project-nav-list .mdc-list-item--activated, .mat-mdc-list-item-interactive.active')||Array.from(document.querySelectorAll('mat-list-item')).find(el=>el.classList.contains('mdc-list-item--activated'));let charTiles=Array.from(document.querySelectorAll('flo
+
+=== replace orig[32792:32802] vs curr[41688:41826] ===
+ORIG:
+ Promise(e
+CURR:
+-character-tile'));if(charTiles.length===0){const charTab=Array.from(document.querySelectorAll('mat-list-item, [role="listitem"]')).find(b
+
+=== replace orig[32804:32805] vs curr[41828:43162] ===
+ORIG:
+{
+CURR:
+/characters/i.test(b.innerText||'')&&!/new character/i.test(b.innerText||''));if(charTab){charTab.click();for(let i=0;i<15;i++){await s(200);charTiles=Array.from(document.querySelectorAll('flow-character-tile'));if(charTiles.length>0)break;}}}const names=charTiles.map(t=>{const s=t.querySelector('.character-tile-name, [class*="name"], span');const raw=s?s.innerText.trim():(t.innerText||"").split("\n")[0].trim();return raw.replace(/accessibility_new/gi,"").trim();}).filter(Boolean);if(activeNav&&
+
+=== delete orig[32858:33751] vs curr[43215:43215] ===
+ORIG:
+,t=>e(t??null))});if(!e)return[];if(o(e.selectors.charactersTabButton).length>0){await i(e.selectors.charactersTabButton,"Click characters tab"),await a(e.selectors.charactersNameSelector);return o(e.selectors.charactersNameSelector).map((e,t)=>o(t).attr("alt")||o(t).text()||"").get()}return[]}().then(e=>n({characters:e})),!0;default:return!0}}),(async()=>{for(;;){if(0===W.length){await Q(1e3);continue}const t=W[0];if(t)if("cancelled"!==t.status){H=t.id,t.status="running",J(t),K(.5);try{await X(
+CURR:
+

@@ -1,0 +1,4727 @@
+{
+  "project_name": "how_humans_learned_to_have_fun",
+  "title": "How Humans Learned to Have Fun",
+  "project_dir": "E:\\Stick_Figure_videos\\how_humans_learned_to_have_fun",
+  "format": "timeline_v2",
+  "script_section": "0:00 - 2:19",
+  "target_fps": 30,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "aspect_ratio": "16:9",
+  "audio_settings": {
+    "voice_id": "aiden",
+    "engine": "qwen3-tts",
+    "sample_rate": 24000,
+    "format": "wav",
+    "master_audio_file": "audio/master_narration.wav"
+  },
+  "estimated_total_duration": 139.0,
+  "total_narration_beats": 27,
+  "total_frames": 81,
+  "timeline": [
+    {
+      "beat_id": "beat_001",
+      "narration": "The last time you were bored, you reached for your phone without even deciding to.",
+      "narration_text": "The last time you were bored, you reached for your phone without even deciding to.",
+      "audio_file": "audio/beat_001.wav",
+      "timestamp_start": "00:00",
+      "timestamp_end": "00:02.5",
+      "start_time": 0.0,
+      "end_time": 2.5,
+      "estimated_duration": 2.5,
+      "duration": 2.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_001.png",
+          "frame_number": 1,
+          "duration": 1.0,
+          "duration_weight": 0.4,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 0.0,
+          "timeline_end": 1.0,
+          "script_fragment": "The last time you were bored,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_002.png",
+          "frame_number": 2,
+          "duration": 0.8,
+          "duration_weight": 0.32,
+          "relative_start": 1.0,
+          "relative_end": 1.8,
+          "timeline_start": 1.0,
+          "timeline_end": 1.8,
+          "script_fragment": "you reached for your phone",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_003.png",
+          "frame_number": 3,
+          "duration": 0.7,
+          "duration_weight": 0.28,
+          "relative_start": 1.8,
+          "relative_end": 2.5,
+          "timeline_start": 1.8,
+          "timeline_end": 2.5,
+          "script_fragment": "without even deciding to.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_002",
+      "narration": "Music, a game, something to watch.",
+      "narration_text": "Music, a game, something to watch.",
+      "audio_file": "audio/beat_002.wav",
+      "timestamp_start": "00:02.5",
+      "timestamp_end": "00:05.5",
+      "start_time": 2.5,
+      "end_time": 5.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_004.png",
+          "frame_number": 4,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 2.5,
+          "timeline_end": 3.5,
+          "script_fragment": "Music,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_005.png",
+          "frame_number": 5,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 1.0,
+          "relative_end": 2.0,
+          "timeline_start": 3.5,
+          "timeline_end": 4.5,
+          "script_fragment": "a game,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_006.png",
+          "frame_number": 6,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 3.0,
+          "timeline_start": 4.5,
+          "timeline_end": 5.5,
+          "script_fragment": "something to watch.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_003",
+      "narration": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "narration_text": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "audio_file": "audio/beat_003.wav",
+      "timestamp_start": "00:05.5",
+      "timestamp_end": "00:13.5",
+      "start_time": 5.5,
+      "end_time": 13.5,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 6,
+      "visuals": [
+        {
+          "frame": "frame_007.png",
+          "frame_number": 7,
+          "duration": 1.0,
+          "duration_weight": 0.125,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 5.5,
+          "timeline_end": 6.5,
+          "script_fragment": "That reach is one of the oldest things",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_008.png",
+          "frame_number": 8,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 1.0,
+          "relative_end": 2.5,
+          "timeline_start": 6.5,
+          "timeline_end": 8.0,
+          "script_fragment": "about 40,000 years ago,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_009.png",
+          "frame_number": 9,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 8.0,
+          "timeline_end": 9.5,
+          "script_fragment": "a human sat by a fire",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_010.png",
+          "frame_number": 10,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 4.0,
+          "relative_end": 5.5,
+          "timeline_start": 9.5,
+          "timeline_end": 11.0,
+          "script_fragment": "with the same restless itch you get",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_011.png",
+          "frame_number": 11,
+          "duration": 1.0,
+          "duration_weight": 0.125,
+          "relative_start": 5.5,
+          "relative_end": 6.5,
+          "timeline_start": 11.0,
+          "timeline_end": 12.0,
+          "script_fragment": "and no phone,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_012.png",
+          "frame_number": 12,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 6.5,
+          "relative_end": 8.0,
+          "timeline_start": 12.0,
+          "timeline_end": 13.5,
+          "script_fragment": "and nothing invented yet to kill it.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_004",
+      "narration": "So, they made their own fun from scratch.",
+      "narration_text": "So, they made their own fun from scratch.",
+      "audio_file": "audio/beat_004.wav",
+      "timestamp_start": "00:13.5",
+      "timestamp_end": "00:15.5",
+      "start_time": 13.5,
+      "end_time": 15.5,
+      "estimated_duration": 2.0,
+      "duration": 2.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_013.png",
+          "frame_number": 13,
+          "duration": 1.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 13.5,
+          "timeline_end": 14.5,
+          "script_fragment": "So, they made their own fun from scratch.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_014.png",
+          "frame_number": 14,
+          "duration": 1.0,
+          "duration_weight": 0.5,
+          "relative_start": 1.0,
+          "relative_end": 2.0,
+          "timeline_start": 14.5,
+          "timeline_end": 15.5,
+          "script_fragment": "So, they made their own fun from scratch.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_005",
+      "narration": "And what they came up with on those long empty nights became music, games, and sex.",
+      "narration_text": "And what they came up with on those long empty nights became music, games, and sex.",
+      "audio_file": "audio/beat_005.wav",
+      "timestamp_start": "00:15.5",
+      "timestamp_end": "00:21.5",
+      "start_time": 15.5,
+      "end_time": 21.5,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 5,
+      "visuals": [
+        {
+          "frame": "frame_015.png",
+          "frame_number": 15,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 15.5,
+          "timeline_end": 16.5,
+          "script_fragment": "And what they came up with",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_016.png",
+          "frame_number": 16,
+          "duration": 1.5,
+          "duration_weight": 0.25,
+          "relative_start": 1.0,
+          "relative_end": 2.5,
+          "timeline_start": 16.5,
+          "timeline_end": 18.0,
+          "script_fragment": "on those long empty nights",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_017.png",
+          "frame_number": 17,
+          "duration": 1.5,
+          "duration_weight": 0.25,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 18.0,
+          "timeline_end": 19.5,
+          "script_fragment": "became music,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_018.png",
+          "frame_number": 18,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 4.0,
+          "relative_end": 5.0,
+          "timeline_start": 19.5,
+          "timeline_end": 20.5,
+          "script_fragment": "games,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_019.png",
+          "frame_number": 19,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 5.0,
+          "relative_end": 6.0,
+          "timeline_start": 20.5,
+          "timeline_end": 21.5,
+          "script_fragment": "and sex.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_006",
+      "narration": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "narration_text": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "audio_file": "audio/beat_006.wav",
+      "timestamp_start": "00:21.5",
+      "timestamp_end": "00:24.5",
+      "start_time": 21.5,
+      "end_time": 24.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_020.png",
+          "frame_number": 20,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 21.5,
+          "timeline_end": 23.0,
+          "script_fragment": "And one of those three quietly turned into a business",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_021.png",
+          "frame_number": 21,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 23.0,
+          "timeline_end": 24.5,
+          "script_fragment": "we still call the oldest profession on Earth.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_007",
+      "narration": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "narration_text": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "audio_file": "audio/beat_007.wav",
+      "timestamp_start": "00:24.5",
+      "timestamp_end": "00:28.5",
+      "start_time": 24.5,
+      "end_time": 28.5,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_022.png",
+          "frame_number": 22,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 24.5,
+          "timeline_end": 26.0,
+          "script_fragment": "It runs from a bone flute in a freezing cave",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_023.png",
+          "frame_number": 23,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 1.5,
+          "relative_end": 2.5,
+          "timeline_start": 26.0,
+          "timeline_end": 27.0,
+          "script_fragment": "runs from a bone flute in a freezing cave",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_024.png",
+          "frame_number": 24,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 27.0,
+          "timeline_end": 28.5,
+          "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_008",
+      "narration": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "narration_text": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "audio_file": "audio/beat_008.wav",
+      "timestamp_start": "00:28.5",
+      "timestamp_end": "00:33",
+      "start_time": 28.5,
+      "end_time": 33.0,
+      "estimated_duration": 4.5,
+      "duration": 4.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_025.png",
+          "frame_number": 25,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 28.5,
+          "timeline_end": 30.0,
+          "script_fragment": "To get any of this,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_026.png",
+          "frame_number": 26,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 30.0,
+          "timeline_end": 31.5,
+          "script_fragment": "you have to kill one myth first",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_027.png",
+          "frame_number": 27,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 31.5,
+          "timeline_end": 33.0,
+          "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_009",
+      "narration": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "narration_text": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "audio_file": "audio/beat_009.wav",
+      "timestamp_start": "00:33",
+      "timestamp_end": "00:37.5",
+      "start_time": 33.0,
+      "end_time": 37.5,
+      "estimated_duration": 4.5,
+      "duration": 4.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_028.png",
+          "frame_number": 28,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 33.0,
+          "timeline_end": 34.5,
+          "script_fragment": "The myth is that survival never stopped.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_029.png",
+          "frame_number": 29,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 34.5,
+          "timeline_end": 36.0,
+          "script_fragment": "Every hour spent hunting, gathering, running from things.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_030.png",
+          "frame_number": 30,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 36.0,
+          "timeline_end": 37.5,
+          "script_fragment": "Total exhaustion, collapse, repeat.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_010",
+      "narration": "It feels like it must be true. It's completely backwards.",
+      "narration_text": "It feels like it must be true. It's completely backwards.",
+      "audio_file": "audio/beat_010.wav",
+      "timestamp_start": "00:37.5",
+      "timestamp_end": "00:40.5",
+      "start_time": 37.5,
+      "end_time": 40.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_031.png",
+          "frame_number": 31,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 37.5,
+          "timeline_end": 39.0,
+          "script_fragment": "It feels like it must be true.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_032.png",
+          "frame_number": 32,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 39.0,
+          "timeline_end": 40.5,
+          "script_fragment": "It's completely backwards.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_011",
+      "narration": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "narration_text": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "audio_file": "audio/beat_011.wav",
+      "timestamp_start": "00:40.5",
+      "timestamp_end": "00:46",
+      "start_time": 40.5,
+      "end_time": 46.0,
+      "estimated_duration": 5.5,
+      "duration": 5.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_033.png",
+          "frame_number": 33,
+          "duration": 1.5,
+          "duration_weight": 0.2727,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 40.5,
+          "timeline_end": 42.0,
+          "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_034.png",
+          "frame_number": 34,
+          "duration": 2.0,
+          "duration_weight": 0.3636,
+          "relative_start": 1.5,
+          "relative_end": 3.5,
+          "timeline_start": 42.0,
+          "timeline_end": 44.0,
+          "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_035.png",
+          "frame_number": 35,
+          "duration": 2.0,
+          "duration_weight": 0.3636,
+          "relative_start": 3.5,
+          "relative_end": 5.5,
+          "timeline_start": 44.0,
+          "timeline_end": 46.0,
+          "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_012",
+      "narration": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "narration_text": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "audio_file": "audio/beat_012.wav",
+      "timestamp_start": "00:46",
+      "timestamp_end": "00:54",
+      "start_time": 46.0,
+      "end_time": 54.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 4,
+      "visuals": [
+        {
+          "frame": "frame_036.png",
+          "frame_number": 36,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 46.0,
+          "timeline_end": 48.0,
+          "script_fragment": "He didn't guess. He timed them.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_037.png",
+          "frame_number": 37,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 48.0,
+          "timeline_end": 50.0,
+          "script_fragment": "Every hour of work hunting, gathering, making tools.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_038.png",
+          "frame_number": 38,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 50.0,
+          "timeline_end": 52.0,
+          "script_fragment": "The total came out to about fifteen hours a week.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_039.png",
+          "frame_number": 39,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 52.0,
+          "timeline_end": 54.0,
+          "script_fragment": "Fifteen.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_013",
+      "narration": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "narration_text": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "audio_file": "audio/beat_013.wav",
+      "timestamp_start": "00:54",
+      "timestamp_end": "00:58",
+      "start_time": 54.0,
+      "end_time": 58.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_040.png",
+          "frame_number": 40,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 54.0,
+          "timeline_end": 56.0,
+          "script_fragment": "A modern full-time job is forty,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_041.png",
+          "frame_number": 41,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 56.0,
+          "timeline_end": 58.0,
+          "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_014",
+      "narration": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "narration_text": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "audio_file": "audio/beat_014.wav",
+      "timestamp_start": "00:58",
+      "timestamp_end": "01:04",
+      "start_time": 58.0,
+      "end_time": 64.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_042.png",
+          "frame_number": 42,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 58.0,
+          "timeline_end": 60.0,
+          "script_fragment": "The people we pictured as desperate survivors were working",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_043.png",
+          "frame_number": 43,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 60.0,
+          "timeline_end": 62.0,
+          "script_fragment": "the equivalent of two days a week.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_044.png",
+          "frame_number": 44,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 62.0,
+          "timeline_end": 64.0,
+          "script_fragment": "Two. Days.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_015",
+      "narration": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "narration_text": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "audio_file": "audio/beat_015.wav",
+      "timestamp_start": "01:04",
+      "timestamp_end": "01:10",
+      "start_time": 64.0,
+      "end_time": 70.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_045.png",
+          "frame_number": 45,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 64.0,
+          "timeline_end": 66.0,
+          "script_fragment": "The rest of that time belonged entirely to them.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_046.png",
+          "frame_number": 46,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 66.0,
+          "timeline_end": 68.0,
+          "script_fragment": "And they weren't spending it staring at walls.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_047.png",
+          "frame_number": 47,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 68.0,
+          "timeline_end": 70.0,
+          "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_016",
+      "narration": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "narration_text": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "audio_file": "audio/beat_016.wav",
+      "timestamp_start": "01:10",
+      "timestamp_end": "01:16",
+      "start_time": 70.0,
+      "end_time": 76.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_048.png",
+          "frame_number": 48,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 70.0,
+          "timeline_end": 72.0,
+          "script_fragment": "Here is what happens when you take a human brain",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_049.png",
+          "frame_number": 49,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 72.0,
+          "timeline_end": 74.0,
+          "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_050.png",
+          "frame_number": 50,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 74.0,
+          "timeline_end": 76.0,
+          "script_fragment": "and you give it six empty hours by a fire every single night.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_017",
+      "narration": "It doesn't sit quietly. It can't.",
+      "narration_text": "It doesn't sit quietly. It can't.",
+      "audio_file": "audio/beat_017.wav",
+      "timestamp_start": "01:16",
+      "timestamp_end": "01:20",
+      "start_time": 76.0,
+      "end_time": 80.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_051.png",
+          "frame_number": 51,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 76.0,
+          "timeline_end": 78.0,
+          "script_fragment": "It doesn't sit quietly.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_052.png",
+          "frame_number": 52,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 78.0,
+          "timeline_end": 80.0,
+          "script_fragment": "It can't.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_018",
+      "narration": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "narration_text": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "audio_file": "audio/beat_018.wav",
+      "timestamp_start": "01:20",
+      "timestamp_end": "01:25",
+      "start_time": 80.0,
+      "end_time": 85.0,
+      "estimated_duration": 5.0,
+      "duration": 5.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_053.png",
+          "frame_number": 53,
+          "duration": 2.0,
+          "duration_weight": 0.4,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 80.0,
+          "timeline_end": 82.0,
+          "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_054.png",
+          "frame_number": 54,
+          "duration": 3.0,
+          "duration_weight": 0.6,
+          "relative_start": 2.0,
+          "relative_end": 5.0,
+          "timeline_start": 82.0,
+          "timeline_end": 85.0,
+          "script_fragment": "It looks around. It fidgets. It plays.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_019",
+      "narration": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "narration_text": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "audio_file": "audio/beat_019.wav",
+      "timestamp_start": "01:25",
+      "timestamp_end": "01:31.5",
+      "start_time": 85.0,
+      "end_time": 91.5,
+      "estimated_duration": 6.5,
+      "duration": 6.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_055.png",
+          "frame_number": 55,
+          "duration": 3.0,
+          "duration_weight": 0.4615,
+          "relative_start": 0.0,
+          "relative_end": 3.0,
+          "timeline_start": 85.0,
+          "timeline_end": 88.0,
+          "script_fragment": "Night after night, season after season, thousands of years before the first city,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_056.png",
+          "frame_number": 56,
+          "duration": 1.5,
+          "duration_weight": 0.2308,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 88.0,
+          "timeline_end": 89.5,
+          "script_fragment": "Restless brains, capable hands, and empty time",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_057.png",
+          "frame_number": 57,
+          "duration": 2.0,
+          "duration_weight": 0.3077,
+          "relative_start": 4.5,
+          "relative_end": 6.5,
+          "timeline_start": 89.5,
+          "timeline_end": 91.5,
+          "script_fragment": "alltogether in the firelight. That combination is an engine.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_020",
+      "narration": "It has to make something.",
+      "narration_text": "It has to make something.",
+      "audio_file": "audio/beat_020.wav",
+      "timestamp_start": "01:31.5",
+      "timestamp_end": "01:35.5",
+      "start_time": 91.5,
+      "end_time": 95.5,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_058.png",
+          "frame_number": 58,
+          "duration": 2.5,
+          "duration_weight": 0.625,
+          "relative_start": 0.0,
+          "relative_end": 2.5,
+          "timeline_start": 91.5,
+          "timeline_end": 94.0,
+          "script_fragment": "It has to make something.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_059.png",
+          "frame_number": 59,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 94.0,
+          "timeline_end": 95.5,
+          "script_fragment": "It has to make something.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_021",
+      "narration": "And the first thing it made was music.",
+      "narration_text": "And the first thing it made was music.",
+      "audio_file": "audio/beat_021.wav",
+      "timestamp_start": "01:35.5",
+      "timestamp_end": "01:39",
+      "start_time": 95.5,
+      "end_time": 99.0,
+      "estimated_duration": 3.5,
+      "duration": 3.5,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_060.png",
+          "frame_number": 60,
+          "duration": 1.5,
+          "duration_weight": 0.4286,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 95.5,
+          "timeline_end": 97.0,
+          "script_fragment": "And the first thing it made was music.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_061.png",
+          "frame_number": 61,
+          "duration": 2.0,
+          "duration_weight": 0.5714,
+          "relative_start": 1.5,
+          "relative_end": 3.5,
+          "timeline_start": 97.0,
+          "timeline_end": 99.0,
+          "script_fragment": "And the first thing it made was music.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_022",
+      "narration": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "narration_text": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "audio_file": "audio/beat_022.wav",
+      "timestamp_start": "01:39",
+      "timestamp_end": "01:47",
+      "start_time": 99.0,
+      "end_time": 107.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_062.png",
+          "frame_number": 62,
+          "duration": 3.0,
+          "duration_weight": 0.375,
+          "relative_start": 0.0,
+          "relative_end": 3.0,
+          "timeline_start": 99.0,
+          "timeline_end": 102.0,
+          "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_063.png",
+          "frame_number": 63,
+          "duration": 3.0,
+          "duration_weight": 0.375,
+          "relative_start": 3.0,
+          "relative_end": 6.0,
+          "timeline_start": 102.0,
+          "timeline_end": 105.0,
+          "script_fragment": "humans sat in freezing darkness and carved flutes.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_064.png",
+          "frame_number": 64,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 105.0,
+          "timeline_end": 107.0,
+          "script_fragment": "Not rough noisemakers. Instruments.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_023",
+      "narration": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "narration_text": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "audio_file": "audio/beat_023.wav",
+      "timestamp_start": "01:47",
+      "timestamp_end": "01:51",
+      "start_time": 107.0,
+      "end_time": 111.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_065.png",
+          "frame_number": 65,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 107.0,
+          "timeline_end": 109.0,
+          "script_fragment": "The flute is made from the radius bone of a griffon vulture",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_066.png",
+          "frame_number": 66,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 3.0,
+          "timeline_start": 109.0,
+          "timeline_end": 110.0,
+          "script_fragment": "with precisely placed holes.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_067.png",
+          "frame_number": 67,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 3.0,
+          "relative_end": 4.0,
+          "timeline_start": 110.0,
+          "timeline_end": 111.0,
+          "script_fragment": "Five of them.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_024",
+      "narration": "Then they lift it, blow, and a clear note fills the cave.",
+      "narration_text": "Then they lift it, blow, and a clear note fills the cave.",
+      "audio_file": "audio/beat_024.wav",
+      "timestamp_start": "01:51",
+      "timestamp_end": "01:57",
+      "start_time": 111.0,
+      "end_time": 117.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_068.png",
+          "frame_number": 68,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 111.0,
+          "timeline_end": 113.0,
+          "script_fragment": "Then they lift it, blow,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_069.png",
+          "frame_number": 69,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 113.0,
+          "timeline_end": 115.0,
+          "script_fragment": "and a clear note fills the cave.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_070.png",
+          "frame_number": 70,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 115.0,
+          "timeline_end": 117.0,
+          "script_fragment": "and a clear note fills the cave.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_025",
+      "narration": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "narration_text": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "audio_file": "audio/beat_025.wav",
+      "timestamp_start": "01:57",
+      "timestamp_end": "02:05",
+      "start_time": 117.0,
+      "end_time": 125.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 4,
+      "visuals": [
+        {
+          "frame": "frame_071.png",
+          "frame_number": 71,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 117.0,
+          "timeline_end": 119.0,
+          "script_fragment": "This isn't a guess.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_072.png",
+          "frame_number": 72,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 119.0,
+          "timeline_end": 121.0,
+          "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_073.png",
+          "frame_number": 73,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 121.0,
+          "timeline_end": 123.0,
+          "script_fragment": "was digging in a cave called Hols",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_074.png",
+          "frame_number": 74,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 123.0,
+          "timeline_end": 125.0,
+          "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_026",
+      "narration": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "narration_text": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "audio_file": "audio/beat_026.wav",
+      "timestamp_start": "02:05",
+      "timestamp_end": "02:15",
+      "start_time": 125.0,
+      "end_time": 135.0,
+      "estimated_duration": 10.0,
+      "duration": 10.0,
+      "visual_count": 5,
+      "visuals": [
+        {
+          "frame": "frame_075.png",
+          "frame_number": 75,
+          "duration": 1.5,
+          "duration_weight": 0.15,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 125.0,
+          "timeline_end": 126.5,
+          "script_fragment": "Fitted back together, they formed a flute,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_076.png",
+          "frame_number": 76,
+          "duration": 1.5,
+          "duration_weight": 0.15,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 126.5,
+          "timeline_end": 128.0,
+          "script_fragment": "the wing bone of a griffin vulture,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_077.png",
+          "frame_number": 77,
+          "duration": 3.0,
+          "duration_weight": 0.3,
+          "relative_start": 3.0,
+          "relative_end": 6.0,
+          "timeline_start": 128.0,
+          "timeline_end": 131.0,
+          "script_fragment": "five finger holes, a carved mouthpiece",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_078.png",
+          "frame_number": 78,
+          "duration": 2.0,
+          "duration_weight": 0.2,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 131.0,
+          "timeline_end": 133.0,
+          "script_fragment": "about as long as your forearm,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_079.png",
+          "frame_number": 79,
+          "duration": 2.0,
+          "duration_weight": 0.2,
+          "relative_start": 8.0,
+          "relative_end": 10.0,
+          "timeline_start": 133.0,
+          "timeline_end": 135.0,
+          "script_fragment": "and roughly 40,000 years old.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_027",
+      "narration": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "narration_text": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "audio_file": "audio/beat_027.wav",
+      "timestamp_start": "02:15",
+      "timestamp_end": "02:19",
+      "start_time": 135.0,
+      "end_time": 139.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_080.png",
+          "frame_number": 80,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 135.0,
+          "timeline_end": 137.0,
+          "script_fragment": "In another cave close by, they found more. Carved from swan bone",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_081.png",
+          "frame_number": 81,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 137.0,
+          "timeline_end": 139.0,
+          "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "narration_beats": [
+    {
+      "beat_id": "beat_001",
+      "narration": "The last time you were bored, you reached for your phone without even deciding to.",
+      "narration_text": "The last time you were bored, you reached for your phone without even deciding to.",
+      "audio_file": "audio/beat_001.wav",
+      "timestamp_start": "00:00",
+      "timestamp_end": "00:02.5",
+      "start_time": 0.0,
+      "end_time": 2.5,
+      "estimated_duration": 2.5,
+      "duration": 2.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_001.png",
+          "frame_number": 1,
+          "duration": 1.0,
+          "duration_weight": 0.4,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 0.0,
+          "timeline_end": 1.0,
+          "script_fragment": "The last time you were bored,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_002.png",
+          "frame_number": 2,
+          "duration": 0.8,
+          "duration_weight": 0.32,
+          "relative_start": 1.0,
+          "relative_end": 1.8,
+          "timeline_start": 1.0,
+          "timeline_end": 1.8,
+          "script_fragment": "you reached for your phone",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_003.png",
+          "frame_number": 3,
+          "duration": 0.7,
+          "duration_weight": 0.28,
+          "relative_start": 1.8,
+          "relative_end": 2.5,
+          "timeline_start": 1.8,
+          "timeline_end": 2.5,
+          "script_fragment": "without even deciding to.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_002",
+      "narration": "Music, a game, something to watch.",
+      "narration_text": "Music, a game, something to watch.",
+      "audio_file": "audio/beat_002.wav",
+      "timestamp_start": "00:02.5",
+      "timestamp_end": "00:05.5",
+      "start_time": 2.5,
+      "end_time": 5.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_004.png",
+          "frame_number": 4,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 2.5,
+          "timeline_end": 3.5,
+          "script_fragment": "Music,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_005.png",
+          "frame_number": 5,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 1.0,
+          "relative_end": 2.0,
+          "timeline_start": 3.5,
+          "timeline_end": 4.5,
+          "script_fragment": "a game,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_006.png",
+          "frame_number": 6,
+          "duration": 1.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 3.0,
+          "timeline_start": 4.5,
+          "timeline_end": 5.5,
+          "script_fragment": "something to watch.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_003",
+      "narration": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "narration_text": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "audio_file": "audio/beat_003.wav",
+      "timestamp_start": "00:05.5",
+      "timestamp_end": "00:13.5",
+      "start_time": 5.5,
+      "end_time": 13.5,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 6,
+      "visuals": [
+        {
+          "frame": "frame_007.png",
+          "frame_number": 7,
+          "duration": 1.0,
+          "duration_weight": 0.125,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 5.5,
+          "timeline_end": 6.5,
+          "script_fragment": "That reach is one of the oldest things",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_008.png",
+          "frame_number": 8,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 1.0,
+          "relative_end": 2.5,
+          "timeline_start": 6.5,
+          "timeline_end": 8.0,
+          "script_fragment": "about 40,000 years ago,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_009.png",
+          "frame_number": 9,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 8.0,
+          "timeline_end": 9.5,
+          "script_fragment": "a human sat by a fire",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_010.png",
+          "frame_number": 10,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 4.0,
+          "relative_end": 5.5,
+          "timeline_start": 9.5,
+          "timeline_end": 11.0,
+          "script_fragment": "with the same restless itch you get",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_011.png",
+          "frame_number": 11,
+          "duration": 1.0,
+          "duration_weight": 0.125,
+          "relative_start": 5.5,
+          "relative_end": 6.5,
+          "timeline_start": 11.0,
+          "timeline_end": 12.0,
+          "script_fragment": "and no phone,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_012.png",
+          "frame_number": 12,
+          "duration": 1.5,
+          "duration_weight": 0.1875,
+          "relative_start": 6.5,
+          "relative_end": 8.0,
+          "timeline_start": 12.0,
+          "timeline_end": 13.5,
+          "script_fragment": "and nothing invented yet to kill it.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_004",
+      "narration": "So, they made their own fun from scratch.",
+      "narration_text": "So, they made their own fun from scratch.",
+      "audio_file": "audio/beat_004.wav",
+      "timestamp_start": "00:13.5",
+      "timestamp_end": "00:15.5",
+      "start_time": 13.5,
+      "end_time": 15.5,
+      "estimated_duration": 2.0,
+      "duration": 2.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_013.png",
+          "frame_number": 13,
+          "duration": 1.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 13.5,
+          "timeline_end": 14.5,
+          "script_fragment": "So, they made their own fun from scratch.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_014.png",
+          "frame_number": 14,
+          "duration": 1.0,
+          "duration_weight": 0.5,
+          "relative_start": 1.0,
+          "relative_end": 2.0,
+          "timeline_start": 14.5,
+          "timeline_end": 15.5,
+          "script_fragment": "So, they made their own fun from scratch.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_005",
+      "narration": "And what they came up with on those long empty nights became music, games, and sex.",
+      "narration_text": "And what they came up with on those long empty nights became music, games, and sex.",
+      "audio_file": "audio/beat_005.wav",
+      "timestamp_start": "00:15.5",
+      "timestamp_end": "00:21.5",
+      "start_time": 15.5,
+      "end_time": 21.5,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 5,
+      "visuals": [
+        {
+          "frame": "frame_015.png",
+          "frame_number": 15,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 0.0,
+          "relative_end": 1.0,
+          "timeline_start": 15.5,
+          "timeline_end": 16.5,
+          "script_fragment": "And what they came up with",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_016.png",
+          "frame_number": 16,
+          "duration": 1.5,
+          "duration_weight": 0.25,
+          "relative_start": 1.0,
+          "relative_end": 2.5,
+          "timeline_start": 16.5,
+          "timeline_end": 18.0,
+          "script_fragment": "on those long empty nights",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_017.png",
+          "frame_number": 17,
+          "duration": 1.5,
+          "duration_weight": 0.25,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 18.0,
+          "timeline_end": 19.5,
+          "script_fragment": "became music,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_018.png",
+          "frame_number": 18,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 4.0,
+          "relative_end": 5.0,
+          "timeline_start": 19.5,
+          "timeline_end": 20.5,
+          "script_fragment": "games,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_019.png",
+          "frame_number": 19,
+          "duration": 1.0,
+          "duration_weight": 0.1667,
+          "relative_start": 5.0,
+          "relative_end": 6.0,
+          "timeline_start": 20.5,
+          "timeline_end": 21.5,
+          "script_fragment": "and sex.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_006",
+      "narration": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "narration_text": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "audio_file": "audio/beat_006.wav",
+      "timestamp_start": "00:21.5",
+      "timestamp_end": "00:24.5",
+      "start_time": 21.5,
+      "end_time": 24.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_020.png",
+          "frame_number": 20,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 21.5,
+          "timeline_end": 23.0,
+          "script_fragment": "And one of those three quietly turned into a business",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_021.png",
+          "frame_number": 21,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 23.0,
+          "timeline_end": 24.5,
+          "script_fragment": "we still call the oldest profession on Earth.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_007",
+      "narration": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "narration_text": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "audio_file": "audio/beat_007.wav",
+      "timestamp_start": "00:24.5",
+      "timestamp_end": "00:28.5",
+      "start_time": 24.5,
+      "end_time": 28.5,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_022.png",
+          "frame_number": 22,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 24.5,
+          "timeline_end": 26.0,
+          "script_fragment": "It runs from a bone flute in a freezing cave",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_023.png",
+          "frame_number": 23,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 1.5,
+          "relative_end": 2.5,
+          "timeline_start": 26.0,
+          "timeline_end": 27.0,
+          "script_fragment": "runs from a bone flute in a freezing cave",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_024.png",
+          "frame_number": 24,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 27.0,
+          "timeline_end": 28.5,
+          "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_008",
+      "narration": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "narration_text": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "audio_file": "audio/beat_008.wav",
+      "timestamp_start": "00:28.5",
+      "timestamp_end": "00:33",
+      "start_time": 28.5,
+      "end_time": 33.0,
+      "estimated_duration": 4.5,
+      "duration": 4.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_025.png",
+          "frame_number": 25,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 28.5,
+          "timeline_end": 30.0,
+          "script_fragment": "To get any of this,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_026.png",
+          "frame_number": 26,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 30.0,
+          "timeline_end": 31.5,
+          "script_fragment": "you have to kill one myth first",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_027.png",
+          "frame_number": 27,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 31.5,
+          "timeline_end": 33.0,
+          "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_009",
+      "narration": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "narration_text": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "audio_file": "audio/beat_009.wav",
+      "timestamp_start": "00:33",
+      "timestamp_end": "00:37.5",
+      "start_time": 33.0,
+      "end_time": 37.5,
+      "estimated_duration": 4.5,
+      "duration": 4.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_028.png",
+          "frame_number": 28,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 33.0,
+          "timeline_end": 34.5,
+          "script_fragment": "The myth is that survival never stopped.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_029.png",
+          "frame_number": 29,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 34.5,
+          "timeline_end": 36.0,
+          "script_fragment": "Every hour spent hunting, gathering, running from things.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_030.png",
+          "frame_number": 30,
+          "duration": 1.5,
+          "duration_weight": 0.3333,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 36.0,
+          "timeline_end": 37.5,
+          "script_fragment": "Total exhaustion, collapse, repeat.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_010",
+      "narration": "It feels like it must be true. It's completely backwards.",
+      "narration_text": "It feels like it must be true. It's completely backwards.",
+      "audio_file": "audio/beat_010.wav",
+      "timestamp_start": "00:37.5",
+      "timestamp_end": "00:40.5",
+      "start_time": 37.5,
+      "end_time": 40.5,
+      "estimated_duration": 3.0,
+      "duration": 3.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_031.png",
+          "frame_number": 31,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 37.5,
+          "timeline_end": 39.0,
+          "script_fragment": "It feels like it must be true.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_032.png",
+          "frame_number": 32,
+          "duration": 1.5,
+          "duration_weight": 0.5,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 39.0,
+          "timeline_end": 40.5,
+          "script_fragment": "It's completely backwards.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_011",
+      "narration": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "narration_text": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "audio_file": "audio/beat_011.wav",
+      "timestamp_start": "00:40.5",
+      "timestamp_end": "00:46",
+      "start_time": 40.5,
+      "end_time": 46.0,
+      "estimated_duration": 5.5,
+      "duration": 5.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_033.png",
+          "frame_number": 33,
+          "duration": 1.5,
+          "duration_weight": 0.2727,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 40.5,
+          "timeline_end": 42.0,
+          "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_034.png",
+          "frame_number": 34,
+          "duration": 2.0,
+          "duration_weight": 0.3636,
+          "relative_start": 1.5,
+          "relative_end": 3.5,
+          "timeline_start": 42.0,
+          "timeline_end": 44.0,
+          "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_035.png",
+          "frame_number": 35,
+          "duration": 2.0,
+          "duration_weight": 0.3636,
+          "relative_start": 3.5,
+          "relative_end": 5.5,
+          "timeline_start": 44.0,
+          "timeline_end": 46.0,
+          "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_012",
+      "narration": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "narration_text": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "audio_file": "audio/beat_012.wav",
+      "timestamp_start": "00:46",
+      "timestamp_end": "00:54",
+      "start_time": 46.0,
+      "end_time": 54.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 4,
+      "visuals": [
+        {
+          "frame": "frame_036.png",
+          "frame_number": 36,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 46.0,
+          "timeline_end": 48.0,
+          "script_fragment": "He didn't guess. He timed them.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_037.png",
+          "frame_number": 37,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 48.0,
+          "timeline_end": 50.0,
+          "script_fragment": "Every hour of work hunting, gathering, making tools.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_038.png",
+          "frame_number": 38,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 50.0,
+          "timeline_end": 52.0,
+          "script_fragment": "The total came out to about fifteen hours a week.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_039.png",
+          "frame_number": 39,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 52.0,
+          "timeline_end": 54.0,
+          "script_fragment": "Fifteen.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_013",
+      "narration": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "narration_text": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "audio_file": "audio/beat_013.wav",
+      "timestamp_start": "00:54",
+      "timestamp_end": "00:58",
+      "start_time": 54.0,
+      "end_time": 58.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_040.png",
+          "frame_number": 40,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 54.0,
+          "timeline_end": 56.0,
+          "script_fragment": "A modern full-time job is forty,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_041.png",
+          "frame_number": 41,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 56.0,
+          "timeline_end": 58.0,
+          "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_014",
+      "narration": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "narration_text": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "audio_file": "audio/beat_014.wav",
+      "timestamp_start": "00:58",
+      "timestamp_end": "01:04",
+      "start_time": 58.0,
+      "end_time": 64.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_042.png",
+          "frame_number": 42,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 58.0,
+          "timeline_end": 60.0,
+          "script_fragment": "The people we pictured as desperate survivors were working",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_043.png",
+          "frame_number": 43,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 60.0,
+          "timeline_end": 62.0,
+          "script_fragment": "the equivalent of two days a week.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_044.png",
+          "frame_number": 44,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 62.0,
+          "timeline_end": 64.0,
+          "script_fragment": "Two. Days.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_015",
+      "narration": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "narration_text": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "audio_file": "audio/beat_015.wav",
+      "timestamp_start": "01:04",
+      "timestamp_end": "01:10",
+      "start_time": 64.0,
+      "end_time": 70.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_045.png",
+          "frame_number": 45,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 64.0,
+          "timeline_end": 66.0,
+          "script_fragment": "The rest of that time belonged entirely to them.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_046.png",
+          "frame_number": 46,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 66.0,
+          "timeline_end": 68.0,
+          "script_fragment": "And they weren't spending it staring at walls.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_047.png",
+          "frame_number": 47,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 68.0,
+          "timeline_end": 70.0,
+          "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_016",
+      "narration": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "narration_text": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "audio_file": "audio/beat_016.wav",
+      "timestamp_start": "01:10",
+      "timestamp_end": "01:16",
+      "start_time": 70.0,
+      "end_time": 76.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_048.png",
+          "frame_number": 48,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 70.0,
+          "timeline_end": 72.0,
+          "script_fragment": "Here is what happens when you take a human brain",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_049.png",
+          "frame_number": 49,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 72.0,
+          "timeline_end": 74.0,
+          "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_050.png",
+          "frame_number": 50,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 74.0,
+          "timeline_end": 76.0,
+          "script_fragment": "and you give it six empty hours by a fire every single night.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_017",
+      "narration": "It doesn't sit quietly. It can't.",
+      "narration_text": "It doesn't sit quietly. It can't.",
+      "audio_file": "audio/beat_017.wav",
+      "timestamp_start": "01:16",
+      "timestamp_end": "01:20",
+      "start_time": 76.0,
+      "end_time": 80.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_051.png",
+          "frame_number": 51,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 76.0,
+          "timeline_end": 78.0,
+          "script_fragment": "It doesn't sit quietly.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_052.png",
+          "frame_number": 52,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 78.0,
+          "timeline_end": 80.0,
+          "script_fragment": "It can't.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_018",
+      "narration": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "narration_text": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "audio_file": "audio/beat_018.wav",
+      "timestamp_start": "01:20",
+      "timestamp_end": "01:25",
+      "start_time": 80.0,
+      "end_time": 85.0,
+      "estimated_duration": 5.0,
+      "duration": 5.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_053.png",
+          "frame_number": 53,
+          "duration": 2.0,
+          "duration_weight": 0.4,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 80.0,
+          "timeline_end": 82.0,
+          "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_054.png",
+          "frame_number": 54,
+          "duration": 3.0,
+          "duration_weight": 0.6,
+          "relative_start": 2.0,
+          "relative_end": 5.0,
+          "timeline_start": 82.0,
+          "timeline_end": 85.0,
+          "script_fragment": "It looks around. It fidgets. It plays.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_019",
+      "narration": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "narration_text": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "audio_file": "audio/beat_019.wav",
+      "timestamp_start": "01:25",
+      "timestamp_end": "01:31.5",
+      "start_time": 85.0,
+      "end_time": 91.5,
+      "estimated_duration": 6.5,
+      "duration": 6.5,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_055.png",
+          "frame_number": 55,
+          "duration": 3.0,
+          "duration_weight": 0.4615,
+          "relative_start": 0.0,
+          "relative_end": 3.0,
+          "timeline_start": 85.0,
+          "timeline_end": 88.0,
+          "script_fragment": "Night after night, season after season, thousands of years before the first city,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_056.png",
+          "frame_number": 56,
+          "duration": 1.5,
+          "duration_weight": 0.2308,
+          "relative_start": 3.0,
+          "relative_end": 4.5,
+          "timeline_start": 88.0,
+          "timeline_end": 89.5,
+          "script_fragment": "Restless brains, capable hands, and empty time",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_057.png",
+          "frame_number": 57,
+          "duration": 2.0,
+          "duration_weight": 0.3077,
+          "relative_start": 4.5,
+          "relative_end": 6.5,
+          "timeline_start": 89.5,
+          "timeline_end": 91.5,
+          "script_fragment": "alltogether in the firelight. That combination is an engine.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_020",
+      "narration": "It has to make something.",
+      "narration_text": "It has to make something.",
+      "audio_file": "audio/beat_020.wav",
+      "timestamp_start": "01:31.5",
+      "timestamp_end": "01:35.5",
+      "start_time": 91.5,
+      "end_time": 95.5,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_058.png",
+          "frame_number": 58,
+          "duration": 2.5,
+          "duration_weight": 0.625,
+          "relative_start": 0.0,
+          "relative_end": 2.5,
+          "timeline_start": 91.5,
+          "timeline_end": 94.0,
+          "script_fragment": "It has to make something.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_059.png",
+          "frame_number": 59,
+          "duration": 1.5,
+          "duration_weight": 0.375,
+          "relative_start": 2.5,
+          "relative_end": 4.0,
+          "timeline_start": 94.0,
+          "timeline_end": 95.5,
+          "script_fragment": "It has to make something.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_021",
+      "narration": "And the first thing it made was music.",
+      "narration_text": "And the first thing it made was music.",
+      "audio_file": "audio/beat_021.wav",
+      "timestamp_start": "01:35.5",
+      "timestamp_end": "01:39",
+      "start_time": 95.5,
+      "end_time": 99.0,
+      "estimated_duration": 3.5,
+      "duration": 3.5,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_060.png",
+          "frame_number": 60,
+          "duration": 1.5,
+          "duration_weight": 0.4286,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 95.5,
+          "timeline_end": 97.0,
+          "script_fragment": "And the first thing it made was music.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_061.png",
+          "frame_number": 61,
+          "duration": 2.0,
+          "duration_weight": 0.5714,
+          "relative_start": 1.5,
+          "relative_end": 3.5,
+          "timeline_start": 97.0,
+          "timeline_end": 99.0,
+          "script_fragment": "And the first thing it made was music.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_022",
+      "narration": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "narration_text": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "audio_file": "audio/beat_022.wav",
+      "timestamp_start": "01:39",
+      "timestamp_end": "01:47",
+      "start_time": 99.0,
+      "end_time": 107.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_062.png",
+          "frame_number": 62,
+          "duration": 3.0,
+          "duration_weight": 0.375,
+          "relative_start": 0.0,
+          "relative_end": 3.0,
+          "timeline_start": 99.0,
+          "timeline_end": 102.0,
+          "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_063.png",
+          "frame_number": 63,
+          "duration": 3.0,
+          "duration_weight": 0.375,
+          "relative_start": 3.0,
+          "relative_end": 6.0,
+          "timeline_start": 102.0,
+          "timeline_end": 105.0,
+          "script_fragment": "humans sat in freezing darkness and carved flutes.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_064.png",
+          "frame_number": 64,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 105.0,
+          "timeline_end": 107.0,
+          "script_fragment": "Not rough noisemakers. Instruments.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_023",
+      "narration": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "narration_text": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "audio_file": "audio/beat_023.wav",
+      "timestamp_start": "01:47",
+      "timestamp_end": "01:51",
+      "start_time": 107.0,
+      "end_time": 111.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_065.png",
+          "frame_number": 65,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 107.0,
+          "timeline_end": 109.0,
+          "script_fragment": "The flute is made from the radius bone of a griffon vulture",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_066.png",
+          "frame_number": 66,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 3.0,
+          "timeline_start": 109.0,
+          "timeline_end": 110.0,
+          "script_fragment": "with precisely placed holes.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_067.png",
+          "frame_number": 67,
+          "duration": 1.0,
+          "duration_weight": 0.25,
+          "relative_start": 3.0,
+          "relative_end": 4.0,
+          "timeline_start": 110.0,
+          "timeline_end": 111.0,
+          "script_fragment": "Five of them.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_024",
+      "narration": "Then they lift it, blow, and a clear note fills the cave.",
+      "narration_text": "Then they lift it, blow, and a clear note fills the cave.",
+      "audio_file": "audio/beat_024.wav",
+      "timestamp_start": "01:51",
+      "timestamp_end": "01:57",
+      "start_time": 111.0,
+      "end_time": 117.0,
+      "estimated_duration": 6.0,
+      "duration": 6.0,
+      "visual_count": 3,
+      "visuals": [
+        {
+          "frame": "frame_068.png",
+          "frame_number": 68,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 111.0,
+          "timeline_end": 113.0,
+          "script_fragment": "Then they lift it, blow,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_069.png",
+          "frame_number": 69,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 113.0,
+          "timeline_end": 115.0,
+          "script_fragment": "and a clear note fills the cave.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_070.png",
+          "frame_number": 70,
+          "duration": 2.0,
+          "duration_weight": 0.3333,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 115.0,
+          "timeline_end": 117.0,
+          "script_fragment": "and a clear note fills the cave.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_025",
+      "narration": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "narration_text": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "audio_file": "audio/beat_025.wav",
+      "timestamp_start": "01:57",
+      "timestamp_end": "02:05",
+      "start_time": 117.0,
+      "end_time": 125.0,
+      "estimated_duration": 8.0,
+      "duration": 8.0,
+      "visual_count": 4,
+      "visuals": [
+        {
+          "frame": "frame_071.png",
+          "frame_number": 71,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 117.0,
+          "timeline_end": 119.0,
+          "script_fragment": "This isn't a guess.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_072.png",
+          "frame_number": 72,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 119.0,
+          "timeline_end": 121.0,
+          "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_073.png",
+          "frame_number": 73,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 4.0,
+          "relative_end": 6.0,
+          "timeline_start": 121.0,
+          "timeline_end": 123.0,
+          "script_fragment": "was digging in a cave called Hols",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_074.png",
+          "frame_number": 74,
+          "duration": 2.0,
+          "duration_weight": 0.25,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 123.0,
+          "timeline_end": 125.0,
+          "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_026",
+      "narration": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "narration_text": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "audio_file": "audio/beat_026.wav",
+      "timestamp_start": "02:05",
+      "timestamp_end": "02:15",
+      "start_time": 125.0,
+      "end_time": 135.0,
+      "estimated_duration": 10.0,
+      "duration": 10.0,
+      "visual_count": 5,
+      "visuals": [
+        {
+          "frame": "frame_075.png",
+          "frame_number": 75,
+          "duration": 1.5,
+          "duration_weight": 0.15,
+          "relative_start": 0.0,
+          "relative_end": 1.5,
+          "timeline_start": 125.0,
+          "timeline_end": 126.5,
+          "script_fragment": "Fitted back together, they formed a flute,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_076.png",
+          "frame_number": 76,
+          "duration": 1.5,
+          "duration_weight": 0.15,
+          "relative_start": 1.5,
+          "relative_end": 3.0,
+          "timeline_start": 126.5,
+          "timeline_end": 128.0,
+          "script_fragment": "the wing bone of a griffin vulture,",
+          "continuity": "anchor",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_077.png",
+          "frame_number": 77,
+          "duration": 3.0,
+          "duration_weight": 0.3,
+          "relative_start": 3.0,
+          "relative_end": 6.0,
+          "timeline_start": 128.0,
+          "timeline_end": 131.0,
+          "script_fragment": "five finger holes, a carved mouthpiece",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_078.png",
+          "frame_number": 78,
+          "duration": 2.0,
+          "duration_weight": 0.2,
+          "relative_start": 6.0,
+          "relative_end": 8.0,
+          "timeline_start": 131.0,
+          "timeline_end": 133.0,
+          "script_fragment": "about as long as your forearm,",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        },
+        {
+          "frame": "frame_079.png",
+          "frame_number": 79,
+          "duration": 2.0,
+          "duration_weight": 0.2,
+          "relative_start": 8.0,
+          "relative_end": 10.0,
+          "timeline_start": 133.0,
+          "timeline_end": 135.0,
+          "script_fragment": "and roughly 40,000 years old.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "beat_id": "beat_027",
+      "narration": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "narration_text": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "audio_file": "audio/beat_027.wav",
+      "timestamp_start": "02:15",
+      "timestamp_end": "02:19",
+      "start_time": 135.0,
+      "end_time": 139.0,
+      "estimated_duration": 4.0,
+      "duration": 4.0,
+      "visual_count": 2,
+      "visuals": [
+        {
+          "frame": "frame_080.png",
+          "frame_number": 80,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 0.0,
+          "relative_end": 2.0,
+          "timeline_start": 135.0,
+          "timeline_end": 137.0,
+          "script_fragment": "In another cave close by, they found more. Carved from swan bone",
+          "continuity": "anchor",
+          "transition": {
+            "type": "crossfade",
+            "duration": 0.3
+          }
+        },
+        {
+          "frame": "frame_081.png",
+          "frame_number": 81,
+          "duration": 2.0,
+          "duration_weight": 0.5,
+          "relative_start": 2.0,
+          "relative_end": 4.0,
+          "timeline_start": 137.0,
+          "timeline_end": 139.0,
+          "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
+          "continuity": "continue",
+          "transition": {
+            "type": "cut",
+            "duration": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "render_sequence": [
+    {
+      "frame_number": 1,
+      "frame": "frame_001.png",
+      "beat_id": "beat_001",
+      "start_time": 0.0,
+      "end_time": 1.0,
+      "duration": 1.0,
+      "timestamp_start": "00:00",
+      "timestamp_end": "00:01",
+      "script_fragment": "The last time you were bored,",
+      "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 2,
+      "frame": "frame_002.png",
+      "beat_id": "beat_001",
+      "start_time": 1.0,
+      "end_time": 1.8,
+      "duration": 0.8,
+      "timestamp_start": "00:01",
+      "timestamp_end": "00:01.8",
+      "script_fragment": "you reached for your phone",
+      "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 3,
+      "frame": "frame_003.png",
+      "beat_id": "beat_001",
+      "start_time": 1.8,
+      "end_time": 2.5,
+      "duration": 0.7,
+      "timestamp_start": "00:01.8",
+      "timestamp_end": "00:02.5",
+      "script_fragment": "without even deciding to.",
+      "narration_context": "The last time you were bored, you reached for your phone without even deciding to.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 4,
+      "frame": "frame_004.png",
+      "beat_id": "beat_002",
+      "start_time": 2.5,
+      "end_time": 3.5,
+      "duration": 1.0,
+      "timestamp_start": "00:02.5",
+      "timestamp_end": "00:03.5",
+      "script_fragment": "Music,",
+      "narration_context": "Music, a game, something to watch.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 5,
+      "frame": "frame_005.png",
+      "beat_id": "beat_002",
+      "start_time": 3.5,
+      "end_time": 4.5,
+      "duration": 1.0,
+      "timestamp_start": "00:03.5",
+      "timestamp_end": "00:04.5",
+      "script_fragment": "a game,",
+      "narration_context": "Music, a game, something to watch.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 6,
+      "frame": "frame_006.png",
+      "beat_id": "beat_002",
+      "start_time": 4.5,
+      "end_time": 5.5,
+      "duration": 1.0,
+      "timestamp_start": "00:04.5",
+      "timestamp_end": "00:05.5",
+      "script_fragment": "something to watch.",
+      "narration_context": "Music, a game, something to watch.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 7,
+      "frame": "frame_007.png",
+      "beat_id": "beat_003",
+      "start_time": 5.5,
+      "end_time": 6.5,
+      "duration": 1.0,
+      "timestamp_start": "00:05.5",
+      "timestamp_end": "00:06.5",
+      "script_fragment": "That reach is one of the oldest things",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 8,
+      "frame": "frame_008.png",
+      "beat_id": "beat_003",
+      "start_time": 6.5,
+      "end_time": 8.0,
+      "duration": 1.5,
+      "timestamp_start": "00:06.5",
+      "timestamp_end": "00:08",
+      "script_fragment": "about 40,000 years ago,",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 9,
+      "frame": "frame_009.png",
+      "beat_id": "beat_003",
+      "start_time": 8.0,
+      "end_time": 9.5,
+      "duration": 1.5,
+      "timestamp_start": "00:08",
+      "timestamp_end": "00:09.5",
+      "script_fragment": "a human sat by a fire",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 10,
+      "frame": "frame_010.png",
+      "beat_id": "beat_003",
+      "start_time": 9.5,
+      "end_time": 11.0,
+      "duration": 1.5,
+      "timestamp_start": "00:09.5",
+      "timestamp_end": "00:11",
+      "script_fragment": "with the same restless itch you get",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 11,
+      "frame": "frame_011.png",
+      "beat_id": "beat_003",
+      "start_time": 11.0,
+      "end_time": 12.0,
+      "duration": 1.0,
+      "timestamp_start": "00:11",
+      "timestamp_end": "00:12",
+      "script_fragment": "and no phone,",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 12,
+      "frame": "frame_012.png",
+      "beat_id": "beat_003",
+      "start_time": 12.0,
+      "end_time": 13.5,
+      "duration": 1.5,
+      "timestamp_start": "00:12",
+      "timestamp_end": "00:13.5",
+      "script_fragment": "and nothing invented yet to kill it.",
+      "narration_context": "That reach is one of the oldest things. About 40,000 years ago, a human sat by a fire with the same restless itch you get, and no phone, and nothing invented yet to kill it.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 13,
+      "frame": "frame_013.png",
+      "beat_id": "beat_004",
+      "start_time": 13.5,
+      "end_time": 14.5,
+      "duration": 1.0,
+      "timestamp_start": "00:13.5",
+      "timestamp_end": "00:14.5",
+      "script_fragment": "So, they made their own fun from scratch.",
+      "narration_context": "So, they made their own fun from scratch.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 14,
+      "frame": "frame_014.png",
+      "beat_id": "beat_004",
+      "start_time": 14.5,
+      "end_time": 15.5,
+      "duration": 1.0,
+      "timestamp_start": "00:14.5",
+      "timestamp_end": "00:15.5",
+      "script_fragment": "So, they made their own fun from scratch.",
+      "narration_context": "So, they made their own fun from scratch.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 15,
+      "frame": "frame_015.png",
+      "beat_id": "beat_005",
+      "start_time": 15.5,
+      "end_time": 16.5,
+      "duration": 1.0,
+      "timestamp_start": "00:15.5",
+      "timestamp_end": "00:16.5",
+      "script_fragment": "And what they came up with",
+      "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 16,
+      "frame": "frame_016.png",
+      "beat_id": "beat_005",
+      "start_time": 16.5,
+      "end_time": 18.0,
+      "duration": 1.5,
+      "timestamp_start": "00:16.5",
+      "timestamp_end": "00:18",
+      "script_fragment": "on those long empty nights",
+      "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 17,
+      "frame": "frame_017.png",
+      "beat_id": "beat_005",
+      "start_time": 18.0,
+      "end_time": 19.5,
+      "duration": 1.5,
+      "timestamp_start": "00:18",
+      "timestamp_end": "00:19.5",
+      "script_fragment": "became music,",
+      "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 18,
+      "frame": "frame_018.png",
+      "beat_id": "beat_005",
+      "start_time": 19.5,
+      "end_time": 20.5,
+      "duration": 1.0,
+      "timestamp_start": "00:19.5",
+      "timestamp_end": "00:20.5",
+      "script_fragment": "games,",
+      "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 19,
+      "frame": "frame_019.png",
+      "beat_id": "beat_005",
+      "start_time": 20.5,
+      "end_time": 21.5,
+      "duration": 1.0,
+      "timestamp_start": "00:20.5",
+      "timestamp_end": "00:21.5",
+      "script_fragment": "and sex.",
+      "narration_context": "And what they came up with on those long empty nights became music, games, and sex.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 20,
+      "frame": "frame_020.png",
+      "beat_id": "beat_006",
+      "start_time": 21.5,
+      "end_time": 23.0,
+      "duration": 1.5,
+      "timestamp_start": "00:21.5",
+      "timestamp_end": "00:23",
+      "script_fragment": "And one of those three quietly turned into a business",
+      "narration_context": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 21,
+      "frame": "frame_021.png",
+      "beat_id": "beat_006",
+      "start_time": 23.0,
+      "end_time": 24.5,
+      "duration": 1.5,
+      "timestamp_start": "00:23",
+      "timestamp_end": "00:24.5",
+      "script_fragment": "we still call the oldest profession on Earth.",
+      "narration_context": "And one of those three quietly turned into a business we still call the oldest profession on Earth.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 22,
+      "frame": "frame_022.png",
+      "beat_id": "beat_007",
+      "start_time": 24.5,
+      "end_time": 26.0,
+      "duration": 1.5,
+      "timestamp_start": "00:24.5",
+      "timestamp_end": "00:26",
+      "script_fragment": "It runs from a bone flute in a freezing cave",
+      "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 23,
+      "frame": "frame_023.png",
+      "beat_id": "beat_007",
+      "start_time": 26.0,
+      "end_time": 27.0,
+      "duration": 1.0,
+      "timestamp_start": "00:26",
+      "timestamp_end": "00:27",
+      "script_fragment": "runs from a bone flute in a freezing cave",
+      "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 24,
+      "frame": "frame_024.png",
+      "beat_id": "beat_007",
+      "start_time": 27.0,
+      "end_time": 28.5,
+      "duration": 1.5,
+      "timestamp_start": "00:27",
+      "timestamp_end": "00:28.5",
+      "script_fragment": "to a Roman brothel where the prices are still scratched on the wall.",
+      "narration_context": "It runs from a bone flute in a freezing cave to a Roman brothel where the prices are still scratched on the wall.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 25,
+      "frame": "frame_025.png",
+      "beat_id": "beat_008",
+      "start_time": 28.5,
+      "end_time": 30.0,
+      "duration": 1.5,
+      "timestamp_start": "00:28.5",
+      "timestamp_end": "00:30",
+      "script_fragment": "To get any of this,",
+      "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 26,
+      "frame": "frame_026.png",
+      "beat_id": "beat_008",
+      "start_time": 30.0,
+      "end_time": 31.5,
+      "duration": 1.5,
+      "timestamp_start": "00:30",
+      "timestamp_end": "00:31.5",
+      "script_fragment": "you have to kill one myth first",
+      "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 27,
+      "frame": "frame_027.png",
+      "beat_id": "beat_008",
+      "start_time": 31.5,
+      "end_time": 33.0,
+      "duration": 1.5,
+      "timestamp_start": "00:31.5",
+      "timestamp_end": "00:33",
+      "script_fragment": "because almost everyone believes the wrong thing about ancient life.",
+      "narration_context": "To get any of this, you have to kill one myth first, because almost everyone believes the wrong thing about ancient life.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 28,
+      "frame": "frame_028.png",
+      "beat_id": "beat_009",
+      "start_time": 33.0,
+      "end_time": 34.5,
+      "duration": 1.5,
+      "timestamp_start": "00:33",
+      "timestamp_end": "00:34.5",
+      "script_fragment": "The myth is that survival never stopped.",
+      "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 29,
+      "frame": "frame_029.png",
+      "beat_id": "beat_009",
+      "start_time": 34.5,
+      "end_time": 36.0,
+      "duration": 1.5,
+      "timestamp_start": "00:34.5",
+      "timestamp_end": "00:36",
+      "script_fragment": "Every hour spent hunting, gathering, running from things.",
+      "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 30,
+      "frame": "frame_030.png",
+      "beat_id": "beat_009",
+      "start_time": 36.0,
+      "end_time": 37.5,
+      "duration": 1.5,
+      "timestamp_start": "00:36",
+      "timestamp_end": "00:37.5",
+      "script_fragment": "Total exhaustion, collapse, repeat.",
+      "narration_context": "The myth is that survival never stopped. Every hour spent hunting, gathering, running from things. Total exhaustion, collapse, repeat.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 31,
+      "frame": "frame_031.png",
+      "beat_id": "beat_010",
+      "start_time": 37.5,
+      "end_time": 39.0,
+      "duration": 1.5,
+      "timestamp_start": "00:37.5",
+      "timestamp_end": "00:39",
+      "script_fragment": "It feels like it must be true.",
+      "narration_context": "It feels like it must be true. It's completely backwards.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 32,
+      "frame": "frame_032.png",
+      "beat_id": "beat_010",
+      "start_time": 39.0,
+      "end_time": 40.5,
+      "duration": 1.5,
+      "timestamp_start": "00:39",
+      "timestamp_end": "00:40.5",
+      "script_fragment": "It's completely backwards.",
+      "narration_context": "It feels like it must be true. It's completely backwards.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 33,
+      "frame": "frame_033.png",
+      "beat_id": "beat_011",
+      "start_time": 40.5,
+      "end_time": 42.0,
+      "duration": 1.5,
+      "timestamp_start": "00:40.5",
+      "timestamp_end": "00:42",
+      "script_fragment": "In the 1960s, an anthropologist named Richard Lee",
+      "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 34,
+      "frame": "frame_034.png",
+      "beat_id": "beat_011",
+      "start_time": 42.0,
+      "end_time": 44.0,
+      "duration": 2.0,
+      "timestamp_start": "00:42",
+      "timestamp_end": "00:44",
+      "script_fragment": "went to the Kalahari Desert to live with the Ju/'hoansi",
+      "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 35,
+      "frame": "frame_035.png",
+      "beat_id": "beat_011",
+      "start_time": 44.0,
+      "end_time": 46.0,
+      "duration": 2.0,
+      "timestamp_start": "00:44",
+      "timestamp_end": "00:46",
+      "script_fragment": "one of the last groups on Earth still living purely as hunter-gatherers.",
+      "narration_context": "In the 1960s, an anthropologist named Richard Lee went to the Kalahari Desert to live with the Ju/'hoansi, one of the last groups on Earth still living purely as hunter-gatherers.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 36,
+      "frame": "frame_036.png",
+      "beat_id": "beat_012",
+      "start_time": 46.0,
+      "end_time": 48.0,
+      "duration": 2.0,
+      "timestamp_start": "00:46",
+      "timestamp_end": "00:48",
+      "script_fragment": "He didn't guess. He timed them.",
+      "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 37,
+      "frame": "frame_037.png",
+      "beat_id": "beat_012",
+      "start_time": 48.0,
+      "end_time": 50.0,
+      "duration": 2.0,
+      "timestamp_start": "00:48",
+      "timestamp_end": "00:50",
+      "script_fragment": "Every hour of work hunting, gathering, making tools.",
+      "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 38,
+      "frame": "frame_038.png",
+      "beat_id": "beat_012",
+      "start_time": 50.0,
+      "end_time": 52.0,
+      "duration": 2.0,
+      "timestamp_start": "00:50",
+      "timestamp_end": "00:52",
+      "script_fragment": "The total came out to about fifteen hours a week.",
+      "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 39,
+      "frame": "frame_039.png",
+      "beat_id": "beat_012",
+      "start_time": 52.0,
+      "end_time": 54.0,
+      "duration": 2.0,
+      "timestamp_start": "00:52",
+      "timestamp_end": "00:54",
+      "script_fragment": "Fifteen.",
+      "narration_context": "He didn't guess. He timed them. Every hour of work hunting, gathering, making tools. The total came out to about fifteen hours a week. Fifteen.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 40,
+      "frame": "frame_040.png",
+      "beat_id": "beat_013",
+      "start_time": 54.0,
+      "end_time": 56.0,
+      "duration": 2.0,
+      "timestamp_start": "00:54",
+      "timestamp_end": "00:56",
+      "script_fragment": "A modern full-time job is forty,",
+      "narration_context": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 41,
+      "frame": "frame_041.png",
+      "beat_id": "beat_013",
+      "start_time": 56.0,
+      "end_time": 58.0,
+      "duration": 2.0,
+      "timestamp_start": "00:56",
+      "timestamp_end": "00:58",
+      "script_fragment": "before the commute, before the chores, before the emails you answer from bed.",
+      "narration_context": "A modern full-time job is forty, before the commute, before the chores, before the emails you answer from bed.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 42,
+      "frame": "frame_042.png",
+      "beat_id": "beat_014",
+      "start_time": 58.0,
+      "end_time": 60.0,
+      "duration": 2.0,
+      "timestamp_start": "00:58",
+      "timestamp_end": "01:00",
+      "script_fragment": "The people we pictured as desperate survivors were working",
+      "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 43,
+      "frame": "frame_043.png",
+      "beat_id": "beat_014",
+      "start_time": 60.0,
+      "end_time": 62.0,
+      "duration": 2.0,
+      "timestamp_start": "01:00",
+      "timestamp_end": "01:02",
+      "script_fragment": "the equivalent of two days a week.",
+      "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 44,
+      "frame": "frame_044.png",
+      "beat_id": "beat_014",
+      "start_time": 62.0,
+      "end_time": 64.0,
+      "duration": 2.0,
+      "timestamp_start": "01:02",
+      "timestamp_end": "01:04",
+      "script_fragment": "Two. Days.",
+      "narration_context": "The people we pictured as desperate survivors were working the equivalent of two days a week. Two. Days.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 45,
+      "frame": "frame_045.png",
+      "beat_id": "beat_015",
+      "start_time": 64.0,
+      "end_time": 66.0,
+      "duration": 2.0,
+      "timestamp_start": "01:04",
+      "timestamp_end": "01:06",
+      "script_fragment": "The rest of that time belonged entirely to them.",
+      "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 46,
+      "frame": "frame_046.png",
+      "beat_id": "beat_015",
+      "start_time": 66.0,
+      "end_time": 68.0,
+      "duration": 2.0,
+      "timestamp_start": "01:06",
+      "timestamp_end": "01:08",
+      "script_fragment": "And they weren't spending it staring at walls.",
+      "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 47,
+      "frame": "frame_047.png",
+      "beat_id": "beat_015",
+      "start_time": 68.0,
+      "end_time": 70.0,
+      "duration": 2.0,
+      "timestamp_start": "01:08",
+      "timestamp_end": "01:10",
+      "script_fragment": "They were hanging out, gossiping, singing, telling stories.",
+      "narration_context": "The rest of that time belonged entirely to them. And they weren't spending it staring at walls. They were hanging out, gossiping, singing, telling stories.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 48,
+      "frame": "frame_048.png",
+      "beat_id": "beat_016",
+      "start_time": 70.0,
+      "end_time": 72.0,
+      "duration": 2.0,
+      "timestamp_start": "01:10",
+      "timestamp_end": "01:12",
+      "script_fragment": "Here is what happens when you take a human brain",
+      "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 49,
+      "frame": "frame_049.png",
+      "beat_id": "beat_016",
+      "start_time": 72.0,
+      "end_time": 74.0,
+      "duration": 2.0,
+      "timestamp_start": "01:12",
+      "timestamp_end": "01:14",
+      "script_fragment": "with all its pattern recognition, its problem solving, its raw nervous energy",
+      "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 50,
+      "frame": "frame_050.png",
+      "beat_id": "beat_016",
+      "start_time": 74.0,
+      "end_time": 76.0,
+      "duration": 2.0,
+      "timestamp_start": "01:14",
+      "timestamp_end": "01:16",
+      "script_fragment": "and you give it six empty hours by a fire every single night.",
+      "narration_context": "Here is what happens when you take a human brain with all its pattern recognition, its problem solving, its raw nervous energy, and you give it six empty hours by a fire every single night.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 51,
+      "frame": "frame_051.png",
+      "beat_id": "beat_017",
+      "start_time": 76.0,
+      "end_time": 78.0,
+      "duration": 2.0,
+      "timestamp_start": "01:16",
+      "timestamp_end": "01:18",
+      "script_fragment": "It doesn't sit quietly.",
+      "narration_context": "It doesn't sit quietly. It can't.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 52,
+      "frame": "frame_052.png",
+      "beat_id": "beat_017",
+      "start_time": 78.0,
+      "end_time": 80.0,
+      "duration": 2.0,
+      "timestamp_start": "01:18",
+      "timestamp_end": "01:20",
+      "script_fragment": "It can't.",
+      "narration_context": "It doesn't sit quietly. It can't.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 53,
+      "frame": "frame_053.png",
+      "beat_id": "beat_018",
+      "start_time": 80.0,
+      "end_time": 82.0,
+      "duration": 2.0,
+      "timestamp_start": "01:20",
+      "timestamp_end": "01:22",
+      "script_fragment": "A brain that solves problems all day doesn't shut off just because the sun went down.",
+      "narration_context": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 54,
+      "frame": "frame_054.png",
+      "beat_id": "beat_018",
+      "start_time": 82.0,
+      "end_time": 85.0,
+      "duration": 3.0,
+      "timestamp_start": "01:22",
+      "timestamp_end": "01:25",
+      "script_fragment": "It looks around. It fidgets. It plays.",
+      "narration_context": "A brain that solves problems all day doesn't shut off just because the sun went down. It looks around. It fidgets. It plays.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 55,
+      "frame": "frame_055.png",
+      "beat_id": "beat_019",
+      "start_time": 85.0,
+      "end_time": 88.0,
+      "duration": 3.0,
+      "timestamp_start": "01:25",
+      "timestamp_end": "01:28",
+      "script_fragment": "Night after night, season after season, thousands of years before the first city,",
+      "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 56,
+      "frame": "frame_056.png",
+      "beat_id": "beat_019",
+      "start_time": 88.0,
+      "end_time": 89.5,
+      "duration": 1.5,
+      "timestamp_start": "01:28",
+      "timestamp_end": "01:29.5",
+      "script_fragment": "Restless brains, capable hands, and empty time",
+      "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 57,
+      "frame": "frame_057.png",
+      "beat_id": "beat_019",
+      "start_time": 89.5,
+      "end_time": 91.5,
+      "duration": 2.0,
+      "timestamp_start": "01:29.5",
+      "timestamp_end": "01:31.5",
+      "script_fragment": "alltogether in the firelight. That combination is an engine.",
+      "narration_context": "Night after night, season after season, thousands of years before the first city, restless brains, capable hands, and empty time altogether in the firelight. That combination is an engine.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 58,
+      "frame": "frame_058.png",
+      "beat_id": "beat_020",
+      "start_time": 91.5,
+      "end_time": 94.0,
+      "duration": 2.5,
+      "timestamp_start": "01:31.5",
+      "timestamp_end": "01:34",
+      "script_fragment": "It has to make something.",
+      "narration_context": "It has to make something.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 59,
+      "frame": "frame_059.png",
+      "beat_id": "beat_020",
+      "start_time": 94.0,
+      "end_time": 95.5,
+      "duration": 1.5,
+      "timestamp_start": "01:34",
+      "timestamp_end": "01:35.5",
+      "script_fragment": "It has to make something.",
+      "narration_context": "It has to make something.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 60,
+      "frame": "frame_060.png",
+      "beat_id": "beat_021",
+      "start_time": 95.5,
+      "end_time": 97.0,
+      "duration": 1.5,
+      "timestamp_start": "01:35.5",
+      "timestamp_end": "01:37",
+      "script_fragment": "And the first thing it made was music.",
+      "narration_context": "And the first thing it made was music.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 61,
+      "frame": "frame_061.png",
+      "beat_id": "beat_021",
+      "start_time": 97.0,
+      "end_time": 99.0,
+      "duration": 2.0,
+      "timestamp_start": "01:37",
+      "timestamp_end": "01:39",
+      "script_fragment": "And the first thing it made was music.",
+      "narration_context": "And the first thing it made was music.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 62,
+      "frame": "frame_062.png",
+      "beat_id": "beat_022",
+      "start_time": 99.0,
+      "end_time": 102.0,
+      "duration": 3.0,
+      "timestamp_start": "01:39",
+      "timestamp_end": "01:42",
+      "script_fragment": "In the caves of southwestern Germany, forty thousand years ago,",
+      "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 63,
+      "frame": "frame_063.png",
+      "beat_id": "beat_022",
+      "start_time": 102.0,
+      "end_time": 105.0,
+      "duration": 3.0,
+      "timestamp_start": "01:42",
+      "timestamp_end": "01:45",
+      "script_fragment": "humans sat in freezing darkness and carved flutes.",
+      "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 64,
+      "frame": "frame_064.png",
+      "beat_id": "beat_022",
+      "start_time": 105.0,
+      "end_time": 107.0,
+      "duration": 2.0,
+      "timestamp_start": "01:45",
+      "timestamp_end": "01:47",
+      "script_fragment": "Not rough noisemakers. Instruments.",
+      "narration_context": "In the caves of southwestern Germany, forty thousand years ago, humans sat in freezing darkness and carved flutes. Not rough noisemakers. Instruments.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 65,
+      "frame": "frame_065.png",
+      "beat_id": "beat_023",
+      "start_time": 107.0,
+      "end_time": 109.0,
+      "duration": 2.0,
+      "timestamp_start": "01:47",
+      "timestamp_end": "01:49",
+      "script_fragment": "The flute is made from the radius bone of a griffon vulture",
+      "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 66,
+      "frame": "frame_066.png",
+      "beat_id": "beat_023",
+      "start_time": 109.0,
+      "end_time": 110.0,
+      "duration": 1.0,
+      "timestamp_start": "01:49",
+      "timestamp_end": "01:50",
+      "script_fragment": "with precisely placed holes.",
+      "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 67,
+      "frame": "frame_067.png",
+      "beat_id": "beat_023",
+      "start_time": 110.0,
+      "end_time": 111.0,
+      "duration": 1.0,
+      "timestamp_start": "01:50",
+      "timestamp_end": "01:51",
+      "script_fragment": "Five of them.",
+      "narration_context": "The flute is made from the radius bone of a griffon vulture with precisely placed holes. Five of them.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 68,
+      "frame": "frame_068.png",
+      "beat_id": "beat_024",
+      "start_time": 111.0,
+      "end_time": 113.0,
+      "duration": 2.0,
+      "timestamp_start": "01:51",
+      "timestamp_end": "01:53",
+      "script_fragment": "Then they lift it, blow,",
+      "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 69,
+      "frame": "frame_069.png",
+      "beat_id": "beat_024",
+      "start_time": 113.0,
+      "end_time": 115.0,
+      "duration": 2.0,
+      "timestamp_start": "01:53",
+      "timestamp_end": "01:55",
+      "script_fragment": "and a clear note fills the cave.",
+      "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 70,
+      "frame": "frame_070.png",
+      "beat_id": "beat_024",
+      "start_time": 115.0,
+      "end_time": 117.0,
+      "duration": 2.0,
+      "timestamp_start": "01:55",
+      "timestamp_end": "01:57",
+      "script_fragment": "and a clear note fills the cave.",
+      "narration_context": "Then they lift it, blow, and a clear note fills the cave.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 71,
+      "frame": "frame_071.png",
+      "beat_id": "beat_025",
+      "start_time": 117.0,
+      "end_time": 119.0,
+      "duration": 2.0,
+      "timestamp_start": "01:57",
+      "timestamp_end": "01:59",
+      "script_fragment": "This isn't a guess.",
+      "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 72,
+      "frame": "frame_072.png",
+      "beat_id": "beat_025",
+      "start_time": 119.0,
+      "end_time": 121.0,
+      "duration": 2.0,
+      "timestamp_start": "01:59",
+      "timestamp_end": "02:01",
+      "script_fragment": "In 2008, an archaeologist named Nicholas Connard",
+      "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 73,
+      "frame": "frame_073.png",
+      "beat_id": "beat_025",
+      "start_time": 121.0,
+      "end_time": 123.0,
+      "duration": 2.0,
+      "timestamp_start": "02:01",
+      "timestamp_end": "02:03",
+      "script_fragment": "was digging in a cave called Hols",
+      "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 74,
+      "frame": "frame_074.png",
+      "beat_id": "beat_025",
+      "start_time": 123.0,
+      "end_time": 125.0,
+      "duration": 2.0,
+      "timestamp_start": "02:03",
+      "timestamp_end": "02:05",
+      "script_fragment": "when his team pulled 12 fragments of bone out of the ground.",
+      "narration_context": "This isn't a guess. In 2008, an archaeologist named Nicholas Conard was digging in a cave called Hohle Fels when his team pulled 12 fragments of bone out of the ground.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 75,
+      "frame": "frame_075.png",
+      "beat_id": "beat_026",
+      "start_time": 125.0,
+      "end_time": 126.5,
+      "duration": 1.5,
+      "timestamp_start": "02:05",
+      "timestamp_end": "02:06.5",
+      "script_fragment": "Fitted back together, they formed a flute,",
+      "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 76,
+      "frame": "frame_076.png",
+      "beat_id": "beat_026",
+      "start_time": 126.5,
+      "end_time": 128.0,
+      "duration": 1.5,
+      "timestamp_start": "02:06.5",
+      "timestamp_end": "02:08",
+      "script_fragment": "the wing bone of a griffin vulture,",
+      "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 77,
+      "frame": "frame_077.png",
+      "beat_id": "beat_026",
+      "start_time": 128.0,
+      "end_time": 131.0,
+      "duration": 3.0,
+      "timestamp_start": "02:08",
+      "timestamp_end": "02:11",
+      "script_fragment": "five finger holes, a carved mouthpiece",
+      "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 78,
+      "frame": "frame_078.png",
+      "beat_id": "beat_026",
+      "start_time": 131.0,
+      "end_time": 133.0,
+      "duration": 2.0,
+      "timestamp_start": "02:11",
+      "timestamp_end": "02:13",
+      "script_fragment": "about as long as your forearm,",
+      "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 79,
+      "frame": "frame_079.png",
+      "beat_id": "beat_026",
+      "start_time": 133.0,
+      "end_time": 135.0,
+      "duration": 2.0,
+      "timestamp_start": "02:13",
+      "timestamp_end": "02:15",
+      "script_fragment": "and roughly 40,000 years old.",
+      "narration_context": "Fitted back together, they formed a flute: the wing bone of a griffon vulture, five finger holes, a carved mouthpiece about as long as your forearm, and roughly 40,000 years old.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    },
+    {
+      "frame_number": 80,
+      "frame": "frame_080.png",
+      "beat_id": "beat_027",
+      "start_time": 135.0,
+      "end_time": 137.0,
+      "duration": 2.0,
+      "timestamp_start": "02:15",
+      "timestamp_end": "02:17",
+      "script_fragment": "In another cave close by, they found more. Carved from swan bone",
+      "narration_context": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "transition": {
+        "type": "crossfade",
+        "duration": 0.3
+      }
+    },
+    {
+      "frame_number": 81,
+      "frame": "frame_081.png",
+      "beat_id": "beat_027",
+      "start_time": 137.0,
+      "end_time": 139.0,
+      "duration": 2.0,
+      "timestamp_start": "02:17",
+      "timestamp_end": "02:19",
+      "script_fragment": "and mammoth ivory dated as far back as 43,000 years.",
+      "narration_context": "In another cave close by, they found more. Carved from swan bone and mammoth ivory dated as far back as 43,000 years.",
+      "transition": {
+        "type": "cut",
+        "duration": 0.0
+      }
+    }
+  ]
+}
