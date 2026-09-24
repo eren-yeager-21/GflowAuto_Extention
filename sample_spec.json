@@ -1,7 +1,9 @@
 {
   "project_name": "Ancient Humans Pleasure",
+  "collection_url": "",
   "default_model": "Nano Banana 2",
   "default_aspect_ratio": "16:9",
+  "project_dir": "ancient_humans_scenes",
   "output_folder": "ancient_humans_scenes",
   "characters": [
     {
@@ -16,8 +18,8 @@
     },
     {
       "id": "CHAR_FEMALE",
-      "name": "women_early_human",
-      "flow_tag": "@women_early_human"
+      "name": "female_early_human",
+      "flow_tag": "@female_early_human"
     },
     {
       "id": "CHAR_COMMON",

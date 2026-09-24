@@ -2,6 +2,7 @@
   "project_name": "Ancient Humans Pleasure - Character Suite",
   "default_model": "Nano Banana 2",
   "default_aspect_ratio": "16:9",
+  "project_dir": "ancient_humans_scenes",
   "output_folder": "ancient_humans_scenes",
   "characters": [
     {
@@ -22,7 +23,7 @@
       "id": "CHAR_PALEO_WOMAN",
       "name": "Early_women_stickfigure",
       "flow_tag": "@Early_women_stickfigure",
-      "reference_image": "women_early_human",
+      "reference_image": "female_early_human",
       "character_prompt": "Minimalist black ink line art stick figure female hunter-gatherer with animal fur garment and gathered hair silhouette. Clean bold outlines, flat color fills, zero gradients, pure white background."
     },
     {

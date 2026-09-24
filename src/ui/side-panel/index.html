@@ -19,10 +19,39 @@
     <script type="module" crossorigin src="../../../assets/index.html-YcmfxOFZ.js"></script>
   </head>
   <body>
-    <div id="panel-tab-bar" class="panel-tab-bar">
-      <button id="tab-btn-spec" class="panel-tab-btn active">🎬 Spec Pipeline</button>
-      <button id="tab-btn-classic" class="panel-tab-btn">⚡ Classic Batch</button>
-    </div>
+    <header class="app-top-header">
+      <div class="header-branding">
+        <div class="app-icon-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+            <path d="M9 3v18"/>
+            <path d="M3 9h18"/>
+            <path d="M3 15h18"/>
+          </svg>
+        </div>
+        <span class="app-title">Flow Studio</span>
+        <span class="version-badge">ext v2.4</span>
+      </div>
+
+      <div id="panel-tab-bar" class="panel-tab-bar">
+        <button id="tab-btn-spec" class="panel-tab-btn active">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Spec Pipeline</span>
+          <span class="tab-active-dot"></span>
+        </button>
+        <button id="tab-btn-classic" class="panel-tab-btn">
+          <span>⚡</span> Classic Batch
+        </button>
+      </div>
+
+      <div class="header-right">
+        <div class="bridge-status-pill">
+          <span class="bridge-status-dot"></span>
+          <span>Flow Bridge Active</span>
+        </div>
+      </div>
+    </header>
+
     <div id="spec-container" class="panel-view active" style="display: block;">
       <div id="spec-pipeline-app"></div>
     </div>
@@ -30,7 +59,6 @@
       <div id="app"></div>
     </div>
     <script src="./flow-destination.js"></script>
-    <script src="./pipeline-concurrency.js"></script>
     <script type="module" src="./spec-pipeline.js"></script>
   </body>
 </html>
