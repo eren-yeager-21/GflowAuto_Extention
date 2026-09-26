@@ -2,6 +2,7 @@
 
 (function () {
   const flowDestination = globalThis.FlowDestination;
+  const concurrency = globalThis.PipelineConcurrency;
   if (!flowDestination) {
     throw new Error('Flow destination helper was not loaded.');
   }
@@ -11,6 +12,8 @@
   let pipelineRunning = false;
   let pipelinePaused = false;
   let activeFrameIndex = -1;
+  let activeBatch = null;
+  let pipelineTargetTab = null;
   let activeFilter = 'all'; // 'all' | 'pending' | 'completed' (NO 'anchors')
   let searchQuery = '';
 
@@ -35,6 +38,7 @@
 
   function log(...args) {
     console.log('[SpecPipeline]', ...args);
+    globalThis.PipelineTools?.log(...args);
   }
 
   // Persistent Keep-Alive Port to Background Service Worker
@@ -120,6 +124,8 @@
       last_updated: new Date().toISOString(),
       default_model: currentSpec.default_model,
       default_aspect_ratio: currentSpec.default_aspect_ratio,
+      max_parallel_generations: currentSpec.max_parallel_generations,
+      max_retries: currentSpec.max_retries,
       output_folder: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
       project_dir: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
       characters: currentSpec.characters.map(c => ({
@@ -148,6 +154,8 @@
         result_url: v.result_url || null,
         completed_at: v.completed_at || null,
         error: v.error || null,
+        retryable: v.retryable,
+        flow_submission: v.flow_submission || null,
         reference_instructions: v.reference_instructions || [],
         formatted_reference_guidance: v.formatted_reference_guidance || null
       })),
@@ -269,13 +277,14 @@
     if (rawRef) {
       const cleanRef = String(rawRef).replace(/\(.*?\)/g, '').trim();
       const matched = currentSpec.visuals.find(v => 
-        v.id === cleanRef || 
+        v.id === cleanRef ||
+        `${v.id}.png` === cleanRef ||
         v.target_filename === cleanRef || 
         v.target_filename === `${cleanRef}.png` ||
         (v.frame_number && String(v.frame_number) === cleanRef) ||
         (v.frame_number && `frame_${String(v.frame_number).padStart(3, '0')}` === cleanRef)
       );
-      if (matched) return matched;
+      return matched || null;
     }
     if (frame.continuity === 'continue' && frameIndex > 0 && currentSpec.visuals[frameIndex - 1]) {
       return currentSpec.visuals[frameIndex - 1];
@@ -741,6 +750,8 @@
       collection_tab_id: Number.isInteger(raw.collection_tab_id) ? raw.collection_tab_id : null,
       default_model: raw.default_model || raw.model || (raw.global_settings && raw.global_settings.model) || "Nano Banana 2",
       default_aspect_ratio: raw.default_aspect_ratio || raw.aspect_ratio || (raw.global_settings && raw.global_settings.aspect_ratio) || "16:9",
+      max_parallel_generations: concurrency.normalizeMaxParallel(raw.max_parallel_generations ?? raw.parallel_gen_value ?? raw.global_settings?.max_parallel_generations),
+      max_retries: concurrency.normalizeMaxParallel(raw.max_retries ?? raw.global_settings?.max_retries ?? 3),
       output_folder: projectDir,
       characters: [],
       visuals: []
@@ -830,6 +841,8 @@
         result_url: v.result_url || null,
         completed_at: v.completed_at || null,
         error: v.error || null,
+        retryable: v.retryable,
+        flow_submission: v.flow_submission || (status === 'generating' || (status === 'error' && /Failed to fill prompt|Timed out waiting for Flow to accept/i.test(v.error || '')) ? { state: 'unknown' } : null),
         reference_statement: referenceStatement,
         reference_instructions: refInstructions,
         formatted_reference_guidance: v.formatted_reference_guidance || null
@@ -848,11 +861,13 @@
     });
     savePipelineMapping();
     renderPipelineDashboard();
+    globalThis.PipelineTools?.record('info', `Loaded ${spec.project_name} (${spec.visuals.length} frames).`);
     checkFlowCharacters();
   }
 
   function renderPipelineDashboard() {
     if (!currentSpec) return;
+    globalThis.PipelineTools?.refresh();
 
     const completedCount = currentSpec.visuals.filter(v => v.status === 'completed').length;
     const totalCount = currentSpec.visuals.length;
@@ -936,6 +951,11 @@
         <div class="pipeline-progress-track">
           <div class="pipeline-progress-bar" id="pipeline-progress-bar" style="width: ${percentFinished}%;"></div>
         </div>
+        <label class="parallel-generations-control" for="parallel-generations-input">
+          Parallel generations
+          <input id="parallel-generations-input" type="number" min="1" step="1" value="${currentSpec.max_parallel_generations}" ${pipelineRunning ? 'disabled' : ''} />
+          <span>Dependent frames run sequentially</span>
+        </label>
         <div class="pipeline-action-buttons">
           <button class="btn-start-pipeline" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
             ${pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
@@ -972,7 +992,7 @@
           <span class="badge-sequence-count">${totalCount} Frames</span>
         </div>
         <div class="sequence-header-actions">
-          <button class="btn-dark-pill" id="btn-sync-tiles" title="Scan open Flow project to auto-map generated tile titles">🔄 Sync Flow Titles</button>
+          <button class="btn-dark-pill" id="btn-sync-tiles" title="Recover uniquely matching generated images from the open Flow project">🔄 Sync Flow Images</button>
           <button class="btn-add-frame" id="btn-add-frame" style="padding: 5px 12px; font-size: 11px;">+ Add Frame</button>
         </div>
       </div>
@@ -1080,7 +1100,8 @@
       const idx = currentSpec.visuals.indexOf(f);
       const flowTitle = f.flow_tile_title || getLocalFrameTitle(f.target_filename) || '';
       const refTitle = resolveFlowTileTitleForFrame(f, idx);
-      const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
+      const referencedVisual = resolveReferencedVisual(f, idx);
+      const isAnchor = !concurrency.isDependentFrame(f);
       const refLabel = f.frame_reference || (currentSpec.visuals[idx - 1] ? currentSpec.visuals[idx - 1].target_filename : 'Previous Frame');
       const timeStr = formatFrameDuration(f.timestamp_start, f.timestamp_end);
       const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
@@ -1094,7 +1115,7 @@
             ${isAnchor ? `
               <span class="continuity-pill anchor">• Anchor (New Scene)</span>
             ` : `
-              <span class="continuity-pill chained">🔗 Chains Frame #${f.frame_number > 1 ? f.frame_number - 1 : 1}</span>
+              <span class="continuity-pill chained">🔗 References ${escapeHtml(referencedVisual ? `Frame #${referencedVisual.frame_number}` : refLabel)}</span>
             `}
             ${timeStr ? `<span class="timestamp-pill">${escapeHtml(timeStr)}</span>` : ''}
           </div>
@@ -1103,6 +1124,8 @@
             <span>${f.status === 'generating' ? `Generating ${f.progress}%` : f.status === 'completed' ? 'Completed' : f.status === 'error' ? 'Failed' : 'Pending'}</span>
           </div>
         </div>
+
+        <div class="frame-error-message" id="frame-error-${idx}" role="alert" style="display: ${f.status === 'error' && f.error ? 'block' : 'none'};">${escapeHtml(f.error || '')}</div>
 
         <!-- Narration Script Box -->
         ${f.verbatim_script ? `
@@ -1318,6 +1341,12 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     const btnDownloadAll = document.getElementById('btn-download-all');
     const collectionUrlInput = document.getElementById('collection-url-input');
     const btnUseOpenFlow = document.getElementById('btn-use-open-flow');
+    const parallelInput = document.getElementById('parallel-generations-input');
+    if (parallelInput) parallelInput.addEventListener('change', () => {
+      currentSpec.max_parallel_generations = concurrency.normalizeMaxParallel(parallelInput.value);
+      parallelInput.value = currentSpec.max_parallel_generations;
+      savePipelineMapping();
+    });
 
     if (collectionUrlInput) {
       collectionUrlInput.addEventListener('change', () => saveCollectionDestination(collectionUrlInput.value));
@@ -1333,9 +1362,11 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
 
     if (btnReset) {
       btnReset.addEventListener('click', () => {
+        if (pipelineRunning) return;
         savePipelineMapping();
         currentSpec = null;
         renderUploadScreen();
+        globalThis.PipelineTools?.refresh();
       });
     }
 
@@ -1725,35 +1756,48 @@ function createSingleCharacter(charId) {
       const tiles = response.tiles;
       let matchedCount = 0;
 
-      currentSpec.visuals.forEach((v) => {
-        if (v.flow_tile_title && !/^(frame_\d+\.png|test_frame_\d+\.png)$/i.test(v.flow_tile_title)) {
-          registerLocalFrameTitle(v.target_filename, v.flow_tile_title);
+      let ambiguousCount = 0;
+      const normalizeTitle = value => String(value || '').replace(/(?:\u2026|\.{2,})$/, '').toLowerCase().replace(/\s+/g, ' ').trim();
+      const urlOwners = new Map(currentSpec.visuals.filter(v => v.result_url).map(v => [v.result_url, v]));
+      currentSpec.visuals.forEach(v => {
+        if (v.status === 'completed' && v.result_url) return;
+        const expected = normalizeTitle(v.flow_tile_title);
+        const prompt = normalizeTitle(v.prompt);
+        const candidates = tiles.filter(tile => {
+          const title = normalizeTitle(tile.title);
+          if (!tile.imgSrc || !title) return false;
+          if (v.flow_submission?.tileId) return tile.tileId === v.flow_submission.tileId;
+          if (expected && !/^(?:test_)?frame_\d+(?:\.png)?$/.test(expected)) {
+            return title === expected || (expected.length >= 12 && title.startsWith(expected));
+          }
+          return title.length > 5 && prompt.includes(title);
+        });
+        // Do not guess between duplicate generations or reassign another frame's image.
+        if (candidates.length > 1 || (candidates.length === 1 && urlOwners.has(candidates[0].imgSrc) && urlOwners.get(candidates[0].imgSrc) !== v)) {
+          ambiguousCount++;
           return;
         }
-
-        const promptLower = (v.prompt || '').toLowerCase();
-        const matchedTile = tiles.find(t => {
-          const cleanT = t.title.replace(/(\u2026|\.{3})$/, '').toLowerCase().trim();
-          return cleanT.length > 5 && promptLower.includes(cleanT);
-        });
-
-        if (matchedTile) {
-          v.flow_tile_title = matchedTile.title;
-          registerLocalFrameTitle(v.target_filename, matchedTile.title);
-          if (matchedTile.imgSrc && !v.result_url) {
-            v.result_url = matchedTile.imgSrc;
-            v.status = 'completed';
-            v.progress = 100;
-          }
-          matchedCount++;
-        }
+        const matched = candidates[0];
+        if (!matched) return;
+        v.flow_tile_title = matched.title;
+        v.result_url = matched.imgSrc;
+        v.status = 'completed';
+        v.progress = 100;
+        v.completed_at = new Date().toISOString();
+        v.error = null;
+        v.retryable = false;
+        v.flow_submission = null;
+        urlOwners.set(matched.imgSrc, v);
+        registerLocalFrameTitle(v.target_filename, matched.title);
+        registerLocalFrameTitle(v.id, matched.title);
+        matchedCount++;
       });
 
       updateProjectStats();
       updateUIStatus();
       renderPipelineDashboard();
       savePipelineMapping();
-      alert(`Synced with Flow! ${matchedCount} tile title(s) mapped.`);
+      alert(`Recovered ${matchedCount} existing Flow image(s).${ambiguousCount ? ` ${ambiguousCount} frame(s) have ambiguous or already assigned images; edit their Flow Title to the exact unique tile title and sync again.` : ""}`);
   }
 
   function checkFlowCharacters() {
@@ -1788,335 +1832,312 @@ function createSingleCharacter(charId) {
     });
   }
 
-  // Sequential generation loop with automatic resumption
+  function frameReferenceImages(frame, index) {
+    if (!concurrency.isDependentFrame(frame)) return [];
+    const reference = resolveReferencedVisual(frame, index);
+    if (!reference || reference === frame || reference.status !== 'completed' || !reference.result_url) {
+      throw new Error(`Frame #${index + 1} requires a completed reference frame (${frame.frame_reference || 'previous frame'}).`);
+    }
+    return [{
+      name: resolveFlowTileTitleForFrame(frame, index) || reference.target_filename,
+      referenceExistingOnly: true
+    }];
+  }
+
   async function startPipeline() {
     if (!currentSpec || pipelineRunning) return;
-
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
       alert('Enter a valid Google Flow collection URL before starting.');
       return;
     }
-
-    try {
-      await getFlowTargetTab();
-    } catch (error) {
-      setCollectionDestinationStatus(error.message, true);
-      alert(error.message);
-      return;
-    }
-
+    // Lock the run while resolving the destination, too, to prevent double starts.
     pipelineRunning = true;
     pipelinePaused = false;
-
     updateUIStatus();
-    // Iterate through pending frames
-    for (let i = 0; i < currentSpec.visuals.length; i++) {
-      if (pipelinePaused) {
-        break;
-      }
-
-      const frame = currentSpec.visuals[i];
-      if (frame.status === 'completed') continue;
-
-      activeFrameIndex = i;
-      frame.status = 'generating';
-      frame.progress = 5;
-      updateFrameCard(i);
-
-      // Check if reference from previous frame or frame_reference is needed
-      let refImages = [];
-      let refFrameVisual = null;
-      if (frame.frame_reference) {
-        const cleanRef = String(frame.frame_reference).replace(/\(.*?\)/g, '').trim();
-        refFrameVisual = currentSpec.visuals.find(v => 
-          v.id === cleanRef || 
-          v.target_filename === cleanRef || 
-          v.target_filename === `${cleanRef}.png` ||
-          (v.frame_number && String(v.frame_number) === cleanRef) ||
-          (v.frame_number && `frame_${String(v.frame_number).padStart(3, '0')}` === cleanRef)
-        );
-      } else if (frame.continuity === 'continue' && i > 0) {
-        refFrameVisual = currentSpec.visuals[i - 1];
-      }
-
-      // Resolve the actual Google Flow tile title for tagging reference frame
-      const resolvedRefTitle = resolveFlowTileTitleForFrame(frame, i);
-
-      if (refFrameVisual) {
-        const refNameForFlow = resolvedRefTitle || refFrameVisual.target_filename;
-        if (refFrameVisual.result_url) {
-          refImages.push({
-            name: refNameForFlow,
-            base64: refFrameVisual.result_url
-          });
-        } else if (refFrameVisual.target_filename) {
-          refImages.push({
-            name: refNameForFlow,
-            referenceExistingOnly: true
-          });
+    try {
+      pipelineTargetTab = await getFlowTargetTab();
+      globalThis.PipelineTools?.record('info', 'Pipeline started.', { tabId: pipelineTargetTab.id,
+        details: { parallelGenerations: currentSpec.max_parallel_generations, maximumAttempts: currentSpec.max_retries } });
+      const plan = concurrency.buildExecutionPlan(currentSpec.visuals);
+      for (const step of plan) {
+        if (pipelinePaused) break;
+        const indexes = step.type === 'independent' ? step.indexes : [step.index];
+        for (let attempt = 1; attempt <= currentSpec.max_retries; attempt++) {
+          if (pipelinePaused) break;
+          const pending = indexes.filter(index => currentSpec.visuals[index].status !== 'completed');
+          if (!pending.length) break;
+          // Resolve references here, after the preceding batch has completed.
+          const payloads = pending.map(index => buildFramePayload(currentSpec.visuals[index], frameReferenceImages(currentSpec.visuals[index], index), index));
+          const ok = await executeFrameBatch(payloads, step.type === 'dependent' ? 1 : currentSpec.max_parallel_generations);
+          if (ok || pipelinePaused) break;
+          // An accepted image with a tracking/download problem must be resumed,
+          // and an uncertain click must be reconciled, never regenerated here.
+          if (pending.some(index => currentSpec.visuals[index].status !== 'completed' && currentSpec.visuals[index].retryable === false)) break;
+          log(`Retrying unfinished frames (attempt ${attempt}/${currentSpec.max_retries}).`);
+        }
+        if (indexes.some(index => currentSpec.visuals[index].status !== 'completed')) {
+          pipelinePaused = true;
+          break;
         }
       }
-
-      // Ensure reference guidance is updated dynamically with the latest Flow title
-      frame.prompt = frame.prompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
-      frame.formatted_reference_guidance = formatReferenceGuidance(frame, i);
-
-
-      // Execute frame generation with automatic per-frame retries
-      const maxRetries = currentSpec.max_retries || currentSpec.global_settings?.max_retries || 3;
-      let frameSuccess = false;
-
-      for (let attempt = 1; attempt <= maxRetries; attempt++) {
-        if (pipelinePaused || !pipelineRunning) break;
-
-        if (attempt > 1) {
-          log(`🔄 Retrying Frame #${i + 1} (Attempt ${attempt}/${maxRetries})...`);
-          frame.progress = 10;
-          updateFrameCard(i);
-          await new Promise(r => setTimeout(r, 2000));
-        }
-
-        try {
-          const success = await executeFrameGeneration(frame, refImages, i);
-          if (success) {
-            frame.status = 'completed';
-            frame.progress = 100;
-            frame.completed_at = new Date().toISOString();
-            frameSuccess = true;
-            break;
-          } else {
-            log(`⚠️ Frame #${i + 1} attempt ${attempt} failed.`);
-          }
-        } catch (err) {
-          log(`⚠️ Frame #${i + 1} attempt ${attempt} error: ${err?.message || err}`);
-        }
+    } catch (error) {
+      pipelinePaused = true;
+      const index = currentSpec.visuals.findIndex(frame => frame.status !== 'completed');
+      if (index >= 0) {
+        currentSpec.visuals[index].status = 'error';
+        currentSpec.visuals[index].error = error.message;
+        updateFrameCard(index);
       }
-
-      if (!frameSuccess) {
-        frame.status = 'error';
-        pipelineRunning = false;
-        pipelinePaused = true;
-        log(`❌ Frame #${i + 1} failed after ${maxRetries} attempts. Pipeline paused to maintain sequence continuity.`);
-        updateFrameCard(i);
-        updateProjectStats();
-        savePipelineMapping();
-        break;
-      }
-
-      updateFrameCard(i);
+      setCollectionDestinationStatus(error.message, true);
+      globalThis.PipelineTools?.record('error', error.message);
+    } finally {
+      pipelineRunning = false;
+      pipelineTargetTab = null;
+      updateUIStatus();
       updateProjectStats();
       savePipelineMapping();
-
-      if (!pipelineRunning) break;
-      await new Promise(r => setTimeout(r, 1200));
+      log(pipelinePaused ? 'Pipeline paused.' : 'Pipeline finished.');
     }
-
-    pipelineRunning = false;
-    updateUIStatus();
-    log("Pipeline finished");
-    savePipelineMapping();
   }
 
   function pausePipeline() {
     pipelinePaused = true;
-    pipelineRunning = false;
+    globalThis.PipelineTools?.record('warn', 'Pause requested. Stopping new submissions.', { groupId: activeBatch?.id, tabId: activeBatch?.tabId });
+    if (activeBatch) {
+      chrome.tabs.sendMessage(activeBatch.tabId, {
+        type: 'CANCEL_PROMPT_GROUP', groupId: activeBatch.id
+      }, () => { void chrome.runtime.lastError; });
+    }
+    // Keep the run locked until the content submitter acknowledges cancellation.
     updateUIStatus();
     savePipelineMapping();
   }
 
   async function regenerateSingleFrame(idx) {
     if (!currentSpec || pipelineRunning) return;
-
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
       alert('Enter a valid Google Flow collection URL before generating.');
       return;
     }
-
-    try {
-      await getFlowTargetTab();
-    } catch (error) {
-      setCollectionDestinationStatus(error.message, true);
-      alert(error.message);
-      return;
-    }
-
+    pipelineRunning = true;
+    pipelinePaused = false;
+    updateUIStatus();
     const frame = currentSpec.visuals[idx];
-    frame.status = 'generating';
-    frame.progress = 5;
-    updateFrameCard(idx);
-
-    let refImages = [];
-    let refFrameVisual = null;
-    if (frame.frame_reference) {
-      const cleanRef = String(frame.frame_reference).replace(/\(.*?\)/g, '').trim();
-      refFrameVisual = currentSpec.visuals.find(v => 
-        v.id === cleanRef || 
-        v.target_filename === cleanRef || 
-        v.target_filename === `${cleanRef}.png` ||
-        (v.frame_number && String(v.frame_number) === cleanRef) ||
-        (v.frame_number && `frame_${String(v.frame_number).padStart(3, '0')}` === cleanRef)
-      );
-    } else if (frame.continuity === 'continue' && idx > 0) {
-      refFrameVisual = currentSpec.visuals[idx - 1];
-    }
-
-    const resolvedRefTitle = resolveFlowTileTitleForFrame(frame, idx);
-
-    if (refFrameVisual) {
-      const refNameForFlow = resolvedRefTitle || refFrameVisual.target_filename;
-      if (refFrameVisual.result_url) {
-        refImages.push({
-          name: refNameForFlow,
-          base64: refFrameVisual.result_url
-        });
-      } else {
-        refImages.push({
-          name: refNameForFlow,
-          referenceExistingOnly: true
-        });
-      }
-    }
-
-    frame.prompt = frame.prompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
-    frame.formatted_reference_guidance = formatReferenceGuidance(frame, idx);
-
     try {
-      const ok = await executeFrameGeneration(frame, refImages, idx);
-      frame.status = ok ? 'completed' : 'error';
-      if (ok) {
-        frame.progress = 100;
-        frame.completed_at = new Date().toISOString();
-      }
-    } catch (err) {
+      pipelineTargetTab = await getFlowTargetTab();
+      const references = frameReferenceImages(frame, idx);
+      frame.status = 'generating';
+      frame.progress = 5;
+      frame.result_url = null;
+      frame.error = null;
+      frame.flow_submission = null; // Re-roll explicitly authorizes a fresh image.
+      frame.retryable = undefined;
+      updateFrameCard(idx);
+      await executeFrameGeneration(frame, references, idx);
+    } catch (error) {
       frame.status = 'error';
+      frame.error = error.message;
+      globalThis.PipelineTools?.record('error', error.message, { frameNumber: idx + 1 });
+      setCollectionDestinationStatus(error.message, true);
+    } finally {
+      pipelineRunning = false;
+      pipelineTargetTab = null;
+      updateFrameCard(idx);
+      updateProjectStats();
+      updateUIStatus();
+      savePipelineMapping();
     }
-
-    updateFrameCard(idx);
-    updateProjectStats();
-    savePipelineMapping();
   }
 
-  function executeFrameGeneration(frame, refImages, promptIndex) {
-    return new Promise((resolve) => {
-      // 1. Explicit character references from frame (e.g. "@women_early_human", "@male_early_human")
-      const rawCharRefs = (Array.isArray(frame.character_references) ? frame.character_references : [])
-        .map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim())
-        .filter(Boolean);
+  function buildFramePayload(frame, refImages, promptIndex) {
+    if (frame.flow_submission?.state === 'unknown') {
+      throw new Error(`Frame #${promptIndex + 1} may already have been submitted. Sync the existing image or use Re-roll to explicitly generate another image.`);
+    }
+    // 1. Explicit character references from frame (e.g. "@women_early_human", "@male_early_human")
+    const rawCharRefs = (Array.isArray(frame.character_references) ? frame.character_references : [])
+      .map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim())
+      .filter(Boolean);
 
-      const resolvedCharRefs = resolveCharacterReferenceLabels(rawCharRefs, currentSpec?.characters || []);
-      const declaredCharRefs = resolvedCharRefs.length > 0 ? resolvedCharRefs : rawCharRefs;
+    const resolvedCharRefs = resolveCharacterReferenceLabels(rawCharRefs, currentSpec?.characters || []);
+    const declaredCharRefs = resolvedCharRefs.length > 0 ? resolvedCharRefs : rawCharRefs;
 
-      const knownCharNames = new Set(
-        (currentSpec?.characters || []).flatMap(c => [
-          c.id, c.name, (c.flow_tag || '').replace(/^@/, '')
-        ]).filter(Boolean).map(s => s.toLowerCase().replace(/[\s_-]+/g, ''))
-      );
+    const knownCharNames = new Set(
+      (currentSpec?.characters || []).flatMap(c => [
+        c.id, c.name, (c.flow_tag || '').replace(/^@/, '')
+      ]).filter(Boolean).map(s => s.toLowerCase().replace(/[\s_-]+/g, ''))
+    );
 
-      const cleanChars = [...new Set(declaredCharRefs)];
+    const cleanChars = [...new Set(declaredCharRefs)];
 
-      // 2. Style, image, and extra references
-      const otherRefs = [
-        ...(Array.isArray(frame.style_references) ? frame.style_references : []),
-        ...(Array.isArray(frame.image_references) ? frame.image_references : [])
-      ].map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim()).filter(Boolean);
+    // 2. Style, image, and extra references
+    const otherRefs = [
+      ...(Array.isArray(frame.style_references) ? frame.style_references : []),
+      ...(Array.isArray(frame.image_references) ? frame.image_references : [])
+    ].map(c => (typeof c === 'string' ? c : (c.tag || c.name || c.id || '')).replace(/^@/, '').trim()).filter(Boolean);
 
-      otherRefs.forEach(ref => {
-        const norm = ref.toLowerCase().replace(/[\s_-]+/g, '');
-        if (knownCharNames.has(norm)) {
-          if (!cleanChars.includes(ref)) cleanChars.push(ref);
-        } else {
-          if (!refImages.some(img => img.name === ref) && !cleanChars.includes(ref)) {
-            refImages.push({
-              name: ref,
-              referenceExistingOnly: true
-            });
+    otherRefs.forEach(ref => {
+      const norm = ref.toLowerCase().replace(/[\s_-]+/g, '');
+      if (knownCharNames.has(norm)) {
+        if (!cleanChars.includes(ref)) cleanChars.push(ref);
+      } else {
+        if (!refImages.some(img => img.name === ref) && !cleanChars.includes(ref)) {
+          refImages.push({
+            name: ref,
+            referenceExistingOnly: true
+          });
+        }
+      }
+    });
+
+    // Assemble clean base image prompt and decoupled reference guidance
+    const rawPrompt = (frame.prompt || '').trim();
+    const cleanBase = rawPrompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
+
+    const guidance = formatReferenceGuidance(frame, promptIndex);
+    frame.formatted_reference_guidance = guidance;
+
+    const finalPrompt = guidance ? `${cleanBase}\n\n${guidance}` : cleanBase;
+
+    const payload = {
+      specPipeline: true,
+      resumeSubmission: frame.flow_submission?.state === 'accepted' ? frame.flow_submission : null,
+      assignedMediaUrls: currentSpec.visuals.flatMap((visual, index) => visual.result_url ? [{ url: visual.result_url, promptIndex: index }] : []),
+      prompt: finalPrompt,
+      basePrompt: cleanBase,
+      referenceGuidance: guidance,
+      targetFilename: frame.target_filename,
+      mode: 'textToImage',
+      aspectRatio: currentSpec.default_aspect_ratio || '16:9',
+      model: 'Nano Banana 2',
+      outputCount: 1,
+      autoDownloadResourceQuality: 'original',
+      folderName: getProjectFramesFolder(),
+      referenceFolder: currentSpec.reference_folder || 'Branded_references',
+      autoChangeFileName: true,
+      maxRetries: 1,
+      promptIndex: promptIndex,
+      images: refImages,
+      characters: cleanChars
+    };
+
+    return payload;
+  }
+
+
+  async function executeFrameGeneration(frame, refImages, promptIndex) {
+    return executeFrameBatch([buildFramePayload(frame, refImages, promptIndex)], 1);
+  }
+
+  async function executeFrameBatch(payloads, maxParallel) {
+    const targetTab = pipelineTargetTab || await getFlowTargetTab();
+    if (pipelinePaused) return false;
+    const groupId = 'spec-group-' + crypto.randomUUID();
+    const indexes = payloads.map(payload => payload.promptIndex);
+    globalThis.PipelineTools?.record('info', `Submitting ${payloads.length} frame(s) with ${maxParallel} active generation slot(s).`, {
+      groupId, tabId: targetTab.id, details: { frames: indexes.map(index => index + 1) }
+    });
+    return new Promise(resolve => {
+      let settled = false;
+      let timeoutHandle;
+      const batch = { id: groupId, tabId: targetTab.id, indexes, integrityError: null, startedIndexes: new Set(), firstFailure: null };
+      const finish = (ok, error) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timeoutHandle);
+        chrome.runtime.onMessage.removeListener(listener);
+        if (activeBatch === batch) activeBatch = null;
+        indexes.forEach(index => {
+          const frame = currentSpec.visuals[index];
+          if (frame.status !== 'completed') {
+            const started = batch.startedIndexes.has(index);
+            frame.status = !started || (pipelinePaused && !batch.integrityError && !error) ? 'pending' : 'error';
+            frame.progress = 0;
+            frame.error = started ? error || frame.error || batch.firstFailure?.error || 'Flow stopped before image collection completed.' : null;
+          }
+          updateFrameCard(index);
+        });
+        updateProjectStats();
+        if (!ok) {
+          const queuedFrames = indexes.filter(index => !batch.startedIndexes.has(index) && currentSpec.visuals[index].status !== 'completed').map(index => index + 1);
+          globalThis.PipelineTools?.record(pipelinePaused && !error && !batch.integrityError ? 'warn' : 'error', error || (batch.firstFailure
+            ? `Batch stopped after Frame #${batch.firstFailure.promptIndex + 1}: ${batch.firstFailure.error}`
+            : 'Flow batch stopped before all images were collected.'), { groupId, tabId: targetTab.id,
+              frameNumber: batch.firstFailure ? batch.firstFailure.promptIndex + 1 : undefined, phase: 'Batch', details: { queuedFrames } });
+        }
+        savePipelineMapping();
+        resolve(ok);
+      };
+      const armTimeout = () => {
+        clearTimeout(timeoutHandle);
+        timeoutHandle = setTimeout(() => {
+          pipelinePaused = true;
+          chrome.tabs.sendMessage(targetTab.id, { type: 'CANCEL_PROMPT_GROUP', groupId }, () => { void chrome.runtime.lastError; });
+          finish(false, 'Flow stopped reporting generation progress.');
+        }, 330000);
+      };
+      const listener = (msg, sender) => {
+        if (sender.tab && sender.tab.id !== targetTab.id) return;
+        if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId && indexes.includes(msg.data.promptIndex)) {
+          const index = msg.data.promptIndex;
+          batch.startedIndexes.add(index);
+          const frame = currentSpec.visuals[index];
+          if (frame.status !== 'completed') {
+            frame.status = 'generating';
+            frame.progress = msg.data.percentage || frame.progress;
+            updateFrameCard(index);
+          }
+          armTimeout();
+        }
+        if (msg.type !== 'PROMPT_GROUP_STATUS' || msg.data?.id !== groupId) return;
+        armTimeout();
+        const data = msg.data;
+        if (Number.isInteger(data.currentPromptIndex)) {
+          const index = indexes[data.currentPromptIndex];
+          if (index !== undefined && currentSpec.visuals[index].status !== 'completed') {
+            batch.startedIndexes.add(index);
+            activeFrameIndex = index;
+            currentSpec.visuals[index].status = 'generating';
+            currentSpec.visuals[index].progress = 5;
+            updateFrameCard(index);
           }
         }
-      });
-      
-      // Assemble clean base image prompt and decoupled reference guidance
-      const rawPrompt = (frame.prompt || '').trim();
-      const cleanBase = rawPrompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
-
-      const guidance = formatReferenceGuidance(frame, promptIndex);
-      frame.formatted_reference_guidance = guidance;
-
-      const finalPrompt = guidance ? `${cleanBase}\n\n${guidance}` : cleanBase;
-
-      const payload = {
-        prompt: finalPrompt,
-        basePrompt: cleanBase,
-        referenceGuidance: guidance,
-        targetFilename: frame.target_filename,
-        mode: 'textToImage',
-        aspectRatio: currentSpec.default_aspect_ratio || '16:9',
-        model: currentSpec.default_model || 'Nano Banana 2',
-        outputCount: 1,
-        autoDownloadResourceQuality: 'original',
-        folderName: getProjectFramesFolder(),
-        referenceFolder: currentSpec.reference_folder || 'Branded_references',
-        autoChangeFileName: true,
-        maxRetries: 1,
-        promptIndex: promptIndex,
-        images: refImages,
-        characters: cleanChars
-      };
-
-      getFlowTargetTab().then(targetTab => {
-        const groupId = 'spec-group-' + Date.now();
-        let timeoutHandle = null;
-
-        const listener = (msg) => {
-          if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId) {
-            frame.progress = msg.data.percentage || frame.progress;
-            updateFrameCard(promptIndex);
-          }
-          if (msg.type === 'PROMPT_GROUP_STATUS' && msg.data?.id === groupId) {
-            const status = msg.data.status;
-            if (status === 'completed' || status === 'error' || status === 'cancelled') {
-              if (timeoutHandle) clearTimeout(timeoutHandle);
-              chrome.runtime.onMessage.removeListener(listener);
-              resolve(status === 'completed');
+        for (const result of data.results || []) {
+          if (!indexes.includes(result.promptIndex)) continue;
+          batch.startedIndexes.add(result.promptIndex);
+          if (result.error && !result.cancelled && result.error !== 'Cancelled' && !batch.firstFailure) batch.firstFailure = { promptIndex: result.promptIndex, error: result.error };
+          const frame = currentSpec.visuals[result.promptIndex];
+          if (result.submission) frame.flow_submission = result.submission;
+          if (typeof result.retryable === 'boolean') frame.retryable = result.retryable;
+          if (result.downloadComplete) {
+            if (result.success && frame.result_url && !batch.integrityError) {
+              frame.status = 'completed';
+              frame.progress = 100;
+              frame.completed_at = new Date().toISOString();
+              frame.error = null;
+            } else {
+              frame.status = pipelinePaused && !batch.integrityError ? 'pending' : 'error';
+              frame.error = batch.integrityError || result.error || 'No generated image was captured.';
             }
+            updateFrameCard(result.promptIndex);
           }
-        };
-
-        chrome.runtime.onMessage.addListener(listener);
-        chrome.tabs.sendMessage(targetTab.id, {
-          type: 'AUTO_FILL_FLOW',
-          payloads: [payload],
-          groupId,
-          concurrentPrompts: 1,
-          promptDelaySecondsMin: 0,
-          promptDelaySecondsMax: 0
-        }, response => {
-          const error = chrome.runtime?.lastError;
-          if (error || !response?.success) {
-            chrome.runtime.onMessage.removeListener(listener);
-            frame.status = 'error';
-            updateFrameCard(promptIndex);
-            alert(
-              'Could not start generation in the configured Flow collection.\n\n' +
-              (error?.message || response?.error || 'Refresh the Flow tab and try again.')
-            );
-            resolve(false);
-            return;
-          }
-
-          console.log('[SpecPipeline] Configured Flow collection accepted AUTO_FILL_FLOW');
-          timeoutHandle = setTimeout(() => {
-            chrome.runtime.onMessage.removeListener(listener);
-            resolve(frame.status === 'completed');
-          }, 300000);
-        });
-      }).catch(error => {
-        frame.status = 'error';
-        updateFrameCard(promptIndex);
-        setCollectionDestinationStatus(error.message, true);
-        alert(error.message);
-        resolve(false);
+        }
+        updateProjectStats();
+        savePipelineMapping();
+        if (['completed', 'error', 'cancelled'].includes(data.status)) {
+          finish(data.status === 'completed' && !batch.integrityError && indexes.every(index => currentSpec.visuals[index].status === 'completed'), batch.integrityError);
+        }
+      };
+      activeBatch = batch;
+      chrome.runtime.onMessage.addListener(listener);
+      armTimeout();
+      chrome.tabs.sendMessage(targetTab.id, {
+        type: 'AUTO_FILL_FLOW', payloads, groupId, concurrentPrompts: maxParallel,
+        promptDelaySecondsMin: 0, promptDelaySecondsMax: 0
+      }, response => {
+        const error = chrome.runtime.lastError;
+        if (error || !response?.success) finish(false, error?.message || response?.error || 'Refresh the Flow tab and try again.');
       });
     });
   }
@@ -2145,6 +2166,11 @@ function createSingleCharacter(charId) {
     const card = document.getElementById(`frame-card-${idx}`);
     if (!card) return;
     const f = currentSpec.visuals[idx];
+    const errorMessage = document.getElementById(`frame-error-${idx}`);
+    if (errorMessage) {
+      errorMessage.textContent = f.error || '';
+      errorMessage.style.display = f.status === 'error' && f.error ? 'block' : 'none';
+    }
 
     card.className = `frame-card ${f.status === 'generating' ? 'active' : ''} ${f.status === 'completed' ? 'completed' : ''} ${f.status === 'error' ? 'failed' : ''}`;
     
@@ -2162,7 +2188,7 @@ function createSingleCharacter(charId) {
     const imgBox = document.getElementById(`frame-img-box-${idx}`);
     if (imgBox) {
       if (f.result_url) {
-        const isAnchor = f.continuity === 'anchor' || idx === 0 || !f.frame_reference;
+        const isAnchor = !concurrency.isDependentFrame(f);
         const paddedNum = String(f.frame_number || idx + 1).padStart(3, '0');
         imgBox.innerHTML = `
           <div class="frame-badge-overlay ${isAnchor ? 'anchor' : 'chained'}">
@@ -2211,7 +2237,7 @@ function createSingleCharacter(charId) {
     if (elPendSub) elPendSub.innerText = remainingCount === 0 ? '✓ Complete' : pipelineRunning ? '🕒 In progress' : '🕒 Pending start';
     if (elProgBar) elProgBar.style.width = `${pct}%`;
     if (elProgText) elProgText.innerText = `${completedCount}/${totalCount} (${pct}%)`;
-    if (elStatusText) elStatusText.innerText = pipelineRunning ? 'Pipeline Generating...' : completedCount === totalCount ? 'Pipeline Finished' : 'Pipeline Idle • Ready';
+    if (elStatusText) elStatusText.innerText = pipelineRunning ? (pipelinePaused ? 'Pausing...' : 'Pipeline Generating...') : completedCount === totalCount ? 'Pipeline Finished' : currentSpec.visuals.some(frame => frame.status === 'error') ? 'Pipeline Error • Check failed frames' : pipelinePaused ? 'Pipeline Paused' : 'Pipeline Idle • Ready';
 
     // Update filter pills (strictly NO Anchors Only)
     const pillAll = document.getElementById('pill-filter-all');
@@ -2226,6 +2252,7 @@ function createSingleCharacter(charId) {
   }
 
   function updateUIStatus() {
+    globalThis.PipelineTools?.refresh();
     const btnStart = document.getElementById('btn-start-pipeline');
     const btnPause = document.getElementById('btn-pause-pipeline');
     if (!currentSpec) return;
@@ -2238,6 +2265,11 @@ function createSingleCharacter(charId) {
       btnStart.disabled = pipelineRunning || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0);
       btnStart.innerText = pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
     }
+    const parallelInput = document.getElementById('parallel-generations-input');
+    if (parallelInput) parallelInput.disabled = pipelineRunning;
+    const resetButton = document.getElementById('btn-reset-spec');
+    if (resetButton) resetButton.disabled = pipelineRunning;
+    document.querySelectorAll('.btn-regen-frame, .btn-edit-prompt, #btn-add-frame, #btn-sync-tiles, #collection-url-input, #btn-use-open-flow').forEach(button => { button.disabled = pipelineRunning; });
     if (btnPause) {
       btnPause.style.display = pipelineRunning ? 'inline-flex' : 'none';
       btnPause.disabled = !pipelineRunning;
@@ -2252,9 +2284,35 @@ function createSingleCharacter(charId) {
     return String(str || '').replace(/"/g, '&quot;');
   }
 
+  globalThis.PipelineTools?.configure({
+    getSpec: () => currentSpec,
+    isRunning: () => pipelineRunning,
+    applySettings: values => {
+      if (!currentSpec || pipelineRunning) throw new Error('Pause the pipeline before changing settings.');
+      const folder = sanitizeProjectDir(values.project_dir);
+      if (!folder) throw new Error('Enter a valid output folder.');
+      Object.assign(currentSpec, values, { project_dir: folder, output_folder: folder, default_model: 'Nano Banana 2' });
+      savePipelineMapping();
+      renderPipelineDashboard();
+      updateUIStatus();
+    }
+  });
+
   // Hook global incoming messages from Content Script / Background Worker
-  chrome.runtime.onMessage.addListener((msg) => {
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && currentSpec) {
+      if (!activeBatch || msg.groupId !== activeBatch.id || !activeBatch.indexes.includes(msg.promptIndex) || (sender.tab && sender.tab.id !== activeBatch.tabId)) {
+        sendResponse?.({ success: false, error: 'Capture does not belong to the active Flow batch.' });
+        return;
+      }
+      const duplicate = currentSpec.visuals.some((frame, index) => index !== msg.promptIndex && frame.result_url === msg.mediaUrl);
+      if (!msg.mediaUrl || duplicate) {
+        activeBatch.integrityError = 'Captured image is already assigned to another frame or has no URL.';
+        currentSpec.visuals[msg.promptIndex].error = activeBatch.integrityError;
+        sendResponse?.({ success: false, error: activeBatch.integrityError });
+        pausePipeline();
+        return;
+      }
       const idx = msg.promptIndex;
       if (idx !== undefined && currentSpec.visuals[idx]) {
         currentSpec.visuals[idx].result_url = msg.mediaUrl;
@@ -2285,6 +2343,7 @@ function createSingleCharacter(charId) {
         }
         updateFrameCard(idx);
         savePipelineMapping();
+        sendResponse?.({ success: true });
       }
     }
   });

@@ -53,12 +53,21 @@
     </header>
 
     <div id="spec-container" class="panel-view active" style="display: block;">
+      <nav class="spec-workspace-tabs" aria-label="Spec Pipeline views">
+        <button type="button" class="spec-workspace-tab active" data-spec-view="frames" aria-pressed="true">Frames</button>
+        <button type="button" class="spec-workspace-tab" data-spec-view="settings" aria-pressed="false">⚙ Settings</button>
+        <button type="button" class="spec-workspace-tab" data-spec-view="logs" aria-pressed="false">Logs <span id="spec-log-count">0</span></button>
+      </nav>
       <div id="spec-pipeline-app"></div>
+      <section id="spec-settings-view" class="spec-tools-view" hidden></section>
+      <section id="spec-logs-view" class="spec-tools-view" hidden></section>
     </div>
     <div id="classic-container" class="panel-view" style="display: none;">
       <div id="app"></div>
     </div>
     <script src="./flow-destination.js"></script>
+    <script src="./pipeline-concurrency.js"></script>
+    <script src="./spec-tools.js"></script>
     <script type="module" src="./spec-pipeline.js"></script>
   </body>
 </html>

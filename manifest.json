@@ -63,7 +63,9 @@
         "src/ui/side-panel/spec-pipeline.js",
         "src/ui/side-panel/spec-pipeline.css",
         "character_creation_sample.json",
-        "sample_spec.json"
+        "sample_spec.json",
+        "src/content/pipeline-generation.js",
+        "src/ui/side-panel/pipeline-concurrency.js"
       ],
       "use_dynamic_url": false
     }
