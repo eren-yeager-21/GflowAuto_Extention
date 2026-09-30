@@ -450,12 +450,32 @@ body {
 
 .pipeline-action-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
 }
 
+.btn-generate-characters {
+  flex: 1 1 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid #22b9a4;
+  border-radius: 7px;
+  background: #123d39;
+  color: #d2fff7;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-generate-characters:hover:not(:disabled) { background: #195149; }
+.btn-generate-characters:disabled { opacity: .5; cursor: not-allowed; }
+.pipeline-character-hint { margin: 10px 0 0; color: #c7d2e8; font-size: 12px; line-height: 1.5; }
+
 .btn-start-pipeline {
-  flex: 1;
+  flex: 1 1 190px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -539,6 +559,8 @@ body {
    ========================================================================== */
 .section-accordion-header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
@@ -576,6 +598,7 @@ body {
 
 .accordion-actions-right {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 }
@@ -686,6 +709,7 @@ body {
   color: var(--text-secondary);
   line-height: 1.4;
   word-break: break-word;
+  white-space: pre-line;
 }
 
 .char-ref-pill {
@@ -1510,6 +1534,53 @@ body {
 .spec-log-entry { padding: 9px 7px; border-bottom: 1px solid var(--border-subtle); }
 .spec-log-entry:last-child { border-bottom: 0; }
 .spec-log-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 10px; color: var(--text-muted); margin-bottom: 5px; }
+
+/* Reference library and frame assignments */
+.frame-references { margin: 14px 0; padding: 12px; background: var(--bg-secondary, #141822); border: 1px solid var(--border-color, #252b3a); border-radius: 12px; }
+.reference-heading, .reference-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.reference-heading strong { font-size: 12px; }
+.reference-heading strong span { color: var(--text-muted); margin-left: 5px; }
+.reference-heading button { font-size: 11px; padding: 5px 9px; }
+.reference-chip-list, .reference-library-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.reference-chip { display: flex; align-items: center; gap: 8px; padding: 7px; min-width: 0; max-width: 100%; border: 1px solid var(--border-color, #252b3a); border-radius: 8px; }
+.reference-chip strong { display: block; max-width: 260px; overflow-wrap: anywhere; font-size: 11px; }
+.reference-chip small { display: block; color: var(--text-muted); font-size: 10px; margin-top: 4px; }
+.reference-chip.missing { border-color: #b45353; }
+.reference-thumb { width: 42px; height: 42px; flex: 0 0 42px; object-fit: contain; border-radius: 6px; background: #222632; }
+.char-info > .reference-preview-button .reference-thumb { width: 56px; height: 56px; flex-basis: 56px; }
+.reference-thumb.large { width: 90px; height: 80px; flex-basis: 90px; }
+.reference-preview-button { display: inline-flex; flex-shrink: 0; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.reference-full-preview { display: block; max-width: 100%; max-height: 72vh; margin: 16px auto 0; object-fit: contain; }
+.reference-placeholder { display: inline-flex; align-items: center; justify-content: center; font-size: 23px; color: var(--text-muted); }
+.reference-hint { color: var(--text-muted); font-size: 11px; line-height: 1.6; margin: 8px 0; }
+.reference-note { color: #d6c58e; background: #332d1d; padding: 10px; border-radius: 8px; font-size: 12px; line-height: 1.5; }
+.reference-editor-dialog { box-sizing: border-box; width: min(680px, calc(100vw - 24px)); max-height: 88vh; padding: 20px; border: 1px solid #373e53; border-radius: 16px; background: #121620; color: #e9edf5; overflow-y: auto; }
+.reference-preview-dialog { width: min(850px, calc(100vw - 24px)); }
+.reference-editor-dialog::backdrop { background: rgba(0, 0, 0, .72); }
+.reference-dialog-header h2 { font-size: 17px; margin: 0; }
+.reference-close { border: 0; background: transparent; color: #e9edf5; font-size: 20px; cursor: pointer; padding: 5px 9px; }
+.reference-editor-dialog label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #bdc5d6; margin: 12px 0; min-width: 0; }
+.reference-editor-dialog input, .reference-editor-dialog select, .reference-editor-dialog textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 9px; background: #1a2030; color: #f2f4fa; border: 1px solid #3a4255; border-radius: 7px; font: inherit; }
+.reference-editor-dialog textarea { resize: vertical; }
+.reference-form-row { display: flex; gap: 12px; }
+.reference-form-row label:first-child { flex: 2; }
+.reference-form-row label:last-child { flex: 1; }
+.reference-dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.reference-editor-status { min-height: 16px; color: #96d9b0; font-size: 12px; line-height: 1.5; }
+.reference-editor-status.error { color: #ff8c8c; }
+.reference-library-list { display: flex; flex-direction: column; gap: 8px; }
+.frame-recovery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.frame-recovery-image { display: flex; flex-direction: column; gap: 8px; padding: 8px; border: 1px solid #3a4255; border-radius: 10px; background: #1a2030; color: #e9edf5; cursor: pointer; text-align: left; }
+.frame-recovery-image[hidden] { display: none; }
+.frame-recovery-image img { width: 100%; height: 130px; object-fit: contain; border-radius: 6px; }
+.frame-recovery-image span { font-size: 12px; overflow-wrap: anywhere; }
+.frame-recovery-image:hover { border-color: var(--accent-cyan, #55cbea); }
+.reference-library-card { display: flex; align-items: center; gap: 12px; padding: 10px; border: 1px solid #30384a; border-radius: 9px; }
+.reference-library-card > div { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 12px; }
+.reference-library-card p { color: var(--text-muted); font-size: 11px; }
+.reference-assignment-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #2a3141; }
+.reference-assignment-row > div { flex: 1; min-width: 0; }
+.reference-assignment-row label { margin: 6px 0; }
 .spec-log-level { font-weight: 700; text-transform: uppercase; color: var(--accent-cyan); }
 .spec-log-warn .spec-log-level { color: var(--accent-amber); }
 .spec-log-error .spec-log-level, .spec-log-error .spec-log-message { color: #fca5a5; }

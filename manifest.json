@@ -24,6 +24,11 @@
   "description": "Auto Flow your prompts at scale. Batch generate and auto-download videos and images on Google Flow.",
   "host_permissions": [
     "*://flow.google.com/*",
+    "https://chat.deepseek.com/*",
+    "https://labs.google/*",
+    "https://flow-content.google/*",
+    "https://*.googleusercontent.com/*",
+    "https://*.googleapis.com/*",
     "http://127.0.0.1:8765/*",
     "ws://127.0.0.1:8765/*"
   ],
@@ -65,6 +70,7 @@
         "character_creation_sample.json",
         "sample_spec.json",
         "src/content/pipeline-generation.js",
+        "src/content/reference-picker.js",
         "src/ui/side-panel/pipeline-concurrency.js"
       ],
       "use_dynamic_url": false

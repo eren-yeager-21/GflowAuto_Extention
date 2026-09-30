@@ -1,0 +1,11 @@
+```json
+{
+  "schema_version": 3,
+  "review_id": "aac12ba3-d588-4269-95d8-e4a588154ad2",
+  "frame_id": "sample_map_001",
+  "attempt": 1,
+  "candidate_sha256": "fea2d0e32596b0739725e50d5fa60152b5c1bbfef899ee874bbce7077a20976c",
+  "regenerate_image": false,
+  "corrected_prompt": null
+}
+```

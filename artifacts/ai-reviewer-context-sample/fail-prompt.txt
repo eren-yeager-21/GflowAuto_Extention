@@ -1,0 +1,34 @@
+FRAME REVIEW
+Use the project validator instructions, contact sheets, and transcript established at context_id context-sample-797cd608-85af-4d74-955c-d1f85b91660f. Review the CANDIDATE attached to THIS message. PREVIOUS_FRAME is attached only for continuity comparison; it is not the candidate.
+
+REVIEW REQUEST
+{
+  "context_id": "context-sample-797cd608-85af-4d74-955c-d1f85b91660f",
+  "review_id": "242066af-1b92-4a7e-8234-a8c78408a559",
+  "frame_id": "sample_map_002",
+  "attempt": 1,
+  "candidate_sha256": "fea2d0e32596b0739725e50d5fa60152b5c1bbfef899ee874bbce7077a20976c",
+  "existed_prompt": "A simplified hand-drawn educational map on a white background. Show France in blue, Germany in yellow, Poland in orange, Czechia in pink, and Austria in green, with thick black outlines and legible uppercase country labels. Place exactly three separate red location pins and one small cave icon in southern Germany near Austria. A tiny cartoon narrator may stand in the bottom-right corner. Preserve the intentional cartoon map style; exact cartographic boundary precision is not required.",
+  "original_scene_prompt": "A simplified hand-drawn educational map on a white background. Show France in blue, Germany in yellow, Poland in orange, Czechia in pink, and Austria in green, with thick black outlines and legible uppercase country labels. Place exactly three separate red location pins and one small cave icon in southern Germany near Austria. A tiny cartoon narrator may stand in the bottom-right corner. Preserve the intentional cartoon map style; exact cartographic boundary precision is not required.",
+  "narration": "Three red pins mark three separate locations in southern Germany, close to Austria.",
+  "previous_frame": {
+    "frame_id": "sample_map_001",
+    "file": "sample_map_001.png"
+  },
+  "attachments": [
+    {
+      "file": "CANDIDATE__sample_map.png",
+      "role": "candidate",
+      "width": 1920,
+      "height": 1072
+    },
+    {
+      "file": "PREVIOUS_FRAME__sample_map.png",
+      "role": "previous-frame",
+      "width": 1920,
+      "height": 1072
+    }
+  ]
+}
+
+Respond only with the defined seven-field JSON for this request. Set regenerate_image true with a complete corrected_prompt if correction is needed; otherwise false with corrected_prompt null.

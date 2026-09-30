@@ -1,0 +1,6 @@
+```json
+{
+  "context_id": "context-sample-797cd608-85af-4d74-955c-d1f85b91660f",
+  "context_ready": true
+}
+```

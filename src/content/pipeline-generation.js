@@ -327,8 +327,9 @@ export async function acceptSubmission(config, isCancelled, signal) {
 
 function boundTile(config) {
   const visible = tiles();
-  if (config.specTileId) return visible.find(tile => tileIdentity(tile) === config.specTileId ||
+  const identified = config.specTileId && visible.find(tile => tileIdentity(tile) === config.specTileId ||
     tile.querySelector('img[data-media-id]')?.getAttribute('data-media-id') === config.specTileId);
+  if (identified) return identified;
   let tile = visible.find(tile => tile.getAttribute(MARKER_ATTRIBUTE) === config.specSubmissionId &&
     (!isPending(tile) || !config.specPendingPrompt || pendingPrompt(tile) === config.specPendingPrompt ||
       (tile === config.specBoundNode && tile.querySelector('flow-pending-tile') === config.specBoundPendingElement)));
@@ -398,7 +399,7 @@ function sendRequest(message, timeoutMs = 15000) {
 async function completeImage(config, cancelled, progress) {
   config.specLogPhase = 'Generation';
   diagnosticLog(config, 'info', config.specImage ? 'Resuming delivery of the generated image.' : 'Watching the accepted image until it finishes.', { tileId: config.specTileId, marker: config.specSubmissionId });
-  let lastObservation, lastDetails, lastPercentage;
+  let lastObservation, lastDetails, lastPercentage, missingSince;
   const observe = (reason, tile) => {
     const signature = `${reason}:${config.specTileId || ''}`;
     lastDetails = { reason, tileId: config.specTileId, marker: config.specSubmissionId,
@@ -418,7 +419,17 @@ async function completeImage(config, cancelled, progress) {
     image = config.specImage || await waitForCondition(records => {
       recoverCompletedBindings(records);
       const tile = boundTile(config);
-      if (!tile) { observe('tile-missing'); return null; }
+      if (!tile) {
+        observe('tile-missing');
+        missingSince ||= Date.now();
+        if (config.specResuming && Date.now() - missingSince >= 30000) {
+          const error = new Error('The saved Flow image cannot be located after resume. Use Choose existing image on this frame to reconnect its completed image, then resume. The accepted prompt will not be submitted again.');
+          error.retryable = false;
+          throw error;
+        }
+        return null;
+      }
+      missingSince = null;
       const text = tile.textContent || '';
       if (tile.querySelector('flow-error-tile, flow-failed-tile, [data-status="error"]') ||
         /generation failed|couldn['’]t generate|something went wrong|violates.*policy|failed to generate/i.test(text)) {
@@ -466,15 +477,32 @@ async function completeImage(config, cancelled, progress) {
     throw new Error('Flow returned an image already assigned to a different frame');
   }
   assignments.set(image.mediaUrl, owner);
+  // Optional reviewer takes custody of the candidate before the panel is notified.
+  // Its durable queue survives a closed side panel; review never occupies a Flow slot.
+  let reviewJobId;
+  if (config.aiReviewer) {
+    const review = await sendRequest({ type: 'AIR_CANDIDATE', request: config.aiReviewer,
+      mediaUrl: image.mediaUrl, submission: submissionInfo(config) }, 30000);
+    if (!review?.success) throw new Error(review?.error || 'Reviewer did not accept the generated candidate.');
+    reviewJobId = review.jobId;
+  }
   // Await delivery so the side panel has the reference title before the next
   // dependent batch starts. No hover, rename menu, or prompt-editor interaction.
   const captured = await sendRequest({
     type: 'SPEC_FRAME_IMAGE_CAPTURED', groupId: config.groupId,
     promptIndex: config.promptIndex, mediaUrl: image.mediaUrl,
-    filename: config.targetFilename, tileTitle: image.tileTitle
+    filename: config.targetFilename, tileTitle: image.tileTitle, reviewJobId
+  }, reviewJobId ? 2000 : 15000).catch(error => {
+    if (!reviewJobId) throw error;
+    // The reviewer already saved this candidate, even if the panel was closed.
+    return null;
   });
-  if (!captured?.success) throw new Error(captured?.error || 'The side panel did not accept the generated image');
+  if (!captured?.success && !reviewJobId) throw new Error(captured?.error || 'The side panel did not accept the generated image');
   if (cancelled()) throw new Error('Cancelled');
+  if (reviewJobId) {
+    diagnosticLog(config, 'info', 'Candidate queued for AI review; final download waits for approval.', { reviewJobId });
+    return image;
+  }
   const download = await sendRequest({
     type: 'DOWNLOAD_RESOURCE', url: image.mediaUrl, filename: config.targetFilename,
     folder: config.folderName, autoChangeFileName: true
@@ -509,6 +537,7 @@ export async function runSpecGroup(group, remoteConfig, submit, notify) {
       config.onSubmissionState = submission => updateResult(payload, { submission });
       try {
         if (saved) {
+          config.specResuming = true;
           if (saved.state !== 'accepted' || (!saved.tileId && !saved.marker) || (saved.flowUrl && saved.flowUrl !== location.href)) {
             config.specSubmissionState = 'unknown';
             throw new Error('The previous submission needs manual reconciliation before generating another image.');
@@ -550,15 +579,16 @@ export async function runSpecGroup(group, remoteConfig, submit, notify) {
       const config = configs.get(result.item);
       if (!result.success && config) diagnosticLog(config, result.error?.message === 'Cancelled' ? 'warn' : 'error', result.error?.message || 'Image generation did not complete.', {
         submissionState: config.specSubmissionState,
-        retryable: result.error?.retryable ?? config.specSubmissionState === 'preparing',
+        retryable: result.error?.retryable === true,
         tileId: config.specTileId, marker: config.specSubmissionId
       });
       if (config && result.error?.retryable === true) config.specSubmissionState = 'failed';
       group.processedCount++;
       updateResult(result.item, {
         success: result.success, downloadComplete: true,
+        reviewPending: !!config?.aiReviewer,
         error: result.error?.message,
-        retryable: result.error?.retryable ?? config?.specSubmissionState === 'preparing',
+        retryable: result.error?.retryable === true,
         submission: config ? submissionInfo(config) : null,
         cancelled: group.isCancelling || result.error?.message === 'Cancelled'
       });

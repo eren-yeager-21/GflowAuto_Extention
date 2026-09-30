@@ -1,0 +1,32 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "class": "md-code-block-banner-wrap",
+            "tag": "DIV"
+          },
+          {
+            "class": "",
+            "tag": "PRE"
+          },
+          {
+            "class": "_9bc997d _33882ae",
+            "tag": "svg"
+          },
+          {
+            "class": "_9bc997d _28d7e84",
+            "tag": "svg"
+          }
+        ],
+        "class": "md-code-block md-code-block-dark",
+        "tag": "DIV"
+      }
+    ],
+    "code": 0,
+    "pre": 1,
+    "text": "json\nCopy\nDownload\n{\n  \"schema_version\": 2,\n  \"review_id\": \"cceb5d26-21ec-4e3b-9d1e-f9bf6e0bd02e\",\n  \"frame_id\": \"sample_map_001\",\n  \"attempt\": 1,\n  \"candidate_sha256\": \"fea2d0e32596b0739725e50d5fa60152b5c1bbfef899ee874bbce7077a20976c\",\n  \"verdict\": \"pass\",\n  \"overall_score\": 95,\n  \"confidence\": 0.95,\n  \"checks\": {\n    \"narration_alignment\": 95,\n    \"scene_fidelity\": 95,\n    \"anatomy_and_interactions\": 100,\n    \"composition_and_finish\": 95,\n    \"requested_text\": 100\n  },\n  \"issues\": [\n    {\n      \"severity\": \"minor\",\n      \"description\": \"The hand-drawn map shapes are highly simplified and do not closely resemble the actual geographic contours of the labeled countries, particularly France and Germany.\",\n      \"location\": \"Entire map area\"\n    }\n  ],\n  \"summary\": \"The image successfully visualizes the narration and visual prompt. It shows a simplified, hand-drawn educational map with the correct countries in the requested colors and labels. A red location pin and a small cave icon are placed in southern Germany near the Austrian border, matching the narration. The style is consistent with a cartoon map, and the text is legible. The minor geographic inaccuracy is acceptable under the prompt's allowance for intentional cartoon simplification.\",\n  \"corrected_prompt\": null\n}",
+    "wrapper": "   <span class=\"token property\">\"severity\"</span><span class=\"token operator\">:</span> <span class=\"token string\">\"minor\"</span><span class=\"token punctuation\">,</span></span>\n<span>      <span class=\"token property\">\"description\"</span><span class=\"token operator\">:</span> <span class=\"token string\">\"The hand-drawn map shapes are highly simplified and do not closely resemble the actual geographic contours of the labeled countries, particularly France and Germany.\"</span><span class=\"token punctuation\">,</span></span>\n<span>      <span class=\"token property\">\"location\"</span><span class=\"token operator\">:</span> <span class=\"token string\">\"Entire map area\"</span></span>\n<span>    <span class=\"token punctuation\">}</span></span>\n<span>  <span class=\"token punctuation\">]</span><span class=\"token punctuation\">,</span></span>\n<span>  <span class=\"token property\">\"summary\"</span><span class=\"token operator\">:</span> <span class=\"token string\">\"The image successfully visualizes the narration and visual prompt. It shows a simplified, hand-drawn educational map with the correct countries in the requested colors and labels. A red location pin and a small cave icon are placed in southern Germany near the Austrian border, matching the narration. The style is consistent with a cartoon map, and the text is legible. The minor geographic inaccuracy is acceptable under the prompt's allowance for intentional cartoon simplification.\"</span><span class=\"token punctuation\">,</span></span>\n<span>  <span class=\"token property\">\"corrected_prompt\"</span><span class=\"token operator\">:</span> <span class=\"token null keyword\">null</span></span>\n<span><span class=\"token punctuation\">}</span></span></pre><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\" class=\"_9bc997d _33882ae\"><path d=\"M-5.24537e-07 0C-2.34843e-07 6.62742 5.37258 12 12 12L0 12L-5.24537e-07 0Z\" fill=\"currentColor\"></path></svg><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\" class=\"_9bc997d _28d7e84\"><path d=\"M-5.24537e-07 0C-2.34843e-07 6.62742 5.37258 12 12 12L0 12L-5.24537e-07 0Z\" fill=\"currentColor\"></path></svg></div></div></div>"
+  }
+]

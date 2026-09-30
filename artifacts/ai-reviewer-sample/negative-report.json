@@ -1,0 +1,38 @@
+{
+  "report": {
+    "schema_version": 2,
+    "review_id": "059c594e-10b0-4f96-8939-0315e688b8ba",
+    "frame_id": "sample_map_negative_001",
+    "attempt": 1,
+    "candidate_sha256": "fea2d0e32596b0739725e50d5fa60152b5c1bbfef899ee874bbce7077a20976c",
+    "verdict": "fail",
+    "overall_score": 45,
+    "confidence": 0.98,
+    "checks": {
+      "narration_alignment": 30,
+      "scene_fidelity": 50,
+      "anatomy_and_interactions": 90,
+      "composition_and_finish": 80,
+      "requested_text": 100
+    },
+    "issues": [
+      {
+        "severity": "major",
+        "category": "narration_alignment",
+        "region": "Southern Germany, near the Austrian border",
+        "evidence": "Only one red location pin is visible instead of the required three distinct red pins.",
+        "correction": "Add two additional distinct red location pins in southern Germany near the Austrian border so that three separate marked locations are clearly communicated."
+      },
+      {
+        "severity": "major",
+        "category": "scene_fidelity",
+        "region": "Southern Germany, near the Austrian border",
+        "evidence": "The map shows a single red location pin and one small cave icon, failing the requirement of exactly three distinct red location pins together with one small cave icon.",
+        "correction": "Render exactly three separate red location pins plus one small cave icon in the specified region, maintaining the hand-drawn flat-color style."
+      }
+    ],
+    "summary": "The image matches the requested map style, country labels, colors, and cave icon, but it materially fails the core narration and scene requirement by showing only one red location pin instead of three distinct pins marking separate locations.",
+    "corrected_prompt": "A hand-drawn educational map of France, Germany, Poland, Czechia, and Austria with legible country labels. Show exactly three distinct red location pins placed separately in southern Germany near the Austrian border, together with one small cave icon. Use bold black outlines and flat bright colors. The map must clearly communicate three separate marked locations."
+  },
+  "state": "failed"
+}

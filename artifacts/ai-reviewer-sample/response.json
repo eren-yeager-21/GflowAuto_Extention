@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "review_id": "cceb5d26-21ec-4e3b-9d1e-f9bf6e0bd02e",
+  "frame_id": "sample_map_001",
+  "attempt": 1,
+  "candidate_sha256": "fea2d0e32596b0739725e50d5fa60152b5c1bbfef899ee874bbce7077a20976c",
+  "verdict": "pass",
+  "overall_score": 95,
+  "confidence": 0.95,
+  "checks": {
+    "narration_alignment": 95,
+    "scene_fidelity": 95,
+    "anatomy_and_interactions": 100,
+    "composition_and_finish": 95,
+    "requested_text": 100
+  },
+  "issues": [],
+  "summary": "The image successfully visualizes the narration and visual prompt. It shows a simplified, hand-drawn educational map with the correct countries in the requested colors and labels. A red location pin and a small cave icon are placed in southern Germany near the Austrian border, matching the narration. The style is consistent with a cartoon map, and the text is legible.",
+  "corrected_prompt": null
+}

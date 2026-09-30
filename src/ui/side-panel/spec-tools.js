@@ -225,7 +225,7 @@
   chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === 'ACTION_LOG' && message.data?.message) {
       const data = message.data;
-      record(data.level, data.message, { source: data.source === 'spec-pipeline' ? 'Spec Flow' : 'Flow', timestamp: data.timestamp || Date.now(),
+      record(data.level, data.message, { source: data.source === 'spec-pipeline' ? 'Spec Flow' : data.source === 'AI Reviewer' ? 'AI Reviewer' : 'Flow', timestamp: data.timestamp || Date.now(),
         tabId: sender.tab?.id, groupId: data.groupId, frameNumber: Number.isInteger(data.promptIndex) ? data.promptIndex + 1 : undefined,
         frameName: data.frameName, phase: data.phase, details: data.details });
     }
@@ -237,7 +237,7 @@
       if (signatures.get(key) === signature) continue;
       signatures.set(key, signature);
       if (signatures.size > MAX_ENTRIES) signatures.delete(signatures.keys().next().value);
-      if (result.error || result.downloadComplete) record(result.cancelled || result.error === 'Cancelled' ? 'warn' : result.error ? 'error' : 'info', result.error || 'Image captured and download started.', {
+      if (result.error || result.downloadComplete) record(result.cancelled || result.error === 'Cancelled' ? 'warn' : result.error ? 'error' : 'info', result.error || (result.reviewPending ? 'Image captured; AI review queued before final download.' : 'Image captured and download started.'), {
         frameNumber: result.promptIndex + 1, tabId: sender.tab?.id, groupId: group.id,
         details: { success: result.success, retryable: result.retryable, submissionState: result.submission?.state, tileId: result.submission?.tileId, marker: result.submission?.marker }
       });

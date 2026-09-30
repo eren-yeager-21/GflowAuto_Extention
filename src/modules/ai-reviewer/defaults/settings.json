@@ -1,0 +1,19 @@
+{
+  "version": 4,
+  "validatorRevision": 4,
+  "enabled": false,
+  "autoCorrect": true,
+  "maxCorrections": 2,
+  "timeoutSeconds": 300,
+  "minimumShortSide": 512,
+  "context": "Use the contact sheets and video transcript to learn the intended visual style and story. Validate each candidate against its prompt and narration. For dependent frames also check continuity with the attached previous frame.",
+  "selectors": {
+    "composer": "textarea[placeholder='Message DeepSeek'], textarea",
+    "fileInput": "input[type='file']",
+    "send": "[role='button'].ds-button--primary.ds-button--circle, button[aria-label='Send message'], button[aria-label='Send']",
+    "response": ".ds-markdown",
+    "completedActions": "[role='button'], button",
+    "uploadBusy": "[role='progressbar'], .ds-loading, .ds-spinner",
+    "stop": "button[aria-label*='Stop'], [role='button'][aria-label*='Stop'], .ds-button--primary.ds-button--circle:has(svg rect)"
+  }
+}

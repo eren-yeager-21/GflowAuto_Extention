@@ -1,0 +1,18 @@
+{
+  "composerText": "DeepThink\nSearch",
+  "loadedThumbnails": 1,
+  "loadingMatches": [
+    {
+      "class": "ds-loading",
+      "opacity": "1",
+      "role": null,
+      "tag": "DIV"
+    }
+  ],
+  "promptMatches": true,
+  "ready": true,
+  "sendArrow": true,
+  "sendEnabled": true,
+  "thumbnails": 1,
+  "uploadBusy": true
+}

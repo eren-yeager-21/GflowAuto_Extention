@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "source": "E:/Video_Visualyzer/contact_sheets",
+  "transcript": "transcript.txt",
+  "transcript_source": "E:/Video_Visualyzer/contact_sheets/transcript.txt",
+  "images": ["sheet_00.jpg", "sheet_01.jpg", "sheet_02.jpg", "sheet_03.jpg", "sheet_04.jpg", "sheet_05.jpg", "sheet_06.jpg", "sheet_07.jpg", "sheet_08.jpg", "sheet_09.jpg", "sheet_10.jpg", "sheet_11.jpg", "sheet_12.jpg", "sheet_13.jpg", "sheet_14.jpg"]
+}

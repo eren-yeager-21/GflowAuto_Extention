@@ -13,9 +13,24 @@
   let pipelinePaused = false;
   let activeFrameIndex = -1;
   let activeBatch = null;
+  let activeSeedBatch = null;
+  let characterPickerDialog = null;
+  let seedGenerationRunning = false;
+  let seedVerificationRunning = false;
   let pipelineTargetTab = null;
+  const flowConnections = new Map();
   let activeFilter = 'all'; // 'all' | 'pending' | 'completed' (NO 'anchors')
   let searchQuery = '';
+  let charactersExpanded = false;
+
+  const characterImageName = character => String(character.flow_tag || character.name || '').replace(/^@/, '').trim();
+  const referenceKey = value => String(value || '').replace(/^@/, '').toLowerCase().replace(/[\s_-]+/g, '');
+  const seedForReference = name => currentSpec?.characters.find(character =>
+    [character.id, character.name, character.flow_tag, character.reference_image]
+      .filter(Boolean).some(alias => referenceKey(alias) === referenceKey(name)));
+  const unverifiedCharacters = () => currentSpec?.characters.filter(character => character.status !== 'verified') || [];
+  const generatableCharacters = () => currentSpec?.characters.filter(character =>
+    !['verified', 'creating', 'awaiting_rename'].includes(character.status) && character.flow_submission?.state !== 'unknown') || [];
 
   function formatFrameDuration(start, end) {
     if (!start && !end) return '';
@@ -128,13 +143,27 @@
       max_retries: currentSpec.max_retries,
       output_folder: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
       project_dir: currentSpec.project_dir || currentSpec.output_folder || "ancient_humans_scenes",
+      reference_library: currentSpec.reference_library || [],
+      ai_reviewer: currentSpec.ai_reviewer || {},
+      ai_reviewer_chat_url: currentSpec.ai_reviewer_chat_url || null,
+      ai_reviewer_context_revision: currentSpec.ai_reviewer_context_revision || null,
       characters: currentSpec.characters.map(c => ({
         id: c.id,
         name: c.name,
         flow_tag: c.flow_tag,
         reference_image: c.reference_image,
+        character_references: c.character_references || [],
+        style_references: c.style_references || [],
+        image_references: c.image_references || [],
+        reference_assignments: c.reference_assignments,
         character_prompt: c.character_prompt || c.prompt || c.description || "",
-        status: c.status
+        status: c.status,
+        image_url: c.image_url || null,
+        image_tile_id: c.image_tile_id || null,
+        image_tile_title: c.image_tile_title || null,
+        image_title_unique: c.image_title_unique === true,
+        flow_submission: c.flow_submission || null,
+        error: c.error || null
       })),
       visuals: currentSpec.visuals.map(v => ({
         id: v.id,
@@ -145,6 +174,9 @@
         prompt: v.prompt,
         negative: v.negative,
         character_references: v.character_references,
+        style_references: v.style_references || [],
+        image_references: v.image_references || [],
+        reference_assignments: v.reference_assignments,
         frame_reference: v.frame_reference || null,
         continuity: v.continuity,
         target_filename: v.target_filename,
@@ -156,6 +188,8 @@
         error: v.error || null,
         retryable: v.retryable,
         flow_submission: v.flow_submission || null,
+        ai_review: v.ai_review || null,
+        reference_statement: v.reference_statement || null,
         reference_instructions: v.reference_instructions || [],
         formatted_reference_guidance: v.formatted_reference_guidance || null
       })),
@@ -329,6 +363,11 @@
 ## Strict Text & Prop Exclusion:
 - Under NO circumstances copy any written text, typography, dates, names, title cards, captions, or decorative icons (such as hats, plaques, or display pedestals) from reference images into this frame.
 - Replicate only the clean 2D line art style and specified scene composition.`;
+  const VISUAL_LOOKS_DIRECTIVE = '# Use provided reference for visual looks.';
+  const withVisualLooksDirective = guidance => {
+    const body = String(guidance || '').trim();
+    return body.endsWith(VISUAL_LOOKS_DIRECTIVE) ? body : `${body}${body ? '\n\n' : ''}${VISUAL_LOOKS_DIRECTIVE}`;
+  };
 
   function getReferenceGuidanceStatement(charRefs = [], frameRefName = null, referenceStatement = null, continuity = null) {
     if (referenceStatement && String(referenceStatement).trim()) {
@@ -365,7 +404,14 @@
 
   function formatReferenceGuidance(frame, frameIndex) {
     if (!frame) return '';
-    const charRefLabels = resolveCharacterReferenceLabels(frame.character_references, currentSpec?.characters || []);
+    const editedNames = Array.isArray(frame.reference_assignments)
+      ? [...new Set([
+        ...resolveCharacterReferenceLabels(frame.character_references, currentSpec?.characters || []),
+        ...(globalThis.PipelineReferences?.entries(frame) || []).filter(ref => !ref.missing).map(ref => ref.name)
+      ])] : null;
+    const charRefLabels = editedNames || [...resolveCharacterReferenceLabels(frame.character_references, currentSpec?.characters || []),
+      ...(frame.style_references || []).map(ref => typeof ref === 'string' ? ref : ref.name || ref.tag || ref.id),
+      ...(frame.image_references || []).map(ref => typeof ref === 'string' ? ref : ref.name || ref.tag || ref.id)].filter(Boolean);
     const cleanFlowTitle = resolveFlowTileTitleForFrame(frame, frameIndex);
 
     // If an explicit reference_statement is provided, translate placeholders and literal frame references
@@ -395,7 +441,7 @@
       if (!stmt.includes('Selective Relevance Directive')) {
         stmt = `${stmt}\n\n${UNIVERSAL_REFERENCE_RULES}`;
       }
-      return stmt;
+      return withVisualLooksDirective(stmt);
     }
 
     // Legacy reference_instructions
@@ -411,12 +457,14 @@
         legacy = lines.join('\n');
       }
       if (legacy) {
-        return `### Reference Guidance:\n${legacy}\n\n${UNIVERSAL_REFERENCE_RULES}`;
+        return withVisualLooksDirective(`### Reference Guidance:\n${legacy}\n\n${UNIVERSAL_REFERENCE_RULES}`);
       }
     }
 
     // Auto-synthesized guidance statement
-    return getReferenceGuidanceStatement(charRefLabels, cleanFlowTitle, null, frame.continuity);
+    const automatic = getReferenceGuidanceStatement(charRefLabels, cleanFlowTitle, null, frame.continuity);
+    const usage = globalThis.PipelineReferences?.usageGuidance(frame);
+    return withVisualLooksDirective(automatic && charRefLabels.length ? `${automatic}\n\n${usage || `Attached references: ${charRefLabels.map(name => `@${String(name).replace(/^@/, '')}`).join(', ')}.`}` : automatic);
   }
 
   function buildPromptWithReferenceGuidance(basePrompt, charRefs = [], frameRefName = null, referenceStatement = null, continuity = null) {
@@ -437,7 +485,7 @@
         (c.name && c.name.toLowerCase().replace(/[\s_-]+/g, '') === norm) || 
         (c.flow_tag && c.flow_tag.replace(/^@/, '').toLowerCase().replace(/[\s_-]+/g, '') === norm)
       );
-      const chosen = (foundChar && foundChar.reference_image) ? foundChar.reference_image : (foundChar ? (foundChar.name || foundChar.flow_tag) : ref);
+      const chosen = foundChar ? (foundChar.flow_tag || foundChar.name) : ref;
       return String(chosen || '').replace(/^@/, '').trim();
     }).filter(Boolean);
   }
@@ -753,6 +801,10 @@
       max_parallel_generations: concurrency.normalizeMaxParallel(raw.max_parallel_generations ?? raw.parallel_gen_value ?? raw.global_settings?.max_parallel_generations),
       max_retries: concurrency.normalizeMaxParallel(raw.max_retries ?? raw.global_settings?.max_retries ?? 3),
       output_folder: projectDir,
+      reference_library: globalThis.PipelineReferences?.normalizeLibrary(raw.reference_library) || [],
+      ai_reviewer: raw.ai_reviewer || {},
+      ai_reviewer_chat_url: raw.ai_reviewer_chat_url || null,
+      ai_reviewer_context_revision: raw.ai_reviewer_context_revision || null,
       characters: [],
       visuals: []
     };
@@ -766,10 +818,20 @@
           name: c.name || `Character ${i + 1}`,
           flow_tag: c.flow_tag || (c.name ? `@${c.name}` : `@char_${i + 1}`),
           reference_image: c.reference_image || null,
+          character_references: Array.isArray(c.character_references) ? c.character_references : c.character_references ? [c.character_references] : [],
+          style_references: Array.isArray(c.style_references) ? c.style_references : c.style_references ? [c.style_references] : [],
+          image_references: Array.isArray(c.image_references) ? c.image_references : c.image_references ? [c.image_references] : [],
+          reference_assignments: Array.isArray(c.reference_assignments) ? c.reference_assignments.filter(Boolean).map(assignment => ({ reference_id: String(assignment.reference_id || ''), role: ['character', 'style', 'image'].includes(assignment.role) ? assignment.role : 'image' })) : undefined,
           character_prompt: charPrompt,
           prompt: charPrompt,
           description: charPrompt,
-          status: c.status || "checking"
+          status: c.status === 'creating' ? (c.image_url ? 'awaiting_rename' : 'error') : c.status === 'verified' && !c.image_tile_id && !c.image_url ? 'missing' : c.status || "missing",
+          image_url: c.image_url || null,
+          image_tile_id: c.image_tile_id || null,
+          image_tile_title: c.image_tile_title || null,
+          image_title_unique: c.image_title_unique === true,
+          flow_submission: c.flow_submission || (c.status === 'creating' && !c.image_url ? { state: 'unknown' } : null),
+          error: c.error || null
         };
       });
     } else if (typeof raw.characters === 'object' && raw.characters !== null) {
@@ -780,10 +842,20 @@
           name: c.name || k,
           flow_tag: `@${(c.name || k).replace(/\s+/g, '_')}`,
           reference_image: c.reference_image || null,
+          character_references: Array.isArray(c.character_references) ? c.character_references : c.character_references ? [c.character_references] : [],
+          style_references: Array.isArray(c.style_references) ? c.style_references : c.style_references ? [c.style_references] : [],
+          image_references: Array.isArray(c.image_references) ? c.image_references : c.image_references ? [c.image_references] : [],
+          reference_assignments: Array.isArray(c.reference_assignments) ? c.reference_assignments.filter(Boolean).map(assignment => ({ reference_id: String(assignment.reference_id || ''), role: ['character', 'style', 'image'].includes(assignment.role) ? assignment.role : 'image' })) : undefined,
           character_prompt: charPrompt,
           prompt: charPrompt,
           description: charPrompt,
-          status: c.status || "checking"
+          status: c.status === 'creating' ? (c.image_url ? 'awaiting_rename' : 'error') : c.status === 'verified' && !c.image_tile_id && !c.image_url ? 'missing' : c.status || "missing",
+          image_url: c.image_url || null,
+          image_tile_id: c.image_tile_id || null,
+          image_tile_title: c.image_tile_title || null,
+          image_title_unique: c.image_title_unique === true,
+          flow_submission: c.flow_submission || (c.status === 'creating' && !c.image_url ? { state: 'unknown' } : null),
+          error: c.error || null
         };
       });
     }
@@ -820,7 +892,10 @@
       const refInstructions = Array.isArray(v.reference_instructions) ? v.reference_instructions : [];
       const referenceStatement = v.reference_statement ? String(v.reference_statement).trim() : null;
 
-      const status = v.status || "pending";
+      // Restoring a saved badge does not restore an active content-script run.
+      // Keep its submission receipt, but show it as waiting for Resume.
+      const wasGenerating = v.status === 'generating';
+      const status = wasGenerating ? 'pending' : v.status || "pending";
       const progress = status === 'completed' ? 100 : (v.progress || 0);
 
       return {
@@ -832,6 +907,10 @@
         prompt: basePrompt,
         negative: v.negative || v.negative_prompt || "",
         character_references: charRefs,
+        style_references: Array.isArray(v.style_references) ? v.style_references : v.style_references ? [v.style_references] : [],
+        image_references: Array.isArray(v.image_references) ? v.image_references : v.image_references ? [v.image_references] : [],
+        reference_assignments: Array.isArray(v.reference_assignments) ? v.reference_assignments.filter(Boolean).map(assignment => ({ reference_id: String(assignment.reference_id || ''), role: ['character', 'style', 'image'].includes(assignment.role) ? assignment.role : 'image' })) : undefined,
+        ai_review: v.ai_review || null,
         frame_reference: rawFrameRef,
         continuity: continuity,
         target_filename: targetFilename,
@@ -842,7 +921,7 @@
         completed_at: v.completed_at || null,
         error: v.error || null,
         retryable: v.retryable,
-        flow_submission: v.flow_submission || (status === 'generating' || (status === 'error' && /Failed to fill prompt|Timed out waiting for Flow to accept/i.test(v.error || '')) ? { state: 'unknown' } : null),
+        flow_submission: v.flow_submission || (wasGenerating || (status === 'error' && /Failed to fill prompt|Timed out waiting for Flow to accept/i.test(v.error || '')) ? { state: 'unknown' } : null),
         reference_statement: referenceStatement,
         reference_instructions: refInstructions,
         formatted_reference_guidance: v.formatted_reference_guidance || null
@@ -850,6 +929,7 @@
     });
 
     currentSpec = spec;
+    globalThis.PipelineReferences?.initialize();
 
     // Dynamically format reference guidance with registered tile titles
     spec.visuals.forEach((v, i) => {
@@ -862,7 +942,6 @@
     savePipelineMapping();
     renderPipelineDashboard();
     globalThis.PipelineTools?.record('info', `Loaded ${spec.project_name} (${spec.visuals.length} frames).`);
-    checkFlowCharacters();
   }
 
   function renderPipelineDashboard() {
@@ -945,7 +1024,7 @@
       <!-- Pipeline Progress Row & Action Buttons -->
       <div class="pipeline-progress-container">
         <div class="pipeline-status-row">
-          <span id="pipeline-status-text">${pipelineRunning ? 'Pipeline Generating...' : 'Pipeline Idle • Ready'}</span>
+          <span id="pipeline-status-text">${seedGenerationRunning ? 'Generating character images...' : pipelineRunning ? 'Pipeline Generating...' : unverifiedCharacters().length ? 'Character images need generation or renaming' : 'Pipeline Idle • Ready'}</span>
           <span id="pipeline-progress-text">${completedCount}/${totalCount} (${percentFinished}%)</span>
         </div>
         <div class="pipeline-progress-track">
@@ -957,8 +1036,11 @@
           <span>Dependent frames run sequentially</span>
         </label>
         <div class="pipeline-action-buttons">
-          <button class="btn-start-pipeline" id="btn-start-pipeline" ${pipelineRunning || (completedCount === totalCount && totalCount > 0) ? 'disabled' : ''}>
-            ${pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? '✓ All Completed' : '▶ Start Pipeline'}
+          <button class="btn-generate-characters" id="btn-generate-characters" ${pipelineRunning || seedVerificationRunning || !generatableCharacters().length ? 'disabled' : ''}>
+            ${seedGenerationRunning ? '⏳ Generating Characters...' : '🎨 Generate Characters'}
+          </button>
+          <button class="btn-start-pipeline" id="btn-start-pipeline" ${pipelineRunning || seedVerificationRunning || (completedCount === totalCount && totalCount > 0 && !globalThis.PipelineReviewer?.hasUnapproved()) ? 'disabled' : ''}>
+            ${pipelineRunning && !seedGenerationRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === totalCount ? (globalThis.PipelineReviewer?.hasUnapproved() ? '▶ Resume AI review' : '✓ All Completed') : '▶ Start Pipeline'}
           </button>
           <button class="btn-pause-pipeline" id="btn-pause-pipeline" style="display: ${pipelineRunning ? 'inline-flex' : 'none'};">
             ⏸ Pause
@@ -967,21 +1049,24 @@
             ⬇ Download All
           </button>
         </div>
+        ${unverifiedCharacters().length ? `<p class="pipeline-character-hint">Frame generation is waiting for ${unverifiedCharacters().length} character image(s): ${escapeHtml(unverifiedCharacters().slice(0, 8).map(characterImageName).join(', '))}${unverifiedCharacters().length > 8 ? `, and ${unverifiedCharacters().length - 8} more` : ''}. Rename them in Flow, then verify or choose their existing images below.</p>` : ''}
       </div>
 
       <!-- Collapsible Characters & References -->
       <div class="section-accordion-header" id="toggle-chars-section">
         <div class="accordion-title-left">
-          <span id="chars-chevron">❯</span>
+          <span id="chars-chevron">${charactersExpanded ? '▼' : '❯'}</span>
           <span>CHARACTERS & REFERENCES</span>
-          <span class="accordion-badge">${currentSpec.characters.length}</span>
+          <span class="accordion-badge">${currentSpec.reference_library?.length || currentSpec.characters.length}</span>
         </div>
         <div class="accordion-actions-right">
-          <button class="btn-dark-pill" id="btn-recheck-chars" style="padding: 4px 10px; font-size: 11px;">✔ Verify with Flow</button>
-          <button class="btn-add-frame" id="btn-create-missing-chars" style="padding: 4px 10px; font-size: 11px;">+ Add Seed</button>
+          <button class="btn-dark-pill" id="btn-manage-references" ${pipelineRunning ? 'disabled' : ''} style="padding: 4px 10px; font-size: 11px;">Manage references</button>
+          <button class="btn-dark-pill" id="btn-recheck-chars" ${pipelineRunning || seedVerificationRunning ? 'disabled' : ''} style="padding: 4px 10px; font-size: 11px;">✔ Verify renamed images</button>
         </div>
       </div>
-      <div class="characters-list" id="chars-container" style="display: none;">
+      <div class="characters-list" id="chars-container" style="display: ${charactersExpanded ? 'flex' : 'none'};">
+        <p class="reference-hint">Generate these as ordinary Flow images using the Generate Characters button above. Rename each completed image to its @tag (without @). Start Pipeline verifies the names before submitting frames. Keep renamed images visible in Flow while verifying; its grid loads images as you scroll.</p>
+        ${globalThis.PipelineReferences?.renderLibrarySummary() || ''}
         ${renderCharactersList()}
       </div>
 
@@ -1035,25 +1120,29 @@
     if (!currentSpec || currentSpec.characters.length === 0) {
       return `<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No character seeds specified.</div>`;
     }
-    return currentSpec.characters.map(c => `
+    return currentSpec.characters.map((c, index) => {
+      const name = characterImageName(c).toLowerCase();
+      const preview = currentSpec.reference_library.find(ref => ref.name.toLowerCase() === name)?.preview_url || c.image_url;
+      return `
       <div class="character-card" id="char-card-${escapeAttr(c.id)}">
         <div class="char-header-row">
           <div class="char-info">
-            <div class="char-avatar">👤</div>
+            ${preview ? `<button type="button" class="reference-preview-button" data-preview-url="${escapeAttr(preview)}" data-preview-name="${escapeAttr(c.name)}" title="View character image"><img class="reference-thumb" src="${escapeAttr(globalThis.PipelineReferencePreview?.source(preview) || preview)}" alt="${escapeAttr(c.name)}" loading="lazy" /></button>` : '<div class="char-avatar">👤</div>'}
             <div>
               <div class="char-name">${escapeHtml(c.name)}</div>
               <div class="char-tag">${escapeHtml(c.flow_tag)}</div>
             </div>
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span class="badge ${c.status === 'verified' ? 'badge-verified' : c.status === 'creating' ? 'badge-missing' : 'badge-missing'}" id="char-badge-${escapeAttr(c.id)}">
-              ${c.status === 'verified' ? '✓ Registered in Flow' : c.status === 'creating' ? '⏳ Creating in Flow...' : '⚠️ Missing in Flow'}
+            <span class="badge ${c.status === 'verified' ? 'badge-verified' : 'badge-missing'}" id="char-badge-${escapeAttr(c.id)}">
+              ${c.status === 'verified' ? '✓ Image verified' : c.status === 'creating' ? '⏳ Generating image...' : c.status === 'awaiting_rename' ? '✎ Reconnect or rename image' : c.status === 'error' ? '⚠️ Generation needs attention' : '⚠️ Image not verified'}
             </span>
-            ${c.status !== 'verified' ? `
-              <button class="btn-dark-pill btn-create-char" data-id="${escapeAttr(c.id)}" ${c.status === 'creating' ? 'disabled' : ''} style="padding: 4px 8px; font-size: 11px;">
-                ➕ Create in Flow
+            ${!['verified', 'creating', 'awaiting_rename'].includes(c.status) ? `
+              <button class="btn-dark-pill btn-create-char" data-id="${escapeAttr(c.id)}" ${pipelineRunning || seedVerificationRunning || c.flow_submission?.state === 'unknown' ? 'disabled' : ''} style="padding: 4px 8px; font-size: 11px;">
+                ${c.flow_submission?.state === 'accepted' ? '↻ Resume image' : '➕ Generate image'}
               </button>
             ` : ''}
+            ${c.status !== 'creating' ? `<button class="btn-dark-pill btn-choose-character-image" data-id="${escapeAttr(c.id)}" ${pipelineRunning || seedVerificationRunning ? 'disabled' : ''} style="padding: 4px 8px; font-size: 11px;">Choose existing image</button>` : ''}
           </div>
         </div>
 
@@ -1065,12 +1154,15 @@
                 📋 Copy Prompt
               </button>
             </div>
-            <div class="char-prompt-body" id="char-prompt-text-${escapeAttr(c.id)}">${escapeHtml(c.prompt || c.description)}</div>
-            ${c.reference_image ? `<div class="char-ref-pill">🎨 Style Ref: ${escapeHtml(c.reference_image)}</div>` : ''}
+            <div class="char-prompt-body" id="char-prompt-text-${escapeAttr(c.id)}">${escapeHtml(`${c.prompt || c.description}\n\n${characterReferenceGuidance(c)}`)}</div>
+            ${c.image_tile_title && c.status !== 'verified' ? `<div class="char-ref-pill">Flow title: ${escapeHtml(c.image_tile_title)}</div>` : ''}
           </div>
         ` : ''}
+        ${globalThis.PipelineReferences?.renderCharacter(c, index) || ''}
+        ${c.error ? `<div class="frame-error-message" role="alert">${escapeHtml(c.error)}</div>` : ''}
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   function renderFramesList() {
@@ -1151,6 +1243,8 @@
         </div>
 
         <!-- Reference & Style Continuity Directives Accordion -->
+        ${globalThis.PipelineReferences?.renderFrame(f, idx) || ''}
+        ${globalThis.PipelineReviewer?.renderFrame(f, idx) || ''}
         <div class="directives-accordion" id="directives-accordion-${idx}">
           <div class="directives-accordion-toggle" data-index="${idx}">
             <div class="directives-toggle-left">
@@ -1202,7 +1296,9 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
           <div class="frame-footer-actions">
             <button class="btn-footer-preview btn-preview-zoom" data-index="${idx}" title="Preview image" style="display: ${f.result_url ? 'inline-flex' : 'none'};">👁</button>
             <button class="btn-footer-edit btn-edit-prompt" data-index="${idx}">✏️ Edit Spec</button>
-            <button class="btn-footer-reroll btn-regen-frame" data-index="${idx}" ${pipelineRunning ? 'disabled' : ''}>🔄 Re-roll</button>
+            ${globalThis.PipelineReviewer?.renderAction(f, idx) || ''}
+            ${globalThis.PipelineRecovery?.renderAction(f, idx) || ''}
+            <button class="btn-footer-reroll btn-regen-frame" data-index="${idx}" ${pipelineRunning || unverifiedCharacters().length ? 'disabled' : ''}>🔄 Re-roll</button>
             <button class="btn-dark-pill btn-download-frame" data-index="${idx}" style="display: ${f.result_url ? 'inline-flex' : 'none'}; padding: 6px 10px;" title="Download frame">⬇</button>
           </div>
         </div>
@@ -1238,7 +1334,8 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
         const idx = parseInt(e.target.dataset.index, 10);
         const frame = currentSpec?.visuals?.[idx];
         if (frame && frame.prompt) {
-          navigator.clipboard.writeText(frame.prompt).then(() => {
+          const basePrompt = frame.prompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
+          navigator.clipboard.writeText(`${basePrompt}\n\n${formatReferenceGuidance(frame, idx)}`).then(() => {
             const original = btn.innerText;
             btn.innerText = '✓ Copied!';
             btn.style.color = '#34d399';
@@ -1336,6 +1433,7 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     const btnReset = document.getElementById('btn-reset-spec');
     const btnExport = document.getElementById('btn-export-mapping');
     const btnStart = document.getElementById('btn-start-pipeline');
+    const btnGenerateCharacters = document.getElementById('btn-generate-characters');
     const btnPause = document.getElementById('btn-pause-pipeline');
     const btnRecheck = document.getElementById('btn-recheck-chars');
     const btnDownloadAll = document.getElementById('btn-download-all');
@@ -1371,8 +1469,10 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     }
 
     if (btnStart) btnStart.addEventListener('click', startPipeline);
+    btnGenerateCharacters?.addEventListener('click', createAllMissingCharacters);
     if (btnPause) btnPause.addEventListener('click', pausePipeline);
     if (btnRecheck) btnRecheck.addEventListener('click', checkFlowCharacters);
+    document.getElementById('btn-manage-references')?.addEventListener('click', () => globalThis.PipelineReferences?.openLibrary());
     if (btnDownloadAll) btnDownloadAll.addEventListener('click', downloadAllCompleted);
 
     const btnSyncTiles = document.getElementById('btn-sync-tiles');
@@ -1386,6 +1486,7 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
         const chevron = document.getElementById('chars-chevron');
         if (charsContainer) {
           const isHidden = charsContainer.style.display === 'none';
+          charactersExpanded = isHidden;
           charsContainer.style.display = isHidden ? 'flex' : 'none';
           if (chevron) chevron.innerText = isHidden ? '▼' : '❯';
         }
@@ -1417,9 +1518,6 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
       });
     });
 
-    const btnCreateMissing = document.getElementById('btn-create-missing-chars');
-    if (btnCreateMissing) btnCreateMissing.addEventListener('click', createAllMissingCharacters);
-
     document.querySelectorAll('.btn-create-char').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const charId = e.target.dataset.id;
@@ -1427,12 +1525,16 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
       });
     });
 
+    document.querySelectorAll('.btn-choose-character-image').forEach(btn => {
+      btn.addEventListener('click', () => void chooseCharacterImage(btn.dataset.id));
+    });
+
     document.querySelectorAll('.btn-copy-prompt').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const charId = e.target.dataset.id;
         const c = currentSpec?.characters?.find(item => item.id === charId);
         if (c) {
-          const promptText = c.prompt || c.description || '';
+          const promptText = `${c.prompt || c.description || ''}\n\n${characterReferenceGuidance(c)}`.trim();
           navigator.clipboard.writeText(promptText).then(() => {
             const originalText = e.target.innerText;
             e.target.innerText = '✓ Copied!';
@@ -1539,6 +1641,58 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     });
   }
 
+  function probeFlowConnection(tabId) {
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = result => { if (settled) return; settled = true; clearTimeout(timer); resolve(result); };
+      const timer = setTimeout(() => finish(false), 2000);
+      chrome.tabs.sendMessage(tabId, { type: 'CHECK_FLOW_PAGE' }, response => {
+        const error = chrome.runtime.lastError;
+        finish(!error && typeof response?.isFlowPage === 'boolean');
+      });
+    });
+
+  }
+
+  function ensureFlowConnection(targetTab) {
+    if (flowConnections.has(targetTab.id)) return flowConnections.get(targetTab.id);
+    const connecting = (async () => {
+      let tab = await getTab(targetTab.id);
+      const expectedUrl = flowDestination.normalizeFlowUrl(currentSpec?.collection_url);
+      if (!tab || !flowDestination.normalizeFlowUrl(tab.url) || expectedUrl && !flowDestination.isSameFlowUrl(tab.url, expectedUrl)) {
+        throw new Error('The saved Flow tab is closed or has moved to another page. Select the project collection before resuming.');
+      }
+      if (tab.discarded) tab = await new Promise((resolve, reject) => {
+        chrome.tabs.update(tab.id, { active: true }, value => {
+          const error = chrome.runtime.lastError;
+          error ? reject(new Error(error.message)) : resolve(value);
+        });
+      });
+      if (tab.status !== 'complete') tab = await waitForFlowTab(tab.id, expectedUrl || tab.url);
+      if (await probeFlowConnection(tab.id)) return tab;
+
+      globalThis.PipelineTools?.record('info', 'Restoring the extension connection to the saved Flow tab.', { tabId: tab.id, phase: 'Connection' });
+      // Extension reloads leave already-open pages without a current receiver.
+      // Import the same packaged module as the manifest loader. Module caching
+      // prevents duplicate listeners when another connection request overlaps.
+      // This only attaches automation; it never clicks Generate or reloads Flow.
+      try {
+        await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: async () => {
+          await import(chrome.runtime.getURL('assets/index.ts-DFAayvhs.js'));
+          return true;
+        } });
+      } catch (error) {
+        throw new Error(`Could not reconnect the Flow extension (${error.message}). Refresh the Flow tab and resume; existing image submissions are preserved.`);
+      }
+      if (!await probeFlowConnection(tab.id)) throw new Error('The Flow extension did not reconnect. Refresh the Flow tab and resume; no generation was submitted.');
+      globalThis.PipelineTools?.record('info', 'Flow extension reconnected; continuing the saved pipeline.', { tabId: tab.id, phase: 'Connection' });
+      return tab;
+    })();
+    flowConnections.set(targetTab.id, connecting);
+    connecting.finally(() => { if (flowConnections.get(targetTab.id) === connecting) flowConnections.delete(targetTab.id); }).catch(() => {});
+    return connecting;
+  }
+
   async function getFlowTargetTab() {
     const rawUrl = String(currentSpec?.collection_url || '').trim();
     const expectedUrl = flowDestination.normalizeFlowUrl(rawUrl);
@@ -1553,7 +1707,7 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
         flowDestination.normalizeFlowUrl(boundTab.url) &&
         (!expectedUrl || flowDestination.isSameFlowUrl(boundTab.url, expectedUrl))
       ) {
-        return boundTab;
+        return ensureFlowConnection(boundTab);
       }
       currentSpec.collection_tab_id = null;
     }
@@ -1563,23 +1717,23 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
 
     if (!expectedUrl) {
       if (!selected) throw new Error('Google Flow is not open. Open flow.google.com and try again.');
-      return selected;
+      return ensureFlowConnection(selected);
     }
 
     if (selected && flowDestination.isSameFlowUrl(selected.url, expectedUrl)) {
       currentSpec.collection_tab_id = selected.id;
-      return selected;
+      return ensureFlowConnection(selected);
     }
 
     if (selected) {
       currentSpec.collection_tab_id = selected.id;
       await updateTabUrl(selected.id, expectedUrl);
-      return waitForFlowTab(selected.id, expectedUrl);
+      return ensureFlowConnection(await waitForFlowTab(selected.id, expectedUrl));
     }
 
     const created = await createFlowTab(expectedUrl);
     currentSpec.collection_tab_id = created.id;
-    return waitForFlowTab(created.id, expectedUrl);
+    return ensureFlowConnection(await waitForFlowTab(created.id, expectedUrl));
   }
 
   async function captureOpenFlowDestination() {
@@ -1629,104 +1783,178 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     return response;
   }
 
-function createSingleCharacter(charId) {
-    if (!currentSpec) return;
-    const c = currentSpec.characters.find(item => item.id === charId);
-    if (!c) return;
-
-    c.status = 'creating';
-    const badge = document.getElementById(`char-badge-${c.id}`);
-    if (badge) {
-      badge.className = 'badge badge-missing';
-      badge.innerText = '⏳ Creating in Flow...';
-    }
-
-    sendToFlowTab({
-      type: 'CREATE_FLOW_CHARACTER',
-      data: {
-        name: c.name,
-        prompt: c.prompt || c.description || '',
-        refImageName: c.reference_image
-      }
-    }, (res) => {
-      const err = chrome.runtime?.lastError;
-      if (err || (res && !res.success)) {
-        const errMsg = err?.message || res?.error || 'Unknown error';
-        console.warn('[SpecPipeline] CREATE_FLOW_CHARACTER error:', errMsg);
-        c.status = 'missing';
-        const b = document.getElementById(`char-badge-${c.id}`);
-        if (b) {
-          b.className = 'badge badge-missing';
-          b.innerText = '⚠️ Missing in Flow';
-        }
-        alert('Failed to create character in Flow: ' + errMsg);
-        return;
-      }
-      if (res && res.success) {
-        c.status = 'verified';
-        const b = document.getElementById(`char-badge-${c.id}`);
-        if (b) {
-          b.className = 'badge badge-verified';
-          b.innerText = '✓ Registered in Flow';
-        }
-        const btn = document.querySelector(`.btn-create-char[data-id="${c.id}"]`);
-        if (btn) btn.style.display = 'none';
-        savePipelineMapping();
-      }
-    });
+  async function createSingleCharacter(charId) {
+    const character = currentSpec?.characters.find(item => item.id === charId);
+    if (character) await generateCharacterImages([character]);
   }
 
   async function createAllMissingCharacters() {
-    if (!currentSpec) return;
-    const missing = currentSpec.characters.filter(c => c.status !== 'verified');
-    if (missing.length === 0) {
-      alert('All characters are already verified in Google Flow!');
+    await generateCharacterImages(generatableCharacters());
+  }
+
+  async function generateCharacterImages(characters) {
+    if (!currentSpec || pipelineRunning || seedVerificationRunning || !characters.length) return;
+    const tags = currentSpec.characters.map(character => characterImageName(character).toLowerCase());
+    if (tags.some((tag, index) => !tag || tags.indexOf(tag) !== index)) {
+      globalThis.PipelineTools?.record('error', 'Every character needs a unique Flow tag before generating reference images.', { phase: 'Character images' });
       return;
     }
-    for (const c of missing) {
-      await new Promise(r => {
-        c.status = 'creating';
-        const badge = document.getElementById(`char-badge-${c.id}`);
-        if (badge) {
-          badge.className = 'badge badge-missing';
-          badge.innerText = '⏳ Creating in Flow...';
-        }
-        sendToFlowTab({
-          type: 'CREATE_FLOW_CHARACTER',
-          data: {
-            name: c.name,
-            prompt: c.prompt || c.description || '',
-            refImageName: c.reference_image
-          }
-        }, (res) => {
-          const err = chrome.runtime?.lastError;
-          if (err || (res && !res.success)) {
-            console.warn('[SpecPipeline] CREATE_FLOW_CHARACTER error:', err?.message || res?.error);
-            c.status = 'missing';
-            const b = document.getElementById(`char-badge-${c.id}`);
-            if (b) {
-              b.className = 'badge badge-missing';
-              b.innerText = '⚠️ Missing in Flow';
-            }
-            r();
-            return;
-          }
-          if (res && res.success) {
-            c.status = 'verified';
-            const b = document.getElementById(`char-badge-${c.id}`);
-            if (b) {
-              b.className = 'badge badge-verified';
-              b.innerText = '✓ Registered in Flow';
-            }
-            const btn = document.querySelector(`.btn-create-char[data-id="${c.id}"]`);
-            if (btn) btn.style.display = 'none';
-          }
-          r();
-        });
-      });
-      await new Promise(r => setTimeout(r, 1500));
+    const collectionInput = document.getElementById('collection-url-input');
+    if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
+      alert('Enter a valid Google Flow collection URL before generating reference images.');
+      return;
     }
+    pipelineRunning = true;
+    seedGenerationRunning = true;
+    pipelinePaused = false;
+    charactersExpanded = true;
+    renderPipelineDashboard();
+    try {
+      pipelineTargetTab = await getFlowTargetTab();
+      await generateCharacterBatch(characters, pipelineTargetTab);
+      if (!pipelinePaused && characters.every(character => character.status === 'awaiting_rename')) {
+        globalThis.PipelineTools?.record('info', 'Reference images are ready. Rename each Flow image to its displayed tag, then verify them before starting frames.', { phase: 'Character images' });
+      }
+    } catch (error) {
+      globalThis.PipelineTools?.record('error', error.message, { phase: 'Character images' });
+      setCollectionDestinationStatus(error.message, true);
+    } finally {
+      activeSeedBatch = null;
+      pipelineTargetTab = null;
+      pipelineRunning = false;
+      seedGenerationRunning = false;
+      renderPipelineDashboard();
+      savePipelineMapping();
+    }
+  }
+
+  function characterReferenceGuidance(character, references = globalThis.PipelineReferences?.entries(character) || []) {
+    const instructions = references.filter(ref => !ref.missing).map(ref => {
+      const tag = `@${String(ref.name || '').replace(/^@/, '')}`;
+      return ref.role === 'character' ? `Use ${tag} for the character's identity, anatomy, and appearance.` :
+        ref.role === 'style' ? `Use ${tag} for visual style, linework, color, and character design.` :
+          `Use ${tag} for relevant objects or scene details.`;
+    });
+    return withVisualLooksDirective(instructions.length ? `### Reference Guidance:\n${instructions.join('\n')}` : '');
+  }
+
+  function characterImagePayload(character) {
+    const basePrompt = String(character.character_prompt || character.prompt || '').trim();
+    if (!basePrompt) throw new Error(`${characterImageName(character)} needs a character image prompt.`);
+    const references = globalThis.PipelineReferences?.forCharacterGeneration(character) ||
+      { references: [], images: [], characters: [], characterAssets: [] };
+    const referenceGuidance = characterReferenceGuidance(character, references.references);
+    const prompt = `${basePrompt}\n\n${referenceGuidance}`;
+    const promptIndex = -1 - currentSpec.characters.indexOf(character);
+    const tag = characterImageName(character);
+    return {
+      specPipeline: true, specLogPhase: 'Character image', prompt, basePrompt, referenceGuidance,
+      targetFilename: `character_${tag.replace(/[^a-zA-Z0-9_-]/g, '_')}.png`,
+      mode: 'textToImage', aspectRatio: currentSpec.default_aspect_ratio || '16:9',
+      model: currentSpec.default_model || 'Nano Banana 2', outputCount: 1,
+      folderName: `${getProjectRootFolder()}/characters`,
+      autoChangeFileName: true, promptIndex, images: references.images, characters: references.characters,
+      characterAssets: references.characterAssets, strictReferences: references.references.length > 0,
+      assignedMediaUrls: [
+        ...currentSpec.visuals.flatMap((frame, index) => frame.result_url ? [{ url: frame.result_url, promptIndex: index }] : []),
+        ...currentSpec.characters.flatMap((seed, index) => seed !== character && seed.image_url ? [{ url: seed.image_url, promptIndex: -1 - index }] : [])
+      ],
+      resumeSubmission: character.flow_submission?.state === 'accepted' ? character.flow_submission : null
+    };
+  }
+
+  function generateCharacterBatch(characters, targetTab) {
+    for (const character of characters) {
+      if (character.flow_submission?.state === 'unknown') {
+        throw new Error(`${characterImageName(character)} may already be generating. Find and rename its Flow image before requesting another generation.`);
+      }
+    }
+    // The content submitter serializes Flow's prompt editor while completed
+    // submissions occupy independent generation slots.
+    const payloads = characters.map(characterImagePayload);
+    const groupId = 'seed-group-' + crypto.randomUUID();
+    const byPromptIndex = new Map(payloads.map((payload, index) => [payload.promptIndex, characters[index]]));
+    const previousStatus = new Map(characters.map(character => [character, character.status]));
+    characters.forEach(character => { character.status = 'creating'; character.error = null; });
+    renderPipelineDashboard();
     savePipelineMapping();
+    globalThis.PipelineTools?.record('info', `Generating ${characters.length} character image(s) with ${currentSpec.max_parallel_generations} active slot(s).`, {
+      phase: 'Character images', tabId: targetTab.id, groupId,
+      details: { tags: characters.map(characterImageName) }
+    });
+    return new Promise(resolve => {
+      let settled = false;
+      let timeoutHandle;
+      const batch = { id: groupId, tabId: targetTab.id, byPromptIndex, started: new Set() };
+      const finish = error => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timeoutHandle);
+        chrome.runtime.onMessage.removeListener(listener);
+        if (activeSeedBatch === batch) activeSeedBatch = null;
+        for (const character of characters) {
+          if (character.status !== 'creating') continue;
+          if (character.image_url) character.status = 'awaiting_rename';
+          else if (!batch.started.has(character)) character.status = previousStatus.get(character);
+          else character.status = 'error';
+          if (character.status === 'error') character.error ||= error || 'Flow did not deliver the reference image.';
+        }
+        if (error) globalThis.PipelineTools?.record('error', error, { phase: 'Character images', groupId, tabId: targetTab.id });
+        renderPipelineDashboard();
+        savePipelineMapping();
+        resolve();
+      };
+      const armTimeout = () => {
+        clearTimeout(timeoutHandle);
+        timeoutHandle = setTimeout(() => {
+          chrome.tabs.sendMessage(targetTab.id, { type: 'CANCEL_PROMPT_GROUP', groupId }, () => { void chrome.runtime.lastError; });
+          finish('Flow stopped reporting reference image progress. The prompt will not be resubmitted automatically.');
+        }, 330000);
+      };
+      const listener = (msg, sender) => {
+        if (sender.tab && sender.tab.id !== targetTab.id) return;
+        if (msg.type === 'VIDEO_GENERATION_PROGRESS' && msg.data?.groupId === groupId) {
+          armTimeout();
+          return;
+        }
+        if (msg.type !== 'PROMPT_GROUP_STATUS' || msg.data?.id !== groupId) return;
+        armTimeout();
+        const current = characters[msg.data.currentPromptIndex];
+        if (current) batch.started.add(current);
+        let changed = false;
+        for (const result of msg.data.results || []) {
+          const character = byPromptIndex.get(result.promptIndex);
+          if (!character) continue;
+          batch.started.add(character);
+          if (result.submission) {
+            character.flow_submission = result.submission;
+            if (result.submission.tileId) character.image_tile_id = result.submission.tileId;
+          }
+          if (result.error) character.error = result.error;
+          if (result.downloadComplete && character.status === 'creating') {
+            character.status = character.image_url ? 'awaiting_rename' : 'error';
+            if (!character.image_url) character.error ||= 'Flow did not deliver the reference image.';
+            changed = true;
+          }
+        }
+        if (['completed', 'error', 'cancelled'].includes(msg.data.status)) {
+          finish(msg.data.status === 'completed' && characters.every(character => character.image_url && !character.error) ? null : 'Some character images did not finish. Accepted prompts will not be submitted again automatically.');
+        } else {
+          savePipelineMapping();
+          if (changed) renderPipelineDashboard();
+        }
+      };
+      activeSeedBatch = batch;
+      chrome.runtime.onMessage.addListener(listener);
+      armTimeout();
+      chrome.tabs.sendMessage(targetTab.id, {
+        type: 'AUTO_FILL_FLOW', payloads, groupId, concurrentPrompts: currentSpec.max_parallel_generations,
+        promptDelaySecondsMin: 0, promptDelaySecondsMax: 0
+      }, response => {
+        const error = chrome.runtime.lastError;
+        if (error || !response?.success) finish(error?.message || response?.error || 'Could not start the reference image.');
+      });
+    });
   }
 
   function toggleEditPrompt(idx, btnEl) {
@@ -1800,36 +2028,241 @@ function createSingleCharacter(charId) {
       alert(`Recovered ${matchedCount} existing Flow image(s).${ambiguousCount ? ` ${ambiguousCount} frame(s) have ambiguous or already assigned images; edit their Flow Title to the exact unique tile title and sync again.` : ""}`);
   }
 
-  function checkFlowCharacters() {
-    sendToFlowTab({ type: 'SCAN_CHARACTERS' }, (res) => {
-      const err = chrome.runtime?.lastError;
-      if (err) {
-        console.warn('[SpecPipeline] checkFlowCharacters error:', err.message);
-        return;
-      }
-      const registered = (res && Array.isArray(res.characters)) ? res.characters : [];
-      if (!currentSpec || registered.length === 0) return;
-
-      currentSpec.characters.forEach(c => {
-        const cleanName = c.name.replace(/^@/, '').toLowerCase().replace(/[\s_-]+/g, '');
-        const found = registered.some(r => {
-          const normR = r.toLowerCase().replace(/[\s_-]+/g, '');
-          return normR.includes(cleanName) || cleanName.includes(normR);
+  async function scanExistingCharacterImages() {
+    const tab = await getFlowTargetTab();
+    const injected = await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: async () => {
+        const selector = 'flow-grid-tile-container';
+        const found = new Map();
+        const collect = () => {
+          for (const tile of document.querySelectorAll(selector)) {
+            if (tile.querySelector('flow-pending-tile, .loading-percentage, flow-error-tile, flow-failed-tile')) continue;
+            const img = tile.querySelector('img');
+            const imgSrc = img?.currentSrc || img?.src;
+            const title = (tile.querySelector('.footer-title, span[class*="title"]')?.textContent ||
+              (tile.getAttribute('aria-label') || '').replace(/^image\s*/i, '')).trim();
+            if (!title || !imgSrc) continue;
+            const tileId = tile.getAttribute('data-tile-id') || tile.querySelector('[data-media-id]')?.getAttribute('data-media-id') || null;
+            const key = tileId || imgSrc;
+            found.set(key, { tileId, title, imgSrc });
+          }
+        };
+        const nextPaint = () => new Promise(resolve => {
+          let finished = false;
+          const done = () => { if (!finished) { finished = true; resolve(); } };
+          requestAnimationFrame(() => requestAnimationFrame(done));
+          setTimeout(done, 180);
         });
-        c.status = found ? 'verified' : 'missing';
+        const pause = () => new Promise(resolve => setTimeout(resolve, 90));
+        collect();
+        const first = document.querySelector(selector);
+        const ancestors = [];
+        for (let node = first?.parentElement; node; node = node.parentElement) ancestors.push(node);
+        const scrollable = ancestors.find(node => node.scrollHeight > node.clientHeight + 80 &&
+          /auto|scroll/.test(getComputedStyle(node).overflowY)) || document.scrollingElement;
+        if (!scrollable) return { tiles: [...found.values()], flowUrl: location.href, completeScan: true };
+        const originalTop = scrollable.scrollTop;
+        let completeScan = false;
+        let steps = 0;
+        try {
+          const stride = Math.max(200, Math.floor(scrollable.clientHeight * .7));
+          for (let top = 0; steps < 140; top += stride, steps++) {
+            scrollable.scrollTop = Math.min(top, Math.max(0, scrollable.scrollHeight - scrollable.clientHeight));
+            await nextPaint();
+            await pause();
+            collect();
+            if (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight - 3) {
+              const heightAtBottom = scrollable.scrollHeight;
+              await pause();
+              await pause();
+              await nextPaint();
+              collect();
+              if (scrollable.scrollHeight <= heightAtBottom + 3) {
+                completeScan = true;
+                break;
+              }
+            }
+          }
+        } finally {
+          scrollable.scrollTop = originalTop;
+          await nextPaint();
+        }
+        return { tiles: [...found.values()], flowUrl: location.href, completeScan, scannedSteps: steps + 1 };
+      }
+    });
+    const result = injected?.[0]?.result;
+    if (!Array.isArray(result?.tiles)) throw new Error('Could not read existing Flow images. Open the project collection and try again.');
+    if (currentSpec?.collection_url && !flowDestination.isSameFlowUrl(result.flowUrl, currentSpec.collection_url)) {
+      throw new Error('Flow moved to another project while scanning. Reopen the configured collection and try again.');
+    }
+    return result;
+  }
 
-        const badge = document.getElementById(`char-badge-${c.id}`);
-        if (badge) {
-          badge.className = `badge ${found ? 'badge-verified' : 'badge-missing'}`;
-          badge.innerText = found ? '✓ Registered in Flow' : '⚠️ Missing in Flow';
+  function characterImageAssignedElsewhere(tile, character, owner = currentSpec) {
+    return owner.characters.some(other => other !== character &&
+      ((tile.tileId && other.image_tile_id === tile.tileId) || other.image_url === tile.imgSrc)) ||
+      owner.visuals.some(frame => frame.result_url === tile.imgSrc);
+  }
+
+  function uniqueFlowImages(tiles) {
+    const byMediaAndTitle = new Map();
+    for (const tile of tiles || []) {
+      if (!tile.imgSrc) continue;
+      const key = `${String(tile.title || '').trim().toLowerCase()}\n${tile.imgSrc}`;
+      if (!byMediaAndTitle.has(key) || tile.tileId) byMediaAndTitle.set(key, tile);
+    }
+    return [...byMediaAndTitle.values()];
+  }
+
+  function bindCharacterImage(character, tile, flowUrl, owner = currentSpec, uniqueTitleVerified = true) {
+    const tag = characterImageName(character);
+    character.status = 'verified';
+    character.image_tile_id = tile.tileId || null;
+    character.image_tile_title = tile.title;
+    character.image_url = tile.imgSrc;
+    character.image_title_unique = uniqueTitleVerified;
+    character.error = null;
+    character.flow_submission = { ...character.flow_submission, state: 'accepted', tileId: tile.tileId || null,
+      mediaUrl: tile.imgSrc, tileTitle: tile.title, flowUrl, recovery: 'existing-flow-image' };
+    const saved = owner.reference_library.find(ref => ref.name.toLowerCase() === tag.toLowerCase());
+    const reference = { name: tag, kind: 'image', tile_id: tile.tileId || null,
+      preview_url: tile.imgSrc, flow_url: flowUrl || null };
+    if (saved) Object.assign(saved, reference);
+    else owner.reference_library.push({ id: crypto.randomUUID(), ...reference });
+    const seedReference = saved || owner.reference_library.at(-1);
+    owner.visuals.forEach(frame => {
+      if (!Array.isArray(frame.reference_assignments)) return;
+      const declared = Array.isArray(frame.character_references) ? frame.character_references :
+        frame.character_references ? [frame.character_references] : [];
+      if (!declared.some(ref => seedForReference(typeof ref === 'string' ? ref : ref?.tag || ref?.name || ref?.id) === character)) return;
+      const assigned = frame.reference_assignments.some(assignment => {
+        const entry = owner.reference_library.find(ref => ref.id === assignment.reference_id);
+        return entry && referenceKey(entry.name) === referenceKey(tag);
+      });
+      if (!assigned) frame.reference_assignments.push({ reference_id: seedReference.id, role: 'character' });
+    });
+  }
+
+  async function checkFlowCharacters() {
+    if (!currentSpec || pipelineRunning || seedVerificationRunning) return false;
+    if (!currentSpec.characters.length) return true;
+    seedVerificationRunning = true;
+    const owner = currentSpec;
+    updateUIStatus();
+    try {
+      const response = await scanExistingCharacterImages();
+      if (owner !== currentSpec) return false;
+      if (!Array.isArray(response?.tiles)) throw new Error(response?.error || 'Could not scan Flow images. Open the project collection and try again.');
+      for (const character of owner.characters) {
+        if (character.status === 'creating') continue;
+        const tag = characterImageName(character);
+        const sameTag = uniqueFlowImages(response.tiles).filter(tile => String(tile.title || '').trim().toLowerCase() === tag.toLowerCase());
+        const available = sameTag.filter(tile => !characterImageAssignedElsewhere(tile, character, owner));
+        const match = available.length === 1 ? available[0] : null;
+        if (match) {
+          bindCharacterImage(character, match, response.flowUrl, owner, !!response.completeScan);
+        } else if (character.status !== 'verified' || sameTag.length || response.completeScan || response.tiles.some(tile =>
+          character.image_tile_id && tile.tileId === character.image_tile_id && tile.title !== tag)) {
+          character.status = character.image_url ? 'awaiting_rename' : character.flow_submission?.state === 'accepted' ? 'error' : 'missing';
+          character.error = available.length > 1 ? `Several Flow images are named ${tag}. Choose the correct existing image.` :
+            sameTag.length && !available.length ? `The image named ${tag} is assigned elsewhere. Choose the correct existing image.` :
+            character.flow_submission?.state === 'accepted' && !character.image_url ? 'Flow accepted this seed image, but delivery was interrupted. Use Resume image.' :
+            character.flow_submission?.state === 'unknown' ? 'This seed may already be generating. Choose its existing image before generating again.' :
+            response.completeScan ? `No unique image named ${tag} was found. Rename it in Flow or choose its existing image.` :
+              `Flow's full image grid could not be scanned. Choose the existing image for ${tag} or try verification again.`;
         }
-        const btn = document.querySelector(`.btn-create-char[data-id="${c.id}"]`);
-        if (btn) {
-          btn.style.display = found ? 'none' : 'inline-block';
-        }
+      }
+      const verified = owner.characters.filter(character => character.status === 'verified').length;
+      globalThis.PipelineTools?.record('info', `${verified}/${owner.characters.length} character images verified by exact Flow title.`, {
+        phase: 'Character images', details: { scannedTiles: response.tiles.length, completeScan: response.completeScan,
+          missing: owner.characters.filter(character => character.status !== 'verified').map(characterImageName) }
       });
       savePipelineMapping();
-    });
+      renderPipelineDashboard();
+      return verified === owner.characters.length;
+    } catch (error) {
+      globalThis.PipelineTools?.record('error', error.message, { phase: 'Character images' });
+      setCollectionDestinationStatus(error.message, true);
+      return false;
+    } finally {
+      seedVerificationRunning = false;
+      updateUIStatus();
+    }
+  }
+
+  async function chooseCharacterImage(charId) {
+    if (!currentSpec || pipelineRunning || seedVerificationRunning) return;
+    const owner = currentSpec;
+    const character = owner.characters.find(item => item.id === charId);
+    if (!character) return;
+    const destination = owner.collection_url;
+    characterPickerDialog?.close();
+    characterPickerDialog?.remove();
+    const view = document.createElement('dialog');
+    characterPickerDialog = view;
+    view.className = 'reference-editor-dialog frame-recovery-dialog';
+    view.innerHTML = `<div class="reference-dialog-header"><h2>Choose image · ${escapeHtml(character.name)}</h2><button type="button" class="reference-close" aria-label="Close">✕</button></div>
+      <p class="reference-hint">Select the existing Flow image for @${escapeHtml(characterImageName(character))}. If its title differs, rename it in Flow and verify before starting frames.</p>
+      <label>Find image<input type="search" data-search placeholder="Search Flow titles"/></label>
+      <p class="reference-editor-status" role="status">Scanning existing images throughout the Flow project…</p><div class="frame-recovery-grid"></div>`;
+    document.body.appendChild(view);
+    view.showModal();
+    const close = () => { view.close(); view.remove(); if (characterPickerDialog === view) characterPickerDialog = null; };
+    view.querySelector('.reference-close').addEventListener('click', close);
+    view.addEventListener('cancel', () => { view.remove(); if (characterPickerDialog === view) characterPickerDialog = null; });
+    const status = (message, error = false) => {
+      const target = view.querySelector('[role="status"]');
+      if (target) { target.textContent = message; target.classList.toggle('error', error); }
+    };
+    try {
+      const response = await scanExistingCharacterImages();
+      if (owner !== currentSpec || owner.collection_url !== destination || !view.isConnected) { close(); return; }
+      const images = uniqueFlowImages(response.tiles).filter(tile => !characterImageAssignedElsewhere(tile, character, owner));
+      const grid = view.querySelector('.frame-recovery-grid');
+      grid.innerHTML = images.map((tile, index) => `<button type="button" class="frame-recovery-image" data-tile="${index}"><img src="${escapeAttr(tile.imgSrc)}" alt="${escapeAttr(tile.title)}" loading="lazy"/><span>${escapeHtml(tile.title || 'Untitled image')}</span></button>`).join('');
+      status(images.length ? `${images.length} existing image(s) found. Select the correct image; no prompt will be submitted.` :
+        'No completed images were found. Open the correct Flow collection and try again.', !images.length);
+      view.querySelector('[data-search]').addEventListener('input', event => {
+        const query = event.target.value.trim().toLowerCase();
+        grid.querySelectorAll('[data-tile]').forEach(button => {
+          button.hidden = !String(images[Number(button.dataset.tile)].title || '').toLowerCase().includes(query);
+        });
+      });
+      grid.addEventListener('click', event => {
+        const button = event.target.closest('[data-tile]');
+        if (!button || pipelineRunning || owner !== currentSpec || owner.collection_url !== destination) return;
+        const tile = images[Number(button.dataset.tile)];
+        if (!tile || characterImageAssignedElsewhere(tile, character, owner)) {
+          status('This image is already assigned elsewhere. Choose another image.', true);
+          return;
+        }
+        const tag = characterImageName(character);
+        const sameTitleCount = uniqueFlowImages(response.tiles).filter(candidate =>
+          String(candidate.title || '').trim().toLowerCase() === tag.toLowerCase()).length;
+        if (String(tile.title || '').trim().toLowerCase() === tag.toLowerCase() && sameTitleCount === 1 && response.completeScan) {
+          bindCharacterImage(character, tile, response.flowUrl, owner);
+        } else {
+          character.image_tile_id = tile.tileId || null;
+          character.image_tile_title = tile.title;
+          character.image_url = tile.imgSrc;
+          character.image_title_unique = false;
+          character.status = 'awaiting_rename';
+          character.error = sameTitleCount > 1 ? `Several Flow images are titled ${tag}. Give the selected image a unique tag before verifying.` :
+            !response.completeScan ? 'Flow did not finish scanning all images. Verify again before using this reference.' :
+              `Selected image is titled "${tile.title}". Rename it to ${tag} in Flow, then click Verify renamed images.`;
+        }
+        savePipelineMapping();
+        renderPipelineDashboard();
+        globalThis.PipelineTools?.record('info', `Existing Flow image connected to ${tag}.`, {
+          phase: 'Character images', details: { tileId: tile.tileId, tileTitle: tile.title, verified: character.status === 'verified' }
+        });
+        close();
+      });
+    } catch (error) {
+      status(error.message, true);
+      globalThis.PipelineTools?.record('error', error.message, { phase: 'Character images' });
+    }
   }
 
   function frameReferenceImages(frame, index) {
@@ -1838,17 +2271,27 @@ function createSingleCharacter(charId) {
     if (!reference || reference === frame || reference.status !== 'completed' || !reference.result_url) {
       throw new Error(`Frame #${index + 1} requires a completed reference frame (${frame.frame_reference || 'previous frame'}).`);
     }
+    globalThis.PipelineReviewer?.assertApproved(reference);
     return [{
       name: resolveFlowTileTitleForFrame(frame, index) || reference.target_filename,
-      referenceExistingOnly: true
+      referenceExistingOnly: true, isFrameReference: true,
+      tileId: reference.flow_submission?.tileId || null, previewUrl: reference.result_url
     }];
   }
 
   async function startPipeline() {
-    if (!currentSpec || pipelineRunning) return;
+    if (!currentSpec || pipelineRunning || seedVerificationRunning || globalThis.PipelineReferences?.isBusy() || globalThis.PipelineReviewer?.isBusy()) return;
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
       alert('Enter a valid Google Flow collection URL before starting.');
+      return;
+    }
+    if (!await checkFlowCharacters()) {
+      charactersExpanded = true;
+      renderPipelineDashboard();
+      globalThis.PipelineTools?.record('warn', 'Frame generation has not started. Rename unresolved character images to their Flow tags or choose their existing images, then click Start Pipeline again.', {
+        phase: 'Character images', details: { unverified: unverifiedCharacters().map(characterImageName) }
+      });
       return;
     }
     // Lock the run while resolving the destination, too, to prevent double starts.
@@ -1857,6 +2300,7 @@ function createSingleCharacter(charId) {
     updateUIStatus();
     try {
       pipelineTargetTab = await getFlowTargetTab();
+      await globalThis.PipelineReviewer?.beforeRun();
       globalThis.PipelineTools?.record('info', 'Pipeline started.', { tabId: pipelineTargetTab.id,
         details: { parallelGenerations: currentSpec.max_parallel_generations, maximumAttempts: currentSpec.max_retries } });
       const plan = concurrency.buildExecutionPlan(currentSpec.visuals);
@@ -1880,22 +2324,26 @@ function createSingleCharacter(charId) {
           pipelinePaused = true;
           break;
         }
+        await globalThis.PipelineReviewer?.afterBatch(indexes);
       }
     } catch (error) {
       pipelinePaused = true;
       const index = currentSpec.visuals.findIndex(frame => frame.status !== 'completed');
-      if (index >= 0) {
+      if (index >= 0 && !Number.isInteger(error.reviewFrameIndex)) {
         currentSpec.visuals[index].status = 'error';
         currentSpec.visuals[index].error = error.message;
         updateFrameCard(index);
       }
       setCollectionDestinationStatus(error.message, true);
-      globalThis.PipelineTools?.record('error', error.message);
+      globalThis.PipelineTools?.record('error', error.message, Number.isInteger(error.reviewFrameIndex)
+        ? { frameNumber: error.reviewFrameIndex + 1, frameName: currentSpec.visuals[error.reviewFrameIndex]?.target_filename, phase: 'AI reviewer' }
+        : {});
     } finally {
       pipelineRunning = false;
       pipelineTargetTab = null;
       updateUIStatus();
       updateProjectStats();
+      if (!pipelinePaused) void globalThis.PipelineReviewer?.flushAutomaticCorrections();
       savePipelineMapping();
       log(pipelinePaused ? 'Pipeline paused.' : 'Pipeline finished.');
     }
@@ -1903,10 +2351,16 @@ function createSingleCharacter(charId) {
 
   function pausePipeline() {
     pipelinePaused = true;
+    globalThis.PipelineReviewer?.pause();
     globalThis.PipelineTools?.record('warn', 'Pause requested. Stopping new submissions.', { groupId: activeBatch?.id, tabId: activeBatch?.tabId });
     if (activeBatch) {
       chrome.tabs.sendMessage(activeBatch.tabId, {
         type: 'CANCEL_PROMPT_GROUP', groupId: activeBatch.id
+      }, () => { void chrome.runtime.lastError; });
+    }
+    if (activeSeedBatch) {
+      chrome.tabs.sendMessage(activeSeedBatch.tabId, {
+        type: 'CANCEL_PROMPT_GROUP', groupId: activeSeedBatch.id
       }, () => { void chrome.runtime.lastError; });
     }
     // Keep the run locked until the content submitter acknowledges cancellation.
@@ -1915,10 +2369,15 @@ function createSingleCharacter(charId) {
   }
 
   async function regenerateSingleFrame(idx) {
-    if (!currentSpec || pipelineRunning) return;
+    if (!currentSpec || pipelineRunning || globalThis.PipelineReferences?.isBusy() || globalThis.PipelineReviewer?.isBusy()) return;
     const collectionInput = document.getElementById('collection-url-input');
     if (collectionInput && !saveCollectionDestination(collectionInput.value)) {
       alert('Enter a valid Google Flow collection URL before generating.');
+      return;
+    }
+    if (!await checkFlowCharacters()) {
+      charactersExpanded = true;
+      renderPipelineDashboard();
       return;
     }
     pipelineRunning = true;
@@ -1927,7 +2386,9 @@ function createSingleCharacter(charId) {
     const frame = currentSpec.visuals[idx];
     try {
       pipelineTargetTab = await getFlowTargetTab();
+      await globalThis.PipelineReviewer?.beforeRun();
       const references = frameReferenceImages(frame, idx);
+      globalThis.PipelineReviewer?.resetFrame(frame, idx);
       frame.status = 'generating';
       frame.progress = 5;
       frame.result_url = null;
@@ -1935,7 +2396,7 @@ function createSingleCharacter(charId) {
       frame.flow_submission = null; // Re-roll explicitly authorizes a fresh image.
       frame.retryable = undefined;
       updateFrameCard(idx);
-      await executeFrameGeneration(frame, references, idx);
+      if (await executeFrameGeneration(frame, references, idx)) await globalThis.PipelineReviewer?.afterBatch([idx]);
     } catch (error) {
       frame.status = 'error';
       frame.error = error.message;
@@ -1948,6 +2409,7 @@ function createSingleCharacter(charId) {
       updateProjectStats();
       updateUIStatus();
       savePipelineMapping();
+      if (!pipelinePaused) void globalThis.PipelineReviewer?.flushAutomaticCorrections();
     }
   }
 
@@ -1991,8 +2453,48 @@ function createSingleCharacter(charId) {
       }
     });
 
+    const editedReferences = globalThis.PipelineReferences?.forGeneration(frame);
+    if (editedReferences) {
+      // Keep character references declared by the frame when the user adds
+      // further image/style references in the editor. An explicit removal in
+      // that editor also removes the name from frame.character_references.
+      cleanChars.splice(0, cleanChars.length, ...new Set([...cleanChars, ...editedReferences.characters]));
+      refImages = [...refImages.filter(image => image.isFrameReference), ...editedReferences.images];
+    }
+
+    // All references are existing Flow images. The role controls prompt
+    // guidance, not which category Flow searches for an @ mention.
+    const seedNames = new Set();
+    for (const name of cleanChars) {
+      const seed = seedForReference(name);
+      if (!seed) {
+        if (!refImages.some(image => String(image.name || '').toLowerCase() === name.toLowerCase())) {
+          refImages.push({ name, referenceExistingOnly: true });
+        }
+        continue;
+      }
+      if (seed.status !== 'verified') throw new Error(`Rename and verify the Flow image for ${characterImageName(seed)} before generating ${frame.target_filename}.`);
+      const tag = characterImageName(seed);
+      if (seedNames.has(tag)) continue;
+      seedNames.add(tag);
+      refImages = refImages.filter(image => String(image.name || '').toLowerCase() !== tag.toLowerCase());
+      refImages.push({ name: tag, tileId: seed.image_tile_id, previewUrl: seed.image_url,
+        uniqueTitleVerified: seed.image_title_unique === true, referenceExistingOnly: true });
+    }
+
+    // A tag can appear in both a legacy character list and an edited
+    // assignment. Add it once, retaining the most specific verified image.
+    const uniqueImages = new Map();
+    for (const image of refImages) {
+      const key = String(image.name || '').toLowerCase();
+      if (!key) continue;
+      const existing = uniqueImages.get(key);
+      if (!existing || (!existing.uniqueTitleVerified && image.uniqueTitleVerified)) uniqueImages.set(key, image);
+    }
+    refImages = [...uniqueImages.values()];
+
     // Assemble clean base image prompt and decoupled reference guidance
-    const rawPrompt = (frame.prompt || '').trim();
+    const rawPrompt = (frame.ai_review?.current_prompt && [frame.ai_review.original_prompt, frame.ai_review.current_prompt].includes(frame.prompt) && globalThis.PipelineReviewer?.shouldReview(frame) ? frame.ai_review.current_prompt : frame.prompt || '').trim();
     const cleanBase = rawPrompt.split(/### Reference Guidance|##\s*use\s*(?:the\s*)?provided/i)[0].trim();
 
     const guidance = formatReferenceGuidance(frame, promptIndex);
@@ -2003,7 +2505,10 @@ function createSingleCharacter(charId) {
     const payload = {
       specPipeline: true,
       resumeSubmission: frame.flow_submission?.state === 'accepted' ? frame.flow_submission : null,
-      assignedMediaUrls: currentSpec.visuals.flatMap((visual, index) => visual.result_url ? [{ url: visual.result_url, promptIndex: index }] : []),
+      assignedMediaUrls: [
+        ...currentSpec.visuals.flatMap((visual, index) => visual.result_url ? [{ url: visual.result_url, promptIndex: index }] : []),
+        ...currentSpec.characters.flatMap((seed, index) => seed.image_url ? [{ url: seed.image_url, promptIndex: -1 - index }] : [])
+      ],
       prompt: finalPrompt,
       basePrompt: cleanBase,
       referenceGuidance: guidance,
@@ -2019,9 +2524,12 @@ function createSingleCharacter(charId) {
       maxRetries: 1,
       promptIndex: promptIndex,
       images: refImages,
-      characters: cleanChars
+      characters: [],
+      strictReferences: refImages.length > 0,
+      characterAssets: []
     };
 
+    payload.aiReviewer = globalThis.PipelineReviewer?.makeRequest(frame, promptIndex);
     return payload;
   }
 
@@ -2031,7 +2539,8 @@ function createSingleCharacter(charId) {
   }
 
   async function executeFrameBatch(payloads, maxParallel) {
-    const targetTab = pipelineTargetTab || await getFlowTargetTab();
+    if (pipelinePaused) return false;
+    const targetTab = pipelineTargetTab ? await ensureFlowConnection(pipelineTargetTab) : await getFlowTargetTab();
     if (pipelinePaused) return false;
     const groupId = 'spec-group-' + crypto.randomUUID();
     const indexes = payloads.map(payload => payload.promptIndex);
@@ -2145,6 +2654,8 @@ function createSingleCharacter(charId) {
   function downloadSingleFrame(idx) {
     const frame = currentSpec.visuals[idx];
     if (!frame.result_url) return;
+    try { globalThis.PipelineReviewer?.assertApproved(frame); }
+    catch (error) { globalThis.PipelineTools?.record('warn', error.message, { frameNumber: idx + 1, phase: 'AI reviewer' }); return; }
     const framesFolder = getProjectFramesFolder();
     chrome.downloads.download({
       url: frame.result_url,
@@ -2166,6 +2677,9 @@ function createSingleCharacter(charId) {
     const card = document.getElementById(`frame-card-${idx}`);
     if (!card) return;
     const f = currentSpec.visuals[idx];
+    globalThis.PipelineReferences?.updateFrame(f, idx);
+    globalThis.PipelineReviewer?.updateFrame(f, idx);
+    globalThis.PipelineRecovery?.updateFrame(f, idx);
     const errorMessage = document.getElementById(`frame-error-${idx}`);
     if (errorMessage) {
       errorMessage.textContent = f.error || '';
@@ -2234,10 +2748,10 @@ function createSingleCharacter(charId) {
     if (elComp) elComp.innerText = completedCount;
     if (elPend) elPend.innerText = remainingCount;
     if (elCompPct) elCompPct.innerText = `${pct}% finished`;
-    if (elPendSub) elPendSub.innerText = remainingCount === 0 ? '✓ Complete' : pipelineRunning ? '🕒 In progress' : '🕒 Pending start';
+    if (elPendSub) elPendSub.innerText = remainingCount === 0 ? '✓ Complete' : seedGenerationRunning ? '🕒 Preparing character images' : pipelineRunning ? '🕒 In progress' : '🕒 Pending start';
     if (elProgBar) elProgBar.style.width = `${pct}%`;
     if (elProgText) elProgText.innerText = `${completedCount}/${totalCount} (${pct}%)`;
-    if (elStatusText) elStatusText.innerText = pipelineRunning ? (pipelinePaused ? 'Pausing...' : 'Pipeline Generating...') : completedCount === totalCount ? 'Pipeline Finished' : currentSpec.visuals.some(frame => frame.status === 'error') ? 'Pipeline Error • Check failed frames' : pipelinePaused ? 'Pipeline Paused' : 'Pipeline Idle • Ready';
+    if (elStatusText) elStatusText.innerText = seedGenerationRunning ? 'Generating character reference images...' : pipelineRunning ? (pipelinePaused ? 'Pausing...' : 'Pipeline Generating...') : unverifiedCharacters().length ? 'Character images need generation or renaming' : completedCount === totalCount ? (globalThis.PipelineReviewer?.hasUnapproved() ? 'Images generated • AI review pending' : 'Pipeline Finished') : currentSpec.visuals.some(frame => frame.status === 'error') ? 'Pipeline Error • Check failed frames' : pipelinePaused ? 'Pipeline Paused' : 'Pipeline Idle • Ready';
 
     // Update filter pills (strictly NO Anchors Only)
     const pillAll = document.getElementById('pill-filter-all');
@@ -2254,6 +2768,7 @@ function createSingleCharacter(charId) {
   function updateUIStatus() {
     globalThis.PipelineTools?.refresh();
     const btnStart = document.getElementById('btn-start-pipeline');
+    const btnGenerateCharacters = document.getElementById('btn-generate-characters');
     const btnPause = document.getElementById('btn-pause-pipeline');
     if (!currentSpec) return;
     const completedCount = currentSpec.visuals.filter(v => v.status === 'completed').length;
@@ -2262,14 +2777,25 @@ function createSingleCharacter(charId) {
     const nextFrameNum = nextPendingIndex >= 0 ? currentSpec.visuals[nextPendingIndex].frame_number : currentSpec.visuals.length;
 
     if (btnStart) {
-      btnStart.disabled = pipelineRunning || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0);
-      btnStart.innerText = pipelineRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? '✓ All Completed' : '▶ Start Pipeline';
+      btnStart.disabled = pipelineRunning || seedVerificationRunning || !!globalThis.PipelineReferences?.isBusy() || !!globalThis.PipelineReviewer?.isBusy() || (completedCount === currentSpec.visuals.length && currentSpec.visuals.length > 0 && !globalThis.PipelineReviewer?.hasUnapproved());
+      btnStart.innerText = pipelineRunning && !seedGenerationRunning ? '⏳ Generating...' : (completedCount > 0 && remainingCount > 0) ? `▶ Resume Pipeline (Frame #${nextFrameNum})` : completedCount === currentSpec.visuals.length ? (globalThis.PipelineReviewer?.hasUnapproved() ? '▶ Resume AI review' : '✓ All Completed') : '▶ Start Pipeline';
+    }
+    if (btnGenerateCharacters) {
+      btnGenerateCharacters.disabled = pipelineRunning || seedVerificationRunning || !generatableCharacters().length ||
+        !!globalThis.PipelineReferences?.isBusy() || !!globalThis.PipelineReviewer?.isBusy();
+      btnGenerateCharacters.innerText = seedGenerationRunning ? '⏳ Generating Characters...' : '🎨 Generate Characters';
     }
     const parallelInput = document.getElementById('parallel-generations-input');
     if (parallelInput) parallelInput.disabled = pipelineRunning;
     const resetButton = document.getElementById('btn-reset-spec');
     if (resetButton) resetButton.disabled = pipelineRunning;
-    document.querySelectorAll('.btn-regen-frame, .btn-edit-prompt, #btn-add-frame, #btn-sync-tiles, #collection-url-input, #btn-use-open-flow').forEach(button => { button.disabled = pipelineRunning; });
+    document.querySelectorAll('.btn-regen-frame, .btn-recover-frame, .btn-edit-prompt, .btn-edit-references, .btn-edit-character-references, #btn-manage-references, #btn-add-frame, #btn-sync-tiles, #collection-url-input, #btn-use-open-flow, #btn-recheck-chars, .btn-create-char, .btn-choose-character-image').forEach(button => {
+      button.disabled = pipelineRunning || seedVerificationRunning || !!globalThis.PipelineReferences?.isBusy() ||
+        !!globalThis.PipelineReviewer?.isBusy() ||
+        (button.classList.contains('btn-regen-frame') && unverifiedCharacters().length > 0) ||
+        (button.classList.contains('btn-create-char') && currentSpec.characters.find(character => character.id === button.dataset.id)?.flow_submission?.state === 'unknown');
+    });
+    globalThis.PipelineReviewer?.refresh();
     if (btnPause) {
       btnPause.style.display = pipelineRunning ? 'inline-flex' : 'none';
       btnPause.disabled = !pipelineRunning;
@@ -2283,6 +2809,104 @@ function createSingleCharacter(charId) {
   function escapeAttr(str) {
     return String(str || '').replace(/"/g, '&quot;');
   }
+
+  // Optional module boundary: the pipeline exposes generation and storage callbacks only.
+  function configureReviewer() {
+    if (!globalThis.PipelineReviewer) return;
+    globalThis.PipelineReviewer.configure({
+    getSpec: () => currentSpec, isRunning: () => pipelineRunning,
+    previous: resolveReferencedVisual, pausePipeline,
+    log: (message, index) => globalThis.PipelineTools?.record('error', message, { phase: 'AI reviewer', ...(Number.isInteger(index) ? { frameNumber: index + 1, frameName: currentSpec?.visuals[index]?.target_filename } : {}) }),
+    onChange: () => {
+      savePipelineMapping(); updateUIStatus();
+      currentSpec?.visuals.forEach((frame, index) => globalThis.PipelineReferences?.updateFrame(frame, index));
+    },
+    publish: (index, reviewedImageUrl) => new Promise((resolve, reject) => {
+      const frame = currentSpec.visuals[index];
+      chrome.runtime.sendMessage({ type: 'DOWNLOAD_RESOURCE', url: reviewedImageUrl || frame.result_url, filename: frame.target_filename,
+        folder: getProjectFramesFolder(), autoChangeFileName: true }, response => {
+        const error = chrome.runtime.lastError;
+        error || !response?.success ? reject(new Error(error?.message || response?.error || 'Could not publish approved image.')) : resolve();
+      });
+    }),
+    applyCandidate: (index, job) => {
+      const frame = currentSpec.visuals[index];
+      Object.assign(frame, { result_url: job.mediaUrl, flow_submission: job.submission, status: 'completed', progress: 100, error: null });
+      if (job.submission?.tileTitle) {
+        frame.flow_tile_title = job.submission.tileTitle;
+        registerLocalFrameTitle(frame.target_filename, job.submission.tileTitle);
+        if (frame.id) registerLocalFrameTitle(frame.id, job.submission.tileTitle);
+      }
+      updateFrameCard(index);
+    },
+    generateCorrection: async index => {
+      if (unverifiedCharacters().length) throw new Error('Verify the renamed Flow character images before regenerating a frame.');
+      const ownRun = !pipelineRunning;
+      if (ownRun) { pipelineRunning = true; pipelinePaused = false; updateUIStatus(); }
+      const frame = currentSpec.visuals[index];
+      try {
+        if (ownRun) pipelineTargetTab = await getFlowTargetTab();
+        if (pipelinePaused) throw new Error('Pipeline paused before correction.');
+        const refs = frameReferenceImages(frame, index);
+        Object.assign(frame, { status: 'pending', result_url: null, flow_submission: null, error: null, retryable: undefined, progress: 0 });
+        updateFrameCard(index); savePipelineMapping();
+        const success = await executeFrameGeneration(frame, refs, index);
+        if (!success) throw new Error(frame.error || 'Corrected generation did not complete; resume tracking before trying again.');
+        if (ownRun) await globalThis.PipelineReviewer?.afterBatch([index]);
+        return true;
+      } finally {
+        if (ownRun) {
+          pipelineRunning = false; pipelineTargetTab = null; updateUIStatus(); savePipelineMapping();
+          if (!pipelinePaused) void globalThis.PipelineReviewer?.flushAutomaticCorrections();
+        }
+      }
+    }
+    });
+    if (currentSpec) renderPipelineDashboard();
+  }
+  document.addEventListener('pipeline-reviewer-ready', configureReviewer, { once: true });
+  configureReviewer();
+
+  globalThis.PipelineRecovery?.configure({
+    getSpec: () => currentSpec, isRunning: () => pipelineRunning,
+    scan: () => sendToFlowTab({ type: 'SCAN_PROJECT_TILES' }),
+    log: message => globalThis.PipelineTools?.record('error', message, { phase: 'Image recovery' }),
+    apply: (index, tile, flowUrl) => {
+      const frame = currentSpec.visuals[index];
+      if (pipelineRunning) throw new Error('Pause the pipeline before reconnecting an image.');
+      if (currentSpec.collection_url && !flowDestination.isSameFlowUrl(flowUrl, currentSpec.collection_url)) throw new Error('The Flow collection changed. Reopen the picker for this project.');
+      if (!tile.imgSrc || currentSpec.visuals.some((other, otherIndex) => otherIndex !== index &&
+        (other.result_url === tile.imgSrc || tile.tileId && other.flow_submission?.tileId === tile.tileId))) throw new Error('This image is unavailable or already belongs to another frame.');
+      Object.assign(frame, { result_url: tile.imgSrc, flow_tile_title: tile.title, status: 'completed', progress: 100,
+        error: null, retryable: false, completed_at: new Date().toISOString(),
+        flow_submission: { ...frame.flow_submission, state: 'accepted', tileId: tile.tileId || null,
+          mediaUrl: tile.imgSrc, tileTitle: tile.title, flowUrl, recoveredAt: Date.now(), recovery: 'user-selected-image' } });
+      registerLocalFrameTitle(frame.target_filename, tile.title);
+      if (frame.id) registerLocalFrameTitle(frame.id, tile.title);
+      currentSpec.visuals.forEach((visual, visualIndex) => { visual.formatted_reference_guidance = formatReferenceGuidance(visual, visualIndex); });
+      savePipelineMapping(); renderPipelineDashboard(); updateUIStatus();
+      globalThis.PipelineTools?.record('info', 'Existing Flow image reconnected. Resume to continue from the next unfinished frame.', {
+        frameNumber: index + 1, frameName: frame.target_filename, phase: 'Image recovery', details: { tileId: tile.tileId, tileTitle: tile.title, automaticResubmission: false } });
+    }
+  });
+
+  globalThis.PipelineReferences?.configure({
+    getSpec: () => currentSpec, isRunning: () => pipelineRunning, sendToFlow: sendToFlowTab,
+    scanImages: scanExistingCharacterImages,
+    onBusyChange: updateUIStatus,
+    resolveCharacterLabels: refs => resolveCharacterReferenceLabels(refs, currentSpec?.characters || []),
+    resolvePreviousFrame: resolveReferencedVisual,
+    onChange: index => {
+      if (!currentSpec || pipelineRunning) return;
+      currentSpec.visuals.forEach((frame, frameIndex) => { frame.formatted_reference_guidance = formatReferenceGuidance(frame, frameIndex); });
+      savePipelineMapping();
+      renderPipelineDashboard();
+      updateUIStatus();
+      globalThis.PipelineTools?.record('info', index === undefined ? 'Reference library updated.' : 'Frame references saved.', {
+        frameNumber: index === undefined ? undefined : index + 1, phase: 'References'
+      });
+    }
+  });
 
   globalThis.PipelineTools?.configure({
     getSpec: () => currentSpec,
@@ -2300,6 +2924,21 @@ function createSingleCharacter(charId) {
 
   // Hook global incoming messages from Content Script / Background Worker
   chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && activeSeedBatch?.id === msg.groupId) {
+      const batch = activeSeedBatch;
+      const character = batch.byPromptIndex.get(msg.promptIndex);
+      if (!character || (sender.tab && sender.tab.id !== batch.tabId) || !msg.mediaUrl ||
+          currentSpec?.characters.some(other => other !== character && other.image_url === msg.mediaUrl)) {
+        sendResponse?.({ success: false, error: 'Reference image capture does not match the active seed.' });
+        return;
+      }
+      batch.started.add(character);
+      character.image_url = msg.mediaUrl;
+      character.image_tile_title = msg.tileTitle || null;
+      savePipelineMapping();
+      sendResponse?.({ success: true });
+      return;
+    }
     if (msg.type === 'SPEC_FRAME_IMAGE_CAPTURED' && currentSpec) {
       if (!activeBatch || msg.groupId !== activeBatch.id || !activeBatch.indexes.includes(msg.promptIndex) || (sender.tab && sender.tab.id !== activeBatch.tabId)) {
         sendResponse?.({ success: false, error: 'Capture does not belong to the active Flow batch.' });
@@ -2316,6 +2955,7 @@ function createSingleCharacter(charId) {
       const idx = msg.promptIndex;
       if (idx !== undefined && currentSpec.visuals[idx]) {
         currentSpec.visuals[idx].result_url = msg.mediaUrl;
+        globalThis.PipelineReviewer?.captured(currentSpec.visuals[idx], msg.reviewJobId);
         if (msg.tileTitle) {
           currentSpec.visuals[idx].flow_tile_title = msg.tileTitle;
           registerLocalFrameTitle(currentSpec.visuals[idx].target_filename, msg.tileTitle);
