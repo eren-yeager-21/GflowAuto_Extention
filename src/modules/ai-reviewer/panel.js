@@ -476,6 +476,13 @@ async function correct(frame, index, job) {
   changed();
   return options.generateCorrection(index);
 }
+async function setAutomaticReview(enabled) {
+  const owner = spec();
+  await ready;
+  if (!owner || owner !== spec() || options.isRunning?.()) throw new Error('Pause the pipeline and keep this project open before changing automatic review.');
+  owner.ai_reviewer = normalizeSettings({ ...owner.ai_reviewer, enabled: enabled === true }, base);
+  changed();
+}
 async function afterBatch(indexes) {
   if (!base) return;
   for (const index of indexes) {
@@ -563,7 +570,7 @@ document.addEventListener('click', event => {
 });
 const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = chrome.runtime.getURL(ROOT + 'panel.css'); document.head.appendChild(link);
 globalThis.PipelineReviewer = { configure(value) { options = value; }, renderLaunch, renderFrame, renderAction, updateFrame, refresh, beforeRun, afterBatch, makeRequest, assertApproved, isBusy: () => reviewPreparing || automaticCorrectionActive, flushAutomaticCorrections,
-  pause, captured, resetFrame, hasUnapproved, shouldReview, settings: () => base ? settings() : null };
+  pause, captured, resetFrame, hasUnapproved, shouldReview, setAutomaticReview, settings: () => base ? settings() : null };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountLaunch, { once: true });
 else mountLaunch();
 document.dispatchEvent(new Event('pipeline-reviewer-ready'));

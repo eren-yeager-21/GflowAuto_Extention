@@ -1497,6 +1497,22 @@ body {
   font-size: 11px;
 }
 
+.auto-validation-control {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 10px;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  background: var(--bg-card);
+  cursor: pointer;
+}
+
+.auto-validation-control input { margin: 2px 0 0; accent-color: var(--accent-green); }
+.auto-validation-control span { display: grid; gap: 3px; }
+.auto-validation-control small { color: var(--text-secondary); line-height: 1.4; }
+
 .frame-error-message {
   margin: 10px 16px;
   color: #fca5a5;

@@ -1035,6 +1035,10 @@
           <input id="parallel-generations-input" type="number" min="1" step="1" value="${currentSpec.max_parallel_generations}" ${pipelineRunning ? 'disabled' : ''} />
           <span>Dependent frames run sequentially</span>
         </label>
+        <label class="auto-validation-control" for="auto-validation-input">
+          <input id="auto-validation-input" type="checkbox" ${currentSpec.ai_reviewer?.enabled === true ? 'checked' : ''} ${pipelineRunning ? 'disabled' : ''} />
+          <span><strong>Validate images automatically</strong><small>Send each candidate, visual prompt, and narration to DeepSeek. Automatic correction is on by default; adjust its limit in AI reviewer settings.</small></span>
+        </label>
         <div class="pipeline-action-buttons">
           <button class="btn-generate-characters" id="btn-generate-characters" ${pipelineRunning || seedVerificationRunning || !generatableCharacters().length ? 'disabled' : ''}>
             ${seedGenerationRunning ? '⏳ Generating Characters...' : '🎨 Generate Characters'}
@@ -1444,6 +1448,19 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
       currentSpec.max_parallel_generations = concurrency.normalizeMaxParallel(parallelInput.value);
       parallelInput.value = currentSpec.max_parallel_generations;
       savePipelineMapping();
+    });
+    const autoValidationInput = document.getElementById('auto-validation-input');
+    if (autoValidationInput) autoValidationInput.addEventListener('change', async () => {
+      autoValidationInput.disabled = true;
+      if (btnStart) btnStart.disabled = true;
+      try {
+        if (!globalThis.PipelineReviewer) throw new Error('AI reviewer is still loading. Try again in a moment.');
+        await globalThis.PipelineReviewer.setAutomaticReview(autoValidationInput.checked);
+        globalThis.PipelineTools?.record('info', `Automatic AI validation ${autoValidationInput.checked ? 'enabled' : 'disabled'} for this project.`, { phase: 'AI reviewer' });
+      } catch (error) {
+        autoValidationInput.checked = currentSpec.ai_reviewer?.enabled === true;
+        globalThis.PipelineTools?.record('error', error.message, { phase: 'AI reviewer' });
+      } finally { updateUIStatus(); }
     });
 
     if (collectionUrlInput) {
@@ -2787,6 +2804,8 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
     }
     const parallelInput = document.getElementById('parallel-generations-input');
     if (parallelInput) parallelInput.disabled = pipelineRunning;
+    const autoValidationInput = document.getElementById('auto-validation-input');
+    if (autoValidationInput) { autoValidationInput.disabled = pipelineRunning; autoValidationInput.checked = currentSpec.ai_reviewer?.enabled === true; }
     const resetButton = document.getElementById('btn-reset-spec');
     if (resetButton) resetButton.disabled = pipelineRunning;
     document.querySelectorAll('.btn-regen-frame, .btn-recover-frame, .btn-edit-prompt, .btn-edit-references, .btn-edit-character-references, #btn-manage-references, #btn-add-frame, #btn-sync-tiles, #collection-url-input, #btn-use-open-flow, #btn-recheck-chars, .btn-create-char, .btn-choose-character-image').forEach(button => {
@@ -2840,16 +2859,16 @@ ${f.negative ? `\nLocked Negative: ${escapeHtml(f.negative)}` : ''}
       updateFrameCard(index);
     },
     generateCorrection: async index => {
-      if (unverifiedCharacters().length) throw new Error('Verify the renamed Flow character images before regenerating a frame.');
       const ownRun = !pipelineRunning;
       if (ownRun) { pipelineRunning = true; pipelinePaused = false; updateUIStatus(); }
       const frame = currentSpec.visuals[index];
       try {
+        Object.assign(frame, { status: 'pending', result_url: null, flow_submission: null, error: null, retryable: undefined, progress: 0 });
+        updateFrameCard(index); savePipelineMapping();
+        if (unverifiedCharacters().length) throw new Error('Verify the renamed Flow character images before regenerating a frame.');
         if (ownRun) pipelineTargetTab = await getFlowTargetTab();
         if (pipelinePaused) throw new Error('Pipeline paused before correction.');
         const refs = frameReferenceImages(frame, index);
-        Object.assign(frame, { status: 'pending', result_url: null, flow_submission: null, error: null, retryable: undefined, progress: 0 });
-        updateFrameCard(index); savePipelineMapping();
         const success = await executeFrameGeneration(frame, refs, index);
         if (!success) throw new Error(frame.error || 'Corrected generation did not complete; resume tracking before trying again.');
         if (ownRun) await globalThis.PipelineReviewer?.afterBatch([index]);
